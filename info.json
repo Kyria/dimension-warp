@@ -1,0 +1,14 @@
+{
+  "name": "dimension-warp",
+  "version": "0.0.1",
+  "title": "Dimension Warp",
+  "author": "Anakhon",
+  "homepage": "https://github.com/Kyria/dimension-warp",
+  "description": "Dimension warp",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "base >= 2.0.29",
+    "space-age >= 2.0.29",
+    "PlanetsLib >= 1.2.12"
+  ]
+}
