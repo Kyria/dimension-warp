@@ -115,7 +115,7 @@ local function teleport_platform()
         clear_destination_entities = false,
         clear_destination_decoratives = false,
         expand_map = false,
-        create_build_effect_smoke = true
+        create_build_effect_smoke = false
     }
 
     for _, train_driver in pairs(trains_with_drivers) do
