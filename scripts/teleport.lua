@@ -1,29 +1,29 @@
 --- contain everything related to player teleport between surfaces
 local math2d = require "math2d"
 
-dw.safe_teleport = function(player, surface, position)
+dw.safe_teleport = function(player_or_vehicle, surface, position)
     position = {x = position.x or position[1], y = position.y or position[2]}
+    local is_player = player_or_vehicle.is_player()
+    local type = is_player and player_or_vehicle.character.name or player_or_vehicle.prototype
+    local index = is_player and player_or_vehicle.index or player_or_vehicle.unit_number
 
-    if player.is_player() and not player.character then return end
     if not game.surfaces[surface] then return end
-
-    -- prevent teleport spam
-    if storage.players_last_teleport[player.index] and storage.players_last_teleport[player.index] > game.tick - 30 then
-        return
-    end
+    if is_player and not player_or_vehicle.character then return end
 
     if storage.warp.status ~= defines.warp.awaiting and surface == storage.warp.previous.name then
-        player.print({"dw-messages.warp-no-teleport"})
+        if is_player then player_or_vehicle.print({"dw-messages.warp-no-teleport"}) end
         return
     end
 
-    position = game.surfaces[surface].find_non_colliding_position(
-        player.character.name,
-        position, 5, 0.5, false
-    ) or position
+    -- prevent teleport spam
+    if storage.players_last_teleport[index] and storage.players_last_teleport[index] > game.tick - 30 then
+        return
+    end
+    position = game.surfaces[surface].find_non_colliding_position(type, position, 5, 0.5, false) or position
+    player_or_vehicle.teleport(position, surface)
 
-    player.teleport(position, surface)
-    storage.players_last_teleport[player.index] = game.tick
+    storage.players_last_teleport[index] = game.tick
+
 end
 
 
