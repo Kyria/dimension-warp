@@ -1,4 +1,20 @@
 data:extend {
+    -- Startup
+    {
+        type = "bool-setting",
+        name = "dw-adjust-stack-size",
+        setting_type = "startup",
+        default_value = true,
+        order = "a-a",
+    },
+    {
+        type = "bool-setting",
+        name = "dw-adjust-spoilage",
+        setting_type = "startup",
+        default_value = true,
+        order = "a-b",
+    },
+
     --- runtime
     {
         type = "double-setting",
@@ -16,7 +32,7 @@ data:extend {
         minimum_value = 1.1,
         default_value = 2,
         maximum_value = 4,
-        order = "a-b",
+        order = "b-a",
     },
     {
         type = "double-setting",
@@ -25,7 +41,7 @@ data:extend {
         minimum_value = 0.1,
         default_value = 0.25,
         maximum_value = 0.9,
-        order = "a-c",
+        order = "a-b",
     },
     {
         type = "double-setting",
@@ -34,7 +50,7 @@ data:extend {
         minimum_value = 1.1,
         default_value = 2,
         maximum_value = 4,
-        order = "a-d",
+        order = "b-b",
     },
     {
         type = "double-setting",
@@ -43,7 +59,7 @@ data:extend {
         minimum_value = 0.1,
         default_value = 0.25,
         maximum_value = 0.9,
-        order = "a-e",
+        order = "a-c",
     },
     {
         type = "double-setting",
@@ -52,6 +68,34 @@ data:extend {
         minimum_value = 1.1,
         default_value = 2,
         maximum_value = 4,
-        order = "a-f",
+        order = "b-c",
     },
+    {
+        type = "double-setting",
+        name = "dw-min-warp-voter",
+        setting_type = "runtime-global",
+        minimum_value = 0.1,
+        default_value = 0.5,
+        maximum_value = 1,
+        order = "c-a",
+    },
+    {
+        type = "int-setting",
+        name = "dw-manual-warp-max-time",
+        setting_type = "runtime-global",
+        minimum_value = 10,
+        default_value = 15,
+        maximum_value = 60,
+        order = "c-b",
+    },
+    {
+        type = "double-setting",
+        name = "dw-manual-warp-zone-multiplier",
+        setting_type = "runtime-global",
+        minimum_value = 0.5,
+        default_value = 0.5,
+        maximum_value = 2,
+        order = "c-c",
+    },
+
 }
