@@ -10,6 +10,7 @@ local function create_tile(tile_info)
     tile.layer = 75
     tile.walking_speed_modifier = 1.5
     tile.variant = nil
+    tile.stack_size = 200
     if not tile_info.buildable then
         data:extend({tile})
     else
