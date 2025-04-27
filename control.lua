@@ -11,7 +11,19 @@ dw.register_event('on_init', function()
         number = 0,
         current = {},
         previous = nil,
-        status = defines.warp.awaiting
+        status = defines.warp.awaiting,
+    }
+    storage.timer = {
+        active = false,
+        base = 20 * 60, -- 20min in ticks
+        warp = nil,
+        manual_warp = nil,
+    }
+    storage.votes = storage.votes or {
+        count = 0,
+        players = {},
+        min_vote = 1,
+        players_count = 0,
     }
     storage.teleporter = storage.teleporter or {}
     storage.teleporter['nauvis'] = storage.teleporter['nauvis'] or {}
@@ -25,5 +37,6 @@ require "scripts.platform"
 
 require "scripts.freeplay"
 require "scripts.lab_intro"
+require "scripts.warp"
 
 require "scripts.debug"
