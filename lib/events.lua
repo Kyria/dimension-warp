@@ -2,7 +2,6 @@ dw = dw or {}
 dw.events = dw.events or {}
 
 special_events = {
-    on_nth_tick = true,
     on_init = true,
     on_load = true,
     on_configuration_changed = true,
@@ -20,9 +19,15 @@ dw.register_event = function(event, callback, filter)
             end
         end
 
-        if not special_events[event] then
-            filter = filter or nil
-            script.on_event(event, dw.events[event].run, filter)
+        -- check if the event is on_nth_tick_XXX
+        local event_nth, frequency = string.match(event, "^(.*)_(%d+)$")
+        if event_nth == "on_nth_tick" and frequency then
+            script.on_nth_tick(tonumber(frequency), dw.events[event].run)
+        else
+            if not special_events[event] then
+                filter = filter or nil
+                script.on_event(event, dw.events[event].run, filter)
+            end
         end
     end
 
