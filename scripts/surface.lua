@@ -61,6 +61,7 @@ local function get_default_mapgens()
     return default_map_gen
 end
 
+
 dw.generate_surface = function(planet, vanilla)
     dw.default_map_gen = dw.default_map_gen or get_default_mapgens()
     if not planet or not dw.default_map_gen[planet] then return end
@@ -85,10 +86,12 @@ dw.generate_surface = function(planet, vanilla)
     surface.force_generate_chunk_requests()
 end
 
+
 dw.update_surfaces_properties = function()
     if storage.warp.status ~= defines.warp.warping then return end
     game.delete_surface(storage.warp.previous.name)
 end
+
 
 local function surface_deleted(event)
     if event.surface_index == storage.warp.previous.surface_index then
@@ -100,24 +103,4 @@ local function surface_deleted(event)
 end
 
 
---- Make sure that dead player on nauvis are moved to the new surface
-local function dead_on_previous_surface(event)
-    local player = game.players[event.player_index]
-    if player.surface.name ~= storage.warp.current.name then
-        player.teleport({0, 0}, storage.warp.current.name)
-    end
-end
-
---- make sure new players are teleported to the new surface
-local function on_character_created(event)
-    local player = game.players[event.player_index]
-
-    --- make sure to teleport any new player to the current warp surface
-    if storage.nauvis_lab_exploded then
-        dw.safe_teleport(player, storage.warp.current.name, {0, 0})
-    end
-end
-
-dw.register_event(defines.events.on_player_died, dead_on_previous_surface)
-dw.register_event(defines.events.on_player_created, on_character_created)
 dw.register_event(defines.events.on_surface_deleted, surface_deleted)
