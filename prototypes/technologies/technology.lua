@@ -14,3 +14,4 @@ local tech_neonauvis = {
 data.extend({tech_neonauvis})
 
 require 'warp-platform'
+require 'warp-generator'

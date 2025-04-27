@@ -6,7 +6,7 @@ local warp_platform_icon = {
 local tech_warp_platform_1 = {
     type = "technology", name = "warp-platform-size-1", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"neo-nauvis", "automation-2"},
+    prerequisites = {"neo-nauvis", "automation-2", "warp-generator-2"},
     unit = {
         count = 500,
         ingredients = {
@@ -19,7 +19,7 @@ local tech_warp_platform_1 = {
 local tech_warp_platform_2 = {
     type = "technology", name = "warp-platform-size-2", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-1", "electric-energy-distribution-2"},
+    prerequisites = {"warp-platform-size-1", "electric-energy-distribution-2", "warp-generator-3"},
     unit = {
         count = 1000,
         ingredients = {
@@ -33,7 +33,7 @@ local tech_warp_platform_2 = {
 local tech_warp_platform_3 = {
     type = "technology", name = "warp-platform-size-3", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-2", "utility-science-pack"},
+    prerequisites = {"warp-platform-size-2", "utility-science-pack", "warp-generator-4"},
     unit = {
         count = 2500,
         ingredients = {
@@ -48,7 +48,7 @@ local tech_warp_platform_3 = {
 local tech_warp_platform_4 = {
     type = "technology", name = "warp-platform-size-4", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-3", "space-science-pack"},
+    prerequisites = {"warp-platform-size-3", "space-science-pack", "warp-generator-5"},
     unit = {
         count = 5000,
         ingredients = {
