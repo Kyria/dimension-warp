@@ -94,6 +94,7 @@ local function check_if_player_changed_surface()
     if storage.all_players_left_nauvis then
         dw.remove_event(defines.events.on_tick, check_if_player_changed_surface)
         remove_nauvis_chunk()
+        game.forces['player'].lock_space_location('nauvis')
         return
     end
 

@@ -24,6 +24,7 @@ dw.update_warp_platform_size = function()
     surface.set_tiles(tiles)
 end
 
+
 local function teleport_platform()
     if storage.warp.status ~= defines.warp.warping then return end
 
@@ -160,5 +161,6 @@ local function on_technology_research_finished(event)
         dw.update_warp_platform_size()
     end
 end
+
 
 dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
