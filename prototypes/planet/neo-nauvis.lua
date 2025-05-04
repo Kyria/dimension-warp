@@ -30,10 +30,12 @@ if mods['space-age'] then
     neo_nauvis.asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.1)
 
     -- remove some fields nt wanted by planetslib
-    neo_nauvis.distance = nil
-    neo_nauvis.orientation = nil
+    neo_nauvis.distance = 65
+    neo_nauvis.orientation = 0.28
 
-    PlanetsLib:extend({neo_nauvis})
+    data:extend({neo_nauvis})
 else
     data:extend({neo_nauvis})
 end
+
+utils.add_music(nauvis, neo_nauvis)
