@@ -5,7 +5,7 @@ data:extend({
         localised_name = "radio-station",
         localised_description = "radio-station",
 
-        collision_mask = {layers={object=true, item=true, floor=true, water_tile=true, is_lower_object=true, player=true}},
+        collision_mask = {layers={object=true, item=true, floor=true, water_tile=true, is_lower_object=true}},
         icon = "__dimension-warp__/graphics/entities/radio-station/radio-station-icon.png",
         icon_size = 64,
         flags = {"placeable-player", "player-creation"},
