@@ -1,4 +1,5 @@
 require 'lib.defines'
+require 'lib.utils'
 
 require 'prototypes.planet.neo-nauvis'
 require 'prototypes.teleport'
@@ -31,3 +32,4 @@ data:extend({
         flags = {"gui-icon"},
     }
 })
+

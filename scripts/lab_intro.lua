@@ -82,18 +82,12 @@ local function spawn_biters()
     end
 end
 
---- remove the nauvis chunks as we won't get there anymore
-local function remove_nauvis_chunk()
-    for chunk in game.surfaces['nauvis'].get_chunks() do
-        game.surfaces['nauvis'].delete_chunk({chunk.x, chunk.y})
-    end
-end
 
 local function check_if_player_changed_surface()
     if not storage.nauvis_lab_exploded then return end
     if storage.all_players_left_nauvis then
         dw.remove_event(defines.events.on_tick, check_if_player_changed_surface)
-        remove_nauvis_chunk()
+        game.surfaces['nauvis'].clear()
         game.forces['player'].lock_space_location('nauvis')
         return
     end
@@ -133,7 +127,7 @@ local function destroy_nauvis_lab_event()
     if not storage.intro_built_entities then return end
     if game.tick == 0 or game.tick % 600 ~= 0 then return end
     for _, entity in pairs(storage.intro_built_entities) do
-        entity.damage(1000000, game.forces['neutral'])
+        entity.die(game.forces['neutral'], nil)
     end
 
     storage.nauvis_lab_exploded = true

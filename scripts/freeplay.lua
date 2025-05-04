@@ -8,7 +8,9 @@ local function freeplay()
     if remote.interfaces.silo_script  then
         remote.call("silo_script", "set_no_victory", true)
     end
-    remote.call("space_finish_script", "set_victory_location", "nauvis")
+    if remote.interfaces.space_finish_script then
+        remote.call("space_finish_script", "set_victory_location", "nauvis")
+    end
 end
 
 dw.register_event("on_init", freeplay)
