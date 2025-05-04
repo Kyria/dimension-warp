@@ -1,6 +1,6 @@
 local function create_tile(tile_info)
     -- Deep copy the base concrete tile
-    local tile = table.deepcopy(data.raw["tile"]["concrete"])
+    local tile = table.deepcopy(tile_info.base_tile)
 
     -- Modify the tile properties
     tile.name = tile_info.name
@@ -61,24 +61,29 @@ create_tile {
     name = "warp-platform",
     tint = defines.color.slategrey,
     buildable = false,
+    base_tile = data.raw["tile"]["concrete"],
 }
 create_tile {
     name = "factory-platform",
     tint = defines.color.lightgoldenrodyellow,
     buildable = true,
+    base_tile = data.raw["tile"]["tutorial-grid"],
 }
 create_tile {
     name = "energy-platform",
     tint = defines.color.lightsteelblue,
     buildable = true,
+    base_tile = data.raw["tile"]["tutorial-grid"],
 }
 create_tile {
     name = "mining-platform",
-    tint = defines.color.rosybrown,
+    tint = defines.color.darksalmon,
     buildable = true,
+    base_tile = data.raw["tile"]["tutorial-grid"],
 }
 create_tile {
     name = "spacehub-platform",
     tint = defines.color.lightskyblue,
     buildable = true,
+    base_tile = data.raw["tile"]["tutorial-grid"],
 }
