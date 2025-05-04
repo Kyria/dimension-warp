@@ -5,7 +5,7 @@ require 'prototypes.planet.neo-nauvis'
 require 'prototypes.teleport'
 require 'prototypes.tiles'
 require 'prototypes.technologies.technology'
-
+require 'prototypes.entities.radio-station'
 
 data:extend({
     {
