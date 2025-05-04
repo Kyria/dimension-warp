@@ -25,6 +25,10 @@ dw.register_event('on_init', function()
         min_vote = 1,
         players_count = 0,
     }
+    storage.mapgen = storage.mapgen or {
+        defaults = {},
+        autoplace_controls = {}
+    }
     storage.teleporter = storage.teleporter or {}
     storage.teleporter['nauvis'] = storage.teleporter['nauvis'] or {}
     storage.players_last_teleport = storage.players_last_teleport or {}
