@@ -42,6 +42,69 @@ local function warp_timer()
 end
 
 
+local function update_warp_vote_threshold()
+    local new_vote_threshold = math.max(1, math.ceil(storage.votes.players_count * settings.global['dw-min-warp-voter'].value))
+    --- reset warp votes if the threshold changed
+    if storage.votes.min_vote ~= new_vote_threshold then
+        storage.votes.min_vote = new_vote_threshold
+        storage.votes.count = 0
+        storage.votes.players = {}
+        dw.update_manual_warp_button()
+    end
+end
+
+
+-- return if we should ignore the planet for warp selection
+local function ignore_planet(planet)
+    -- ignore nauvis
+    if planet == "nauvis" then return true end
+    -- ignore factorissimo surfaces
+    if planet == "factory-travel-surface" or string.match(planet, "%-factory%-floor") then return true end
+    -- ignore specials surface frm the mod
+    if dw.safe_surfaces[planet] then return true end
+    return false
+end
+
+
+local function get_allowed_planet()
+    local force = game.forces['player']
+    local allowed_planets = {}
+    local total = 0
+    for _, planet in pairs(game.planets) do
+        -- remove nauvis, dimensions surfaces and factorissimo surfaces from the list
+        if not ignore_planet(planet.name) then
+            if force.is_space_location_unlocked(planet.name) then
+                table.insert(allowed_planets, planet.name)
+                total = total + 1
+            end
+        end
+    end
+    return total, allowed_planets
+end
+
+
+local function select_destination()
+    local total_dest, destinations = get_allowed_planet()
+    if storage.allowed_warp_selection and math.random() > 0.7 then
+        --- warp to selected
+    else
+        return destinations[math.random(total_dest)]
+    end
+end
+
+
+dw.prepare_warp_to_next_surface = function()
+    if storage.warp.status ~= defines.warp.awaiting then return end
+    storage.warp.status = defines.warp.preparing
+
+    local target = select_destination() --- dw select random surface
+    dw.generate_surface(target)
+
+    storage.warp.status = defines.warp.warping
+    dw.teleport_platform()
+end
+
+
 local function warp_generator_research(event)
     local tech = event.research
     if string.match(tech.name, "warp%-generator%-1") then
@@ -59,18 +122,6 @@ local function warp_generator_research(event)
             storage.timer.base = -1
             storage.timer.warp = -1
         end
-        dw.update_manual_warp_button()
-    end
-end
-
-
-local function update_warp_vote_threshold()
-    local new_vote_threshold = math.max(1, math.ceil(storage.votes.players_count * settings.global['dw-min-warp-voter'].value))
-    --- reset warp votes if the threshold changed
-    if storage.votes.min_vote ~= new_vote_threshold then
-        storage.votes.min_vote = new_vote_threshold
-        storage.votes.count = 0
-        storage.votes.players = {}
         dw.update_manual_warp_button()
     end
 end

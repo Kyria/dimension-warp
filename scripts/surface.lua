@@ -1,25 +1,3 @@
-
-
-
-local planet_ore = {
-    vulcanus = {'vulcanus_coal', 'sulfuric_acid_geyser', 'tungsten_ore', 'calcite'},
-    ["neo-nauvis"] = {'coal', 'copper-ore', 'iron-ore', 'stone', 'uranium-ore', 'crude-oil'},
-    fulgora = {'scrap'},
-    gleba = {'stone'},
-    aquilo = {'lithium_brine', 'fluorine_vent', 'aquilo_crude_oil'}
-}
-
-local planet_tile = {
-    vulcanus = {{'lava', 'lava-hot'}},
-    ["neo-nauvis"] = {'water'},
-    fulgora = {{'oil-ocean-shallow', 'oil-ocean-deep'}},
-    gleba = {{'natural-yumako-soil', 'wetland-yumako'}, {'natural-jellynut-soil', 'wetland-jellynut'}},
-    aquilo = {{'ammoniacal-ocean', 'ammoniacal-ocean-2'}}
-}
----
---- ["fulgora_islands"] = {},
---- ["fulgora_cliff"] = {},
-
 --- increase the richness / frequency of ore.
 local function ore_rich_gen(mapgen, resources)
     local richness_multiplier = math.random(1, settings.global['dw-max-richness-multiplier'].value)
@@ -51,39 +29,72 @@ local function ore_missing_gen(mapgen, resources)
 end
 
 
-local function get_default_mapgens()
-    local default_map_gen = {}
-    for _, planet in pairs(game.planets) do
-        if planet.name ~= "nauvis" then
-            default_map_gen[planet.name] = planet.prototype.map_gen_settings
-        end
-    end
-    return default_map_gen
+local function force_map_settings()
+    game.map_settings.pollution.enabled = true
+    game.map_settings.pollution.diffusion_ratio = 0.105
+    game.map_settings.pollution.min_to_diffuse = 15
+    game.map_settings.pollution.ageing = 1.0
+    game.map_settings.pollution.expected_max_per_chunk = 250
+    game.map_settings.pollution.min_to_show_per_chunk = 50
+    game.map_settings.pollution.pollution_restored_per_tree_damage = 9
+    game.map_settings.pollution.enemy_attack_pollution_consumption_modifier = 1.0
+
+    game.map_settings.enemy_evolution.enabled = true -- default 0.002
+    game.map_settings.enemy_evolution.time_factor = 0.000004 -- default 0.000004
+    game.map_settings.enemy_evolution.destroy_factor = 0.0002 -- default 0.002
+    game.map_settings.enemy_evolution.pollution_factor = 0.0000002 -- default 0.0000009
+
+    game.map_settings.unit_group.min_group_gathering_time = 600
+    game.map_settings.unit_group.max_group_gathering_time = 2 * 600
+    game.map_settings.unit_group.max_unit_group_size = 200
+    game.map_settings.unit_group.max_wait_time_for_late_members = 2 * 360
+
+    game.map_settings.enemy_expansion.enabled = true
+    game.map_settings.enemy_expansion.settler_group_min_size = 1
+    game.map_settings.enemy_expansion.settler_group_max_size = 1
+end
+
+
+local function randomize_mapgen(planet)
+    -- possible result :
+    -- --> more resources
+    -- --> less resources
+    -- --> full random
+    -- --> 1 or less
+    -- --> deathworld like
+    -- --> space
+    -- -->
+    return storage.mapgen.defaults[planet]
 end
 
 
 dw.generate_surface = function(planet, vanilla)
-    dw.default_map_gen = dw.default_map_gen or get_default_mapgens()
-    if not planet or not dw.default_map_gen[planet] then return end
-    local mapgen = table.deepcopy(dw.default_map_gen[planet])
+    force_map_settings()
+    if game.planets[planet].prototype.entities_require_heating then
 
-    storage.warp.previous = storage.warp.current
-    storage.warp.number = storage.warp.number + 1
-    storage.warp.current = {
-        name = planet..'-'..storage.warp.number,
-        type = planet,
-    }
+    else
 
-    if not vanilla then
-        mapgen.seed = math.random(1, 2^32-1)
+        storage.warp.previous = storage.warp.current
+        storage.warp.number = storage.warp.number + 1
+        storage.warp.current = {
+            name = planet..'-'..storage.warp.number,
+            type = planet,
+        }
+
+        local mapgen = storage.mapgen.defaults[planet]
+        if not vanilla then
+            mapgen = randomize_mapgen(planet)
+            mapgen.seed = math.random(1, 2^32-1)
+        end
+
+        local surface = game.create_surface(storage.warp.current.name, mapgen)
+        surface.localised_name = game.planets[planet].prototype.localised_name
+        storage.warp.current.surface = surface
+        storage.warp.current.surface_index = surface.index
     end
 
-    local surface = game.create_surface(storage.warp.current.name, mapgen)
-    storage.warp.current.surface = surface
-    storage.warp.current.surface_index = surface.index
-
-    surface.request_to_generate_chunks({x= 0, y = 0}, 4)
-    surface.force_generate_chunk_requests()
+    storage.warp.current.surface.request_to_generate_chunks({x= 0, y = 0}, storage.platform.warp.size / 32 + 1)
+    storage.warp.current.surface.force_generate_chunk_requests()
 end
 
 
@@ -92,11 +103,43 @@ dw.update_surfaces_properties = function()
     game.delete_surface(storage.warp.previous.name)
 end
 
+local function update_default_mapgen()
+    for _, planet in pairs(game.planets) do
+        if planet.prototype.entities_require_heating then goto continue end
+        if planet.name == "nauvis" then goto continue end
+        if planet.name == "factory-travel-surface" or string.match(planet.name, "%-factory%-floor") then goto continue end
+
+        storage.mapgen.defaults[planet.name] = planet.prototype.map_gen_settings
+        ::continue::
+    end
+end
+
+local function update_autoplace_control_list()
+    for _, planet in pairs(game.planets) do
+        if planet.prototype.entities_require_heating then goto continue end
+
+        local mapgen = planet.prototype.map_gen_settings
+        if not mapgen or not mapgen.autoplace_controls then goto continue end
+
+        storage.mapgen.autoplace_controls[planet.name] = {total = 0, autoplace = {}}
+
+        for autoplace_name, _ in pairs(mapgen.autoplace_controls) do
+            if prototypes.autoplace_control[autoplace_name].richness then
+                storage.mapgen.autoplace_controls[planet.name].autoplace[autoplace_name] = true
+                storage.mapgen.autoplace_controls[planet.name].total = storage.mapgen.autoplace_controls[planet.name].total + 1
+            end
+        end
+
+        ::continue::
+    end
+end
+
 
 local function surface_deleted(event)
     if event.surface_index == storage.warp.previous.surface_index then
         local planet = game.planets[storage.warp.current.type]
         planet.associate_surface(storage.warp.current.surface)
+        dw.platform_force_update_entities()
         storage.warp.previous = nil
         storage.warp.status = defines.warp.awaiting
     end
@@ -104,3 +147,7 @@ end
 
 
 dw.register_event(defines.events.on_surface_deleted, surface_deleted)
+dw.register_event('on_init', update_autoplace_control_list)
+dw.register_event('on_init', update_default_mapgen)
+dw.register_event('on_configuration_changed', update_autoplace_control_list)
+dw.register_event('on_configuration_changed', update_default_mapgen)

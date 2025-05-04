@@ -25,7 +25,7 @@ dw.update_warp_platform_size = function()
 end
 
 
-local function teleport_platform()
+dw.teleport_platform = function()
     if storage.warp.status ~= defines.warp.warping then return end
 
     local platform_area = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size, storage.platform.warp.size)
@@ -142,15 +142,22 @@ local function teleport_platform()
 end
 
 
-dw.prepare_warp_to_next_surface = function()
-    if storage.warp.status ~= defines.warp.awaiting then return end
-    storage.warp.status = defines.warp.preparing
+--- force update some entities that may be broken due to clone
+--- and the fact surfaces are not linked to planet asoon as they are created
+dw.platform_force_update_entities = function()
+    local surface = storage.warp.current.surface
+    local platform = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size, storage.platform.warp.size)
 
-    local target = "neo-nauvis" --- dw select random surface
-    dw.generate_surface(target)
+    -- update lightning attractors
+    local lightning_attractors = surface.find_entities_filtered{
+        type = "lightning-attractor",
+        area = platform,
+    }
 
-    storage.warp.status = defines.warp.warping
-    teleport_platform()
+    for _, rod in pairs(lightning_attractors) do
+        rod.clone{position=rod.position, create_build_effect_smoke=false}
+        rod.destroy()
+    end
 end
 
 
