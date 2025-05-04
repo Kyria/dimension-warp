@@ -64,7 +64,7 @@ local tech_warp_platform_4 = {
 local tech_warp_platform_5 = {
     type = "technology", name = "warp-platform-size-5", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-4", "metallurgic-science-pack"},
+    prerequisites = {"warp-platform-size-4"},
     unit = {
         count = 10000,
         ingredients = {
@@ -72,8 +72,7 @@ local tech_warp_platform_5 = {
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 1},
-            {"space-science-pack", 3},
-            {"metallurgic-science-pack", 2}
+            {"space-science-pack", 3}
         },
         time = 60,
     },
@@ -81,7 +80,7 @@ local tech_warp_platform_5 = {
 local tech_warp_platform_6 = {
     type = "technology", name = "warp-platform-size-6", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-5", "electromagnetic-science-pack"},
+    prerequisites = {"warp-platform-size-5"},
     unit = {
         count = 10000,
         ingredients = {
@@ -89,9 +88,7 @@ local tech_warp_platform_6 = {
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 1},
-            {"space-science-pack", 3},
-            {"metallurgic-science-pack", 2},
-            {"electromagnetic-science-pack", 2}
+            {"space-science-pack", 3}
         },
         time = 60,
     },
@@ -99,7 +96,7 @@ local tech_warp_platform_6 = {
 local tech_warp_platform_7 = {
     type = "technology", name = "warp-platform-size-7", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"warp-platform-size-6", "agricultural-science-pack"},
+    prerequisites = {"warp-platform-size-6"},
     unit = {
         count = 10000,
         ingredients = {
@@ -107,13 +104,18 @@ local tech_warp_platform_7 = {
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 1},
-            {"space-science-pack", 3},
-            {"metallurgic-science-pack", 2},
-            {"electromagnetic-science-pack", 2},
-            {"agricultural-science-pack", 2}
+            {"space-science-pack", 3}
         },
         time = 60,
     },
 }
 
-data.extend({tech_warp_platform_1, tech_warp_platform_2, tech_warp_platform_3, tech_warp_platform_4, tech_warp_platform_5, tech_warp_platform_6, tech_warp_platform_7})
+data:extend({
+    tech_warp_platform_1,
+    tech_warp_platform_2,
+    tech_warp_platform_3,
+    tech_warp_platform_4,
+    tech_warp_platform_5,
+    tech_warp_platform_6,
+    tech_warp_platform_7
+})

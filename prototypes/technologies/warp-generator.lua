@@ -85,7 +85,7 @@ local tech_warp_generator_6 = { -- unlimited time, except aquilo
     type = "technology", name = "warp-generator-6",
     icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, defines.color.darkgreen),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
-    prerequisites = {"warp-generator-5", "space-science-pack"},
+    prerequisites = {"warp-generator-5"},
     unit = {
         count = 10000,
         ingredients = {
@@ -95,7 +95,6 @@ local tech_warp_generator_6 = { -- unlimited time, except aquilo
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
-            {"space-science-pack", 5}
         },
         time = 60,
     },

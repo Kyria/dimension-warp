@@ -15,3 +15,8 @@ data.extend({tech_neonauvis})
 
 require 'warp-platform'
 require 'warp-generator'
+
+if mods['space-age'] then
+    require 'space-age.warp-platform-fix'
+    require 'space-age.warp-generator-fix'
+end
