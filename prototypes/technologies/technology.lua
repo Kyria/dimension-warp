@@ -2,8 +2,9 @@ local tech_neonauvis = {
     type = "technology",
     name = "neo-nauvis",
     icons = {{
-        icon = data.raw["planet"]["nauvis"].icon,
-        tint = defines.color.royalblue
+        icon = "__base__/graphics/icons/starmap-planet-nauvis.png",
+        tint = defines.color.royalblue,
+        icon_size = 512,
     }},
     visible_when_disabled = false,
     research_trigger = { type = "build-entity", entity = "simple-teleport" },

@@ -1,6 +1,6 @@
 local function generate_icon(overlay_icon, tint)
     return {
-        {icon = data.raw["planet"]["nauvis"].icon, tint = defines.color.royalblue},
+        {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
         {icon = overlay_icon, tint = tint, scale = 1, shift = {25, 25}}
     }
 end

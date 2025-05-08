@@ -20,12 +20,6 @@ if mods['space-age'] then
     local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")
 
     neo_nauvis.subgroup = "planets"
-    neo_nauvis.orbit = {
-        parent = {name = "star", type = "space-location"},
-        distance = 65,
-        orientation = 0.28
-    }
-
     neo_nauvis.asteroid_spawn_influence = 1
     neo_nauvis.asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.1)
 

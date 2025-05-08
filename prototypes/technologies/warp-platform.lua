@@ -1,6 +1,6 @@
 
 local warp_platform_icon = {
-    {icon = data.raw["planet"]["nauvis"].icon, tint = defines.color.royalblue},
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, dztint = defines.color.royalblue},
     {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}}
 }
 local tech_warp_platform_1 = {
