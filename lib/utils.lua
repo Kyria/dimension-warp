@@ -38,3 +38,13 @@ function utils.add_music(source_planet, destination_planet)
         end
     end
 end
+
+--- source: factorissimo-2-notnotmelon
+--- Creates a flying text for all players.
+--- @param args table
+function utils.create_flying_text(args)
+    args.create_at_cursor = false
+    for _, player in pairs(game.connected_players) do
+        player.create_local_flying_text(args)
+    end
+end

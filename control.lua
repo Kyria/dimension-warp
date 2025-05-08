@@ -43,4 +43,6 @@ require "scripts.freeplay"
 require "scripts.lab_intro"
 require "scripts.warp"
 
+require "scripts.rocket_silo"
+
 require "scripts.debug"
