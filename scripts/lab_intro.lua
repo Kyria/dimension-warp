@@ -125,7 +125,7 @@ local function destroy_nauvis_lab_event()
     end
 
     if not storage.intro_built_entities then return end
-    if game.tick == 0 or game.tick % 600 ~= 0 then return end
+    if game.tick == 0 or game.tick % 300 ~= 0 then return end
     for _, entity in pairs(storage.intro_built_entities) do
         entity.die(game.forces['neutral'], nil)
     end
@@ -156,7 +156,6 @@ local function destroy_nauvis_lab_event()
         })
     end
 
-    --- randomize the center of the platform on neo_nauvis
     dw.update_warp_platform_size()
 end
 
