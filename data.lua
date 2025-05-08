@@ -3,6 +3,7 @@ require 'lib.utils'
 
 require 'prototypes.tiles'
 require 'prototypes.planet.neo-nauvis'
+require 'prototypes.planet.factory'
 require 'prototypes.teleport'
 require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
