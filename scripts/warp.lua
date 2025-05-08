@@ -70,12 +70,19 @@ local function get_allowed_planet()
     local force = game.forces['player']
     local allowed_planets = {}
     local total = 0
+    local current = storage.warp.current.surface
+    local current_require_heat = current.planet.prototype.entities_require_heating
     for _, planet in pairs(game.planets) do
-        -- remove nauvis, dimensions surfaces and factorissimo surfaces from the list
+        -- remove nauvis, dimensions surface anmo surfaces from the list
         if not ignore_planet(planet.name) then
             if force.is_space_location_unlocked(planet.name) then
+                if current_require_heat and planet.name == current.name then
+                    goto continue
+                end
                 table.insert(allowed_planets, planet.name)
                 total = total + 1
+
+                ::continue::
             end
         end
     end

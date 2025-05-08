@@ -67,11 +67,54 @@ local function randomize_mapgen(planet)
     return storage.mapgen.defaults[planet]
 end
 
+local function randomize_heating_planet(planet)
+    local planet_list = {}
+    local index = 0
+    for _, p in pairs(game.planets) do
+        if string.find(p.name, planet, 1, true) then
+            if string.match(p.name, "%-factory%-floor") then goto continue end
+
+            table.insert(planet_list, p.name)
+            index = index + 1
+
+            ::continue::
+        end
+    end
+
+    if index == 0 then
+        return nil
+    else
+        return planet_list[math.random(index)]
+    end
+end
+
 
 dw.generate_surface = function(planet, vanilla)
     force_map_settings()
-    if game.planets[planet].prototype.entities_require_heating then
 
+    -- if planet has heating, we cannot customize mapgen
+    if game.planets[planet].prototype.entities_require_heating then
+        planet = randomize_heating_planet(planet)
+
+        -- if no valid planet is found, use neo-nauvis
+        if not planet then
+            return dw.generate_surface('neo-nauvis')
+        end
+
+        storage.warp.previous = storage.warp.current
+        storage.warp.number = storage.warp.number + 1
+
+        local surface = game.planets[planet].create_surface()
+
+        storage.warp.current = {
+            name = surface.name,
+            type = planet,
+            surface = surface,
+            surface_index = surface.index
+        }
+
+        --- we also force the timer for these planet
+        storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
     else
 
         storage.warp.previous = storage.warp.current
@@ -138,7 +181,9 @@ end
 local function surface_deleted(event)
     if event.surface_index == storage.warp.previous.surface_index then
         local planet = game.planets[storage.warp.current.type]
-        planet.associate_surface(storage.warp.current.surface)
+        if not planet.prototype.entities_require_heating then
+            planet.associate_surface(storage.warp.current.surface)
+        end
         dw.platform_force_update_entities()
         storage.warp.previous = nil
         storage.warp.status = defines.warp.awaiting
