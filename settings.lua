@@ -14,6 +14,27 @@ data:extend {
         default_value = true,
         order = "a-b",
     },
+    {
+        type = "string-setting",
+        name = "dw-default-tile-background",
+        setting_type = "startup",
+        default_value = "empty-space",
+        order = "b-a",
+    },
+    {
+        type = "string-setting",
+        name = "dw-default-tile-platform",
+        setting_type = "startup",
+        default_value = "concrete",
+        order = "b-b",
+    },
+    {
+        type = "string-setting",
+        name = "dw-default-tile-dimensions",
+        setting_type = "startup",
+        default_value = "tutorial-grid",
+        order = "b-c",
+    },
 
     --- runtime
     {
