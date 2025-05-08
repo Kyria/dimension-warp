@@ -1,9 +1,9 @@
 require 'lib.defines'
 require 'lib.utils'
 
+require 'prototypes.tiles'
 require 'prototypes.planet.neo-nauvis'
 require 'prototypes.teleport'
-require 'prototypes.tiles'
 require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
 
@@ -33,3 +33,10 @@ data:extend({
     }
 })
 
+
+-- {
+--     type = "custom-input",
+--     name = "factory-rotate",
+--     key_sequence = "R",
+--     controller_key_sequence = "controller-rightstick"
+-- },
