@@ -5,6 +5,7 @@ neo_nauvis.name = "neo-nauvis"
 neo_nauvis.order = "a[neo-nauvis]"
 neo_nauvis.type = "planet"
 neo_nauvis.draw_orbit = false
+neo_nauvis.hidden = true
 
 neo_nauvis.icons = {{
     icon = nauvis.icon,
@@ -24,12 +25,9 @@ if mods['space-age'] then
     neo_nauvis.asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.1)
 
     -- remove some fields nt wanted by planetslib
-    neo_nauvis.distance = 65
-    neo_nauvis.orientation = 0.28
-
-    data:extend({neo_nauvis})
-else
-    data:extend({neo_nauvis})
+    neo_nauvis.distance = 30
+    neo_nauvis.orientation = 0.46
 end
 
+data:extend({neo_nauvis})
 utils.add_music(nauvis, neo_nauvis)
