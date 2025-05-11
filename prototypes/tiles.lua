@@ -9,7 +9,7 @@ local function create_surface_tile(tile_info)
 
     -- Modify the tile properties
     tile.name = tile_info.name
-    tile.layer_group = "zero" -- Set the layer group
+    tile.layer_group = "ground-artificial" -- Set the layer group
     tile.tint = tile_info.tint -- Apply the tint to the tile
     tile.type = "tile"
     tile.layer = 75
@@ -29,7 +29,7 @@ data.raw['tile']['out-of-map'].absorptions_per_second = {pollution = 0.0001}
 
 create_surface_tile {
     name = "warp-platform",
-    tint = defines.color.slategrey,
+    tint = defines.color.lightcyan,
     base_tile = data.raw["tile"][default_platform_tile],
 }
 create_surface_tile {
