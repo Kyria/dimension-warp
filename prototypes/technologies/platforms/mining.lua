@@ -1,16 +1,29 @@
 local icon = (mods['space-age']) and "__space-age__/graphics/icons/foundry.png" or "__base__/graphics/icons/electric-furnace.png"
 local platform_icon = {
     {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
-    {icon = icon, tint = defines.color.peachpuff, scale = 1.5, shift = {20, 20}}
+    {icon = icon, tint = defines.color.peachpuff, scale = 1.5, shift = {20, 20}, floating = true},
+    {
+        icon = "__core__/graphics/icons/technology/constants/constant-planet.png",
+        icon_size = 128,
+        scale = 0.5,
+        shift = {50, 50},
+        floating = true
+    }
 }
 local tech_platform = {
     type = "technology", name = "mining-platform", icons = platform_icon,
-    prerequisites = {"neo-nauvis"},
+    prerequisites = {"factory-platform"},
+    effects = {
+        {
+            type = "unlock-space-location",
+            space_location = "smeltus",
+            use_icon_overlay_constant = true
+        },
+    },
     unit = {
         count = 500,
         ingredients = {
-            {"automation-science-pack", 2},
-            {"logistic-science-pack", 1},
+            {"automation-science-pack", 1},
         },
         time = 60,
     },
@@ -22,7 +35,7 @@ local platform_icon = {
     {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
     {icon = icon, tint = defines.color.peachpuff, scale = 1.5, shift = {20, 20}},
     {
-        icon = "__core__/graphics/icons/technology/constants/constant-mining-productivity.png",
+        icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
         icon_size = 128,
         scale = 0.5,
         shift = {50, 50},
@@ -31,24 +44,25 @@ local platform_icon = {
 }
 local tech_platform_1 = {
     type = "technology", name = "mining-platform-upgrade-1", icons = platform_icon,
-    prerequisites = {"mining-platform"},
+    prerequisites = {"mining-platform", "electric-mining-drill", "advanced-material-processing"},
     unit = {
-        count = 500,
+        count = 1000,
         ingredients = {
-            {"automation-science-pack", 2},
+            {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_platform_2 = {
     type = "technology", name = "mining-platform-upgrade-2", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-1"},
+    prerequisites = {"mining-platform-upgrade-1", "plastics"},
     unit = {
-        count = 500,
+        count = 1500,
         ingredients = {
-            {"automation-science-pack", 2},
-            {"logistic-science-pack", 1},
+            {"automation-science-pack", 1},
+            {"logistic-science-pack", 2},
         },
         time = 60,
     },
@@ -56,12 +70,13 @@ local tech_platform_2 = {
 }
 local tech_platform_3 = {
     type = "technology", name = "mining-platform-upgrade-3", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-2"},
+    prerequisites = {"mining-platform-upgrade-2", "low-density-structure"},
     unit = {
-        count = 500,
+        count = 1500,
         ingredients = {
-            {"automation-science-pack", 2},
+            {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 3},
         },
         time = 60,
     },
@@ -69,12 +84,13 @@ local tech_platform_3 = {
 }
 local tech_platform_4 = {
     type = "technology", name = "mining-platform-upgrade-4", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-3"},
+    prerequisites = {"mining-platform-upgrade-3", "advanced-material-processing-2"},
     unit = {
-        count = 500,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 2},
         },
         time = 60,
     },
@@ -82,12 +98,14 @@ local tech_platform_4 = {
 }
 local tech_platform_5 = {
     type = "technology", name = "mining-platform-upgrade-5", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-4"},
+    prerequisites = {"mining-platform-upgrade-4", "coal-liquefaction"},
     unit = {
-        count = 500,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 2},
+            {"production-science-pack", 4},
         },
         time = 60,
     },
@@ -95,12 +113,15 @@ local tech_platform_5 = {
 }
 local tech_platform_6 = {
     type = "technology", name = "mining-platform-upgrade-6", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-5"},
+    prerequisites = {"mining-platform-upgrade-5", "space-science-pack"},
     unit = {
-        count = 500,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 2},
+            {"production-science-pack", 3},
+            {"space-science-pack", 2},
         },
         time = 60,
     },
@@ -108,12 +129,15 @@ local tech_platform_6 = {
 }
 local tech_platform_7 = {
     type = "technology", name = "mining-platform-upgrade-7", icons = platform_icon,
-    prerequisites = {"mining-platform-upgrade-6"},
+    prerequisites = {"mining-platform-upgrade-6", "warp-generator-5"},
     unit = {
-        count = 500,
+        count = 10000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 2},
+            {"production-science-pack", 3},
+            {"space-science-pack", 2},
         },
         time = 60,
     },

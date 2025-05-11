@@ -1,9 +1,9 @@
 
 local warp_platform_icon = {
     {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
-    {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}},
+    {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}, floating = true},
     {
-        icon = "__core__/graphics/icons/technology/constants/constant-mining-productivity.png",
+        icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
         icon_size = 128,
         scale = 0.5,
         shift = {50, 50},
@@ -13,15 +13,15 @@ local warp_platform_icon = {
 local tech_warp_platform_1 = {
     type = "technology", name = "warp-platform-size-1", icons = warp_platform_icon,
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
-    prerequisites = {"neo-nauvis", "automation-2", "warp-generator-2"},
+    prerequisites = {"neo-nauvis", "automation", "warp-generator-2"},
     unit = {
         count = 500,
         ingredients = {
             {"automation-science-pack", 2},
-            {"logistic-science-pack", 1},
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_2 = {
     type = "technology", name = "warp-platform-size-2", icons = warp_platform_icon,

@@ -29,9 +29,14 @@ require 'others.damage'
 require 'others.drones'
 require 'others.mining'
 
+-- specific changes for tech if space-age is active.
 if mods['space-age'] then
-    require 'space-age.warp-platform'
     require 'space-age.warp-generator'
     require 'space-age.damage'
     require 'space-age.mining'
+    require 'space-age.platforms.warp'
+    require 'space-age.platforms.factory'
+    require 'space-age.platforms.mining'
+    require 'space-age.platforms.energy'
+    require 'space-age.platforms.harvester'
 end
