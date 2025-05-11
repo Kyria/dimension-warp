@@ -12,12 +12,26 @@ local tech_neonauvis = {
 }
 
 
-data.extend({tech_neonauvis})
+data:extend{tech_neonauvis}
 
-require 'warp-platform'
 require 'warp-generator'
+require 'platforms.warp'
+require 'platforms.factory'
+require 'platforms.harvester'
+require 'platforms.mining'
+require 'platforms.energy'
+require 'platforms.electrified-ground'
+
+require 'others.steel-axe'
+require 'others.inventory'
+require 'others.inserter'
+require 'others.damage'
+require 'others.drones'
+require 'others.mining'
 
 if mods['space-age'] then
-    require 'space-age.warp-platform-fix'
-    require 'space-age.warp-generator-fix'
+    require 'space-age.warp-platform'
+    require 'space-age.warp-generator'
+    require 'space-age.damage'
+    require 'space-age.mining'
 end

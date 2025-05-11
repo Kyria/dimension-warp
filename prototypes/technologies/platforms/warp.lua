@@ -1,7 +1,14 @@
 
 local warp_platform_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, dztint = defines.color.royalblue},
-    {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}}
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
+    {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}},
+    {
+        icon = "__core__/graphics/icons/technology/constants/constant-mining-productivity.png",
+        icon_size = 128,
+        scale = 0.5,
+        shift = {50, 50},
+        floating = true
+    }
 }
 local tech_warp_platform_1 = {
     type = "technology", name = "warp-platform-size-1", icons = warp_platform_icon,
@@ -29,6 +36,7 @@ local tech_warp_platform_2 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_3 = {
     type = "technology", name = "warp-platform-size-3", icons = warp_platform_icon,
@@ -44,6 +52,7 @@ local tech_warp_platform_3 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_4 = {
     type = "technology", name = "warp-platform-size-4", icons = warp_platform_icon,
@@ -60,6 +69,7 @@ local tech_warp_platform_4 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_5 = {
     type = "technology", name = "warp-platform-size-5", icons = warp_platform_icon,
@@ -76,6 +86,7 @@ local tech_warp_platform_5 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_6 = {
     type = "technology", name = "warp-platform-size-6", icons = warp_platform_icon,
@@ -92,6 +103,7 @@ local tech_warp_platform_6 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 local tech_warp_platform_7 = {
     type = "technology", name = "warp-platform-size-7", icons = warp_platform_icon,
@@ -108,9 +120,10 @@ local tech_warp_platform_7 = {
         },
         time = 60,
     },
+    upgrade = true,
 }
 
-data:extend({
+data:extend{
     tech_warp_platform_1,
     tech_warp_platform_2,
     tech_warp_platform_3,
@@ -118,4 +131,4 @@ data:extend({
     tech_warp_platform_5,
     tech_warp_platform_6,
     tech_warp_platform_7
-})
+}

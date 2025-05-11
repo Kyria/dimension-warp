@@ -1,0 +1,28 @@
+data:extend{
+    {
+        type = "technology",
+        name = "electrified-ground",
+        icons = {
+            {
+                icon = "__base__/graphics/technology/electric-energy-distribution-2.png",
+                icon_size = 256,
+                tint = defines.color.royalblue,
+            }
+        },
+        prerequisites = {
+            "electric-energy-distribution-1",
+            "concrete",
+            "factory-platform",
+            "mining-platform",
+            "power-platform"
+        },
+        unit = {
+            count = 1000,
+            ingredients = {
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+            },
+            time = 60,
+        },
+    }
+}
