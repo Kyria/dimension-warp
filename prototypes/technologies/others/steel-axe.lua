@@ -18,7 +18,7 @@ data:extend {
         effects = {
             {
                 type = "character-mining-speed",
-                modifier = 1
+                modifier = 2
             }
         },
     }
