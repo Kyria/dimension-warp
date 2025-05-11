@@ -16,7 +16,7 @@ local icon = {
 data:extend {
     {
         type = "technology",
-        name = "dimension-toolbelt",
+        name = "dimension-toolbelt-1",
         icons = icon,
         prerequisites = {"toolbelt"},
         effects = {
@@ -34,7 +34,7 @@ data:extend {
         type = "technology",
         name = "dimension-toolbelt-2",
         icons = icon,
-        prerequisites = {"dimension-toolbelt"},
+        prerequisites = {"dimension-toolbelt-1"},
         effects = {
             {
                 type = "character-inventory-slots-bonus",
