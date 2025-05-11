@@ -28,7 +28,6 @@ local electria = {
     surface_properties = {
         ["solar-power"] = 0,
         ["day-night-cycle"] = 0,
-        ["ceiling"] = 0,
     },
     surface_render_parameters = {},
     lightning_properties = nil,
@@ -50,6 +49,7 @@ if mods['space-age'] then
     electria.subgroup = "planets"
     electria.asteroid_spawn_influence = 0
     electria.asteroid_spawn_definitions = {}
+
 end
 
 data:extend({electria})

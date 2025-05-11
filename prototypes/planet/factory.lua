@@ -35,7 +35,6 @@ local produstia = {
     surface_properties = {
         ["solar-power"] = 0,
         ["day-night-cycle"] = 0,
-        ["ceiling"] = 1, -- required for rockets
     },
     surface_render_parameters = {},
     lightning_properties = nil,
