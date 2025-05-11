@@ -35,6 +35,7 @@ local function warp_timer()
             storage.votes.players = {}
             dw.update_manual_warp_button()
         end
+
     end
 
     --- each seconds, we update the GUI
@@ -58,8 +59,6 @@ end
 local function ignore_planet(planet)
     -- ignore nauvis
     if planet == "nauvis" then return true end
-    -- ignore factorissimo surfaces
-    if planet == "factory-travel-surface" or string.match(planet, "%-factory%-floor") then return true end
     -- ignore specials surface frm the mod
     if dw.safe_surfaces[planet] then return true end
     return false

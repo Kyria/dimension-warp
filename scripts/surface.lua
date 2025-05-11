@@ -72,12 +72,8 @@ local function randomize_heating_planet(planet)
     local index = 0
     for _, p in pairs(game.planets) do
         if string.find(p.name, planet, 1, true) then
-            if string.match(p.name, "%-factory%-floor") then goto continue end
-
             table.insert(planet_list, p.name)
             index = index + 1
-
-            ::continue::
         end
     end
 
@@ -150,7 +146,6 @@ local function update_default_mapgen()
     for _, planet in pairs(game.planets) do
         if planet.prototype.entities_require_heating then goto continue end
         if planet.name == "nauvis" then goto continue end
-        if planet.name == "factory-travel-surface" or string.match(planet.name, "%-factory%-floor") then goto continue end
 
         storage.mapgen.defaults[planet.name] = planet.prototype.map_gen_settings
         ::continue::
