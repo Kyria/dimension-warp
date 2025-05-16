@@ -48,3 +48,15 @@ function utils.create_flying_text(args)
         player.create_local_flying_text(args)
     end
 end
+
+
+function utils.add_tiles(tiles, name, top_left, bottom_right)
+    top_left = math2d.position.ensure_xy(top_left)
+    bottom_right = math2d.position.ensure_xy(bottom_right)
+    for i = top_left.x, bottom_right.x do
+        for j = top_left.y, bottom_right.y do
+            local position = {x = i, y = j}
+            table.insert(tiles, {name = name, position = position})
+        end
+    end
+end

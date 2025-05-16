@@ -1,17 +1,32 @@
 
+
+local function put_platform_warning_tiles()
+    local surface = storage.warp.current.surface
+
+    --- base tiles for center accumulator
+    tiles = {}
+    utils.add_tiles(tiles, "dimension-hazard", {-1,-1}, {0,0})
+
+    if storage.platform.warp.size >= 12 then
+        utils.add_tiles(tiles, "dimension-hazard", {-1,-7}, {0,-6})
+        utils.add_tiles(tiles, "dimension-hazard", {-5,-8}, {-5,-6})
+        utils.add_tiles(tiles, "dimension-hazard", {-5,-7}, {4,-7})
+        utils.add_tiles(tiles, "dimension-hazard", {4,-8},  {4,-6})
+        utils.add_tiles(tiles, "dimension-hazard", {-2,5},  {1,7})
+        utils.add_tiles(tiles, "dimension-hazard", {-5,5},  {-5,7})
+        utils.add_tiles(tiles, "dimension-hazard", {4,5},   {4,7})
+        utils.add_tiles(tiles, "dimension-hazard", {-5,6},  {4,6})
+    end
+    surface.set_tiles(tiles)
+end
+
 dw.update_warp_platform_size = function()
     local surface = storage.warp.current.surface
-    local new_platform_area = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size, storage.platform.warp.size)
+    local new_platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
     local tiles = {}
-    for i = 0, storage.platform.warp.size - 1 do
-        for j = 0, storage.platform.warp.size - 1 do
-            local position = {
-                x = storage.platform.warp.center[1] - storage.platform.warp.size/2 + i,
-                y = storage.platform.warp.center[2] - storage.platform.warp.size/2 + j
-            }
-            table.insert(tiles, {name = "warp-platform", position = position})
-        end
-    end
+
+    local size = storage.platform.warp.size
+    utils.add_tiles(tiles, "warp-platform", {-size/2, -size/2}, {(size-1)/2, (size-1)/2})
 
     local stuff_to_remove = surface.find_entities_filtered {
         area = new_platform_area,
@@ -22,14 +37,15 @@ dw.update_warp_platform_size = function()
         stuff.destroy()
     end
     surface.set_tiles(tiles)
+    put_platform_warning_tiles()
 end
 
 
 dw.teleport_platform = function()
     if storage.warp.status ~= defines.warp.warping then return end
 
-    local platform_area = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size, storage.platform.warp.size)
-    local platform_area_delta = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size + 2, storage.platform.warp.size + 2)
+    local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
+    local platform_area_delta = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size + 2, storage.platform.warp.size + 2)
 
     local source = storage.warp.previous.surface
     local destination = storage.warp.current.surface
@@ -55,7 +71,7 @@ dw.teleport_platform = function()
     }
     for _, vehicle in pairs(vehicles) do
         local position = vehicle.position
-        dw.safe_teleport(vehicle, destination.name, position)
+        dw.safe_teleport(vehicle, destination, position)
     end
 
     --- check for train related stuff, as we don't want to teleport them there
@@ -98,7 +114,7 @@ dw.teleport_platform = function()
     for _, player in pairs(game.players) do
         if player.surface.name == source.name then
             if math2d.bounding_box.contains_point(platform_area_delta, player.position) then
-                dw.safe_teleport(player, storage.warp.current.name, player.position)
+                dw.safe_teleport(player, storage.warp.current.surface, player.position)
             else
                 player.character.die()
             end
@@ -146,7 +162,7 @@ end
 --- and the fact surfaces are not linked to planet asoon as they are created
 dw.platform_force_update_entities = function()
     local surface = storage.warp.current.surface
-    local platform = math2d.bounding_box.create_from_centre(storage.platform.warp.center, storage.platform.warp.size, storage.platform.warp.size)
+    local platform = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
 
     -- update lightning attractors
     local lightning_attractors = surface.find_entities_filtered{
@@ -158,6 +174,14 @@ dw.platform_force_update_entities = function()
         rod.clone{position=rod.position, create_build_effect_smoke=false}
         rod.destroy()
     end
+
+    local radio_tower = surface.find_entity('radio-station', {0, -6})
+    if radio_tower then
+        storage.teleporter['factory-to-warp'].to = radio_tower
+        storage.teleporter['warp-to-factory'].from = radio_tower
+    end
+
+    --- update warp gate
 end
 
 

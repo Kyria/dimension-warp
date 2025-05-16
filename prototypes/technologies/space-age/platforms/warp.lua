@@ -2,7 +2,6 @@ data.raw['technology']['warp-platform-size-1'].unit = {
     count = 500,
     ingredients = {
         {"automation-science-pack", 2},
-        {"logistic-science-pack", 1},
     },
     time = 60,
 }

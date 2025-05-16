@@ -7,7 +7,7 @@ local tech_neonauvis = {
         icon_size = 512,
     }},
     visible_when_disabled = false,
-    research_trigger = { type = "build-entity", entity = "simple-teleport" },
+    research_trigger = { type = "build-entity", entity = "warp-gate" },
     effects = {{ type = "unlock-space-location", space_location = "neo-nauvis" }},
 }
 
