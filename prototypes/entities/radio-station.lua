@@ -1,18 +1,26 @@
+require("__core__.lualib.circuit-connector-sprites")
 data:extend({
     {
         type = "radar",
         name = "radio-station",
-        localised_name = "radio-station",
-        localised_description = "radio-station",
 
-        collision_mask = {layers={object=true, item=true, floor=true, water_tile=true, is_lower_object=true}},
+        collision_mask = {layers={object=true, item=true, meltable=true, water_tile=true, is_lower_object=true, is_object=true, player=true}},
         icon = "__dimension-warp__/graphics/entities/radio-station/radio-station-icon.png",
         icon_size = 64,
         flags = {"placeable-player", "player-creation"},
         minable = nil,
+        placeable_by = nil,
         max_health = 5000,
-        collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
+        collision_box = {{-0.95, -0.95}, {0.95, 0.95}},
         selection_box = {{-1, -1}, {1, 1}},
+        corpse = "radar-remnants",
+        dying_explosion = "radar-explosion",
+
+        is_military_target = false,
+        circuit_connector = circuit_connector_definitions["radar"],
+        circuit_wire_max_distance = default_circuit_wire_max_distance,
+        radius_minimap_visualisation_color = {0.059, 0.092, 0.235, 0.275},
+        impact_category = "metal",
 
         energy_per_nearby_scan = "250kJ",
         energy_per_sector = "500kJ",
@@ -26,7 +34,7 @@ data:extend({
             layers = {
                 {
                     filename = "__dimension-warp__/graphics/entities/radio-station/radio-station-hr-shadow.png",
-                    priority = "high",
+                    priority = "low",
                     width = 400,
                     height = 350,
                     direction_count= 20,
@@ -38,7 +46,7 @@ data:extend({
                 },
                 {
                     filename = "__dimension-warp__/graphics/entities/radio-station/radio-station-hr-animation-1.png",
-                    priority = "high",
+                    priority = "low",
                     width = 160,
                     height = 290,
                     direction_count = 20,
@@ -49,7 +57,7 @@ data:extend({
                 },
                 {
                     filename = "__dimension-warp__/graphics/entities/radio-station/radio-station-hr-emission-1.png",
-                    priority = "high",
+                    priority = "low",
                     width = 160,
                     height = 290,
                     direction_count = 20,
