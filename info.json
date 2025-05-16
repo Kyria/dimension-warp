@@ -9,6 +9,9 @@
   "dependencies": [
     "base >= 2.0.29",
     "? space-age >= 2.0.29",
+    "? aai-containers",
+    "? aai-industry",
+    "? Krastorio2",
     "! factorissimo-2-notnotmelon"
   ]
 }

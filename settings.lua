@@ -35,6 +35,37 @@ data:extend {
         default_value = "tutorial-grid",
         order = "b-c",
     },
+    {
+        type = "string-setting",
+        name = "dw-logistic-chest-input",
+        setting_type = "startup",
+        default_value = "requester-chest",
+        allowed_values = {"steel-chest", "storage-chest", "requester-chest", "buffer-chest"},
+        order = "c-a",
+    },
+    {
+        type = "string-setting",
+        name = "dw-logistic-chest-output",
+        setting_type = "startup",
+        default_value = "active-provider-chest",
+        allowed_values = {"steel-chest", "storage-chest", "active-provider-chest", "passive-provider-chest", "buffer-chest"},
+        order = "c-b",
+    },
+    {
+        type = "bool-setting",
+        name = "dw-another-mod-loader",
+        setting_type = "startup",
+        default_value = false,
+        order = "d-a",
+    },
+    {
+        type = "string-setting",
+        name = "dw-another-mod-loader-select",
+        setting_type = "startup",
+        default_value = "aai-loaders",
+        allowed_values = {"aai-loaders", "Krastorio2"},
+        order = "d-b",
+    },
 
     --- runtime
     {
