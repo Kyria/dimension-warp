@@ -88,6 +88,7 @@ local function check_if_player_changed_surface()
     if storage.all_players_left_nauvis then
         dw.remove_event(defines.events.on_tick, check_if_player_changed_surface)
         game.surfaces['nauvis'].clear()
+        storage.teleporter['nauvis-gate'] = nil
         game.forces['player'].lock_space_location('nauvis')
         return
     end
@@ -142,18 +143,16 @@ local function destroy_nauvis_lab_event()
 
     --- create the portal
     local nauvis_teleport = game.surfaces['nauvis'].create_entity{
-        name = "simple-teleport",
+        name = "warp-gate",
         position = {0, -4},
         force = game.forces['player'],
         direction = defines.direction.north
     }
     if nauvis_teleport then
-        table.insert(storage.teleporter['nauvis'], {
-            entity = nauvis_teleport,
-            box = nauvis_teleport.selection_box,
-            destination_surface = storage.warp.current.name,
-            destination_position = {0, 0},
-        })
+        nauvis_teleport.destructible = false
+        storage.teleporter['nauvis-gate'].active = true
+        storage.teleporter['nauvis-gate'].from = nauvis_teleport
+        storage.teleporter['nauvis-gate'].to = {position = {0,0}, surface = storage.warp.current.surface}
     end
 
     dw.update_warp_platform_size()
