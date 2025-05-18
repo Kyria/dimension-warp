@@ -1,5 +1,6 @@
 local tech_list = {
     "electrified-ground",
+    "platform-radar",
     "warp-generator-1",
     "warp-generator-2",
     "warp-generator-3",

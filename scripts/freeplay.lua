@@ -1,3 +1,5 @@
+--- Deactivate default freeplay behaviors
+------------------------------------------------------------
 local function freeplay()
     if not remote.interfaces.freeplay then return end
 

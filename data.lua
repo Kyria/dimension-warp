@@ -32,6 +32,7 @@ require 'prototypes.teleport'
 require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
 require 'prototypes.entities.chest-pipe'
+require 'prototypes.entities.power-pole'
 require 'prototypes.buildings.loaders'
 
 

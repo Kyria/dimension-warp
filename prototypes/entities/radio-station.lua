@@ -1,4 +1,3 @@
-require("__core__.lualib.circuit-connector-sprites")
 data:extend({
     {
         type = "radar",
@@ -17,8 +16,19 @@ data:extend({
         dying_explosion = "radar-explosion",
 
         is_military_target = false,
-        circuit_connector = circuit_connector_definitions["radar"],
-        circuit_wire_max_distance = default_circuit_wire_max_distance,
+        circuit_connector = {
+            points = {
+                shadow ={
+                    red = util.by_pixel(-28, -91),
+                    green = util.by_pixel(-28, -91)
+                },
+                wire ={
+                    red = util.by_pixel(-28, -91),
+                    green = util.by_pixel(-28, -91)
+                }
+            }
+        },
+        circuit_wire_max_distance = 9,
         radius_minimap_visualisation_color = {0.059, 0.092, 0.235, 0.275},
         impact_category = "metal",
 

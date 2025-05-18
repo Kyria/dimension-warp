@@ -60,3 +60,29 @@ function utils.add_tiles(tiles, name, top_left, bottom_right)
         end
     end
 end
+
+function utils.put_warning_tiles(surface, template)
+    tiles = {}
+    for _, tile_position in pairs(template) do
+        utils.add_tiles(tiles, "dimension-hazard", tile_position[1], tile_position[2])
+    end
+    surface.set_tiles(tiles)
+end
+
+
+function utils.link_gates(teleport_connection1, teleport_connection2, teleport1, teleport2)
+    storage.teleporter[teleport_connection1] = {active = true, from = teleport1, to = teleport2}
+    storage.teleporter[teleport_connection2] = {active = true, from = teleport2, to = teleport1}
+end
+
+function utils.link_cables(entity1, entity2, wire_connectors)
+    if not entity1.valid or not entity2.valid then return end
+    local wire_connectors = {defines.wire_connector_id.circuit_green, defines.wire_connector_id.circuit_red, defines.wire_connector_id.pole_copper}
+    for _, connector in pairs(wire_connectors) do
+        local entity1_connector = entity1.get_wire_connector(connector, true)
+        local entity2_connector = entity2.get_wire_connector(connector, true)
+        if entity1_connector and entity2_connector then
+            entity1_connector.connect_to(entity2_connector, false, defines.wire_origin.script)
+        end
+    end
+end

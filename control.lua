@@ -1,11 +1,15 @@
 require "lib.lib"
 
-dw.register_event('on_init', function()
+------------------------------------------------------------
+--- Globals
+------------------------------------------------------------
+local function set_globals()
+    --- platform globals
     storage.platform = storage.platform or {
         warp = {size = 8},
-        factory = {size = 8, surface=nil},
-        mining = {size = 8, surface=nil},
-        power = {size = 8, surface=nil},
+        factory = {size = 0, surface=nil},
+        mining = {size = {x=0, y=0}, surface=nil},
+        power = {size = 0, surface=nil},
     }
     storage.warp = storage.warp or {
         number = 0,
@@ -13,9 +17,9 @@ dw.register_event('on_init', function()
         previous = nil,
         status = defines.warp.awaiting,
     }
-    storage.timer = {
+    storage.timer = { -- timers are in seconds, not ticks
         active = false,
-        base = 20 * 60, -- 20min in ticks
+        base = 20 * 60, -- 20min
         warp = nil,
         manual_warp = nil,
     }
@@ -47,8 +51,10 @@ dw.register_event('on_init', function()
         ['surface-to-harvester-right'] =    {active = false},
     }
     storage.players_last_teleport = storage.players_last_teleport or {}
-end)
+end
+dw.register_event('on_init', set_globals)
 
+------------------------------------------------------------
 require "scripts.surface"
 require "scripts.teleport"
 require "scripts.gui"

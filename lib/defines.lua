@@ -1,12 +1,6 @@
-defines.opposite_direction = {
-    [defines.direction.north] = defines.direction.south,
-    [defines.direction.northeast] = defines.direction.southwest,
-    [defines.direction.east] = defines.direction.west,
-    [defines.direction.southeast] = defines.direction.northwest,
-    [defines.direction.south] = defines.direction.north,
-    [defines.direction.southwest] = defines.direction.northeast,
-    [defines.direction.west] = defines.direction.east,
-    [defines.direction.northwest] = defines.direction.southeast
+defines.wire_connectors = {
+    logic = {defines.wire_connector_id.circuit_green, defines.wire_connector_id.circuit_red},
+    power = {defines.wire_connector_id.pole_copper},
 }
 
 defines.color = {

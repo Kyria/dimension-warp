@@ -1,24 +1,5 @@
-
-
-local function put_platform_warning_tiles()
-    local surface = storage.warp.current.surface
-
-    --- base tiles for center accumulator
-    tiles = {}
-    utils.add_tiles(tiles, "dimension-hazard", {-1,-1}, {0,0})
-
-    if storage.platform.warp.size >= 12 then
-        utils.add_tiles(tiles, "dimension-hazard", {-1,-7}, {0,-6})
-        utils.add_tiles(tiles, "dimension-hazard", {-5,-8}, {-5,-6})
-        utils.add_tiles(tiles, "dimension-hazard", {-5,-7}, {4,-7})
-        utils.add_tiles(tiles, "dimension-hazard", {4,-8},  {4,-6})
-        utils.add_tiles(tiles, "dimension-hazard", {-2,5},  {1,7})
-        utils.add_tiles(tiles, "dimension-hazard", {-5,5},  {-5,7})
-        utils.add_tiles(tiles, "dimension-hazard", {4,5},   {4,7})
-        utils.add_tiles(tiles, "dimension-hazard", {-5,6},  {4,6})
-    end
-    surface.set_tiles(tiles)
-end
+--- All surface platform related function
+------------------------------------------------------------
 
 dw.update_warp_platform_size = function()
     local surface = storage.warp.current.surface
@@ -37,7 +18,9 @@ dw.update_warp_platform_size = function()
         stuff.destroy()
     end
     surface.set_tiles(tiles)
-    put_platform_warning_tiles()
+    if storage.platform.warp.size >= 12 then
+        utils.put_warning_tiles(surface, dw.hazard_tiles.surface)
+    end
 end
 
 
@@ -175,13 +158,19 @@ dw.platform_force_update_entities = function()
         rod.destroy()
     end
 
-    local radio_tower = surface.find_entity('radio-station', {0, -6})
+    --- update teleporters (radio station + warpgate)
+    local radio_tower = surface.find_entity(dw.entities.surface_radio_station.name, dw.entities.surface_radio_station.position)
     if radio_tower then
-        storage.teleporter['factory-to-warp'].to = radio_tower
-        storage.teleporter['warp-to-factory'].from = radio_tower
+        utils.link_gates('factory-to-warp', 'warp-to-factory', storage.teleporter['factory-to-warp'].from, radio_tower)
+        utils.link_cables(storage.teleporter['factory-to-warp'].from, radio_tower, defines.wire_connectors.logic)
     end
 
-    --- update warp gate
+    --- update electricity link
+    local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
+    local factory_power_pole = storage.platform.factory.surface.find_entity(dw.entities.pole_factory_surface.name, dw.entities.pole_factory_surface.position)
+    if surface_radio_pole and factory_power_pole then
+        utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.pdower)
+    end
 end
 
 
@@ -190,6 +179,13 @@ local function on_technology_research_finished(event)
     if string.match(tech.name, "warp%-platform%-size%-%d+") then
         storage.platform.warp.size = 14 * tech.level + 8
         dw.update_warp_platform_size()
+    end
+
+    if string.match(tech.name, "platform%-radar") then
+        local radio_tower = storage.warp.current.surface.find_entity(dw.entities.surface_radio_station.name, dw.entities.surface_radio_station.position)
+        if radio_tower then
+            radio_tower.active = true
+        end
     end
 end
 

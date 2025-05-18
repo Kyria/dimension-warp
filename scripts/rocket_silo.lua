@@ -1,4 +1,6 @@
 --- prevent the rocket silo from being built everywhere.
+------------------------------------------------------------
+---
 local function prevent_building_except_in_factory(event)
     local source = (event.robot) and event.robot or game.players[event.player_index]
     local entity = event.entity

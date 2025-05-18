@@ -1,3 +1,6 @@
+--- Surface generation and randomization
+------------------------------------------------------------
+
 --- increase the richness / frequency of ore.
 local function ore_rich_gen(mapgen, resources)
     local richness_multiplier = math.random(1, settings.global['dw-max-richness-multiplier'].value)

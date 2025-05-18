@@ -28,6 +28,7 @@ require 'others.inserter'
 require 'others.damage'
 require 'others.drones'
 require 'others.mining'
+require 'others.radar'
 
 -- specific changes for tech if space-age is active.
 if mods['space-age'] then

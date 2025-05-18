@@ -1,3 +1,5 @@
+--- Everything related to DW GUI is here.
+------------------------------------------------------------
 dw.gui = dw.gui or {}
 
 dw.gui.get_warp_toggle_button = function(player)

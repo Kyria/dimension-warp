@@ -1,4 +1,5 @@
---- Start event controls.
+--- Intro scripts, until players go to neo nauvis
+------------------------------------------------------------
 
 --- blueprint for the exploding base
 local bp_nauvis_lab = {

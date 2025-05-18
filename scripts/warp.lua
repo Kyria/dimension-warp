@@ -1,3 +1,6 @@
+--- warp between surface and timers are managed in this file
+------------------------------------------------------------
+
 local function calculate_manual_warp_time()
     local base_time = 10 --seconds
     local max_time = settings.global['dw-manual-warp-max-time'].value * 60

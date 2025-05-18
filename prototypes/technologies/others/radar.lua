@@ -1,0 +1,25 @@
+data:extend{
+    {
+        type = "technology",
+        name = "platform-radar",
+        icons = {
+            {
+                icon = "__base__/graphics/technology/radar.png",
+                icon_size = 256,
+                tint = defines.color.royalblue,
+            }
+        },
+        prerequisites = {
+            "electrified-ground",
+            "radar"
+        },
+        unit = {
+            count = 500,
+            ingredients = {
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+            },
+            time = 60,
+        },
+    }
+}
