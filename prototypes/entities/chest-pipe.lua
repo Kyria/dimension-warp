@@ -7,21 +7,21 @@ local dimension_chest = table.deepcopy(data.raw['container']['steel-chest'])
 dimension_chest.name = "dw-chest"
 dimension_chest.minable = nil
 dimension_chest.placeable_by = nil
-dimension_chest.fast_replaceable_group = nil
+dimension_chest.fast_replaceable_group = "stair-chest"
 util.recursive_tint(dimension_chest, defines.color.dimgrey)
 
 local input_chest = table.deepcopy(data.raw['logistic-container'][default_input] or data.raw['logistic-container']['requester-chest'])
 input_chest.name = "dw-logistic-input"
 input_chest.minable = nil
 input_chest.placeable_by = nil
-input_chest.fast_replaceable_group = nil
+input_chest.fast_replaceable_group = "stair-chest"
 util.recursive_tint(input_chest, defines.color.dimgrey)
 
 local output_chest = table.deepcopy(data.raw['logistic-container'][default_output] or data.raw['logistic-container']['active-provider-chest'])
 output_chest.name = "dw-logistic-output"
 output_chest.minable = nil
 output_chest.placeable_by = nil
-output_chest.fast_replaceable_group = nil
+output_chest.fast_replaceable_group = "stair-chest"
 util.recursive_tint(output_chest, defines.color.dimgrey)
 
 local pipetoground = table.deepcopy(data.raw['pipe-to-ground']['pipe-to-ground'])

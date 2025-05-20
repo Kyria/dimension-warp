@@ -9,6 +9,7 @@ if dw.setting_loader_mod == "aai-loaders" then
     loader.localised_description = nil
     loader.energy_source = {type = "void"}
     loader.placeable_by = nil
+    loader.fast_replaceable_group = "stair-loader"
     loader.heating_energy = nil
     loader.next_upgrade = nil
     loader.minable = nil
@@ -17,6 +18,7 @@ if dw.setting_loader_mod == "aai-loaders" then
     fast_loader.localised_description = nil
     fast_loader.energy_source = {type = "void"}
     fast_loader.placeable_by = nil
+    fast_loader.fast_replaceable_group = "stair-loader"
     fast_loader.heating_energy = nil
     fast_loader.next_upgrade = nil
     fast_loader.minable = nil
@@ -24,16 +26,17 @@ if dw.setting_loader_mod == "aai-loaders" then
     express_loader.name = "dw-stair-express-loader"
     express_loader.localised_description = nil
     express_loader.energy_source = {type = "void"}
+    express_loader.fast_replaceable_group = "stair-loader"
     express_loader.placeable_by = nil
     express_loader.heating_energy = nil
     express_loader.next_upgrade = nil
     express_loader.minable = nil
 
     local tech = data.raw['technology']['aai-fast-loader'] and "aai-fast-loader" or "logistics-2"
-    local dw_tech_fast_loader = dw.create_stair_loader_tech("dw-fast-loader", tech)
+    local dw_tech_fast_loader = dw.create_stair_loader_tech("fast-loader", tech)
 
     local tech = data.raw['technology']['aai-express-loader'] and "aai-express-loader" or "logistics-3"
-    local dw_tech_express_loader = dw.create_stair_loader_tech("dw-express-loader", tech, dw_tech_fast_loader.name)
+    local dw_tech_express_loader = dw.create_stair_loader_tech("express-loader", tech, dw_tech_fast_loader.name)
 
     data.extend{
         loader,
@@ -49,13 +52,14 @@ if dw.setting_loader_mod == "aai-loaders" then
         turbo_loader.name = "dw-stair-turbo-loader"
         turbo_loader.localised_description = nil
         turbo_loader.energy_source = {type = "void"}
+        turbo_loader.fast_replaceable_group = "stair-loader"
         turbo_loader.placeable_by = nil
         turbo_loader.heating_energy = nil
         turbo_loader.next_upgrade = nil
         turbo_loader.minable = nil
 
         local tech = data.raw['technology']['aai-turbo-loader'] and "aai-turbo-loader" or "turbo-transport-belt"
-        local dw_tech_turbo_loader = dw.create_stair_loader_tech("dw-turbo-loader", tech, dw_tech_express_loader.name)
+        local dw_tech_turbo_loader = dw.create_stair_loader_tech("turbo-loader", tech, dw_tech_express_loader.name)
 
         data.extend{
             turbo_loader,

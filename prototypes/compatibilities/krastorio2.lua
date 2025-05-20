@@ -46,6 +46,7 @@ if dw.setting_loader_mod == "Krastorio2" then
     loader.localised_description = nil
     loader.energy_source = {type = "void"}
     loader.next_upgrade = nil
+    loader.fast_replaceable_group = "stair-loader"
     loader.placeable_by = nil
     loader.heating_energy = nil
     loader.minable = nil
@@ -54,6 +55,7 @@ if dw.setting_loader_mod == "Krastorio2" then
     fast_loader.localised_description = nil
     fast_loader.energy_source = {type = "void"}
     fast_loader.next_upgrade = nil
+    fast_loader.fast_replaceable_group = "stair-loader"
     fast_loader.placeable_by = nil
     fast_loader.heating_energy = nil
     fast_loader.minable = nil
@@ -62,6 +64,7 @@ if dw.setting_loader_mod == "Krastorio2" then
     express_loader.localised_description = nil
     express_loader.energy_source = {type = "void"}
     express_loader.next_upgrade = nil
+    express_loader.fast_replaceable_group = "stair-loader"
     express_loader.placeable_by = nil
     express_loader.heating_energy = nil
     express_loader.minable = nil
@@ -70,6 +73,7 @@ if dw.setting_loader_mod == "Krastorio2" then
     adv_loader.localised_description = nil
     adv_loader.energy_source = {type = "void"}
     adv_loader.next_upgrade = nil
+    adv_loader.fast_replaceable_group = "stair-loader"
     adv_loader.placeable_by = nil
     adv_loader.heating_energy = nil
     adv_loader.minable = nil
@@ -77,15 +81,16 @@ if dw.setting_loader_mod == "Krastorio2" then
     sup_loader.name = "dw-stair-superior-loader"
     sup_loader.localised_description = nil
     sup_loader.energy_source = {type = "void"}
+    sup_loader.fast_replaceable_group = "stair-loader"
     sup_loader.next_upgrade = nil
     sup_loader.placeable_by = nil
     sup_loader.heating_energy = nil
     sup_loader.minable = nil
 
-    local dw_tech_fast_loader = dw.create_stair_loader_tech("dw-fast-loader", "logistics-2")
-    local dw_tech_express_loader = dw.create_stair_loader_tech("dw-express-loader", "logistics-3", dw_tech_fast_loader.name)
-    local dw_tech_adv_loader = dw.create_stair_loader_tech("dw-advanced-loader", "kr-logistic-4", dw_tech_express_loader.name)
-    local dw_tech_sup_loader = dw.create_stair_loader_tech("dw-superior-loader", "kr-logistic-5", dw_tech_adv_loader.name)
+    local dw_tech_fast_loader = dw.create_stair_loader_tech("fast-loader", "logistics-2")
+    local dw_tech_express_loader = dw.create_stair_loader_tech("express-loader", "logistics-3", dw_tech_fast_loader.name)
+    local dw_tech_adv_loader = dw.create_stair_loader_tech("advanced-loader", "kr-logistic-4", dw_tech_express_loader.name)
+    local dw_tech_sup_loader = dw.create_stair_loader_tech("superior-loader", "kr-logistic-5", dw_tech_adv_loader.name)
 
     data.extend{
         loader,
@@ -112,6 +117,7 @@ if dw.setting_loader_mod == "vanilla" then
         dim_loader.energy_source = {type = "void"}
         dim_loader.icons[2].tint = params.tint_darker
         dim_loader.structure = dw.loaders_generate_structure(params.tint_darker)
+        dim_loader.fast_replaceable_group = "stair-loader"
         dim_loader.placeable_by = nil
         dim_loader.next_upgrade = nil
         dim_loader.minable = nil
@@ -126,6 +132,6 @@ if dw.setting_loader_mod == "vanilla" then
     data:extend(data_list)
 
     data.raw['loader-1x1']['dw-express-loader'].next_upgrade = "dw-advanced-loader"
-    data:extend{dw.create_stair_loader_tech('dw-advanced-loader', template['advanced-loader'].tech, "dw-express-loader-stairs")}
-    data:extend{dw.create_stair_loader_tech('dw-superior-loader', template['superior-loader'].tech, "dw-advanced-loader-stairs")}
+    data:extend{dw.create_stair_loader_tech('advanced-loader', template['advanced-loader'].tech, "dw-express-loader-stairs")}
+    data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-advanced-loader-stairs")}
 end

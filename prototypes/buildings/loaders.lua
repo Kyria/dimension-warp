@@ -78,6 +78,7 @@ if dw.setting_loader_mod == "vanilla" then
         dim_loader.energy_source = {type = "void"}
         dim_loader.icons[2].tint = params.tint_darker
         dim_loader.structure = dw.loaders_generate_structure(params.tint_darker)
+        dim_loader.fast_replaceable_group = "stair-loader"
         dim_loader.placeable_by = nil
         dim_loader.next_upgrade = nil
         dim_loader.minable = nil
@@ -90,9 +91,9 @@ if dw.setting_loader_mod == "vanilla" then
         ::continue::
     end
     data:extend(data_list)
-    data:extend{dw.create_stair_loader_tech('dw-fast-loader', template['fast-loader'].tech)}
-    data:extend{dw.create_stair_loader_tech('dw-express-loader', template['express-loader'].tech, "dw-fast-loader-stairs")}
+    data:extend{dw.create_stair_loader_tech('fast-loader', template['fast-loader'].tech)}
+    data:extend{dw.create_stair_loader_tech('express-loader', template['express-loader'].tech, "dw-fast-loader-stairs")}
     if mods['space-age'] then
-        data:extend{dw.create_stair_loader_tech('dw-turbo-loader', template['turbo-loader'].tech, "dw-express-loader-stairs")}
+        data:extend{dw.create_stair_loader_tech('turbo-loader', template['turbo-loader'].tech, "dw-express-loader-stairs")}
     end
 end

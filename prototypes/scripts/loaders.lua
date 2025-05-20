@@ -181,7 +181,7 @@ dw.create_loader = function (loader_name, params)
         dying_explosion = "underground-belt-explosion",
         resistances = params.belt.resistances,
         damaged_trigger_effect = hit_effects.entity(),
-        fast_replaceable_group = "transport-belt",
+        fast_replaceable_group = "loader",
     }
 
     if mods['space-age'] then
@@ -273,7 +273,7 @@ dw.create_stair_loader_tech = function(loader, unlock_tech, previous_level)
 
     local technology = {
         type = 'technology',
-        name = loader .. "-stairs",
+        name = 'dw-' .. loader .. "-stairs",
         icons = icons,
         prerequisites = prerequisites,
         unit = data.raw['technology'][unlock_tech].unit,
