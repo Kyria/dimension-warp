@@ -53,10 +53,12 @@ local function set_globals()
     storage.players_last_teleport = storage.players_last_teleport or {}
     storage.stairs = storage.stairs or {
         chest_type = {from = "dw-chest", to="dw-chest"},
-        chest_number = 6,
+        pipes_type = "dw-pipe",
+        chest_number = 2,
         loader_tier = "dw-stair-loader",
         chest_pairs = {},
         chest_loader_pairs = {surface={}, produstia={}, smeltus={}, electria={}},
+        pipe_pairs = {},
     }
 end
 dw.register_event('on_init', set_globals)

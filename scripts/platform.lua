@@ -141,6 +141,43 @@ dw.teleport_platform = function()
 end
 
 
+local function relink_loader_chest(surface, positions_list)
+    for _, positions in pairs(positions_list) do
+        local chest_index = 'surface_' .. positions.chests[1][1] .. '_' .. positions.chests[1][2]
+        local loader_index = 'surface_' .. positions.loaders[1][1] .. '_' .. positions.loaders[1][2]
+
+        --- if we didn't store any pair with that index, it means the chest/loader pair is not yet deployed
+        if not storage.stairs.chest_pairs[chest_index] then goto continue end
+
+        local chest = surface.find_entities_filtered{position = positions.chests[1], name = {"dw-chest", "dw-logistic-input", "dw-logistic-output"}}
+        local loader = surface.find_entities_filtered{position = positions.loaders[1], name = {storage.stairs.loader_tier}}
+
+        if chest[1] and loader[1] then
+            storage.stairs.chest_pairs[chest_index].A = chest[1]
+            storage.stairs.chest_loader_pairs.surface[loader_index].loader = loader[1]
+            storage.stairs.chest_loader_pairs.surface[loader_index].chest = chest[1]
+        end
+        ::continue::
+    end
+end
+
+local function relink_pipes(surface, positions_list)
+    for _, positions in pairs(positions_list) do
+        local index = 'surface_' .. positions.pipes[1][1] .. '_' .. positions.pipes[1][2]
+
+        --- if we didn't store any pair with that index, it means the pipe pair is not yet deployed
+        if not storage.stairs.pipe_pairs[index] then goto continue end
+
+        local pipe = surface.find_entities_filtered{position = positions.pipes[1], name = {storage.stairs.pipes_type}}
+
+        if pipe[1] then
+            storage.stairs.pipe_pairs[index].A = pipe[1]
+            pipe[1].fluidbox.add_linked_connection(0, storage.stairs.pipe_pairs[index].B, 0)
+        end
+        ::continue::
+    end
+end
+
 --- force update some entities that may be broken due to clone
 --- and the fact surfaces are not linked to planet asoon as they are created
 dw.platform_force_update_entities = function()
@@ -171,6 +208,10 @@ dw.platform_force_update_entities = function()
     if surface_radio_pole and factory_power_pole then
         utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.pdower)
     end
+
+    --- relink loaders/chests between surfaces
+    relink_loader_chest(surface, dw.stairs.surface_factory)
+    relink_pipes(surface, dw.stairs.surface_factory)
 end
 
 

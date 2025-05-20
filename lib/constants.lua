@@ -135,31 +135,37 @@ dw.stairs = {
         {
             chests = {{-1.5, -7.5}, {-2.5, -7.5}},
             loaders = {{-1.5, -6.5}, {-2.5, -6.5}},
+            pipes = {{-4.5, -7.5}, {-5.5, -7.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         },
         {
             chests = {{1.5, -7.5}, {2.5, -7.5}},
             loaders = {{1.5, -6.5}, {2.5, -6.5}},
+            pipes = {{4.5, -7.5}, {5.5, -7.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         },
         {
             chests = {{-2.5, -7.5}, {-3.5, -7.5}},
             loaders = {{-2.5, -6.5}, {-3.5, -6.5}},
+            pipes = {{-4.5, -6.5}, {-5.5, -6.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         },
         {
             chests = {{2.5, -7.5}, {3.5, -7.5}},
             loaders = {{2.5, -6.5}, {3.5, -6.5}},
+            pipes = {{4.5, -6.5}, {5.5, -6.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         },
         {
             chests = {{-3.5, -7.5}, {-4.5, -7.5}},
             loaders = {{-3.5, -6.5}, {-4.5, -6.5}},
+            pipes = {{-4.5, -5.5}, {-5.5, -5.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         },
         {
             chests = {{3.5, -7.5}, {4.5, -7.5}},
             loaders = {{3.5, -6.5}, {4.5, -6.5}},
+            pipes = {{4.5, -5.5}, {5.5, -5.5}},
             direction = {defines.loader_facting.top, defines.loader_facting.top}
         }
     },
@@ -167,31 +173,37 @@ dw.stairs = {
         {
             chests = {{-2.5, 7.5}, {-2.5, -7.5}},
             loaders = {{-2.5, 6.5}, {-2.5, -6.5}},
+            pipes = {{-5.5, 5.5}, {-5.5, -7.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{2.5, 7.5}, {2.5, -7.5}},
             loaders = {{2.5, 6.5}, {2.5, -6.5}},
+            pipes = {{5.5, 5.5}, {5.5, -7.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{-3.5, 7.5}, {-3.5, -7.5}},
             loaders = {{-3.5, 6.5}, {-3.5, -6.5}},
+            pipes = {{-5.5, 6.5}, {-5.5, -6.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{3.5, 7.5}, {3.5, -7.5}},
             loaders = {{3.5, 6.5}, {3.5, -6.5}},
+            pipes = {{5.5, 6.5}, {5.5, -6.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{-4.5, 7.5}, {-4.5, -7.5}},
             loaders = {{-4.5, 6.5}, {-4.5, -6.5}},
+            pipes = {{-5.5, 7.5}, {-5.5, -5.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{4.5, 7.5}, {4.5, -7.5}},
             loaders = {{4.5, 6.5}, {4.5, -6.5}},
+            pipes = {{5.5, 7.5}, {5.5, -5.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         }
     },
@@ -199,31 +211,37 @@ dw.stairs = {
         {
             chests = {{-2.5, 7.5}, {-2.5, -5.5}},
             loaders = {{-2.5, 6.5}, {-2.5, -4.5}},
+            pipes = {{-5.5, 5.5}, {-5.5, -5.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{2.5, 7.5}, {2.5, -5.5}},
             loaders = {{2.5, 6.5}, {2.5, -4.5}},
+            pipes = {{5.5, 5.5}, {5.5, -5.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{-3.5, 7.5}, {-3.5, -5.5}},
             loaders = {{-3.5, 6.5}, {-3.5, -4.5}},
+            pipes = {{-5.5, 6.5}, {-5.5, -4.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{3.5, 7.5}, {3.5, -5.5}},
             loaders = {{3.5, 6.5}, {3.5, -4.5}},
+            pipes = {{5.5, 6.5}, {5.5, -4.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{-4.5, 7.5}, {-4.5, -5.5}},
             loaders = {{-4.5, 6.5}, {-4.5, -4.5}},
+            pipes = {{-5.5, 7.5}, {-5.5, -3.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         },
         {
             chests = {{4.5, 7.5}, {4.5, -5.5}},
             loaders = {{4.5, 6.5}, {4.5, -4.5}},
+            pipes = {{5.5, 7.5}, {5.5, -3.5}},
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         }
     },

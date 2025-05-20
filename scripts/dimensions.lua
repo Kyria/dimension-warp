@@ -151,6 +151,46 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
     end
 end
 
+--- surface A should always be first surface in dw.stairs index name.
+--- surface B should always be second surface in dw.stairs index name.
+--- order matters as it's used for the storage
+local function create_pipe_pairs(surface_A, surface_B, positions)
+    local surface_name_A = dw.safe_surfaces[surface_A.name] and surface_A.name or "surface"
+
+    local max = math.min(#positions, storage.stairs.chest_number)
+    for i = 1, max, 1 do
+        local pipe_index = surface_name_A .. '_' .. positions[i].pipes[1][1] .. '_' .. positions[i].pipes[1][2]
+
+        if storage.stairs.pipe_pairs[pipe_index] then goto continue end
+
+        --- destroy what's existing in pipe position
+        local to_remove = surface_A.find_entities_filtered {position = positions[i].pipes[1], type = {"character"}, invert = true}
+        for _, entity in pairs(to_remove) do entity.destroy() end
+        local pipe_A = surface_A.create_entity {
+            name = storage.stairs.pipes_type,
+            position = positions[i].pipes[1],
+            force = game.forces.player,
+            direction = (i % 2 == 0) and defines.direction.east or defines.direction.west,
+        }
+        pipe_A.destructible = false
+
+        local to_remove = surface_B.find_entities_filtered {position = positions[i].pipes[2], type = {"character"}, invert = true}
+        for _, entity in pairs(to_remove) do entity.destroy() end
+        local pipe_B = surface_B.create_entity {
+            name = storage.stairs.pipes_type,
+            position = positions[i].pipes[2],
+            force = game.forces.player,
+            direction = (i % 2 == 0) and defines.direction.east or defines.direction.west,
+        }
+        pipe_B.destructible = false
+
+        pipe_A.fluidbox.add_linked_connection(0, pipe_B, 0)
+        storage.stairs.pipe_pairs[pipe_index] = {A = pipe_A, B = pipe_B}
+        ::continue::
+    end
+end
+
+
 local function create_warp_factory_teleporters_logistic()
     local gate_1 = create_special_entity(storage.platform.factory.surface, dw.entities.gate_factory_surface, true)
     local gate_2 = create_special_entity(storage.warp.current.surface, dw.entities.surface_radio_station, true)
@@ -163,6 +203,7 @@ local function create_warp_factory_teleporters_logistic()
     utils.link_cables(pole_1, pole_2, defines.wire_connectors.power)
 
     create_loader_chest_pair(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+    create_pipe_pairs(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
 end
 
 local function create_factory_mining_teleporters_logistic()
@@ -176,6 +217,7 @@ local function create_factory_mining_teleporters_logistic()
     utils.link_cables(pole_1, pole_2, defines.wire_connectors.power)
 
     create_loader_chest_pair(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
+    create_pipe_pairs(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
 end
 
 local function create_mining_power_teleporters_logistic()
@@ -189,6 +231,7 @@ local function create_mining_power_teleporters_logistic()
     utils.link_cables(pole_1, pole_2, defines.wire_connectors.power)
 
     create_loader_chest_pair(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
+    create_pipe_pairs(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
 end
 
 
@@ -296,19 +339,13 @@ local function on_technology_research_finished(event)
 end
 
 local function transfert_chest_content(inventory_from, inventory_to)
-    -- for i = 1, #inventory_from do
-    --     local stack = inventory_from[i]
-    --     if stack.valid_for_read then
-    --         local inserted = inventory_to.insert(stack)
-    --         if inserted > 0 then
-    --             stack.count = stack.count - inserted
-    --         end
-    --     end
-    -- end
-    for _, item in pairs(inventory_from.get_contents()) do
-        local inserted = inventory_to.insert(item)
-        if inserted > 0 then
-            inventory_from.remove({name = item.name, quality = item.quality, count = inserted})
+    for i = 1, #inventory_from do
+        local stack = inventory_from[i]
+        if stack.valid_for_read then
+            local inserted = inventory_to.insert(stack)
+            if inserted > 0 then
+                stack.count = stack.count - inserted
+            end
         end
     end
 end
@@ -399,5 +436,5 @@ local function invert_chest_flow(event)
 end
 
 dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
-dw.register_event("on_nth_tick_10", move_chest_items)
+dw.register_event("on_nth_tick_5", move_chest_items)
 dw.register_event(defines.events.on_player_rotated_entity, invert_chest_flow)
