@@ -51,6 +51,13 @@ local function set_globals()
         ['surface-to-harvester-right'] =    {active = false},
     }
     storage.players_last_teleport = storage.players_last_teleport or {}
+    storage.stairs = storage.stairs or {
+        chest_type = {from = "dw-chest", to="dw-chest"},
+        chest_number = 6,
+        loader_tier = "dw-stair-loader",
+        chest_pairs = {},
+        chest_loader_pairs = {surface={}, produstia={}, smeltus={}, electria={}},
+    }
 end
 dw.register_event('on_init', set_globals)
 
@@ -68,10 +75,3 @@ require "scripts.warp"
 require "scripts.rocket_silo"
 
 require "scripts.debug"
-
--- on_event("factory-rotate", function(event)
---     local player = game.get_player(event.player_index)
---     local entity = player.selected
---     if not entity or entity.type == "XXX" then return end
---     -- action
--- end
