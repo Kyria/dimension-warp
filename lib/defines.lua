@@ -3,6 +3,22 @@ defines.wire_connectors = {
     power = {defines.wire_connector_id.pole_copper},
 }
 
+defines.item_direction = {
+    push = 1,
+    pull = 2,
+}
+
+defines.warp = {
+    awaiting = 1,
+    preparing = 2,
+    warping = 3,
+}
+
+defines.loader_facting = {
+    top = {input = defines.direction.north, output = defines.direction.south},
+    bottom = {input = defines.direction.south, output = defines.direction.north}
+}
+
 defines.color = {
     darkgray = {r = 0.6627, g = 0.6627, b = 0.6627, a = 1},
     aliceblue = {r = 0.9412, g = 0.9725, b = 1.0000, a = 1},
@@ -146,10 +162,4 @@ defines.color = {
     whitesmoke = {r = 0.9608, g = 0.9608, b = 0.9608, a = 1},
     yellow = {r = 1.0000, g = 1.0000, b = 0.0000, a = 1},
     yellowgreen = {r = 0.6039, g = 0.8039, b = 0.1961, a = 1}
-}
-
-defines.warp = {
-    awaiting = 1,
-    preparing = 2,
-    warping = 3,
 }
