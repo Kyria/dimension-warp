@@ -15,7 +15,7 @@ data:extend({
         corpse = "radar-remnants",
         dying_explosion = "radar-explosion",
 
-        is_military_target = false,
+        is_military_target = true,
         circuit_connector = {
             points = {
                 shadow ={
@@ -34,7 +34,13 @@ data:extend({
 
         energy_per_nearby_scan = "250kJ",
         energy_per_sector = "500kJ",
-        energy_source = {type = "void"},
+        energy_source = {
+            type = "void",
+            emissions_per_minute = {
+                pollution = 50,
+                spores = 50,
+            }
+        },
         energy_usage = "100kW",
         max_distance_of_nearby_sector_revealed = 4,
         max_distance_of_sector_revealed = 14,
