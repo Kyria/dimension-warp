@@ -96,8 +96,8 @@ dw.teleport_platform = function()
     --- check for players, and teleport them to the new surface
     for _, player in pairs(game.players) do
         if player.surface.name == source.name then
-            if math2d.bounding_box.contains_point(platform_area_delta, player.position) then
-                dw.safe_teleport(player, storage.warp.current.surface, player.position, true)
+            if math2d.bounding_box.contains_point(platform_area_delta, player.physical_position) then
+                dw.safe_teleport(player, storage.warp.current.surface, player.physical_position, true)
             else
                 player.character.die()
             end
