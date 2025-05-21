@@ -9,14 +9,14 @@ local non_player_controllers = {
 }
 
 --- contain everything related to player teleport between surfaces
-dw.safe_teleport = function(player_or_vehicle, surface, position)
+dw.safe_teleport = function(player_or_vehicle, surface, position, force_teleport)
     position = {x = position.x or position[1], y = position.y or position[2]}
     local is_player = player_or_vehicle.is_player()
     local type = is_player and player_or_vehicle.character.name or player_or_vehicle.prototype
     local index = is_player and player_or_vehicle.index or player_or_vehicle.unit_number
 
     if not surface then return end
-    if non_player_controllers[player_or_vehicle.controller_type] then return end
+    if non_player_controllers[player_or_vehicle.controller_type] and not force_teleport then return end
 
     -- prevent teleporting from anywhere to the surface if we are currently in warp
     if storage.warp.status ~= defines.warp.awaiting and surface.name == storage.warp.previous.name then
@@ -102,7 +102,7 @@ local function teleport_safely_player_on_event(event)
     --- make sure to teleport any new player to the current warp surface
     if storage.nauvis_lab_exploded then
         if not dw.safe_surfaces[player.surface.name] then
-            dw.safe_teleport(player, storage.warp.current.surface, {0, 0})
+            dw.safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
         end
     end
 end

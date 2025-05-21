@@ -54,7 +54,7 @@ dw.teleport_platform = function()
     }
     for _, vehicle in pairs(vehicles) do
         local position = vehicle.position
-        dw.safe_teleport(vehicle, destination, position)
+        dw.safe_teleport(vehicle, destination, position, true)
     end
 
     --- check for train related stuff, as we don't want to teleport them there
@@ -97,7 +97,7 @@ dw.teleport_platform = function()
     for _, player in pairs(game.players) do
         if player.surface.name == source.name then
             if math2d.bounding_box.contains_point(platform_area_delta, player.position) then
-                dw.safe_teleport(player, storage.warp.current.surface, player.position)
+                dw.safe_teleport(player, storage.warp.current.surface, player.position, true)
             else
                 player.character.die()
             end
