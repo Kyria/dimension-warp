@@ -1,12 +1,36 @@
 local tech_list = {
+    "------- MISC -------",
     "electrified-ground",
     "platform-radar",
+    "dw-factory-beacon-1",
+    "dw-factory-beacon-2",
+    "dw-factory-beacon-3",
+    "dw-factory-beacon-4",
+    "dw-factory-beacon-5",
+    "dw-factory-beacon-6",
+    "dw-factory-beacon-7",
+    "------- Generator -------",
     "warp-generator-1",
     "warp-generator-2",
     "warp-generator-3",
     "warp-generator-4",
     "warp-generator-5",
     "warp-generator-6",
+    "------- Platform -------",
+    "power-platform",
+    "mining-platform",
+    "factory-platform",
+    "------- Stairs -------",
+    "dw-stair-logistic-chest",
+    "dw-number-stairs-superior",
+    "dw-number-stairs-advanced",
+    "dw-fast-loader-stairs",
+    "dw-express-loader-stairs",
+    "dw-turbo-loader-stairs",
+    "------- Stairs K2 -------",
+    "dw-advanced-loader-stairs",
+    "dw-superior-loader-stairs",
+    "------- Sizes -------",
     "warp-platform-size-1",
     "warp-platform-size-2",
     "warp-platform-size-3",
@@ -14,9 +38,6 @@ local tech_list = {
     "warp-platform-size-5",
     "warp-platform-size-6",
     "warp-platform-size-7",
-    "power-platform",
-    "mining-platform",
-    "factory-platform",
     "factory-platform-upgrade-1",
     "factory-platform-upgrade-2",
     "factory-platform-upgrade-3",
@@ -99,7 +120,10 @@ end
 
 local function debug_clicked(event)
     if not event.element.valid then return end
-    if event.element.name == "trigger-next-warp" then dw.prepare_warp_to_next_surface() end
+    if event.element.name == "trigger-next-warp" then
+        dw.prepare_warp_to_next_surface()
+        storage.timer.warp = storage.timer.base
+    end
     if event.element.name == "give-starter-item" then give_debug_items(event.player_index) end
     if event.element.name == "debug-tech-grant" then grant_tech(event.player_index) end
 end
