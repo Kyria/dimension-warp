@@ -33,6 +33,8 @@ require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
 require 'prototypes.entities.chest-pipe'
 require 'prototypes.entities.power-pole'
+require 'prototypes.entities.hidden-radar'
+require 'prototypes.entities.factory-beacon'
 require 'prototypes.buildings.loaders'
 
 
