@@ -27,7 +27,7 @@ local template = {
         tint_darker = util.color('#7a248ad9'),
         belt = data.raw['transport-belt']['kr-superior-transport-belt'],
         ingredients = {
-            {type = 'item', name = "dw-express-loader", amount = 1},
+            {type = 'item', name = "dw-advanced-loader", amount = 1},
             {type = "item", name = "kr-imersium-gear-wheel", amount = 25},
             {type = "item", name = "kr-imersium-plate", amount = 25},
         },
