@@ -151,6 +151,25 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
     end
 end
 
+local function upgrade_stairs()
+    for surface_name, loader_pair in pairs(storage.stairs.chest_loader_pairs) do
+        for index, stairs in pairs(loader_pair) do
+            local loader = stairs.loader
+            local surface = stairs.loader.surface
+            local new_loader = surface.create_entity{
+                name = storage.stairs.loader_tier,
+                position = loader.position,
+                force = game.forces.player,
+                direction = loader.direction,
+                type = loader.loader_type,
+                fast_replace = true,
+            }
+            new_loader.destructible = false
+            storage.stairs.chest_loader_pairs[surface_name][index].loader = new_loader
+        end
+    end
+end
+
 --- surface A should always be first surface in dw.stairs index name.
 --- surface B should always be second surface in dw.stairs index name.
 --- order matters as it's used for the storage
@@ -286,6 +305,24 @@ end
 local function on_technology_research_finished(event)
     local tech = event.research
 
+    if string.match(tech.name, "dw%-.*%-loader%-stairs") then
+        local loader = string.match(tech.name, "dw%-(.*)%-stairs")
+        if loader then
+            storage.stairs.loader_tier = "dw-stair-" .. loader
+            upgrade_stairs()
+        end
+    end
+
+    if string.match(tech.name, "dw%-number%-stairs%-.*") then
+        storage.stairs.chest_number = storage.stairs.chest_number + 2
+        create_loader_chest_pair(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
+        create_loader_chest_pair(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
+        create_loader_chest_pair(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+        create_pipe_pairs(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
+        create_pipe_pairs(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
+        create_pipe_pairs(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+    end
+
     if string.match(tech.name, "electrified%-ground") then
         storage.platform.electrified_ground = true
         if storage.platform.factory.surface then
@@ -332,7 +369,7 @@ local function on_technology_research_finished(event)
         init_update_power_platform()
     end
 
-    if string.match(tech.name, "dimension%-harvester%-%s+%-%d+") then
+    if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
         storage.harvester.side.size = tech.level ^ 2 + tech.level + 10
         storage.harvester.side.border = math.max((tech.level - 1), 2)
     end
@@ -368,7 +405,7 @@ end
 
 local function invert_chest_flow(event)
     local entity = event.entity
-    if string.match(entity.name, "dw%-stair%-loader") or string.match(entity.name, "dw%-stair%-%s+%-loader") then
+    if string.match(entity.name, "dw%-stair%-loader") or string.match(entity.name, "dw%-stair%-%a+%-loader") then
         local surface_name = dw.safe_surfaces[entity.surface.name] and entity.surface.name or "surface"
         local index = surface_name .. '_' .. entity.position.x .. '_' .. entity.position.y
         if storage.stairs.chest_loader_pairs[surface_name][index] then

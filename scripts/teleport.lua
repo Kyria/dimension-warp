@@ -42,7 +42,7 @@ local function check_player_teleport()
         end
 
 
-        local position = player.position
+        local position = player.physical_position
         local check_area = {
             {position.x - 0.4, position.y - 0.5},
             {position.x + 0.4, position.y + 0.5}
