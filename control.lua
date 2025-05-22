@@ -6,7 +6,7 @@ require "lib.lib"
 local function set_globals()
     --- platform globals
     storage.platform = storage.platform or {
-        warp = {size = 8},
+        warp = {size = dw.platform_size.warp[1]},
         factory = {size = 0, surface=nil},
         mining = {size = {x=0, y=0}, surface=nil},
         power = {size = 0, surface=nil},
@@ -52,7 +52,7 @@ local function set_globals()
     }
     storage.players_last_teleport = storage.players_last_teleport or {}
     storage.stairs = storage.stairs or {
-        chest_type = {from = "dw-chest", to="dw-chest"},
+        chest_type = {input = "dw-chest", output="dw-chest"},
         pipes_type = "dw-pipe",
         chest_number = 2,
         loader_tier = "dw-stair-loader",

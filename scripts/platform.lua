@@ -218,7 +218,7 @@ end
 local function on_technology_research_finished(event)
     local tech = event.research
     if string.match(tech.name, "warp%-platform%-size%-%d+") then
-        storage.platform.warp.size = 14 * tech.level + 8
+        storage.platform.warp.size = dw.platform_size.warp[tech.level + 1]
         dw.update_warp_platform_size()
     end
 
@@ -227,6 +227,13 @@ local function on_technology_research_finished(event)
         if radio_tower then
             radio_tower.active = true
         end
+        local radar = storage.platform.factory.surface.create_entity{name="dw-hidden-radar", force="player", position={0,0}}
+        radar.destructible = false
+        local radar = storage.platform.mining.surface.create_entity{name="dw-hidden-radar", force="player", position={0,0}}
+        radar.destructible = false
+        local radar = storage.platform.power.surface.create_entity{name="dw-hidden-radar", force="player", position={0,0}}
+        radar.destructible = false
+
     end
 end
 
