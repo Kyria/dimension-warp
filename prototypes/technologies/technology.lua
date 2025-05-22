@@ -28,14 +28,17 @@ require 'others.inserter'
 require 'others.damage'
 require 'others.drones'
 require 'others.mining'
-require 'others.radar'
-require 'others.stairs-number'
+
+require 'entities.radar'
+require 'entities.stairs'
+require 'entities.beacon'
 
 -- specific changes for tech if space-age is active.
 if mods['space-age'] then
     require 'space-age.warp-generator'
     require 'space-age.damage'
     require 'space-age.mining'
+    require 'space-age.stairs'
     require 'space-age.platforms.warp'
     require 'space-age.platforms.factory'
     require 'space-age.platforms.mining'

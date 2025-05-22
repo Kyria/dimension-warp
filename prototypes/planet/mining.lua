@@ -3,7 +3,7 @@
 
 local tile_name = settings.startup['dw-default-tile-background'].value
 local default_tile = (data.raw['tile'][tile_name]) and tile_name or "out-of-map"
-local icon = (mods['space-age']) and "__space-age__/graphics/icons/foundry.png" or "__base__/graphics/icons/electric-furnace.png"
+local icon = (mods['space-age']) and "__space-age__/graphics/technology/foundry.png" or "__base__/graphics/technology/advanced-material-processing-2.png"
 
 local smeltus = {
     name = "smeltus",
@@ -17,11 +17,12 @@ local smeltus = {
 
     icons = {{
         icon = icon,
+        icon_size = 256,
         tint = defines.color.peachpuff
     }},
     starmap_icons = {{
         icon = icon,
-        icon_size = 512,
+        icon_size = 256,
         tint = defines.color.peachpuff
     }},
 

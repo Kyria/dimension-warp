@@ -1,7 +1,7 @@
 
 local warp_platform_icon = {
     {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
-    {icon = data.raw["item"]["concrete"].icon, tint = defines.color.slategrey, scale = 1.5, shift = {20, 20}, floating = true},
+    {icon = "__base__/graphics/technology/concrete.png", tint = defines.color.slategray, icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
         icon_size = 128,

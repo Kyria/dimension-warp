@@ -1,7 +1,7 @@
 --- Boiler room: Electria
 local tile_name = settings.startup['dw-default-tile-background'].value
 local default_tile = (data.raw['tile'][tile_name]) and tile_name or "out-of-map"
-local icon = (mods['space-age']) and "__space-age__/graphics/icons/lightning.png" or "__base__/graphics/icons/accumulator.png"
+local icon = "__base__/graphics/technology/nuclear-power.png"
 
 local electria = {
     name = "electria",
@@ -15,11 +15,12 @@ local electria = {
 
     icons = {{
         icon = icon,
+        icon_size = 256,
         tint = defines.color.darkgoldenrod
     }},
     starmap_icons = {{
         icon = icon,
-        icon_size = 512,
+        icon_size = 256,
         tint = defines.color.darkgoldenrod
     }},
 

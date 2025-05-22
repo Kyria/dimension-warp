@@ -16,13 +16,14 @@ local produstia = {
     magnitude = 0.5,
 
     icons = {{
-        icon = "__base__/graphics/icons/assembling-machine-3.png",
-        tint = defines.color.steelblue
+        icon = "__base__/graphics/technology/automation-3.png",
+        icon_size = 256,
+        tint = defines.color.lightsteelblue
     }},
     starmap_icons = {{
-        icon = "__base__/graphics/icons/assembling-machine-3.png",
-        icon_size = 512,
-        tint = defines.color.steelblue
+        icon = "__base__/graphics/technology/automation-3.png",
+        icon_size = 256,
+        tint = defines.color.lightsteelblue
     }},
 
     pollutant_type = "pollution",
