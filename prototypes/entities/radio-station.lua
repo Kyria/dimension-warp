@@ -38,7 +38,6 @@ data:extend({
             type = "void",
             emissions_per_minute = {
                 pollution = 50,
-                spores = 50,
             }
         },
         energy_usage = "100kW",
@@ -88,3 +87,10 @@ data:extend({
         }
     }
 })
+
+if mods['space-age'] then
+    data.raw['radar']['radio-station'].energy_source.emissions_per_minute = {
+        pollution = 50,
+        spores = 50,
+    }
+end
