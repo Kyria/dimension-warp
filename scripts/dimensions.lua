@@ -77,7 +77,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
             local to_remove = surface_A.find_entities_filtered {position = positions[i].chests[1], type = {"character"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             chest_A = surface_A.create_entity {
-                name = (type == defines.item_direction.push) and storage.stairs.chest_type.from or storage.stairs.chest_type.to,
+                name = (type == defines.item_direction.push) and storage.stairs.chest_type.input or storage.stairs.chest_type.output,
                 position = positions[i].chests[1],
                 force = game.forces.player,
                 direction = defines.direction.north
@@ -90,7 +90,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
             local to_remove = surface_B.find_entities_filtered {position = positions[i].chests[2], type = {"character"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             chest_B = surface_B.create_entity {
-                name = (type == defines.item_direction.push) and storage.stairs.chest_type.to or storage.stairs.chest_type.from,
+                name = (type == defines.item_direction.push) and storage.stairs.chest_type.output or storage.stairs.chest_type.input,
                 position = positions[i].chests[2],
                 force = game.forces.player,
                 direction = defines.direction.north
@@ -169,6 +169,48 @@ local function upgrade_stairs()
         end
     end
 end
+
+local function update_chests()
+    for surface_name, loader_pair in pairs(storage.stairs.chest_loader_pairs) do
+        for index, stairs in pairs(loader_pair) do
+            local chest = stairs.chest
+            local surface = stairs.chest.surface
+
+            -- find the index of the chest pair
+            local chest_index = surface_name .. '_' .. chest.position.x .. '_' .. chest.position.y
+            local chest_pair_index = "A"
+            local chest_name = ""
+            if not storage.stairs.chest_pairs[chest_index] then
+                -- the current pair is not the "A" chest, so check from the pair ref
+                local pair_chest = storage.stairs.chest_loader_pairs[stairs.ref[1]][stairs.ref[2]].chest
+                local chest_surface_name = pair_chest.surface.name
+                chest_surface_name = dw.safe_surfaces[chest_surface_name] and chest_surface_name or "surface"
+                chest_index = chest_surface_name .. '_' .. pair_chest.position.x .. '_' .. pair_chest.position.y
+                chest_pair_index = "B"
+
+                -- here it means we are the "destination" of the item direction, so we need to inverse the chest type
+                local chest_type = storage.stairs.chest_pairs[chest_index].type
+                chest_name = (chest_type == defines.item_direction.push) and storage.stairs.chest_type.output or storage.stairs.chest_type.input
+            else
+                local chest_type = storage.stairs.chest_pairs[chest_index].type
+                chest_name = (chest_type == defines.item_direction.push) and storage.stairs.chest_type.input or storage.stairs.chest_type.output
+            end
+
+            -- upgrade the chest and store it in the globals
+            local new_chest = surface.create_entity{
+                name = chest_name,
+                position = chest.position,
+                force = game.forces.player,
+                direction = chest.direction,
+                fast_replace = true,
+            }
+            new_chest.destructible = false
+            storage.stairs.chest_loader_pairs[surface_name][index].chest = new_chest
+            storage.stairs.chest_pairs[chest_index][chest_pair_index] = new_chest
+        end
+    end
+end
+
 
 --- surface A should always be first surface in dw.stairs index name.
 --- surface B should always be second surface in dw.stairs index name.
@@ -263,11 +305,11 @@ local function init_update_power_platform()
     local tiles = {}
     local size = storage.platform.power.size
 
-    local horizontal_top_left = {-size, -math.ceil(size / 3)}
-    local horizontal_bottom_right = {size - 1, math.floor(size / 3)}
+    local horizontal_top_left = {-size, -size / 3}
+    local horizontal_bottom_right = {size - 1, (size / 3) - 1}
 
-    local vertical_top_left = {-math.ceil(size / 3), -size}
-    local vertical_bottom_right = {math.floor(size / 3), size - 1}
+    local vertical_top_left = {-size / 3, -size}
+    local vertical_bottom_right = {(size / 3) - 1, size - 1}
     utils.add_tiles(tiles, "energy-platform", horizontal_top_left, horizontal_bottom_right)
     utils.add_tiles(tiles, "energy-platform", vertical_top_left, vertical_bottom_right)
     storage.platform.power.surface.set_tiles(tiles)
@@ -323,6 +365,12 @@ local function on_technology_research_finished(event)
         create_pipe_pairs(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
     end
 
+    if string.match(tech.name, "dw%-stair%-logistic%-chest") then
+        storage.stairs.chest_type.input = "dw-logistic-input"
+        storage.stairs.chest_type.output = "dw-logistic-output"
+        update_chests()
+    end
+
     if string.match(tech.name, "electrified%-ground") then
         storage.platform.electrified_ground = true
         if storage.platform.factory.surface then
@@ -343,34 +391,44 @@ local function on_technology_research_finished(event)
         game.print({"dw-messages.electrified-ground"})
     end
 
+    if string.match(tech.name, "dw%-factory%-beacon%-%d") then
+        local entity = storage.platform.factory.surface.create_entity{
+            name = "dw-factory-beacon-" .. tech.level,
+            position = {0,0},
+            force = "player",
+            fast_replace = true
+        }
+        entity.destructible = false
+    end
+
     if string.match(tech.name, "factory%-platform") then
-        storage.platform.factory.size = 20
+        storage.platform.factory.size = dw.platform_size.factory[1]
         init_update_factory_platform()
     end
     if string.match(tech.name, "mining%-platform") then
-        storage.platform.mining.size = {x = 20, y = 16}
+        storage.platform.mining.size = dw.platform_size.mining[1]
         init_update_mining_platform()
     end
     if string.match(tech.name, "power%-platform") then
-        storage.platform.power.size = 20
+        storage.platform.power.size = dw.platform_size.power[1]
         init_update_power_platform()
     end
 
     if string.match(tech.name, "factory%-platform%-upgrade%-%d+") then
-        storage.platform.factory.size = 2 * tech.level ^ 2 + 5 * tech.level + 20
+        storage.platform.factory.size = dw.platform_size.factory[tech.level + 1]
         init_update_factory_platform()
     end
     if string.match(tech.name, "mining%-platform%-upgrade%-%d+") then
-        storage.platform.mining.size = {x = 2 * tech.level ^ 2 + 3 * tech.level + 20, y = tech.level ^ 2 + tech.level + 16}
+        storage.platform.mining.size = dw.platform_size.mining[tech.level + 1]
         init_update_mining_platform()
     end
     if string.match(tech.name, "power%-platform%-upgrade%-%d+") then
-        storage.platform.power.size = tech.level ^ 2 + 2 * tech.level + 20
+        storage.platform.power.size = dw.platform_size.power[tech.level + 1]
         init_update_power_platform()
     end
 
     if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
-        storage.harvester.side.size = tech.level ^ 2 + tech.level + 10
+        storage.harvester.side.size = dw.platform_size.harvester[tech.level]
         storage.harvester.side.border = math.max((tech.level - 1), 2)
     end
 end
@@ -421,8 +479,8 @@ local function invert_chest_flow(event)
             end
 
             --- chest invertion, only do something if we have logistic chests
-            if not pair_A.chest == "dw-chest" then
-                local chest_type = (pair_A.type == "input") and storage.stairs.chest_type.to or storage.stairs.chest_type.from
+            if pair_A.chest.name ~= "dw-chest" then
+                local chest_type = (pair_A.type == "input") and storage.stairs.chest_type.output or storage.stairs.chest_type.input
                 local chest_A = pair_A.chest.surface.create_entity {
                     name = chest_type,
                     position = pair_A.chest.position,
@@ -432,7 +490,7 @@ local function invert_chest_flow(event)
                 chest_A.destructible = false
                 pair_A.chest = chest_A
 
-                local chest_type = (pair_B.type == "input") and storage.stairs.chest_type.from or storage.stairs.chest_type.to
+                local chest_type = (pair_B.type == "input") and storage.stairs.chest_type.output or storage.stairs.chest_type.input
                 local chest_B = pair_B.chest.surface.create_entity {
                     name = chest_type,
                     position = pair_B.chest.position,
