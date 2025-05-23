@@ -19,6 +19,8 @@ dw.gui.get_warp_frame = function(player)
         warp_frame.style.padding = {5, 0, 0, 5}
         local surfaceflow = warp_frame.add({type = "flow", name="surface", direction = "horizontal"})
         local dimensionflow = warp_frame.add({type = "flow", name="dimension", direction = "horizontal"})
+        local surface_time = warp_frame.add({type = "flow", name="surface_time", direction = "horizontal"})
+        local surface_evolution = warp_frame.add({type = "flow", name="surface_evolution", direction = "horizontal"})
         local warpflow = warp_frame.add({type = "flow", name="warp_timer", direction = "horizontal"})
         local manualwarpflow = warp_frame.add({type = "flow", name="warp_timer_manual", direction = "horizontal"})
 
@@ -29,6 +31,14 @@ dw.gui.get_warp_frame = function(player)
         dimensionflow.add{type="label", caption="Dimension: "}
         dimensionflow.add{type="label", name="variable", caption="0"}
         dimensionflow.visible = storage.nauvis_lab_exploded or false
+
+        surface_time.add{type="label", caption="Planet time: "}
+        surface_time.add{type="label", name="variable", caption="0"}
+        surface_time.visible = storage.nauvis_lab_exploded or false
+
+        surface_evolution.add{type="label", caption="Planet evolution: "}
+        surface_evolution.add{type="label", name="variable", caption="0"}
+        surface_evolution.visible = storage.nauvis_lab_exploded or false
 
         warpflow.add{type="label", caption="Auto Warp: "}
         warpflow.add{type="label", name="variable", caption="∞"}
@@ -109,8 +119,13 @@ dw.update_gui = function()
 
         frame.surface.visible = storage.nauvis_lab_exploded or false
         frame.dimension.visible = storage.nauvis_lab_exploded or false
+        frame.surface_time.visible = storage.nauvis_lab_exploded or false
+        frame.surface_evolution.visible = storage.nauvis_lab_exploded or false
+
         frame.surface.variable.caption = {"space-location-name." .. storage.warp.current.type}
         frame.dimension.variable.caption = storage.warp.number
+        frame.surface_evolution.variable.caption = string.format("%.2f %%", game.forces.enemy.get_evolution_factor(storage.warp.current.surface) * 100)
+        frame.surface_time.variable.caption = utils.format_time(game.tick/60 - storage.warp.time/60)
 
         if storage.timer.active then
             if storage.timer.warp >= 0 then
