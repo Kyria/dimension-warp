@@ -123,7 +123,7 @@ dw.generate_surface = function(planet, vanilla)
             type = planet,
         }
 
-        local mapgen = storage.mapgen.defaults[planet]
+        local mapgen = table.deepcopy(storage.mapgen.defaults[planet])
         if not vanilla then
             mapgen = randomize_mapgen(planet)
             mapgen.seed = math.random(1, 2^32-1)
