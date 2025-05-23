@@ -184,6 +184,12 @@ dw.platform_force_update_entities = function()
     local surface = storage.warp.current.surface
     local platform = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
 
+    --- delete corpses
+    local corpses = surface.find_entities_filtered({area = platform, type="corpse"})
+    for _, corpse in pairs(corpses) do
+        corpse.destroy()
+    end
+
     -- update lightning attractors
     local lightning_attractors = surface.find_entities_filtered{
         type = "lightning-attractor",
