@@ -357,12 +357,18 @@ local function on_technology_research_finished(event)
 
     if string.match(tech.name, "dw%-number%-stairs%-.*") then
         storage.stairs.chest_number = storage.stairs.chest_number + 2
-        create_loader_chest_pair(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
-        create_loader_chest_pair(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
-        create_loader_chest_pair(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
-        create_pipe_pairs(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
-        create_pipe_pairs(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
-        create_pipe_pairs(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+        if storage.platform.factory.surface and storage.platform.mining.surface then
+            create_loader_chest_pair(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
+            create_pipe_pairs(storage.platform.factory.surface, storage.platform.mining.surface, dw.stairs.factory_mining)
+        end
+        if storage.platform.power.surface and storage.platform.mining.surface then
+            create_loader_chest_pair(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
+            create_pipe_pairs(storage.platform.mining.surface, storage.platform.power.surface, dw.stairs.mining_power)
+        end
+        if storage.platform.factory.surface then
+            create_loader_chest_pair(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+            create_pipe_pairs(storage.warp.current.surface, storage.platform.factory.surface, dw.stairs.surface_factory)
+        end
     end
 
     if string.match(tech.name, "dw%-stair%-logistic%-chest") then
@@ -428,8 +434,8 @@ local function on_technology_research_finished(event)
     end
 
     if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
-        storage.harvester.side.size = dw.platform_size.harvester[tech.level]
-        storage.harvester.side.border = math.max((tech.level - 1), 2)
+        -- storage.harvester.side.size = dw.platform_size.harvester[tech.level]
+        -- storage.harvester.side.border = math.max((tech.level - 1), 2)
     end
 end
 
