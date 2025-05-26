@@ -37,11 +37,5 @@ local function prevent_building_except_in_factory(event)
     end
 end
 
-local filter = {
-    {filter = "name", name = "rocket-silo"},
-    {filter = "ghost_name", name = "rocket-silo", mode = "or"},
-    {filter = "name", name = "cargo-landing-pad", mode = "or"},
-    {filter = "ghost_name", name = "cargo-landing-pad", mode = "or"}
-}
-dw.register_event(defines.events.on_built_entity, prevent_building_except_in_factory, filter)
-dw.register_event(defines.events.on_robot_built_entity, prevent_building_except_in_factory, filter)
+dw.register_event(defines.events.on_built_entity, prevent_building_except_in_factory)
+dw.register_event(defines.events.on_robot_built_entity, prevent_building_except_in_factory)

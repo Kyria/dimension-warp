@@ -7,7 +7,7 @@ special_events = {
     on_configuration_changed = true,
 }
 
-dw.register_event = function(event, callback, filter)
+dw.register_event = function(event, callback)
     if not dw.events[event] then
         dw.events[event] = {}
         dw.events[event].callbacks = {}
@@ -25,8 +25,7 @@ dw.register_event = function(event, callback, filter)
             script.on_nth_tick(tonumber(frequency), dw.events[event].run)
         else
             if not special_events[event] then
-                filter = filter or nil
-                script.on_event(event, dw.events[event].run, filter)
+                script.on_event(event, dw.events[event].run)
             end
         end
     end
