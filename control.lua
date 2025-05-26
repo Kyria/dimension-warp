@@ -70,6 +70,17 @@ local function set_globals()
     }
     -- base global pollution value
     storage.pollution = storage.pollution or 1
+
+    -- warp gates / harvester gate level
+    storage.warpgate = {
+        chest_number = 2,
+        type = "warp-gate",
+        platform = {chests = {}, loaders = {}, pipes = {}}
+    }
+    storage.harvesters = {
+        energ_level = 1
+
+    }
 end
 dw.register_event('on_init', set_globals)
 
@@ -79,6 +90,7 @@ require "scripts.teleport"
 require "scripts.gui"
 require "scripts.platform"
 require "scripts.dimensions"
+require "scripts.warpgate"
 
 require "scripts.freeplay"
 require "scripts.lab_intro"
