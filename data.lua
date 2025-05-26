@@ -28,13 +28,13 @@ require 'prototypes.planet.neo-nauvis'
 require 'prototypes.planet.factory'
 require 'prototypes.planet.mining'
 require 'prototypes.planet.power'
-require 'prototypes.teleport'
 require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
 require 'prototypes.entities.chest-pipe'
 require 'prototypes.entities.power-pole'
 require 'prototypes.entities.hidden-radar'
 require 'prototypes.entities.factory-beacon'
+require 'prototypes.entities.warp-gate'
 require 'prototypes.buildings.loaders'
 
 
@@ -45,19 +45,40 @@ data:extend({
         priority = "extra-high-no-scale",
         layers = {
             {
-                filename = data.raw["planet"]["nauvis"].icon,
+                filename = "__base__/graphics/icons/nauvis.png",
                 tint = defines.color.royalblue,
                 width = 64,
                 height = 64,
-                scale = 0.5
             },
             {
                 filename = "__base__/graphics/icons/info.png",
                 width = 64,
                 height = 64,
-                scale = 0.2,
+                scale = 0.5,
                 shift = {10,10},
                 tint = defines.color.lightsteelblue,
+            },
+        },
+        flags = {"gui-icon"},
+    },
+    {
+        type = "sprite",
+        name = "warp-actions-toggle-icon",
+        priority = "extra-high-no-scale",
+        layers = {
+            {
+                filename = "__base__/graphics/icons/nauvis.png",
+                tint = defines.color.royalblue,
+                width = 64,
+                height = 64,
+            },
+            {
+                filename = "__core__/graphics/icons/tooltips/tooltip-category-debug.png",
+                width = 40,
+                height = 40,
+                scale = 0.75,
+                shift = {10,10},
+                tint = util.color(defines.hexcolor.lightsteelblue),
             },
         },
         flags = {"gui-icon"},
@@ -70,11 +91,3 @@ end
 if mods['aai-loaders'] then
     require 'prototypes.compatibilities.aai-loaders'
 end
-
-
--- {
---     type = "custom-input",
---     name = "factory-rotate",
---     key_sequence = "R",
---     controller_key_sequence = "controller-rightstick"
--- },
