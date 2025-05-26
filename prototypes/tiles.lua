@@ -34,7 +34,6 @@ create_surface_tile {
 }
 create_surface_tile {
     name = "dimension-hazard",
-    tint = defines.color.lightgoldenrodyellow,
     base_tile = data.raw["tile"]['hazard-concrete-right'],
 }
 create_surface_tile {
