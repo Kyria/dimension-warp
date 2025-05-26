@@ -209,10 +209,12 @@ dw.platform_force_update_entities = function()
     end
 
     --- update electricity link
-    local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
-    local factory_power_pole = storage.platform.factory.surface.find_entity(dw.entities.pole_factory_surface.name, dw.entities.pole_factory_surface.position)
-    if surface_radio_pole and factory_power_pole then
-        utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.pdower)
+    if storage.platform.factory.surface then
+        local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
+        local factory_power_pole = storage.platform.factory.surface.find_entity(dw.entities.pole_factory_surface.name, dw.entities.pole_factory_surface.position)
+        if surface_radio_pole and factory_power_pole then
+            utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.pdower)
+        end
     end
 
     --- relink loaders/chests between surfaces
