@@ -29,7 +29,7 @@ local beacon_1 = make_tech(1,
 local beacon_2 = make_tech(2,
     {"dw-factory-beacon-1", "factory-platform-upgrade-1"},
     {
-        count = 500,
+        count = 750,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -41,7 +41,7 @@ local beacon_2 = make_tech(2,
 local beacon_3 = make_tech(3,
     {"dw-factory-beacon-2", "factory-platform-upgrade-2"},
     {
-        count = 500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -57,6 +57,7 @@ local beacon_4 = make_tech(4,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 1},
         },
         time = 60,
     }
@@ -69,6 +70,8 @@ local beacon_5 = make_tech(5,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 1},
+            {"production-science-pack", 1},
         },
         time = 60,
     }
@@ -77,10 +80,12 @@ local beacon_5 = make_tech(5,
 local beacon_6 = make_tech(6,
     {"dw-factory-beacon-5", "factory-platform-upgrade-5"},
     {
-        count = 500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 1},
+            {"production-science-pack", 1},
         },
         time = 60,
     }
@@ -93,6 +98,9 @@ local beacon_7 = make_tech(7,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
+            {"chemical-science-pack", 1},
+            {"production-science-pack", 1},
+            {"space-science-pack", 1},
         },
         time = 60,
     }
