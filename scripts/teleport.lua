@@ -12,7 +12,8 @@ local non_player_controllers = {
 dw.safe_teleport = function(player_or_vehicle, surface, position, force_teleport)
     position = {x = position.x or position[1], y = position.y or position[2]}
     local is_player = player_or_vehicle.is_player()
-    local type = is_player and player_or_vehicle.character.name or player_or_vehicle.prototype
+    local controller_type = player_or_vehicle.controller_type
+    local type = is_player and (player_or_vehicle.character or controller_type == defines.controllers.ghost) and "character" or player_or_vehicle.prototype
     local index = is_player and player_or_vehicle.index or player_or_vehicle.unit_number
 
     if not surface then return end
@@ -47,12 +48,13 @@ local function check_player_teleport()
             {position.x - 0.4, position.y - 0.5},
             {position.x + 0.4, position.y + 0.5}
         }
-        local entities = player.surface.find_entities_filtered{area = check_area, name = {"warp-gate", "radio-station"}}
+        local entities = player.surface.find_entities_filtered{area = check_area, subgroup="warpgate"}
 
         --- is the entities found an active teleporter ?
         for _, found_entity in pairs(entities) do
             for _, teleporter in pairs(storage.teleporter) do
                 if not teleporter.active then goto continue_teleport end
+                if not teleporter.from.valid or not teleporter.to.valid then goto continue_teleport end
                 if player.surface.name ~= teleporter.from.surface.name then goto continue_teleport end
                 if teleporter.from == found_entity then
                     local distance = math2d.position.distance(teleporter.from.position, position)
@@ -68,23 +70,6 @@ local function check_player_teleport()
         ::continue::
     end
 end
-
-
-local function on_teleport_died(event)
-    local entity = event.entity
-    local surface = entity.surface
-    if not storage.teleporter[surface.name] then return end
-    if not entity.name == "warp-gate" then return end
-
-    for i=#storage.teleporter[surface.name], 1, -1 do
-        local teleporter = storage.teleporter[surface.name][i]
-        if teleporter.entity == entity then
-            table.remove(storage.teleporter[surface.name], i)
-            break
-        end
-    end
-end
-
 
 --- Make sure that dead player on any old surface is moved to the new surface
 local function dead_on_previous_surface(event)
@@ -109,7 +94,6 @@ end
 
 
 dw.register_event(defines.events.on_player_died, dead_on_previous_surface)
-dw.register_event(defines.events.on_entity_died, on_teleport_died, {{filter = "name", name = "warp-gate"}})
 dw.register_event(defines.events.on_player_created, teleport_safely_player_on_event)
 dw.register_event(defines.events.on_player_joined_game, teleport_safely_player_on_event)
 dw.register_event('on_nth_tick_6', check_player_teleport)

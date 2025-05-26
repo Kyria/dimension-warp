@@ -153,7 +153,7 @@ local function destroy_nauvis_lab_event()
         nauvis_teleport.destructible = false
         storage.teleporter['nauvis-gate'].active = true
         storage.teleporter['nauvis-gate'].from = nauvis_teleport
-        storage.teleporter['nauvis-gate'].to = {position = {0,0}, surface = storage.warp.current.surface}
+        storage.teleporter['nauvis-gate'].to = {position = {0,0}, surface = storage.warp.current.surface, valid=true}
     end
 
     dw.update_warp_platform_size()
