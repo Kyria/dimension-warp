@@ -39,7 +39,7 @@ local function warp_timer()
             storage.votes.players = {}
             --- reset evolution based on warp number
             game.forces.enemy.set_evolution_factor(math.min(100, 1.8 ^ (storage.warp.number / 20) + math.log(storage.warp.number, 10) * 5) / 100, storage.warp.current.surface)
-            storage.pollution = storage.warp.number
+            storage.pollution = storage.warp.number * 10
             dw.update_manual_warp_button()
         end
 
