@@ -32,6 +32,7 @@ require 'others.mining'
 require 'entities.radar'
 require 'entities.stairs'
 require 'entities.beacon'
+require 'entities.warp-gate'
 
 -- specific changes for tech if space-age is active.
 if mods['space-age'] then
@@ -39,6 +40,7 @@ if mods['space-age'] then
     require 'space-age.damage'
     require 'space-age.mining'
     require 'space-age.stairs'
+    require 'space-age.beacon'
     require 'space-age.platforms.warp'
     require 'space-age.platforms.factory'
     require 'space-age.platforms.mining'
