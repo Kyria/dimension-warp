@@ -74,36 +74,29 @@ dw.entities = {
         area = {{-1, -1}, {0, 0}}
     },
 
-    -- surface mobile teleporter
-    surface_warp_gate = {
-        name = "warp-gate",
-        position = {0, -6.5},
-        area = {{-2, -2}, {1, 1}}
-    },
-
     -- inter surface gates
     gate_factory_surface = {
-        name = "warp-gate",
+        name = "surface-gate",
         position = {0, -6.5},
         area = {{-2, -2}, {1, 1}}
     },
     gate_factory_mining = {
-        name = "warp-gate",
+        name = "mining-gate",
         position = {0, 6.5},
         area = {{-2, -2}, {1, 1}}
     },
     gate_mining_factory = {
-        name = "warp-gate",
+        name = "factory-gate",
         position = {0, -6.5},
         area = {{-2, -2}, {1, 1}}
     },
     gate_mining_power = {
-        name = "warp-gate",
+        name = "power-gate",
         position = {0, 6.5},
         area = {{-2, -2}, {1, 1}}
     },
     gate_power_mining = {
-        name = "warp-gate",
+        name = "mining-gate",
         position = {0, -4.5},
         area = {{-2, -2}, {1, 1}}
     },
@@ -253,5 +246,32 @@ dw.stairs = {
             direction = {defines.loader_facting.bottom, defines.loader_facting.top}
         }
     },
+}
+
+-- warp gate
+dw.warp_gate = {
+    name = "warp-gate",
+    position = {0, 6.5},
+    area = {{-2, -2}, {1, 1}},
+    direction = defines.loader_facting.bottom,
+    --- relative position to warp_gate center
+    chests = {
+        {-2.5, 1},
+        {2.5, 1},
+        {-3.5, 1},
+        {3.5, 1},
+    },
+    loaders = {
+        {-2.5, 0},
+        {2.5, 0},
+        {-3.5, 0},
+        {3.5, 0},
+    },
+    pipes = {
+        {-4.5, 0},
+        {4.5, 0},
+        {-4.5, 1},
+        {4.5, 1},
+    }
 }
 
