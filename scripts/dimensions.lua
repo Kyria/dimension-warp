@@ -155,7 +155,9 @@ local function upgrade_stairs()
     for surface_name, loader_pair in pairs(storage.stairs.chest_loader_pairs) do
         for index, stairs in pairs(loader_pair) do
             local loader = stairs.loader
+            if not loader or not loader.valid then goto continue end
             local surface = stairs.loader.surface
+
             local new_loader = surface.create_entity{
                 name = storage.stairs.loader_tier,
                 position = loader.position,
@@ -166,6 +168,8 @@ local function upgrade_stairs()
             }
             new_loader.destructible = false
             storage.stairs.chest_loader_pairs[surface_name][index].loader = new_loader
+
+            ::continue::
         end
     end
 end
@@ -174,6 +178,7 @@ local function update_chests()
     for surface_name, loader_pair in pairs(storage.stairs.chest_loader_pairs) do
         for index, stairs in pairs(loader_pair) do
             local chest = stairs.chest
+            if not chest or not chest.valid then goto continue end
             local surface = stairs.chest.surface
 
             -- find the index of the chest pair
@@ -184,7 +189,7 @@ local function update_chests()
                 -- the current pair is not the "A" chest, so check from the pair ref
                 local pair_chest = storage.stairs.chest_loader_pairs[stairs.ref[1]][stairs.ref[2]].chest
                 local chest_surface_name = pair_chest.surface.name
-                chest_surface_name = dw.safe_surfaces[chest_surface_name] and chest_surface_name or "surface"
+                chest_surface_name = dw.safe_surfaces[chest_surface_name] and chest_surface_name or (surface_name == "gate" and surface_name) or "surface"
                 chest_index = chest_surface_name .. '_' .. pair_chest.position.x .. '_' .. pair_chest.position.y
                 chest_pair_index = "B"
 
@@ -207,6 +212,8 @@ local function update_chests()
             new_chest.destructible = false
             storage.stairs.chest_loader_pairs[surface_name][index].chest = new_chest
             storage.stairs.chest_pairs[chest_index][chest_pair_index] = new_chest
+
+            ::continue::
         end
     end
 end
@@ -434,7 +441,7 @@ local function on_technology_research_finished(event)
     end
 
     if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
-        -- storage.harvester.side.size = dw.platform_size.harvester[tech.level]
+        -- storage.harvester.side.size = dw.plrm_size.harvester[tech.level]
         -- storage.harvester.side.border = math.max((tech.level - 1), 2)
     end
 end
@@ -472,21 +479,27 @@ local function invert_chest_flow(event)
     if string.match(entity.name, "dw%-stair%-loader") or string.match(entity.name, "dw%-stair%-%a+%-loader") then
         local surface_name = dw.safe_surfaces[entity.surface.name] and entity.surface.name or "surface"
         local index = surface_name .. '_' .. entity.position.x .. '_' .. entity.position.y
+        if surface_name == "surface" and not storage.stairs.chest_loader_pairs[surface_name][index] then
+            surface_name = "gate"
+            index = surface_name .. '_' .. entity.position.x .. '_' .. entity.position.y
+        end
+
         if storage.stairs.chest_loader_pairs[surface_name][index] then
             local pair_A = storage.stairs.chest_loader_pairs[surface_name][index]
             local pair_B = storage.stairs.chest_loader_pairs[pair_A.ref[1]][pair_A.ref[2]]
 
-            --- invert loaders
-            if pair_A.loader and pair_A.loader.valid then
-                pair_A.loader.loader_type = pair_B.type
+            --- invert loaders (we don't need to invert loaderA as the event is triggered by it already)
+            if pair_A and pair_A.loader and pair_A.loader.valid then
+                pair_A.type = defines.opposite_loader[pair_A.type]
             end
-            if pair_B.loader and pair_B.loader.valid then
-                pair_B.loader.loader_type = pair_A.type
+            if pair_B and pair_B.loader and pair_B.loader.valid then
+                pair_B.loader.loader_type = defines.opposite_loader[pair_B.loader.loader_type]
+                pair_B.type = defines.opposite_loader[pair_B.type]
             end
 
             --- chest invertion, only do something if we have logistic chests
-            if pair_A.chest.name ~= "dw-chest" then
-                local chest_type = (pair_A.type == "input") and storage.stairs.chest_type.output or storage.stairs.chest_type.input
+            if pair_A and pair_A.chest and pair_A.chest.name ~= "dw-chest" then
+                local chest_type = (pair_A.type == "input") and storage.stairs.chest_type.input or storage.stairs.chest_type.output
                 local chest_A = pair_A.chest.surface.create_entity {
                     name = chest_type,
                     position = pair_A.chest.position,
@@ -496,15 +509,17 @@ local function invert_chest_flow(event)
                 chest_A.destructible = false
                 pair_A.chest = chest_A
 
-                local chest_type = (pair_B.type == "input") and storage.stairs.chest_type.output or storage.stairs.chest_type.input
-                local chest_B = pair_B.chest.surface.create_entity {
-                    name = chest_type,
-                    position = pair_B.chest.position,
-                    force = pair_B.chest.force,
-                    fast_replace = true
-                }
-                chest_B.destructible = false
-                pair_B.chest = chest_B
+                if pair_B and pair_B.chest then
+                    local chest_type = (pair_B.type == "input") and storage.stairs.chest_type.input or storage.stairs.chest_type.output
+                    local chest_B = pair_B.chest.surface.create_entity {
+                        name = chest_type,
+                        position = pair_B.chest.position,
+                        force = pair_B.chest.force,
+                        fast_replace = true
+                    }
+                    chest_B.destructible = false
+                    pair_B.chest = chest_B
+                end
             end
 
             --- find the corresponding chest pair
@@ -512,26 +527,20 @@ local function invert_chest_flow(event)
             if storage.stairs.chest_pairs[chest_index] then
                 storage.stairs.chest_pairs[chest_index] = {
                     A = pair_A.chest,
-                    B = pair_B.chest,
-                    type = (pair_A.type == "input") and defines.item_direction.pull or defines.item_direction.push,
+                    B = pair_B and pair_B.chest or nil,
+                    type = (pair_A.type == "input") and defines.item_direction.push or defines.item_direction.pull,
                 }
             else
-                local surface_name_B = dw.safe_surfaces[pair_B.chest.surface.name] and pair_B.chest.surface.name or "surface"
+                local surface_name_B = pair_A.ref[1]
                 local chest_index = surface_name_B .. '_' .. pair_B.chest.position.x .. '_' .. pair_B.chest.position.y
                 if storage.stairs.chest_pairs[chest_index] then
                     storage.stairs.chest_pairs[chest_index] = {
                         A = pair_B.chest,
                         B = pair_A.chest,
-                        type = (pair_A.type == "input") and defines.item_direction.push or defines.item_direction.pull,
+                        type = (pair_B.type == "input") and defines.item_direction.push or defines.item_direction.pull,
                     }
                 end
             end
-
-
-            --- update the types
-            local type = pair_A.type
-            pair_A.type = pair_B.type
-            pair_B.type = type
         end
     end
 end
