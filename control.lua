@@ -66,7 +66,7 @@ local function set_globals()
         pipes_type = "dw-pipe",
         chest_pairs = {},
         pipe_pairs = {},
-        chest_loader_pairs = {surface={}, produstia={}, smeltus={}, electria={}},
+        chest_loader_pairs = {gate={}, surface={}, produstia={}, smeltus={}, electria={}},
     }
     -- base global pollution value
     storage.pollution = storage.pollution or 1
@@ -75,7 +75,8 @@ local function set_globals()
     storage.warpgate = {
         chest_number = 2,
         type = "warp-gate",
-        platform = {chests = {}, loaders = {}, pipes = {}}
+        mobile_chests = {},
+        mobile_loaders = {}
     }
     storage.harvesters = {
         energ_level = 1
