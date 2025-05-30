@@ -30,7 +30,14 @@ local function warp_timer()
         end
 
         if storage.timer.warp == 0 or storage.timer.manual_warp == 0 then
+            -- return warp gate
+            storage.warpgate.mobile_gate.destroy{raise_destroy=true}
+            -- returters
+
+            -- generate new surface and teleport
             dw.prepare_warp_to_next_surface()
+
+            -- reset all timers / globals
             storage.timer.warp = storage.timer.base
             storage.timer.manual_warp = calculate_manual_warp_time()
             storage.warp.time = game.tick
@@ -39,7 +46,7 @@ local function warp_timer()
             storage.votes.players = {}
             --- reset evolution based on warp number
             game.forces.enemy.set_evolution_factor(math.min(100, 1.8 ^ (storage.warp.number / 20) + math.log(storage.warp.number, 10) * 5) / 100, storage.warp.current.surface)
-            storage.pollution = storage.warp.number * 10
+            storage.pollution = storage.warp.number * math.min(10, 10 ^ (storage.warp.number / 100))
             dw.update_manual_warp_button()
         end
 

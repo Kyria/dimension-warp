@@ -18,7 +18,7 @@ local function pollute()
 	if storage.platform.power.surface then storage.platform.power.surface.clear_pollution() end
 
 	--- leave a max, but if we pollute every 3 sec, it's still around 5.2h before we reach the max
-	storage.pollution = math.min(1000000, storage.pollution + (storage.pollution ^ 0.25) *0.75)
+	storage.pollution = math.min(1000000, storage.pollution + (storage.pollution ^ 0.25) * 0.75)
 
 	pollution = pollution + storage.pollution
 	storage.warp.current.surface.pollute({-1, 0}, pollution, "radio-station")
@@ -27,7 +27,8 @@ end
 --- Force enemies in a given radius to attack everything
 local function force_enemy_attack()
 	if not storage.timer.active then return end
-	if storage.warp.time / 60 <= 5 then return end --- at least 5min on planet
+	local time_passed = (game.tick - storage.warp.time) / 3600
+	if time_passed <= 5 then return end --- at least 5min on planet
 	storage.warp.current.surface.set_multi_command{
 		command = {
 			type = defines.command.attack_area,
@@ -36,10 +37,9 @@ local function force_enemy_attack()
 			distraction = defines.distraction.by_enemy
 		},
 		unit_count = 500,
-		unit_search_distance = 3000
+		unit_search_distance = math.min(5000, 3000 * ((time_passed - 5) / 30))
 	}
 end
-
 
 dw.register_event('on_nth_tick_180', pollute)
 dw.register_event('on_nth_tick_7200', force_enemy_attack)
