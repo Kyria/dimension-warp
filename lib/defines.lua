@@ -14,9 +14,14 @@ defines.warp = {
     warping = 3,
 }
 
-defines.loader_facting = {
+defines.loader_facing = {
     top = {input = defines.direction.north, output = defines.direction.south},
     bottom = {input = defines.direction.south, output = defines.direction.north}
+}
+
+defines.opposite_loader = {
+    input = "output",
+    output = "input"
 }
 
 defines.color = {
