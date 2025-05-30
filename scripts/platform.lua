@@ -96,8 +96,12 @@ dw.teleport_platform = function()
     --- check for players, and teleport them to the new surface
     for _, player in pairs(game.players) do
         if player.surface.name == source.name then
-            if math2d.bounding_box.contains_point(platform_area_delta, player.physical_position) then
-                dw.safe_teleport(player, storage.warp.current.surface, player.physical_position, true)
+            if math2d.bounding_box.contains_point(platform_area_delta, player.physical_position) or player.controller_type == defines.controllers.ghost then
+                if player.controller_type == defines.controllers.ghost then
+                    dw.safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
+                else
+                    dw.safe_teleport(player, storage.warp.current.surface, player.physical_position, true)
+                end
             else
                 player.character.die()
             end
@@ -213,13 +217,25 @@ dw.platform_force_update_entities = function()
         local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
         local factory_power_pole = storage.platform.factory.surface.find_entity(dw.entities.pole_factory_surface.name, dw.entities.pole_factory_surface.position)
         if surface_radio_pole and factory_power_pole then
-            utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.pdower)
+            utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.power)
         end
     end
 
     --- relink loaders/chests between surfaces
     relink_loader_chest(surface, dw.stairs.surface_factory)
     relink_pipes(surface, dw.stairs.surface_factory)
+
+    --- recreate and relink mobile gate
+    if storage.warpgate.gate then
+        local warp_gate = surface.find_entity(dw.warp_gate.name, dw.warp_gate.position)
+        if warp_gate then
+            storage.warpgate.gate = warp_gate
+            storage.warpgate.mobile_gate = nil
+            dw.create_mobile_gate()
+            dw.link_warp_gate(nil, nil, nil, true)
+        end
+        -- relink power pole
+    end
 end
 
 
