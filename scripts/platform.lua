@@ -213,8 +213,8 @@ dw.platform_force_update_entities = function()
     end
 
     --- update electricity link
+    local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
     if storage.platform.factory.surface then
-        local surface_radio_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
         local factory_power_pole = storage.platform.factory.surface.find_entity(dw.entities.pole_factory_surface.name, dw.entities.pole_factory_surface.position)
         if surface_radio_pole and factory_power_pole then
             utils.link_cables(surface_radio_pole, factory_power_pole, defines.wire_connectors.power)
@@ -235,6 +235,11 @@ dw.platform_force_update_entities = function()
             dw.link_warp_gate(nil, nil, nil, true)
         end
         -- relink power pole
+        local pole = surface.find_entity("dw-hidden-gate-pole", dw.warp_gate.position)
+        if pole and surface_radio_pole then
+            utils.link_cables(surface_radio_pole, pole, defines.wire_connectors.power)
+        end
+        storage.warpgate.gatepole = pole
     end
 end
 

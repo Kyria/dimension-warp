@@ -197,9 +197,22 @@ local function create_warpgate()
     )
     link_warp_gate(nil, nil, nil, true)
 
-    -- Todo create invisible power pole and link it to radio
+    local power_pole = surface.create_entity {
+        name = "dw-hidden-gate-pole",
+        position = dw.warp_gate.position,
+        force = game.forces.player,
+        direction = defines.direction.north,
+    }
+    power_pole.destructible = false
+    storage.warpgate.gatepole = power_pole
+
+    local radio_tower_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
+    if radio_tower_pole and power_pole then
+        utils.link_cables(power_pole, radio_tower_pole, defines.wire_connectors.power)
+    end
 end
 
+--- create the mobile gate for the user to pick it after each warp / from shortcuts
 local function create_mobile_gate()
     local position = storage.warp.current.surface.find_non_colliding_position(
         storage.warpgate.mobile_type,
@@ -224,8 +237,34 @@ local function gate_research(event)
         if tech.level == 1 then
             create_warpgate()
             create_mobile_gate()
+        else
+            -- the gate is deployed
+            if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
+                local mobile_gate = storage.warp.current.surface.create_entity{
+                    name = storage.warpgate.mobile_type,
+                    position = storage.warpgate.mobile_gate.position,
+                    force = game.forces.player,
+                    fast_replace = true,
+                    spill = false
+                }
+                utils.link_gates("warp-gate-to-surface", "surface-to-warp-gate", storage.warpgate.gate, mobile_gate)
+                utils.link_cables(storage.warpgate.gate, mobile_gate, defines.wire_connectors.logic)
+                storage.warpgate.mobile_gate = mobile_gate
+            end
+            -- replace the gate in inventory if found in a player.
+            for _, player in pairs(game.players) do
+                local inventory = player.get_main_inventory()
+                for i = 1, #inventory, 1 do
+                    if inventory[i].valid_for_read then
+                        if string.match(inventory[i].name, "mobile%-gate%-%d") then
+                            local new_gate = {name = storage.warpgate.mobile_type, count = inventory[i].count}
+                            inventory[i].clear()
+                            inventory.insert(new_gate)
+                        end
+                    end
+                end
+            end
         end
-        -- TODO replace existing gate / inventory one
     end
 
     if string.match(tech.name, "dw%-number%-stairs%-advanced") then
@@ -236,6 +275,9 @@ local function gate_research(event)
     end
 end
 
+---Event the catch the destruction of mobile gate. Destruct all chests/loaders
+---Save chests content for when a mobile gate is placed again
+---@param event (EventData.script_raised_destroy|EventData.on_player_mined_entity|EventData.on_robot_mined_entity|EventData.on_entity_died)
 local function mobile_gate_removed_killed(event)
     local gate = event.entity
     if not string.match(gate.name, "mobile%-gate%-%d") then return end
@@ -288,18 +330,72 @@ local function mobile_gate_removed_killed(event)
         if pipe then pipe.destroy() end
     end
 
+    local pole = surface.find_entity("dw-hidden-gate-pole", gate_pos)
+    if pole then pole.destroy() end
 end
 
+---Check that we construct mobile gate only on surface, not any platform.
+---If we do, destroy and return the item.
+---Called from mobile_gate_placed event
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity the event data
+---@return boolean # true if the surface is allowed
+local function mobile_gate_surface_check(event)
+    local source = (event.robot) and event.robot or game.players[event.player_index]
+    local entity = event.entity
+    local consumed = (event.stack) and event.stack or event.consumed_items[1]
+    local item_stack = {name=consumed, count=1}
+
+    if not dw.safe_surfaces[entity.surface.name] then return true end
+
+    if consumed.quality then item_stack.quality = consumed.quality.name end
+
+    if event.player_index and source.valid and source.character and source.character.valid then
+        source.insert(item_stack)
+    else
+        entity.surface.spill_item_stack {
+            position = entity.position,
+            stack = item_stack,
+            enable_looted = true,
+            force = entity.force
+        }
+    end
+
+    utils.create_flying_text{
+        position = entity.position,
+        surface = entity.surface,
+        text = {"dw-messages.cannot-build-mobile-gate"},
+        color = defines.color.orangered}
+    entity.destroy()
+
+    return false
+end
+
+---@param event (EventData.on_built_entity|EventData.on_robot_built_entity)
 local function mobile_gate_placed(event)
     local gate = event.entity
+    if not gate.valid then return end
     if not string.match(gate.name, "mobile%-gate%-%d") then return end
+    if not mobile_gate_surface_check(event) then return end
 
     if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
         -- manually destroy it and remove all components, so we are sure to do it before next steps
         storage.warpgate.mobile_gate.destroy{raise_destroy=true}
     end
 
-    local gate = event.entity
+
+    -- if the player uses an outdate version for whatever reason, replace with the right one
+    if gate.name ~= storage.warpgate.mobile_type then
+        gate = storage.warp.current.surface.create_entity{
+            name = storage.warpgate.mobile_type,
+            position = gate.position,
+            force = game.forces.player,
+            fast_replace = true,
+            spill = false
+        }
+        -- update entity otherwise it will break other event handlers
+        event.entity = gate
+    end
+
     local surface = gate.surface
 
     storage.warpgate.mobile_gate = gate
@@ -340,7 +436,21 @@ local function mobile_gate_placed(event)
         }
     )
 
+    local power_pole = surface.create_entity {
+        name = "dw-hidden-gate-pole",
+        position = gate.position,
+        force = game.forces.player,
+        direction = defines.direction.north,
+    }
+    power_pole.destructible = false
+
+    if storage.warpgate.gatepole and power_pole then
+        utils.link_cables(power_pole, storage.warpgate.gatepole, defines.wire_connectors.power)
+    end
+
     utils.link_gates("warp-gate-to-surface", "surface-to-warp-gate", storage.warpgate.gate, gate)
+    utils.link_cables(storage.warpgate.gate, gate, defines.wire_connectors.logic)
+
     storage.warpgate.mobile_gate = gate
     link_warp_gate(mobile_chests, mobile_loaders, mobile_pipes)
 end
@@ -352,3 +462,4 @@ dw.register_event(defines.events.script_raised_destroy, mobile_gate_removed_kill
 dw.register_event(defines.events.on_player_mined_entity, mobile_gate_removed_killed)
 dw.register_event(defines.events.on_robot_mined_entity, mobile_gate_removed_killed)
 dw.register_event(defines.events.on_entity_died, mobile_gate_removed_killed)
+

@@ -5,6 +5,8 @@ local function prevent_building_except_in_factory(event)
     local source = (event.robot) and event.robot or game.players[event.player_index]
     local entity = event.entity
 
+    if not entity.valid then return end
+
     if entity.name == "rocket-silo" or entity.name == "cargo-landing-pad" then
         if entity.surface.name ~= "produstia" then
             if entity.type == 'entity-ghost' then
