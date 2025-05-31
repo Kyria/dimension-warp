@@ -14,9 +14,7 @@ data:extend{
         type = "technology",
         name = "dw-warp-gate-1",
         icons = icons,
-        prerequisites = {
-            "circuit-network"
-        },
+        prerequisites = {"circuit-network", "warp-generator-3"},
         unit = {
             count = 500,
             ingredients = {
@@ -30,14 +28,12 @@ data:extend{
         type = "technology",
         name = "dw-warp-gate-2",
         icons = icons,
-        prerequisites = {
-            "dw-warp-gate-1"
-        },
+        prerequisites = {"oil-processing", "dw-warp-gate-1"},
         unit = {
             count = 500,
             ingredients = {
                 {"automation-science-pack", 1},
-                {"logistic-science-pack", 1},
+                {"logistic-science-pack", 2},
             },
             time = 60,
         },
@@ -46,14 +42,14 @@ data:extend{
         type = "technology",
         name = "dw-warp-gate-3",
         icons = icons,
-        prerequisites = {
-            "dw-warp-gate-2"
-        },
+        prerequisites = {"electric-energy-accumulators", "dw-warp-gate-2", "chemical-science-pack", "military-science-pack"},
         unit = {
-            count = 500,
+            count = 1000,
             ingredients = {
                 {"automation-science-pack", 1},
-                {"logistic-science-pack", 1},
+                {"logistic-science-pack", 2},
+                {"military-science-pack", 1},
+                {"chemical-science-pack", 1},
             },
             time = 60,
         },
@@ -62,14 +58,15 @@ data:extend{
         type = "technology",
         name = "dw-warp-gate-4",
         icons = icons,
-        prerequisites = {
-            "dw-warp-gate-3"
-        },
+        prerequisites = {"dw-warp-gate-3", "fission-reactor-equipment"},
         unit = {
-            count = 500,
+            count = 2000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
+                {"military-science-pack", 1},
+                {"chemical-science-pack", 1},
+                {"utility-science-pack", 2},
             },
             time = 60,
         },
@@ -78,14 +75,16 @@ data:extend{
         type = "technology",
         name = "dw-warp-gate-5",
         icons = icons,
-        prerequisites = {
-            "dw-warp-gate-4"
-        },
+        prerequisites = {"warp-generator-5","dw-warp-gate-4"},
         unit = {
-            count = 500,
+            count = 2000ze,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
+                {"military-science-pack", 1},
+                {"chemical-science-pack", 1},
+                {"utility-science-pack", 2},
+                {"space-science-pack", 2},
             },
             time = 60,
         },
