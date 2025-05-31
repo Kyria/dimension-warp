@@ -77,7 +77,6 @@ end
 
 function utils.link_cables(entity1, entity2, wire_connectors)
     if not entity1.valid or not entity2.valid then return end
-    local wire_connectors = {defines.wire_connector_id.circuit_green, defines.wire_connector_id.circuit_red, defines.wire_connector_id.pole_copper}
     for _, connector in pairs(wire_connectors) do
         local entity1_connector = entity1.get_wire_connector(connector, true)
         local entity2_connector = entity2.get_wire_connector(connector, true)
