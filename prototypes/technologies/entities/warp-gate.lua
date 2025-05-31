@@ -77,7 +77,7 @@ data:extend{
         icons = icons,
         prerequisites = {"warp-generator-5","dw-warp-gate-4"},
         unit = {
-            count = 2000ze,
+            count = 2000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
