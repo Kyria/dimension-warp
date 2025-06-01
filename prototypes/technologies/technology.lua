@@ -3,7 +3,7 @@ local tech_neonauvis = {
     name = "neo-nauvis",
     icons = {{
         icon = "__base__/graphics/icons/starmap-planet-nauvis.png",
-        tint = defines.color.royalblue,
+        tint = util.color(defines.hexcolor.royalblue.. 'd9'),
         icon_size = 512,
     }},
     visible_when_disabled = false,

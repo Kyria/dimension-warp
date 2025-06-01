@@ -33,7 +33,7 @@ local function prevent_building_except_in_factory(event)
                 position = entity.position,
                 surface = entity.surface,
                 text = {"dw-messages.cannot-build-silo-cargo"},
-                color = defines.color.orangered}
+                color = util.color(defines.hexcolor.orangered.. 'd9')}
             entity.destroy()
         end
     end

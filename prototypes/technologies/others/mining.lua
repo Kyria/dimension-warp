@@ -2,7 +2,7 @@ local icons = {
     {
         icon = "__base__/graphics/technology/mining-productivity.png",
         icon_size = 256,
-        tint = defines.color.royalblue
+        tint = util.color(defines.hexcolor.royalblue.. 'd9')
     },
     {
         icon = "__core__/graphics/icons/technology/constants/constant-mining-productivity.png",

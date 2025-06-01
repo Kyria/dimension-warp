@@ -4,7 +4,7 @@ local icons = {
     {
         icon = "__space-age__/graphics/technology/electric-weapons-damage.png",
         icon_size = 256,
-        tint = defines.color.royalblue
+        tint = util.color(defines.hexcolor.royalblue.. 'd9')
     },
     {
         icon = "__core__/graphics/icons/technology/constants/constant-damage.png",

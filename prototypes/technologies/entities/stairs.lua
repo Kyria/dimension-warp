@@ -6,7 +6,7 @@ data:extend{
             {
                 icon = "__base__/graphics/technology/logistics-1.png",
                 icon_size = 256,
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
             },
             {
                 icon = "__core__/graphics/icons/technology/constants/constant-capacity.png",
@@ -35,7 +35,7 @@ data:extend{
             {
                 icon = "__base__/graphics/technology/logistics-2.png",
                 icon_size = 256,
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
             },
             {
                 icon = "__core__/graphics/icons/technology/constants/constant-capacity.png",
@@ -67,7 +67,7 @@ data:extend{
             {
                 icon = "__base__/graphics/technology/logistic-system.png",
                 icon_size = 256,
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
             },
         },
         prerequisites = {

@@ -29,7 +29,7 @@ data.raw['tile']['out-of-map'].absorptions_per_second = {pollution = 0.0001}
 
 create_surface_tile {
     name = "warp-platform",
-    tint = defines.color.lightcyan,
+    tint = util.color(defines.hexcolor.lightcyan.. 'd9'),
     base_tile = data.raw["tile"][default_platform_tile],
 }
 create_surface_tile {
@@ -38,16 +38,16 @@ create_surface_tile {
 }
 create_surface_tile {
     name = "factory-platform",
-    tint = defines.color.lightsteelblue,
+    tint = util.color(defines.hexcolor.lightsteelblue.. 'd9'),
     base_tile = data.raw["tile"][default_dimension_tile],
 }
 create_surface_tile {
     name = "energy-platform",
-    tint = defines.color.lightgoldenrodyellow,
+    tint = util.color(defines.hexcolor.lightgoldenrodyellow.. 'd9'),
     base_tile = data.raw["tile"][default_dimension_tile],
 }
 create_surface_tile {
     name = "mining-platform",
-    tint = defines.color.darksalmon,
+    tint = util.color(defines.hexcolor.darksalmon.. 'd9'),
     base_tile = data.raw["tile"][default_dimension_tile],
 }

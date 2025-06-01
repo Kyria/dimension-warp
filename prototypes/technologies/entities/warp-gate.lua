@@ -1,5 +1,5 @@
 local icons = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
     {icon = "__base__/graphics/technology/research-speed.png", tint = util.color(defines.hexcolor.deepskyblue .. '77'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",

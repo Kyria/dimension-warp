@@ -18,12 +18,12 @@ local produstia = {
     icons = {{
         icon = "__base__/graphics/technology/automation-3.png",
         icon_size = 256,
-        tint = defines.color.lightsteelblue
+        tint = util.color(defines.hexcolor.lightsteelblue.. 'd9')
     }},
     starmap_icons = {{
         icon = "__base__/graphics/technology/automation-3.png",
         icon_size = 256,
-        tint = defines.color.lightsteelblue
+        tint = util.color(defines.hexcolor.lightsteelblue.. 'd9')
     }},
 
     pollutant_type = "pollution",

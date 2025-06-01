@@ -2,7 +2,7 @@ local icon = {
     {
         icon = "__base__/graphics/technology/toolbelt.png",
         icon_size = 256,
-        tint = defines.color.royalblue,
+        tint = util.color(defines.hexcolor.royalblue.. 'd9'),
     },
     {
         icon = "__core__/graphics/icons/technology/constants/constant-capacity.png",

@@ -6,7 +6,7 @@ data:extend{
             {
                 icon = "__base__/graphics/technology/radar.png",
                 icon_size = 256,
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
             }
         },
         prerequisites = {

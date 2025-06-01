@@ -11,12 +11,12 @@ neo_nauvis.orientation = 0.46
 
 neo_nauvis.icons = {{
     icon = nauvis.icon,
-    tint = defines.color.royalblue
+    tint = util.color(defines.hexcolor.royalblue.. 'd9')
 }}
 neo_nauvis.starmap_icons = {{
     icon = nauvis.starmap_icon,
     icon_size = 512,
-    tint = defines.color.royalblue
+    tint = util.color(defines.hexcolor.royalblue.. 'd9')
 }}
 
 if mods['space-age'] then

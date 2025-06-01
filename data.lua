@@ -46,7 +46,7 @@ data:extend({
         layers = {
             {
                 filename = "__base__/graphics/icons/nauvis.png",
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
                 width = 64,
                 height = 64,
             },
@@ -56,7 +56,7 @@ data:extend({
                 height = 64,
                 scale = 0.5,
                 shift = {10,10},
-                tint = defines.color.lightsteelblue,
+                tint = util.color(defines.hexcolor.lightsteelblue.. 'd9'),
             },
         },
         flags = {"gui-icon"},
@@ -68,7 +68,7 @@ data:extend({
         layers = {
             {
                 filename = "__base__/graphics/icons/nauvis.png",
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
                 width = 64,
                 height = 64,
             },

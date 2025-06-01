@@ -243,7 +243,7 @@ dw.create_stair_loader_tech = function(loader, unlock_tech, previous_level)
     local icons = nil
     if data.raw['technology'][unlock_tech].icons then
         icons = table.deepcopy(data.raw['technology'][unlock_tech].icons)
-        util.recursive_tint(icons, defines.color.royalblue)
+        util.recursive_tint(icons, util.color(defines.hexcolor.royalblue.. 'd9'))
         table.insert(icons, {
             icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
             icon_size = 128,
@@ -256,7 +256,7 @@ dw.create_stair_loader_tech = function(loader, unlock_tech, previous_level)
             {
                 icon = data.raw['technology'][unlock_tech].icon,
                 icon_size = data.raw['technology'][unlock_tech].icon_size,
-                tint = defines.color.royalblue
+                tint = util.color(defines.hexcolor.royalblue.. 'd9')
             },
             {
                 icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",

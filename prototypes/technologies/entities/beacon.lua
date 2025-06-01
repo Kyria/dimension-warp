@@ -7,7 +7,7 @@ local function make_tech(level, prerequisites, unit)
             {
                 icon = "__base__/graphics/technology/effect-transmission.png",
                 icon_size = 256,
-                tint = defines.color.royalblue,
+                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
             }
         },
         prerequisites = prerequisites,

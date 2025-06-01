@@ -111,7 +111,7 @@ local function check_if_player_changed_surface()
     if game.tick == 0 or game.tick % 18000 ~= 0 then return end
     for _, player in pairs(game.players) do
         if player.surface.name == 'nauvis' then
-            player.print({"dw-messages.intro-death"}, {color=defines.color.orange})
+            player.print({"dw-messages.intro-death"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
             player.character.die()
         end
     end
@@ -137,7 +137,7 @@ local function destroy_nauvis_lab_event()
     storage.intro_built_entities = nil
 
     --- display message to notify the player of what's next
-    game.print({"dw-messages.intro-explosion"}, {color=defines.color.orange})
+    game.print({"dw-messages.intro-explosion"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
 
     --- trigger biter spawn
     spawn_biters()
@@ -165,7 +165,7 @@ local function on_character_created(event)
 
     --- only display for first character.
     if player.index == 1 then
-        game.print({"dw-messages.intro"}, {color=defines.color.orange})
+        game.print({"dw-messages.intro"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
     end
 end
 
@@ -181,7 +181,7 @@ local function player_teleported_to_neo_nauvis(event)
     local surface = player.surface
 
     if surface.name == storage.warp.current.name then
-        game.print({"dw-messages.intro-new-dimension-start"}, {color=defines.color.green})
+        game.print({"dw-messages.intro-new-dimension-start"}, {color=util.color(defines.hexcolor.green.. 'd9')})
     end
     storage.lab_intro_finished = true
 end

@@ -1,6 +1,6 @@
 local platform_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
-    {icon = "__base__/graphics/technology/automation-3.png", icon_size=256, scale = 0.4, tint = defines.color.lightsteelblue, shift = {20, 20}, floating = true},
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
+    {icon = "__base__/graphics/technology/automation-3.png", icon_size=256, scale = 0.4, tint = util.color(defines.hexcolor.lightsteelblue.. 'd9'), shift = {20, 20}, floating = true},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-planet.png",
         icon_size = 128,
@@ -31,8 +31,8 @@ local tech_platform = {
 --- upgrade techs
 ---
 local platform_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = defines.color.royalblue},
-    {icon = "__base__/graphics/technology/automation-3.png", tint = defines.color.lightsteelblue, icon_size=256, scale = 0.4, shift = {20, 20}},
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
+    {icon = "__base__/graphics/technology/automation-3.png", tint = util.color(defines.hexcolor.lightsteelblue.. 'd9'), icon_size=256, scale = 0.4, shift = {20, 20}},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
         icon_size = 128,

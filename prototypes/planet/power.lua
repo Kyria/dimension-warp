@@ -16,12 +16,12 @@ local electria = {
     icons = {{
         icon = icon,
         icon_size = 256,
-        tint = defines.color.darkgoldenrod
+        tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9')
     }},
     starmap_icons = {{
         icon = icon,
         icon_size = 256,
-        tint = defines.color.darkgoldenrod
+        tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9')
     }},
 
     pollutant_type = "pollution",

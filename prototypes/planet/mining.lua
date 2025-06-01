@@ -18,12 +18,12 @@ local smeltus = {
     icons = {{
         icon = icon,
         icon_size = 256,
-        tint = defines.color.peachpuff
+        tint = util.color(defines.hexcolor.peachpuff.. 'd9')
     }},
     starmap_icons = {{
         icon = icon,
         icon_size = 256,
-        tint = defines.color.peachpuff
+        tint = util.color(defines.hexcolor.peachpuff.. 'd9')
     }},
 
     pollutant_type = "pollution",

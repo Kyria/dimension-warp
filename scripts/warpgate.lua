@@ -364,7 +364,7 @@ local function mobile_gate_surface_check(event)
         position = entity.position,
         surface = entity.surface,
         text = {"dw-messages.cannot-build-mobile-gate"},
-        color = defines.color.orangered}
+        color = util.color(defines.hexcolor.orangered.. 'd9')}
     entity.destroy()
 
     return false
