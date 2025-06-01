@@ -1,7 +1,7 @@
 --- All surface platform related function
 ------------------------------------------------------------
 
-dw.update_warp_platform_size = function()
+local function update_warp_platform_size()
     local surface = storage.warp.current.surface
     local new_platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
     local tiles = {}
@@ -22,9 +22,9 @@ dw.update_warp_platform_size = function()
         utils.put_warning_tiles(surface, dw.hazard_tiles.surface)
     end
 end
+dw.update_warp_platform_size = update_warp_platform_size
 
-
-dw.teleport_platform = function()
+local function teleport_platform()
     if storage.warp.status ~= defines.warp.warping then return end
 
     local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
@@ -143,7 +143,7 @@ dw.teleport_platform = function()
 
     dw.update_surfaces_properties()
 end
-
+dw.teleport_platform = teleport_platform
 
 local function relink_loader_chest(surface, positions_list)
     for _, positions in pairs(positions_list) do
@@ -248,7 +248,7 @@ local function on_technology_research_finished(event)
     local tech = event.research
     if string.match(tech.name, "warp%-platform%-size%-%d+") then
         storage.platform.warp.size = dw.platform_size.warp[tech.level + 1]
-        dw.update_warp_platform_size()
+        update_warp_platform_size()
     end
 
     if string.match(tech.name, "platform%-radar") then

@@ -322,6 +322,7 @@ local function init_update_power_platform()
     storage.platform.power.surface.set_tiles(tiles)
     utils.put_warning_tiles(storage.platform.power.surface, dw.hazard_tiles.power)
 end
+dw.init_update_power_platform = init_update_power_platform
 
 local function init_update_mining_platform()
     if not storage.platform.mining.surface then
@@ -336,6 +337,7 @@ local function init_update_mining_platform()
     storage.platform.mining.surface.set_tiles(tiles)
     utils.put_warning_tiles(storage.platform.mining.surface, dw.hazard_tiles.mining)
 end
+dw.init_update_mining_platform = init_update_mining_platform
 
 local function init_update_factory_platform()
     if not storage.platform.factory.surface then
@@ -349,6 +351,7 @@ local function init_update_factory_platform()
     storage.platform.factory.surface.set_tiles(tiles)
     utils.put_warning_tiles(storage.platform.factory.surface, dw.hazard_tiles.factory)
 end
+dw.init_update_factory_platform = init_update_factory_platform
 
 
 local function on_technology_research_finished(event)

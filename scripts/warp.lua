@@ -31,8 +31,10 @@ local function warp_timer()
 
         if storage.timer.warp == 0 or storage.timer.manual_warp == 0 then
             -- return warp gate
-            storage.warpgate.mobile_gate.destroy{raise_destroy=true}
-            -- returters
+            if storage.warpgate.mobile_gate then
+                storage.warpgate.mobile_troy{raise_destroy=true}
+            end
+            -- harvesters .. ?
 
             -- generate new surface and teleport
             dw.prepare_warp_to_next_surface()
@@ -48,6 +50,12 @@ local function warp_timer()
             game.forces.enemy.set_evolution_factor(math.min(100, 1.8 ^ (storage.warp.number / 20) + math.log(storage.warp.number, 10) * 5) / 100, storage.warp.current.surface)
             storage.pollution = storage.warp.number * math.min(10, 10 ^ (storage.warp.number / 100))
             dw.update_manual_warp_button()
+
+            --- once everything's done, force recreate the tiles
+            dw.update_warp_platform_size()
+            if storage.platform.factory.surface then dw.init_update_factory_platform() end
+            if storage.platform.mining.surface then dw.init_update_mining_platform() end
+            if storage.platform.power.surface then dw.init_update_power_platform() end
         end
 
     end
