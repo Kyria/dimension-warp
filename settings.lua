@@ -15,6 +15,13 @@ data:extend {
         order = "a-b",
     },
     {
+        type = "bool-setting",
+        name = "dw-adjust-space-cost",
+        setting_type = "startup",
+        default_value = true,
+        order = "a-c",
+    },
+    {
         type = "string-setting",
         name = "dw-default-tile-background",
         setting_type = "startup",

@@ -5,4 +5,5 @@ require 'prototypes.updates.planets'
 
 if mods['space-age'] then
     require 'prototypes.updates.space-connection'
+    require 'prototypes.updates.space-costs'
 end

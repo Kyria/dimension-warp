@@ -1,4 +1,4 @@
-if not settings.startup['dw-adjust-stack-size'] then
+if not settings.startup['dw-adjust-stack-size'].value then
     return
 end
 

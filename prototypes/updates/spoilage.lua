@@ -1,4 +1,4 @@
-if not settings.startup['dw-adjust-spoilage'] or not mods['space-age'] then
+if not settings.startup['dw-adjust-spoilage'].value or not mods['space-age'] then
     return
 end
 
