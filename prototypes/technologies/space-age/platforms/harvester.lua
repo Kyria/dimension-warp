@@ -66,20 +66,3 @@ harvester_left_5.unit = table.deepcopy(harvester_right_5.unit)
 local harvester_left_6 = data.raw['technology']['dimension-harvester-left-6']
 harvester_left_6.prerequisites = {"dimension-harvester-left-5", "fish-breeding"}
 harvester_left_6.unit = table.deepcopy(harvester_right_6.unit)
-
--- top harvester upgrades
-local harvester_top_3 = data.raw['technology']['dimension-harvester-top-3']
-table.insert(harvester_top_3.prerequisites, "space-science-pack")
-harvester_top_3.unit = table.deepcopy(harvester_right_3.unit)
-
-local harvester_top_4 = data.raw['technology']['dimension-harvester-top-4']
-harvester_top_4.prerequisites = {"dimension-harvester-top-3", "big-mining-drill"}
-harvester_top_4.unit = table.deepcopy(harvester_right_4.unit)
-
-local harvester_top_5 = data.raw['technology']['dimension-harvester-top-5']
-harvester_top_5.prerequisites = {"dimension-harvester-top-4", "turbo-transport-belt"}
-harvester_top_5.unit = table.deepcopy(harvester_right_5.unit)
-
-local harvester_top_6 = data.raw['technology']['dimension-harvester-top-6']
-harvester_top_6.prerequisites = {"dimension-harvester-top-5", "fish-breeding"}
-harvester_top_6.unit = table.deepcopy(harvester_right_6.unit)

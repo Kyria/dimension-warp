@@ -20,18 +20,6 @@ local harvester_left_icon = {
         floating = true
     }
 }
-local harvester_top_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
-    {icon = "__base__/graphics/technology/electric-mining-drill.png", tint = util.color(defines.hexcolor.orange.. 'd9'), icon_size=256, scale = 0.3, shift = {0, -25}, floating = true},
-    {
-        icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
-        icon_size = 128,
-        scale = 0.5,
-        shift = {50, 50},
-        floating = true
-    }
-}
-
 local harvester_right_1 = {
     type = "technology", name = "dimension-harvester-right-1", icons = harvester_right_icon,
     prerequisites = {"mining-platform-upgrade-1", "chemical-science-pack"},
@@ -153,37 +141,6 @@ harvester_left_6.name = "dimension-harvester-left-6"
 harvester_left_6.icons = harvester_left_icon
 harvester_left_6.prerequisites = {"dimension-harvester-left-5", "warp-generator-5"}
 
-
-local harvester_top_1 = table.deepcopy(harvester_right_1)
-harvester_top_1.name = "dimension-harvester-top-1"
-harvester_top_1.icons = harvester_top_icon
-
-local harvester_top_2 = table.deepcopy(harvester_right_2)
-harvester_top_2.name = "dimension-harvester-top-2"
-harvester_top_2.icons = harvester_top_icon
-harvester_top_2.prerequisites = {"dimension-harvester-top-1", "electric-engine"}
-
-local harvester_top_3 = table.deepcopy(harvester_right_3)
-harvester_top_3.name = "dimension-harvester-top-3"
-harvester_top_3.icons = harvester_top_icon
-harvester_top_3.prerequisites = {"dimension-harvester-top-2", "utility-science-pack"}
-
-local harvester_top_4 = table.deepcopy(harvester_right_4)
-harvester_top_4.name = "dimension-harvester-top-4"
-harvester_top_4.icons = harvester_top_icon
-harvester_top_4.prerequisites = {"dimension-harvester-top-3", "logistic-system"}
-
-local harvester_top_5 = table.deepcopy(harvester_right_5)
-harvester_top_5.name = "dimension-harvester-top-5"
-harvester_top_5.icons = harvester_top_icon
-harvester_top_5.prerequisites = {"dimension-harvester-top-4", "mining-productivity-3"}
-
-local harvester_top_6 = table.deepcopy(harvester_right_6)
-harvester_top_6.name = "dimension-harvester-top-6"
-harvester_top_6.icons = harvester_top_icon
-harvester_top_6.prerequisites = {"dimension-harvester-top-5", "warp-generator-5"}
-
-
 data:extend{
     harvester_right_1,
     harvester_right_2,
@@ -197,10 +154,4 @@ data:extend{
     harvester_left_4,
     harvester_left_5,
     harvester_left_6,
-    harvester_top_1,
-    harvester_top_2,
-    harvester_top_3,
-    harvester_top_4,
-    harvester_top_5,
-    harvester_top_6,
 }
