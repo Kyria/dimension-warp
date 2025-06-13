@@ -12,7 +12,7 @@ local function create_surface_tile(tile_info)
     tile.layer_group = "ground-artificial" -- Set the layer group
     tile.tint = tile_info.tint -- Apply the tint to the tile
     tile.type = "tile"
-    tile.layer = 75
+    tile.layer = tile_info.layer or 75
     tile.walking_speed_modifier = 1.5
     tile.variant = nil
     tile.frozen_variant = nil
@@ -50,4 +50,15 @@ create_surface_tile {
     name = "mining-platform",
     tint = util.color(defines.hexcolor.darksalmon.. 'd9'),
     base_tile = data.raw["tile"][default_dimension_tile],
+}
+create_surface_tile {
+    name = "harvester-platform",
+    tint = util.color(defines.hexcolor.chocolate.. 'd9'),
+    base_tile = data.raw["tile"]["stone-path"],
+    layer = 65
+}
+create_surface_tile {
+    name = "dimension-harvester-hazard",
+    base_tile = data.raw["tile"]['hazard-concrete-right'],
+    layer = 50
 }
