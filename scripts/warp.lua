@@ -25,33 +25,41 @@ local function warp_timer()
             storage.timer.manual_warp = math.max(10, storage.timer.manual_warp - 1)
         end
 
-        if storage.timer.warp < 60 then
-            --- play some sounds
+        if (storage.timer.warp < 60 and storage.timer.warp > 0) or storage.timer.manual_warp < 10 then
+            if game.tick % (3 * 60) == 0 then
+                game.play_sound{path = "dw-alarm"}
+            end
         end
 
         if storage.timer.warp == 0 or storage.timer.manual_warp == 0 then
             -- return warp gate
             if storage.warpgate.mobile_gate then
-                storage.warpgate.mobile_troy{raise_destroy=true}
+                storage.warpgate.mobile_gate.destroy{raise_destroy=true}
             end
             -- harvesters .. ?
 
+
             -- generate new surface and teleport
             dw.prepare_warp_to_next_surface()
+            -- play sound
+            game.play_sound{path = "dw-warpdrive"}
+
 
             -- reset all timers / globals
             storage.timer.warp = storage.timer.base
             storage.timer.manual_warp = calculate_manual_warp_time()
             storage.warp.time = game.tick
-            --- reset warp votes
+
+            -- reset warp votes
             storage.votes.count = 0
             storage.votes.players = {}
-            --- reset evolution based on warp number
+
+            -- reset evolution based on warp number
             game.forces.enemy.set_evolution_factor(math.min(100, 1.8 ^ (storage.warp.number / 20) + math.log(storage.warp.number, 10) * 5) / 100, storage.warp.current.surface)
-            storage.pollution = storage.warp.number * math.min(10, 10 ^ (storage.warp.number / 100))
+            storage.pollution = 1
             dw.update_manual_warp_button()
 
-            --- once everything's done, force recreate the tiles
+            -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
             dw.update_warp_platform_size()
             if storage.platform.factory.surface then dw.init_update_factory_platform() end
             if storage.platform.mining.surface then dw.init_update_mining_platform() end
@@ -94,7 +102,7 @@ local function get_allowed_planet()
     local current = storage.warp.current.surface
     local current_require_heat = current.planet.prototype.entities_require_heating
     for _, planet in pairs(game.planets) do
-        -- remove nauvis, dimensions surface anmo surfaces from the list
+        -- remove nauvis, dimension surfaces from the list
         if not ignore_planet(planet.name) then
             if force.is_space_location_unlocked(planet.name) then
                 if current_require_heat and planet.name == current.name then
