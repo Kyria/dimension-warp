@@ -9,9 +9,12 @@ function utils.format_time(sec)
 end
 
 
---- weighted random choice. weights must be sum up to 100 cumulative (% chance)
+--- weighted random choice.
 function utils.weighted_random_choice(elements, weights)
-    local random_value = math.random(100)
+    local total_weight = 0
+    for _, weight in ipairs(weights) do total_weight = total_weight + weight end
+
+    local random_value = math.random() * total_weight
     local cumulative_weight = 0
 
     for i, weight in ipairs(weights) do
@@ -20,6 +23,14 @@ function utils.weighted_random_choice(elements, weights)
             return elements[i]
         end
     end
+end
+
+---Generate a random double
+---@param min number
+---@param max number
+---@return number
+function utils.random(min, max)
+    return (max - min) * math.random() + min
 end
 
 --- source: factorissimo-2-notnotmelon
@@ -49,12 +60,16 @@ function utils.create_flying_text(args)
     end
 end
 
-
 function utils.add_tiles(tiles, name, top_left, bottom_right)
+    local stepi = 1
+    local stepj = 1
     top_left = math2d.position.ensure_xy(top_left)
     bottom_right = math2d.position.ensure_xy(bottom_right)
-    for i = top_left.x, bottom_right.x do
-        for j = top_left.y, bottom_right.y do
+    if top_left.x > bottom_right.x then stepi = -1 end
+    if top_left.y > bottom_right.y then stepj = -1 end
+
+    for i = top_left.x, bottom_right.x, stepi do
+        for j = top_left.y, bottom_right.y, stepj do
             local position = {x = i, y = j}
             table.insert(tiles, {name = name, position = position})
         end
@@ -84,4 +99,42 @@ function utils.link_cables(entity1, entity2, wire_connectors)
             entity1_connector.connect_to(entity2_connector, false, defines.wire_origin.script)
         end
     end
+end
+
+---Check that we construct entity only on surface, not any platform.
+---If we do, destroy and return the item.
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity the event data
+---@param allowed_surfaces table<string,boolean> the surface list, key must be surface name with true if allowed
+---@param localized_message string the localized message
+---@return boolean # true if the surface is allowed
+function utils.entity_built_surface_check(event, allowed_surfaces, localized_message)
+
+    local source = (event.robot) and event.robot or game.players[event.player_index] ---@type LuaEntity|LuaPlayer
+    local entity = event.entity
+    local consumed = (event.stack) and event.stack or event.consumed_items[1]
+    local item_stack = {name=consumed, count=1}
+
+    if allowed_surfaces[entity.surface.name] then return true end
+
+    if consumed.quality then item_stack.quality = consumed.quality.name end
+
+    if event.player_index and source.valid and source.character and source.character.valid then
+        source.insert(item_stack)
+    else
+        entity.surface.spill_item_stack {
+            position = entity.position,
+            stack = item_stack,
+            enable_looted = true,
+            force = entity.force
+        }
+    end
+
+    utils.create_flying_text{
+        position = entity.position,
+        surface = entity.surface,
+        text = {localized_message},
+        color = util.color(defines.hexcolor.orangered.. 'd9')}
+    entity.destroy()
+
+    return false
 end

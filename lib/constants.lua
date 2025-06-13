@@ -59,7 +59,8 @@ dw.hazard_tiles = {
     }
 }
 
--- special entities with fixed position
+--- special entities with fixed position
+--- does not contain warpgate / harvesters
 dw.entities = {
     -- radio station in surface
     surface_radio_station = {
@@ -248,7 +249,7 @@ dw.stairs = {
     },
 }
 
--- warp gate
+--- warp gate
 dw.warp_gate = {
     name = "warp-gate",
     position = {0, 6.5},
@@ -275,3 +276,19 @@ dw.warp_gate = {
     }
 }
 
+dw.harvesters = {
+    left = {
+        center = {-103, 0},
+        area = {{-1, -1}, {0, 0}},
+        name = "harvester-left-gate",
+        pole = "dw-hidden-radio-pole",
+        mobile_name = "harvester-left-mobile-gate"
+    },
+    right = {
+        center = {103, 0},
+        area = {{-1, -1}, {0, 0}},
+        name = "harvester-right-gate",
+        pole = "dw-hidden-radio-pole",
+        mobile_name = "harvester-right-mobile-gate"
+    },
+}
