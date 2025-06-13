@@ -19,9 +19,11 @@ dw.setting_loader_mod =
 
 
 require 'lib.defines'
+require 'lib.constants'
 require 'lib.utils'
 require 'prototypes.scripts.loaders'
 
+require 'prototypes.sounds'
 require 'prototypes.subgroup'
 require 'prototypes.tiles'
 require 'prototypes.planet.neo-nauvis'
@@ -35,6 +37,8 @@ require 'prototypes.entities.power-pole'
 require 'prototypes.entities.hidden-radar'
 require 'prototypes.entities.factory-beacon'
 require 'prototypes.entities.warp-gate'
+require 'prototypes.entities.harvesters'
+require 'prototypes.buildings.agricultural-tower'
 require 'prototypes.buildings.loaders'
 
 
