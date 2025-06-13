@@ -28,7 +28,7 @@ data:extend({
                 }
             }
         },
-        circuit_wire_max_distance = 9,
+        circuit_wire_max_distance = 32,
         radius_minimap_visualisation_color = {0.059, 0.092, 0.235, 0.275},
         impact_category = "metal",
 
@@ -87,6 +87,8 @@ data:extend({
         }
     }
 })
+
+
 
 if mods['space-age'] then
     data.raw['radar']['radio-station'].energy_source.emissions_per_minute = {

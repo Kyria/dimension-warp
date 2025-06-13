@@ -1,3 +1,6 @@
+-----------------------------
+--- Warp gate (base)
+-----------------------------
 local warp_gate = table.deepcopy(data.raw.accumulator['accumulator'])
 warp_gate.type = "accumulator"
 warp_gate.name = "warp-gate"
@@ -60,6 +63,9 @@ warp_gate.energy_source = {
 warp_gate.draw_copper_wires = false
 
 
+-----------------------------
+--- Mobile gates
+-----------------------------
 local mobile_gate1 = table.deepcopy(warp_gate)
 mobile_gate1.name = "mobile-gate-1"
 mobile_gate1.chargable_graphics.picture.layers[1].tint = util.color(defines.hexcolor.deepskyblue .. '77')
@@ -98,6 +104,9 @@ mobile_gate5.energy_source.output_flow_limit = "1GW"
 mobile_gate5.minable = {mining_time = 0.2, result = "mobile-gate-5"}
 mobile_gate5.placeable_by = {item = "mobile-gate-5", count = 1}
 
+-----------------------------
+--- Surface gates
+-----------------------------
 local factory_gate = table.deepcopy(warp_gate)
 factory_gate.name = "factory-gate"
 factory_gate.chargable_graphics.picture.layers[1].tint = util.color(defines.hexcolor.lightsteelblue .. '77')
@@ -118,7 +127,7 @@ surface_gate.name = "surface-gate"
 surface_gate.chargable_graphics.picture.layers[1].tint = util.color(defines.hexcolor.royalblue .. '77')
 surface_gate.icons[1].tint = util.color(defines.hexcolor.royalblue .. '77')
 
-local function create_item(name)
+local function create_item(name, icons)
     return {
         type = 'item',
         name = name,
@@ -126,7 +135,7 @@ local function create_item(name)
 
         stack_size = 1,
         weight = 1.5 * tons,
-        icons = mobile_gate1.icons,
+        icons = icons,
 
         place_result = name,
     }
@@ -134,18 +143,20 @@ end
 
 data:extend{
     warp_gate,
+    factory_gate,
+    mining_gate,
+    power_gate,
+    surface_gate,
+
     mobile_gate1,
     mobile_gate2,
     mobile_gate3,
     mobile_gate4,
     mobile_gate5,
-    factory_gate,
-    mining_gate,
-    power_gate,
-    surface_gate,
-    create_item("mobile-gate-1"),
-    create_item("mobile-gate-2"),
-    create_item("mobile-gate-3"),
-    create_item("mobile-gate-4"),
-    create_item("mobile-gate-5"),
+    create_item("mobile-gate-1", mobile_gate1.icons),
+    create_item("mobile-gate-2", mobile_gate1.icons),
+    create_item("mobile-gate-3", mobile_gate1.icons),
+    create_item("mobile-gate-4", mobile_gate1.icons),
+    create_item("mobile-gate-5", mobile_gate1.icons),
+
 }
