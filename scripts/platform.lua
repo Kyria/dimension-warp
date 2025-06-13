@@ -133,7 +133,7 @@ local function teleport_platform()
     for _, train_data in pairs(locomotive_data) do
         local locomotive = destination.find_entity(train_data.name, train_data.position)
         if locomotive then
-            local train = locomotive.train --[[@as LuaTrain]]
+            local train = locomotive.train ---@as LuaTrain
             if train then
                 train.schedule = train_data.schedule
                 train.manual_mode = train_data.manual_mode

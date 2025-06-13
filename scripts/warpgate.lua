@@ -254,12 +254,14 @@ local function gate_research(event)
             -- replace the gate in inventory if found in a player.
             for _, player in pairs(game.players) do
                 local inventory = player.get_main_inventory()
-                for i = 1, #inventory, 1 do
-                    if inventory[i].valid_for_read then
-                        if string.match(inventory[i].name, "mobile%-gate%-%d") then
-                            local new_gate = {name = storage.warpgate.mobile_type, count = inventory[i].count}
-                            inventory[i].clear()
-                            inventory.insert(new_gate)
+                if inventory and not inventory.is_empty() then
+                    for i = 1, #inventory, 1 do
+                        if inventory[i].valid_for_read then
+                            if string.match(inventory[i].name, "mobile%-gate%-%d") then
+                                local new_gate = {name = storage.warpgate.mobile_type, count = inventory[i].count}
+                                inventory[i].clear()
+                                inventory.insert(new_gate)
+                            end
                         end
                     end
                 end
@@ -293,7 +295,7 @@ local function mobile_gate_removed_killed(event)
         local chest = chest or surface.find_entity(storage.stairs.chest_type.output, math2d.position.add(gate_pos, position))
         if chest then
             local inventory = chest.get_inventory(defines.inventory.chest)
-            if not inventory.is_empty() then
+            if inventory and not inventory.is_empty() then
                 storage.warpgate.mobile_chests[index] = {}
                 for i = 1, #inventory, 1 do
                     if inventory[i].valid_for_read then
@@ -334,48 +336,13 @@ local function mobile_gate_removed_killed(event)
     if pole then pole.destroy() end
 end
 
----Check that we construct mobile gate only on surface, not any platform.
----If we do, destroy and return the item.
----Called from mobile_gate_placed event
----@param event EventData.on_built_entity|EventData.on_robot_built_entity the event data
----@return boolean # true if the surface is allowed
-local function mobile_gate_surface_check(event)
-    local source = (event.robot) and event.robot or game.players[event.player_index]
-    local entity = event.entity
-    local consumed = (event.stack) and event.stack or event.consumed_items[1]
-    local item_stack = {name=consumed, count=1}
-
-    if not dw.safe_surfaces[entity.surface.name] then return true end
-
-    if consumed.quality then item_stack.quality = consumed.quality.name end
-
-    if event.player_index and source.valid and source.character and source.character.valid then
-        source.insert(item_stack)
-    else
-        entity.surface.spill_item_stack {
-            position = entity.position,
-            stack = item_stack,
-            enable_looted = true,
-            force = entity.force
-        }
-    end
-
-    utils.create_flying_text{
-        position = entity.position,
-        surface = entity.surface,
-        text = {"dw-messages.cannot-build-mobile-gate"},
-        color = util.color(defines.hexcolor.orangered.. 'd9')}
-    entity.destroy()
-
-    return false
-end
 
 ---@param event (EventData.on_built_entity|EventData.on_robot_built_entity)
 local function mobile_gate_placed(event)
     local gate = event.entity
     if not gate.valid then return end
     if not string.match(gate.name, "mobile%-gate%-%d") then return end
-    if not mobile_gate_surface_check(event) then return end
+    if not utils.entity_built_surface_check(event, {[storage.warp.current.name]=true}, "dw-messages.cannot-build-mobile-gate") then return end
 
     if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
         -- manually destroy it and remove all components, so we are sure to do it before next steps

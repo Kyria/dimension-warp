@@ -9,7 +9,7 @@ local non_player_controllers = {
 }
 
 --- contain everything related to player teleport between surfaces
-dw.safe_teleport = function(player_or_vehicle, surface, position, force_teleport)
+local function safe_teleport(player_or_vehicle, surface, position, force_teleport)
     position = {x = position.x or position[1], y = position.y or position[2]}
     local is_player = player_or_vehicle.is_player()
     local controller_type = player_or_vehicle.controller_type
@@ -30,6 +30,7 @@ dw.safe_teleport = function(player_or_vehicle, surface, position, force_teleport
 
     storage.players_last_teleport[index] = game.tick
 end
+dw.safe_teleport = safe_teleport
 
 ---
 local function check_player_teleport()
@@ -60,7 +61,8 @@ local function check_player_teleport()
                     local distance = math2d.position.distance(teleporter.from.position, position)
                     local final_pos = util.moveposition(teleporter.to.position, player.walking_state.direction, distance + 0.5)
 
-                    dw.safe_teleport(player, teleporter.to.surface, final_pos)
+                    safe_teleport(player, teleporter.to.surface, final_pos)
+                    player.play_sound{path = "dw-teleport"}
                     goto continue
                 end
                 ::continue_teleport::
@@ -87,7 +89,7 @@ local function teleport_safely_player_on_event(event)
     --- make sure to teleport any new player to the current warp surface
     if storage.nauvis_lab_exploded then
         if not dw.safe_surfaces[player.surface.name] then
-            dw.safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
+            safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
         end
     end
 end
