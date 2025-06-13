@@ -49,11 +49,9 @@ local function set_globals()
         ['nauvis-gate'] =                   {active = false},
         ['warp-gate-to-surface'] =          {active = false},
         ['harvester-left-to-surface'] =     {active = false},
-        ['harvester-top-to-surface'] =      {active = false},
         ['harvester-right-to-surface'] =    {active = false},
         ['surface-to-warp-gate'] =          {active = false},
         ['surface-to-harvester-left'] =     {active = false},
-        ['surface-to-harvester-top'] =      {active = false},
         ['surface-to-harvester-right'] =    {active = false},
     }
     --- timer check for player teleport
@@ -79,22 +77,28 @@ local function set_globals()
         mobile_loaders = {}
     }
     storage.harvesters = {
-        energ_level = 1
-
+        left = {gate = nil, area = nil, size=0},
+        right = {gate = nil, area = nil, size=0}
+    }
+    storage.agricultural = {
+        top = {tower = nil, area = nil, size=0},
+        bottom = {tower = nil, area = nil, size=0},
     }
 end
 dw.register_event('on_init', set_globals)
 
 ------------------------------------------------------------
-require "scripts.surface"
+require "scripts.surface-generation"
 require "scripts.teleport"
 require "scripts.gui"
 require "scripts.platform"
 require "scripts.dimensions"
 require "scripts.warpgate"
+require "scripts.harvester"
 
-require "scripts.freeplay"
-require "scripts.lab_intro"
+require "scripts.scenario.freeplay"
+require "scripts.scenario.lab_intro"
+
 require "scripts.warp"
 
 require "scripts.enemies"
