@@ -3,14 +3,14 @@
 
 local function update_warp_platform_size()
     local surface = storage.warp.current.surface
-    local new_platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
+    local new_platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size - 1)
     local tiles = {}
 
-    local size = storage.platform.warp.size
-    utils.add_tiles(tiles, "warp-platform", {-size/2, -size/2}, {(size-1)/2, (size-1)/2})
+    utils.add_tiles(tiles, "warp-platform", new_platform_area.left_top, new_platform_area.right_bottom)
 
+    local filter_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size)
     local stuff_to_remove = surface.find_entities_filtered {
-        area = new_platform_area,
+        area = filter_area,
         force = {"player", "enemy"},
         invert = true,
     }
