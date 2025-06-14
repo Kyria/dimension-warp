@@ -24,11 +24,15 @@ harvester_left_gate.icons = {
         --tint = util.color(defines.hexcolor.royalblue .. 'd9')
     }
 }
+harvester_left_gate.remains_when_mined = "harvester-left-gate"
+harvester_left_gate.minable = {mining_time = 0.2, result = "harvester-left-mobile-gate"}
+
 local harvester_left_mobilegate = table.deepcopy(harvester_left_gate)
 harvester_left_mobilegate.name = "harvester-left-mobile-gate"
 harvester_left_mobilegate.icons[1].tint = util.color(defines.hexcolor.orange .. '77')
 harvester_left_mobilegate.minable = {mining_time = 0.2, result = "harvester-left-mobile-gate"}
-harvester_left_mobilegate.placeable_by = {item = "harvester-left-mobile-gate", count = 1}
+harvester_left_mobilegate.placeable_by = nil
+harvester_left_mobilegate.remains_when_mined = nil
 
 
 local harvester_right_gate = table.deepcopy(harvester_left_gate)
@@ -41,11 +45,15 @@ harvester_right_gate.icons[2] = {
     shift = {16, 0}
     --tint = util.color(defines.hexcolor.royalblue .. 'd9')
 }
+harvester_right_gate.remains_when_mined = "harvester-right-gate"
+harvester_right_gate.minable = {mining_time = 0.2, result = "harvester-right-mobile-gate"}
+
 local harvester_right_mobilegate = table.deepcopy(harvester_right_gate)
 harvester_right_mobilegate.name = "harvester-right-mobile-gate"
 harvester_right_mobilegate.icons[1].tint = util.color(defines.hexcolor.orange .. '77')
 harvester_right_mobilegate.minable = {mining_time = 0.2, result = "harvester-right-mobile-gate"}
 harvester_right_mobilegate.placeable_by = nil
+harvester_right_mobilegate.remains_when_mined = nil
 
 local function create_item(name, icons)
     return {

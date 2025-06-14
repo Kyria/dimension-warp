@@ -36,8 +36,9 @@ local function warp_timer()
             if storage.warpgate.mobile_gate then
                 storage.warpgate.mobile_gate.destroy{raise_destroy=true}
             end
-            -- harvesters .. ?
-
+            -- harvesters recall
+            dw.recall_harvester("left")
+            dw.recall_harvester("right")
 
             -- generate new surface and teleport
             dw.prepare_warp_to_next_surface()
