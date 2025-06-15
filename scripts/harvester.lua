@@ -1,3 +1,16 @@
+local function lay_hidden_ore(area)
+    for i = area.left_top.x, area.right_bottom.x, 1 do
+        for j = area.left_top.y, area.right_bottom.y, 1 do
+            local position = {i, j}
+            storage.platform.mining.surface.create_entity{
+                name = "dw-hidden-ore",
+                position = position,
+                amount = 1,
+            }
+        end
+    end
+end
+
 local function create_update_pipes_loaders(side)
     local harvester_const = dw.harvesters[side]
     local harvester = storage.harvesters[side]
@@ -193,6 +206,7 @@ local function create_harvester_zone(side)
     utils.add_tiles(tiles, "dimension-harvester-hazard", warn_area.left_top, warn_area.right_bottom)
     utils.add_tiles(tiles, "harvester-platform", harvester_area.left_top, harvester_area.right_bottom)
     storage.platform.mining.surface.set_tiles(tiles)
+    lay_hidden_ore(harvester_area)
 
     if not harvester.gate then
         local harvester_gate = storage.platform.mining.surface.create_entity{
