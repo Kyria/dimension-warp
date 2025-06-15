@@ -279,12 +279,14 @@ dw.warp_gate = {
 }
 
 dw.harvesters = {
+    loader_y = {-0.5, 0.5, -1.5, 1.5},
+    pipe_y = -2.5,
     left = {
         center = {-103, 0},
         area = {{-1, -1}, {0, 0}},
         name = "harvester-left-gate",
         pole = "dw-hidden-radio-pole",
-        mobile_name = "harvester-left-mobile-gate"
+        mobile_name = "harvester-left-mobile-gate",
     },
     right = {
         center = {103, 0},

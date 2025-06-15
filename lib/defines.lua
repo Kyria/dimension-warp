@@ -17,8 +17,8 @@ defines.warp = {
 defines.loader_facing = {
     top = {input = defines.direction.north, output = defines.direction.south},
     bottom = {input = defines.direction.south, output = defines.direction.north},
-    left = {input = defines.direction.west, output = defines.direction.east},
-    right = {input = defines.direction.east, output = defines.direction.west},
+    left = {input = defines.direction.west, output = defines.direction.west},
+    right = {input = defines.direction.east, output = defines.direction.east},
 }
 
 defines.opposite_loader = {

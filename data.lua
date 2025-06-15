@@ -30,6 +30,8 @@ require 'prototypes.planet.neo-nauvis'
 require 'prototypes.planet.factory'
 require 'prototypes.planet.mining'
 require 'prototypes.planet.power'
+require 'prototypes.buildings.agricultural-tower'
+require 'prototypes.buildings.loaders'
 require 'prototypes.technologies.technology'
 require 'prototypes.entities.radio-station'
 require 'prototypes.entities.chest-pipe'
@@ -38,8 +40,7 @@ require 'prototypes.entities.hidden-radar'
 require 'prototypes.entities.factory-beacon'
 require 'prototypes.entities.warp-gate'
 require 'prototypes.entities.harvesters'
-require 'prototypes.buildings.agricultural-tower'
-require 'prototypes.buildings.loaders'
+require 'prototypes.entities.harvesters-linked-belt'
 
 
 data:extend({

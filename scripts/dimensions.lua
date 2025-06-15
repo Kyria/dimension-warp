@@ -442,11 +442,6 @@ local function on_technology_research_finished(event)
         storage.platform.power.size = dw.platform_size.power[tech.level + 1]
         init_update_power_platform()
     end
-
-    if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
-        -- storage.harvester.side.size = dw.plrm_size.harvester[tech.level]
-        -- storage.harvester.side.border = math.max((tech.level - 1), 2)
-    end
 end
 
 local function transfert_chest_content(inventory_from, inventory_to)
