@@ -1,3 +1,5 @@
+dw.platforms = dw.platforms or {}
+
 local function lay_hidden_ore(area)
     for i = area.left_top.x, area.right_bottom.x, 1 do
         for j = area.left_top.y, area.right_bottom.y, 1 do
@@ -320,7 +322,7 @@ local function recall_harvester(side)
     storage.harvesters[side].deployed = false
     link_harvester_pipe_chest(side)
 end
-dw.recall_harvester = recall_harvester
+dw.platforms.recall_harvester = recall_harvester
 
 local function harvester_placed(event)
     local harvester_grid = event.entity

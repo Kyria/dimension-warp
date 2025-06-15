@@ -231,8 +231,8 @@ dw.platform_force_update_entities = function()
         if warp_gate then
             storage.warpgate.gate = warp_gate
             storage.warpgate.mobile_gate = nil
-            dw.create_mobile_gate()
-            dw.link_warp_gate(nil, nil, nil, true)
+            dw.gate.create_mobile_gate()
+            dw.gate.link_warp_gate(nil, nil, nil, true)
         end
         -- relink power pole
         local pole = surface.find_entity("dw-hidden-gate-pole", dw.warp_gate.position)

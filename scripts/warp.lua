@@ -37,8 +37,8 @@ local function warp_timer()
                 storage.warpgate.mobile_gate.destroy{raise_destroy=true}
             end
             -- harvesters recall
-            dw.recall_harvester("left")
-            dw.recall_harvester("right")
+            dw.platforms.recall_harvester("left")
+            dw.platforms.recall_harvester("right")
 
             -- generate new surface and teleport
             dw.prepare_warp_to_next_surface()
@@ -62,9 +62,9 @@ local function warp_timer()
 
             -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
             dw.update_warp_platform_size()
-            if storage.platform.factory.surface then dw.init_update_factory_platform() end
-            if storage.platform.mining.surface then dw.init_update_mining_platform() end
-            if storage.platform.power.surface then dw.init_update_power_platform() end
+            if storage.platform.factory.surface then dw.platforms.init_update_factory_platform() end
+            if storage.platform.mining.surface then dw.platforms.init_update_mining_platform() end
+            if storage.platform.power.surface then dw.platforms.init_update_power_platform() end
         end
 
     end

@@ -95,18 +95,19 @@ dw.register_event('on_init', set_globals)
 require "scripts.surface-generation"
 require "scripts.teleport"
 require "scripts.gui"
-require "scripts.platform"
-require "scripts.dimensions"
-require "scripts.warpgate"
-require "scripts.harvester"
+require "scripts.platforms.surface"
+require "scripts.platforms.dimensions"
+require "scripts.platforms.harvesters"
 
 require "scripts.scenario.freeplay"
 require "scripts.scenario.lab_intro"
 
 require "scripts.warp"
-
 require "scripts.enemies"
-require "scripts.rocket_silo"
+
+require "scripts.entities.warpgate"
+require "scripts.entities.rocket_silo"
+require "scripts.entities.logistics"
 
 require "compatibility.picker-dollies"
 

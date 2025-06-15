@@ -1,3 +1,4 @@
+dw.gate = dw.gate or {}
 --- create entities using the position list, centered around "center"
 local function create_entities_relative_to_position(surface, entity_info, entity_list)
     local name = entity_info.name
@@ -143,7 +144,7 @@ local function link_warp_gate(mobile_chests, mobile_loaders, mobile_pipes, force
         end
     end
 end
-dw.link_warp_gate = link_warp_gate
+dw.gate.link_warp_gate = link_warp_gate
 
 local function create_warpgate()
     local surface = storage.warp.current.surface
@@ -227,7 +228,7 @@ local function create_mobile_gate()
         storage.warpgate.mobile_gate = mobile_gate
     end
 end
-dw.create_mobile_gate = create_mobile_gate
+dw.gate.create_mobile_gate = create_mobile_gate
 
 local function gate_research(event)
     local tech = event.research
