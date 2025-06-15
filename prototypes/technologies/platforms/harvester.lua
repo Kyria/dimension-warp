@@ -22,7 +22,7 @@ local harvester_left_icon = {
 }
 local harvester_right_1 = {
     type = "technology", name = "dimension-harvester-right-1", icons = harvester_right_icon,
-    prerequisites = {"mining-platform-upgrade-1", "chemical-science-pack"},
+    prerequisites = {"mining-platform-upgrade-1", "uranium-mining"},
     unit = {
         count = 2000,
         ingredients = {
