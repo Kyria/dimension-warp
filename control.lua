@@ -36,9 +36,10 @@ local function set_globals()
     --- mapgen
     storage.mapgen = storage.mapgen or {
         defaults = {},
-        autoplace_controls = {}
+        autoplace_controls = {},
+        autoplace_settings = {},
     }
-    --- list of teleport locations with status, and both teleporter entity (from/to)
+    --- list of teleport locations with status, and both teleporter entity (fom/to)
     storage.teleporter = storage.teleporter or {
         ['warp-to-factory'] =               {active = false},
         ['factory-to-warp'] =               {active = false},
@@ -77,8 +78,11 @@ local function set_globals()
         mobile_loaders = {}
     }
     storage.harvesters = {
-        left = {gate = nil, area = nil, size=0},
-        right = {gate = nil, area = nil, size=0}
+        loaders = 2,
+        loader_tier = "harvest-linked-belt",
+        pipes_type = "dw-pipe",
+        left = {gate = nil, area = nil, size=0, loaders = {}},
+        right = {gate = nil, area = nil, size=0, loaders = {}}
     }
     storage.agricultural = {
         top = {tower = nil, area = nil, size=0},
@@ -103,5 +107,7 @@ require "scripts.warp"
 
 require "scripts.enemies"
 require "scripts.rocket_silo"
+
+require "compatibility.picker-dollies"
 
 require "scripts.debug"

@@ -1,0 +1,52 @@
+local function picker_dollies_compat()
+    if not remote.interfaces["PickerDollies"] then return end
+
+    remote.call("PickerDollies", "add_blacklist_name", "dw-chest")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-logistic-output")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-logistic-input")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-pipe")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-fast-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-express-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-turbo-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-advanced-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-stair-superior-loader")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-belt")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-fast-belt")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-express-belt")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-turbo-belt")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-advanced-belt")
+    remote.call("PickerDollies", "add_blacklist_name", "harvest-linked-superior-belt")
+
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-1")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-2")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-3")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-4")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-5")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-6")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-factory-beacon-7")
+
+    remote.call("PickerDollies", "add_blacklist_name", "harvester-left-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "harvester-left-mobile-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "harvester-right-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "harvester-right-mobile-gate")
+
+    remote.call("PickerDollies", "add_blacklist_name", "dw-hidden-radar")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-hidden-radio-pole")
+    remote.call("PickerDollies", "add_blacklist_name", "dw-hidden-gate-pole")
+
+    remote.call("PickerDollies", "add_blacklist_name", "radio-station")
+    remote.call("PickerDollies", "add_blacklist_name", "warp-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "factory-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "mining-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "power-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "surface-gate")
+    remote.call("PickerDollies", "add_blacklist_name", "mobile-gate-1")
+    remote.call("PickerDollies", "add_blacklist_name", "mobile-gate-2")
+    remote.call("PickerDollies", "add_blacklist_name", "mobile-gate-3")
+    remote.call("PickerDollies", "add_blacklist_name", "mobile-gate-4")
+    remote.call("PickerDollies", "add_blacklist_name", "mobile-gate-5")
+end
+
+
+dw.register_event('on_init', picker_dollies_compat)
