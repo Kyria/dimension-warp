@@ -36,7 +36,7 @@ harvester_right_5.unit = {
 local harvester_right_6 = data.raw['technology']['dimension-harvester-right-6']
 harvester_right_6.prerequisites = {"dimension-harvester-right-5", "fish-breeding"}
 harvester_right_6.unit = {
-    count = 20000,
+    count = 10000,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 2},

@@ -98,7 +98,7 @@ local harvester_right_6 = {
     type = "technology", name = "dimension-harvester-right-6", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-5", "warp-generator-5"},
     unit = {
-        count = 20000,
+        count = 10000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},

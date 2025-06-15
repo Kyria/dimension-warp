@@ -94,7 +94,7 @@ local beacon_6 = make_tech(6,
 local beacon_7 = make_tech(7,
     {"dw-factory-beacon-6", "factory-platform-upgrade-6"},
     {
-        count = 500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
