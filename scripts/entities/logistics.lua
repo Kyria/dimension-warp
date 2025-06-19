@@ -251,17 +251,7 @@ local function on_technology_research_finished(event)
     end
 end
 
-local function transfert_chest_content(inventory_from, inventory_to)
-    for i = 1, #inventory_from do
-        local stack = inventory_from[i]
-        if stack.valid_for_read then
-            local inserted = inventory_to.insert(stack)
-            if inserted > 0 then
-                stack.count = stack.count - inserted
-            end
-        end
-    end
-end
+
 
 local function move_chest_items()
     for k, chest_pair in pairs(storage.stairs.chest_pairs) do
@@ -271,9 +261,9 @@ local function move_chest_items()
             local inventory_A = chest_A.get_inventory(defines.inventory.chest)
             local inventory_B = chest_B.get_inventory(defines.inventory.chest)
             if chest_pair.type == defines.item_direction.push then
-                transfert_chest_content(inventory_A, inventory_B)
+                utils.transfert_chest_content(inventory_A, inventory_B)
             else
-                transfert_chest_content(inventory_B, inventory_A)
+                utils.transfert_chest_content(inventory_B, inventory_A)
             end
         end
     end

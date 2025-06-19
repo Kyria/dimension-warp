@@ -39,8 +39,6 @@ dw.hazard_tiles = {
         {{5,5}, {5,7}},
     },
     mining = {
-        --- gleba chests
-        {{-1,-1}, {0,0}},
         --- top gate
         {{-5,-8}, {4,-7}},
         {{-2,-6}, {1,-6}},
@@ -60,6 +58,10 @@ dw.hazard_tiles = {
         {{5,-6}, {5,-4}},
     }
 }
+--- gleba chests
+if script and script.active_mods['space-age'] then
+    table.insert(dw.hazard_tiles.mining, {{-1,-1}, {0,0}})
+end
 
 --- special entities with fixed position
 --- does not contain warpgate / harvesters

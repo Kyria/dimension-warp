@@ -92,7 +92,8 @@ local function set_globals()
         right = {gate = nil, area = nil, size=0, loaders = {}}
     }
     storage.agricultural = storage.agricultural or {
-
+        yumako_towers = {},
+        jellynut_towers = {},
     }
 end
 dw.register_event('on_init', set_globals)
@@ -115,6 +116,7 @@ require "scripts.enemies"
 require "scripts.entities.warpgate"
 require "scripts.entities.rocket_silo"
 require "scripts.entities.logistics"
+require "scripts.entities.dimension-crane"
 
 require "compatibility.picker-dollies"
 

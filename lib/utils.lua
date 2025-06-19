@@ -138,3 +138,15 @@ function utils.entity_built_surface_check(event, allowed_surfaces, localized_mes
 
     return false
 end
+
+function utils.transfert_chest_content(inventory_from, inventory_to)
+    for i = 1, #inventory_from do
+        local stack = inventory_from[i]
+        if stack.valid_for_read then
+            local inserted = inventory_to.insert(stack)
+            if inserted > 0 then
+                stack.count = stack.count - inserted
+            end
+        end
+    end
+end
