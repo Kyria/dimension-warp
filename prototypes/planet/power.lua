@@ -9,7 +9,7 @@ local electria = {
     type = "planet",
     draw_orbit = false,
     distance = 13,
-    orientation = 0.57,
+    orientation = 0.22,
     gravity_pull = 10,
     magnitude = 0.5,
 

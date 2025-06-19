@@ -11,7 +11,7 @@ local produstia = {
     type = "planet",
     draw_orbit = false,
     distance = 10,
-    orientation = 0.43,
+    orientation = 0.3,
     gravity_pull = 10,
     magnitude = 0.5,
 

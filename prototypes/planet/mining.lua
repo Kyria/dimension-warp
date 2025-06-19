@@ -11,7 +11,7 @@ local smeltus = {
     type = "planet",
     draw_orbit = false,
     distance = 17,
-    orientation = 0.5,
+    orientation = 0.33,
     gravity_pull = 10,
     magnitude = 0.5,
 
