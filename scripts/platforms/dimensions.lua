@@ -96,14 +96,19 @@ local function init_update_power_platform()
     local tiles = {}
     local size = storage.platform.power.size
 
-    local horizontal_top_left = {-size, -size / 3}
-    local horizontal_bottom_right = {size - 1, (size / 3) - 1}
+    if storage.platform.power.water then
+        local horizontal_water = math2d.bounding_box.create_from_centre({0,0}, size*2 + 1, size * 2 / 3 + 1)
+        utils.add_tiles(tiles, "water", horizontal_water.left_top, horizontal_water.right_bottom)
+        local vertical_water = math2d.bounding_box.create_from_centre({0,0}, size * 2 / 3 + 1,  size*2 + 1)
+        utils.add_tiles(tiles, "water", vertical_water.left_top, vertical_water.right_bottom)
+    end
 
-    local vertical_top_left = {-size / 3, -size}
-    local vertical_bottom_right = {(size / 3) - 1, size - 1}
-    utils.add_tiles(tiles, "energy-platform", horizontal_top_left, horizontal_bottom_right)
-    utils.add_tiles(tiles, "energy-platform", vertical_top_left, vertical_bottom_right)
-    storage.platform.power.surface.set_tiles(tiles)
+    local horizontal = math2d.bounding_box.create_from_centre({0,0}, size*2 - 1, size * 2 / 3 - 1)
+    local vertical = math2d.bounding_box.create_from_centre({0,0}, size * 2 / 3 - 1,  size*2 - 1)
+    utils.add_tiles(tiles, "energy-platform", horizontal.left_top, horizontal.right_bottom)
+    utils.add_tiles(tiles, "energy-platform", vertical.left_top, vertical.right_bottom)
+
+    storage.platform.power.surface.set_tiles(tiles, true, false, false)
     utils.put_warning_tiles(storage.platform.power.surface, dw.hazard_tiles.power)
 end
 dw.platforms.init_update_power_platform = init_update_power_platform
@@ -171,15 +176,15 @@ local function on_technology_research_finished(event)
         entity.destructible = false
     end
 
-    if string.match(tech.name, "factory%-platform") then
+    if tech.name == "factory-platform" then
         storage.platform.factory.size = dw.platform_size.factory[1]
         init_update_factory_platform()
     end
-    if string.match(tech.name, "mining%-platform") then
+    if tech.name == "mining-platform" then
         storage.platform.mining.size = dw.platform_size.mining[1]
         init_update_mining_platform()
     end
-    if string.match(tech.name, "power%-platform") then
+    if tech.name == "power-platform" then
         storage.platform.power.size = dw.platform_size.power[1]
         init_update_power_platform()
     end
@@ -194,6 +199,11 @@ local function on_technology_research_finished(event)
     end
     if string.match(tech.name, "power%-platform%-upgrade%-%d+") then
         storage.platform.power.size = dw.platform_size.power[tech.level + 1]
+        init_update_power_platform()
+    end
+
+    if tech.name == "power-platform-water" then
+        storage.platform.power.water = true
         init_update_power_platform()
     end
 end

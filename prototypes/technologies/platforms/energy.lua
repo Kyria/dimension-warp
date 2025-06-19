@@ -145,6 +145,31 @@ local tech_platform_7 = {
     upgrade = true,
 }
 
+local water_icon = {
+    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
+    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
+    {
+        icon = "__base__/graphics/icons/fluid/water.png",
+        icon_size = 64,
+        scale = 0.8,
+        shift = {40, 40},
+        floating = true
+    }
+}
+local water = {
+    type = "technology", name = "power-platform-water", icons = water_icon,
+    prerequisites = {"power-platform-upgrade-2", "platform-radar"},
+    unit = {
+        count = 1000,
+        ingredients = {
+            {"automation-science-pack", 1},
+            {"logistic-science-pack", 1},
+        },
+        time = 60,
+    },
+    upgrade = true,
+}
+
 data:extend{
     tech_platform,
     tech_platform_1,
@@ -153,5 +178,6 @@ data:extend{
     tech_platform_4,
     tech_platform_5,
     tech_platform_6,
-    tech_platform_7
+    tech_platform_7,
+    water,
 }
