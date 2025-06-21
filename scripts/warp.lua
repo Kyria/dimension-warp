@@ -44,7 +44,8 @@ local function warp_timer()
             dw.prepare_warp_to_next_surface()
             -- play sound
             game.play_sound{path = "dw-warpdrive"}
-
+            if storage.warp.message then game.print({storage.warp.message}) end
+            storage.warp.message = nil
 
             -- reset all timers / globals
             storage.timer.warp = storage.timer.base

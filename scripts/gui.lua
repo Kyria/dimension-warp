@@ -19,7 +19,7 @@ dw.gui.get_warp_frame = function(player)
         warp_frame = frameflow.add({type = "flow", name = "warp_frame", direction = "vertical"})
         warp_frame.visible = false
         warp_frame.style.padding = {5, 0, 0, 5}
-        local surfaceflow = warp_frame.add({type = "label", name = "surface", caption = {"dw-gui.planet", "Nauvis"}})
+        local surfaceflow = warp_frame.add({type = "label", name = "surface", caption = {"dw-gui.planet", "nauvis", "Nauvis", "normal"}})
         local dimensionflow = warp_frame.add({type = "label", name = "dimension", caption = {"dw-gui.dimension", "0"}})
         local surface_time = warp_frame.add({type = "label", name = "surface_time", caption = {"dw-gui.planet_clock", "0"}})
         local surface_evolution = warp_frame.add({type = "label", name = "surface_evolution", caption = {"dw-gui.planet_evolution", "0"}})
@@ -107,7 +107,7 @@ dw.update_gui = function()
         frame.surface_time.visible = storage.nauvis_lab_exploded or false
         frame.surface_evolution.visible = storage.nauvis_lab_exploded or false
 
-        frame.surface.caption = {"dw-gui.planet", storage.warp.current.type, {"space-location-name." .. storage.warp.current.type}}
+        frame.surface.caption = {"dw-gui.planet", storage.warp.current.planet, {"space-location-name." .. storage.warp.current.planet}, storage.warp.randomizer or "normal"}
         frame.dimension.caption = {"dw-gui.dimension", storage.warp.number}
         frame.surface_evolution.caption = {"dw-gui.planet_evolution", string.format("%.2f", game.forces.enemy.get_evolution_factor(storage.warp.current.surface) * 100)}
         frame.surface_time.caption = {"dw-gui.planet_clock", utils.format_time(game.tick/60 - storage.warp.time/60)}

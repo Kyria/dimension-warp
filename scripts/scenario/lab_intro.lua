@@ -192,7 +192,7 @@ local function on_init()
 
     --- we do this manually, to be sure neo-nauvis is created from start
     dw.generate_surface('neo-nauvis', true)
-    local planet = game.planets[storage.warp.current.type]
+    local planet = game.planets[storage.warp.current.planet]
     planet.associate_surface(storage.warp.current.surface)
 
 end
