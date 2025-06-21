@@ -1,27 +1,6 @@
 --- Surface generation and randomization
 ------------------------------------------------------------
-local function ore_missing_gen(mapgen, planet_name)
-    local total_ore = storage.mapgen.autoplace_settings[planet_name].total
-    local number_saved = math.random(math.max(1, total_ore - 1))
-    local resource_list = {}
-    for resource, _ in pairs(storage.mapgen.autoplace_settings[planet_name].autoplace) do
-        table.insert(resource_list, resource)
-    end
-    for i = 0, total_ore - number_saved, 1 do
-        local index_removed = math.random(total_ore - i)
-        mapgen.autoplace_settings.entity.settings[resource_list[index_removed]] = nil
-        table.remove(resource_list, index_removed)
-    end
-    return mapgen
-end
-
-local function barren_gen(mapgen, planet_name)
-    for resource, _ in pairs(storage.mapgen.autoplace_settings[planet_name].autoplace) do
-        mapgen.autoplace_settings.entity.settings[resource] = nil
-    end
-    return mapgen
-end
-
+require "scripts.planets.neo-nauvis"
 
 local function force_map_settings()
     game.map_settings.pollution.enabled = true
@@ -48,107 +27,53 @@ local function force_map_settings()
     game.map_settings.enemy_expansion.settler_group_max_size = 1
 end
 
---- normal
-local ore_random_types = {{"normal", nil}}
-local ore_random_weights = {10}
-
-local function randomize_mapgen(planet)
-    if storage.warp.number >= 5 then
-        for _, types in pairs(ore_random_types) do
-            if types[1] == 'missing' then goto end_missing end
-        end
-        ore_random_weights[1] = 5
-        table.insert(ore_random_types, {"missing", ore_missing_gen})
-        table.insert(ore_random_weights, 10)
-        ::end_missing::
-    end
-    if storage.warp.number >= 10 then
-        for _, types in pairs(ore_random_types) do
-            if types[1] == 'barren' then goto end_barren end
-        end
-        table.insert(ore_random_types, {"barren", barren_gen})
-        table.insert(ore_random_weights, 2)
-        ::end_barren::
-    end
-
-    local mapgen = table.deepcopy(storage.mapgen.defaults[planet])
-    local random_gen = utils.weighted_random_choice(ore_random_types, ore_random_weights)
-
-    if random_gen[1] ~= "normal" then
-        mapgen = random_gen[2](mapgen, planet)
-    end
-    storage.warp.gen = random_gen[1]
-
-    return mapgen
-end
-
-dw.generate_surface = function(planet, vanilla)
+local function generate_surface(planet, vanilla)
     force_map_settings()
 
-    -- if planet has heating, we cannot customize mapgen
-    if game.planets[planet].prototype.entities_require_heating then
-        storage.warp.previous = storage.warp.current
-        storage.warp.number = storage.warp.number + 1
-        storage.warp.gen = "normal"
+    if not game.planets[planet] then
+        planet = "neo-nauvis"
+    end
 
-        local surface = game.planets[planet].create_surface()
+    local mapgen = table.deepcopy(game.planets[planet].prototype.map_gen_settings)
+    storage.warp.previous = storage.warp.current
+    storage.warp.number = storage.warp.number + 1
+    storage.warp.randomizer = "Normal"
+    storage.warp.current = {
+        name = planet..'-'..storage.warp.number,
+        planet = planet,
+        surface = "",
+        surface_index = ""
+    }
 
+    if dw.mapgen[planet] and dw.mapgen[planet].randomizer then
+        local surface = dw.mapgen[planet].randomizer(mapgen, storage.warp.current.name)
 
-        storage.warp.current = {
-            name = surface.name,
-            type = planet,
-            surface = surface,
-            surface_index = surface.index
-        }
-
-        --- we also force the timer for these planet
-        storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
-    else
-        storage.warp.previous = storage.warp.current
-        storage.warp.number = storage.warp.number + 1
-        storage.warp.current = {
-            name = planet..'-'..storage.warp.number,
-            type = planet,
-        }
-
-        local mapgen = table.deepcopy(storage.mapgen.defaults[planet])
-        if not vanilla then
-            mapgen = randomize_mapgen(planet)
-            mapgen.seed = math.random(1, 2^32-1)
-            --- test
-            mapgen.starting_area = math.random()*0.8
-            --if mapgen.autoplace_controls['enemy-base'] then
-            --    mapgen.autoplace_controls['enemy-base'].frequency = math.random()*5
-            --    mapgen.autoplace_controls["enemy-base"].size = math.random()*5
-            --    game.print('starting area : ' .. mapgen.starting_area)
-            --    game.print('enemy freq : ' .. mapgen.autoplace_controls['enemy-base'].frequency)
-            --    game.print('enemy size : ' .. mapgen.autoplace_controls['enemy-base'].size)
-            --else
-            --    -- if planet == "fulgora" then
-            --        -- mapgen.autoplace_controls['enemy-base'] = {
-            --            -- richness = 1,
-            --            -- frequency = 4,
-            --            -- size = 4
-            --        -- }
-            --    -- end
-            --end
-        end
-
-        local surface = game.create_surface(storage.warp.current.name, mapgen)
         surface.localised_name = game.planets[planet].prototype.localised_name
         storage.warp.current.surface = surface
         storage.warp.current.surface_index = surface.index
+
+    else
+        if game.planets[planet].prototype.entities_require_heating then
+            local surface = game.planets[planet].create_surface()
+            storage.warp.current.name = surface.name
+            storage.warp.current.surface = surface
+            storage.warp.current.surface_index = surface.index
+        else
+            mapgen.seed = math.random(2^16) + game.tick
+            local surface = game.create_surface(storage.warp.current.name, mapgen)
+            surface.localised_name = game.planets[planet].prototype.localised_name
+            storage.warp.current.surface = surface
+            storage.warp.current.surface_index = surface.index
+        end
+        --- we also force the timer for these planet
+        storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
     end
 
     storage.warp.current.surface.request_to_generate_chunks({x= 0, y = 0}, storage.platform.warp.size / 32 + 1)
     storage.warp.current.surface.force_generate_chunk_requests()
 end
+dw.generate_surface = generate_surface
 
-
-dw.update_surfaces_properties = function()
-    if storage.warp.status ~= defines.warp.warping then return end
-    game.delete_surface(storage.warp.previous.name)
-end
 
 local function update_default_mapgen()
     for _, planet in pairs(game.planets) do
@@ -157,12 +82,6 @@ local function update_default_mapgen()
         if dw.safe_surfaces[planet.name] then goto continue end
 
         storage.mapgen.defaults[planet.name] = planet.prototype.map_gen_settings
-
-        for autoplace_name, _ in pairs(planet.prototype.map_gen_settings.autoplace_controls) do
-            if prototypes.autoplace_control[autoplace_name].richness then
-                storage.mapgen.defaults[planet.name].autoplace_controls[autoplace_name] = nil
-            end
-        end
         ::continue::
     end
 end
@@ -192,9 +111,15 @@ local function update_autoplace_list()
 end
 
 
+local function update_surfaces_properties()
+    if storage.warp.status ~= defines.warp.warping then return end
+    game.delete_surface(storage.warp.previous.name)
+end
+dw.update_surfaces_properties = update_surfaces_properties
+
 local function surface_deleted(event)
     if event.surface_index == storage.warp.previous.surface_index then
-        local planet = game.planets[storage.warp.current.type]
+        local planet = game.planets[storage.warp.current.planet]
         if not planet.prototype.entities_require_heating then
             planet.associate_surface(storage.warp.current.surface)
         end
