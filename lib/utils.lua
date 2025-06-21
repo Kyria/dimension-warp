@@ -20,7 +20,7 @@ function utils.weighted_random_choice(elements, weights)
     for i, weight in ipairs(weights) do
         cumulative_weight = cumulative_weight + weight
         if random_value <= cumulative_weight then
-            return elements[i]
+            return i, elements[i]
         end
     end
 end
@@ -149,4 +149,22 @@ function utils.transfert_chest_content(inventory_from, inventory_to)
             end
         end
     end
+end
+
+
+function utils.adjust_resource_proportion(mapgen, resource_list, main_resource, richness, size, frequency)
+    size = size or richness
+    frequency = frequency or 1
+    local other_richness = (richness >= 1) and 0.1 or (1 - richness)
+    local other_size = (size >= 1) and 0.1 or (1 - size)
+    local other_frequency = (frequency >= 1) and 0.1 or (1 - frequency)
+
+    for _, resource in pairs(resource_list) do
+        if resource == main_resource then
+            mapgen.autoplace_controls[resource] = {richness = richness, size = size, frequency = frequency}
+        else
+            mapgen.autoplace_controls[resource] = {richness = other_richness, size = other_size, frequency = other_frequency}
+        end
+    end
+    return mapgen
 end
