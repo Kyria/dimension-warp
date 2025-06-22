@@ -215,6 +215,15 @@ end
 
 --- create the mobile gate for the user to pick it after each warp / from shortcuts
 local function create_mobile_gate()
+    -- remove previous gates
+    local existing_mobile_gate = storage.warp.current.surface.find_entities_filtered{
+        area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size),
+        name = storage.warpgate.mobile_type
+    }
+    for _, gate in pairs(existing_mobile_gate) do
+        gate.destroy()
+    end
+
     local position = storage.warp.current.surface.find_non_colliding_position(
         storage.warpgate.mobile_type,
         dw.warp_gate.position, 20, 1, true)
