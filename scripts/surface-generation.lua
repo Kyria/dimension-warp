@@ -1,6 +1,10 @@
 --- Surface generation and randomization
 ------------------------------------------------------------
 require "scripts.planets.neo-nauvis"
+require "scripts.planets.fulgora"
+require "scripts.planets.gleba"
+require "scripts.planets.vulcanus"
+require "scripts.planets.aquilo"
 
 local function force_map_settings()
     game.map_settings.pollution.enabled = true
@@ -29,7 +33,7 @@ end
 
 local function generate_surface(planet, vanilla)
     force_map_settings()
-
+    --planet = "fulgora"
     if not game.planets[planet] then
         planet = "neo-nauvis"
     end
