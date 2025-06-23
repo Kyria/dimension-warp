@@ -1,21 +1,21 @@
 data.raw['technology']['warp-platform-size-1'].unit = {
-    count = 500,
+    count = 250,
     ingredients = {
-        {"automation-science-pack", 2},
+        {"automation-science-pack", 1},
     },
-    time = 60,
+    time = 30,
 }
 data.raw['technology']['warp-platform-size-2'].unit = {
-    count = 1000,
+    count = 500,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},
-        {"chemical-science-pack", 2},
+        {"chemical-science-pack", 1},
     },
-    time = 60,
+    time = 30,
 }
 data.raw['technology']['warp-platform-size-3'].unit = {
-    count = 2500,
+    count = 1500,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},
@@ -27,7 +27,7 @@ data.raw['technology']['warp-platform-size-3'].unit = {
 
 data.raw['technology']['warp-platform-size-4'].prerequisites = {"warp-platform-size-3", "warp-generator-5", "planet-discovery-gleba", "planet-discovery-vulcanus", "planet-discovery-fulgora"}
 data.raw['technology']['warp-platform-size-4'].unit = {
-    count = 5000,
+    count = 2500,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},
@@ -40,7 +40,7 @@ data.raw['technology']['warp-platform-size-4'].unit = {
 
 data.raw['technology']['warp-platform-size-5'].prerequisites = {"warp-platform-size-4", "metallurgic-science-pack"}
 data.raw['technology']['warp-platform-size-5'].unit = {
-    count = 10000,
+    count = 5000,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},

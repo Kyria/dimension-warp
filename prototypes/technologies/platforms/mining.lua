@@ -21,11 +21,11 @@ local tech_platform = {
         },
     },
     unit = {
-        count = 500,
+        count = 250,
         ingredients = {
             {"automation-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
 }
 
@@ -46,12 +46,12 @@ local tech_platform_1 = {
     type = "technology", name = "mining-platform-upgrade-1", icons = platform_icon,
     prerequisites = {"mining-platform", "electric-mining-drill", "advanced-material-processing"},
     unit = {
-        count = 1000,
+        count = 500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -59,12 +59,12 @@ local tech_platform_2 = {
     type = "technology", name = "mining-platform-upgrade-2", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-1", "plastics"},
     unit = {
-        count = 1500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }

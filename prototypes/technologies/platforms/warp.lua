@@ -15,11 +15,11 @@ local tech_warp_platform_1 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"neo-nauvis", "automation", "warp-generator-2"},
     unit = {
-        count = 500,
+        count = 250,
         ingredients = {
-            {"automation-science-pack", 2},
+            {"automation-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -28,13 +28,13 @@ local tech_warp_platform_2 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-1", "electric-energy-distribution-2", "warp-generator-3"},
     unit = {
-        count = 1000,
+        count = 500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 2},
+            {"chemical-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -43,7 +43,7 @@ local tech_warp_platform_3 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-2", "utility-science-pack", "warp-generator-4"},
     unit = {
-        count = 2500,
+        count = 1500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -59,7 +59,7 @@ local tech_warp_platform_4 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-3", "space-science-pack", "warp-generator-5"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -76,7 +76,7 @@ local tech_warp_platform_5 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-4"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},

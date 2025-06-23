@@ -22,11 +22,11 @@ local tech_warp_generator_2 = { -- 30min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-1", "radar"},
     unit = {
-        count = 1000,
+        count = 250,
         ingredients = {
-            {"automation-science-pack", 2},
+            {"automation-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
 }
 
@@ -36,12 +36,12 @@ local tech_warp_generator_3 = { -- 40min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-2", "military-2"},
     unit = {
-        count = 1500,
+        count = 500,
         ingredients = {
-            {"automation-science-pack", 2},
-            {"logistic-science-pack", 2},
+            {"automation-science-pack", 1},
+            {"logistic-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
 }
 
@@ -51,7 +51,7 @@ local tech_warp_generator_4 = { -- 50min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-3", "military-3", "advanced-oil-processing"},
     unit = {
-        count = 3000,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -68,7 +68,7 @@ local tech_warp_generator_5 = { -- 60min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-4", "effect-transmission", "military-4"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -87,7 +87,7 @@ local tech_warp_generator_6 = { -- unlimited time, except aquilo
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-5"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
