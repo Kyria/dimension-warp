@@ -15,4 +15,8 @@ if mods['space-age'] then
     for _, capsule in pairs(data.raw.capsule) do
         capsule.default_import_location = 'produstia'
     end
+
+    for _, planet in pairs(data.raw.planet) do
+        if not planet.pollutant_type then planet.pollutant_type = "pollution" end
+    end
 end
