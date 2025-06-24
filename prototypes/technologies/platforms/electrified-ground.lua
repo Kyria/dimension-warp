@@ -17,12 +17,12 @@ data:extend{
             "power-platform"
         },
         unit = {
-            count = 1000,
+            count = 500,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
             },
-            time = 60,
+            time = 30,
         },
     }
 }

@@ -7,6 +7,15 @@ local function add_biters(mapgen)
     return mapgen
 end
 
+local function normal(mapgen)
+    mapgen.starting_area = "small"
+    mapgen.autoplace_controls['scrap'] = {frequency = 1, size = 1, richness = 1}
+    mapgen.autoplace_controls["fulgora_islands"] = {size = 4, frequency = 4}
+    mapgen.property_expression_names["control:fulgora_islands:frequency"] = 4
+    mapgen.property_expression_names["control:fulgora_islands:size"] = 4
+    return mapgen
+end
+
 local function barren(mapgen)
     mapgen = normal(mapgen)
     mapgen.autoplace_controls["scrap"].richness = 0
@@ -30,14 +39,6 @@ local function oil_planet(mapgen)
         ["oil-ocean-shallow"] = {},
         ["oil-ocean-deep"] = {},
     }
-    return mapgen
-end
-
-local function normal(mapgen)
-    mapgen.starting_area = "small"
-    mapgen.autoplace_controls["fulgora_islands"] = {size = 4, frequency = 4}
-    mapgen.property_expression_names["control:fulgora_islands:frequency"] = 4
-    mapgen.property_expression_names["control:fulgora_islands:size"] = 4
     return mapgen
 end
 
@@ -95,7 +96,7 @@ local function fulgora_randomizer(mapgen, surface_name)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
-    mapgen = dormant(mapgen)
+    mapgen = randomizer[2](mapgen)
 
     local surface = game.create_surface(surface_name, mapgen)
     storage.warp.randomizer = randomizer[1]
