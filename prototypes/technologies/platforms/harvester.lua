@@ -30,7 +30,7 @@ local harvester_right_1 = {
             {"logistic-science-pack", 2},
             {"chemical-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -44,7 +44,7 @@ local harvester_right_2 = {
             {"logistic-science-pack", 2},
             {"chemical-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -59,7 +59,7 @@ local harvester_right_3 = {
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -74,7 +74,7 @@ local harvester_right_4 = {
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -90,7 +90,7 @@ local harvester_right_5 = {
             {"production-science-pack", 2},
             {"utility-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -107,7 +107,7 @@ local harvester_right_6 = {
             {"utility-science-pack", 2},
             {"space-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }

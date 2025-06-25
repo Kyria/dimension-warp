@@ -79,7 +79,7 @@ local tech_platform_3 = {
             {"logistic-science-pack", 2},
             {"chemical-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -93,7 +93,7 @@ local tech_platform_4 = {
             {"logistic-science-pack", 2},
             {"chemical-science-pack", 3},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -108,7 +108,7 @@ local tech_platform_5 = {
             {"chemical-science-pack", 2},
             {"production-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -124,7 +124,7 @@ local tech_platform_6 = {
             {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -140,7 +140,7 @@ local tech_platform_7 = {
             {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -165,7 +165,7 @@ local water = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }

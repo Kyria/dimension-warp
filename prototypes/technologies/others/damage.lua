@@ -108,7 +108,7 @@ data:extend {
                 {"logistic-science-pack", 1},
                 {"military-science-pack", 2}
             },
-            time = 60
+            time = 30
         },
         upgrade = true
     },

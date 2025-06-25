@@ -47,7 +47,7 @@ data:extend {
                 {"automation-science-pack", 2},
                 {"logistic-science-pack", 1},
             },
-            time = 60,
+            time = 30,
         },
         max_level = 5,
         upgrade = true

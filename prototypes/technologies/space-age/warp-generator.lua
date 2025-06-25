@@ -10,5 +10,5 @@ data.raw['technology']['warp-generator-6'].unit = {
         {"production-science-pack", 2},
         {"space-science-pack", 5}
     },
-    time = 60,
+    time = 30,
 }
