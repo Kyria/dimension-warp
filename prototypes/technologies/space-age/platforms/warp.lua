@@ -22,7 +22,7 @@ data.raw['technology']['warp-platform-size-3'].unit = {
         {"chemical-science-pack", 1},
         {"utility-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }
 
 data.raw['technology']['warp-platform-size-4'].prerequisites = {"warp-platform-size-3", "warp-generator-5", "planet-discovery-gleba", "planet-discovery-vulcanus", "planet-discovery-fulgora"}
@@ -35,7 +35,7 @@ data.raw['technology']['warp-platform-size-4'].unit = {
         {"utility-science-pack", 1},
         {"space-science-pack", 2}
     },
-    time = 60,
+    time = 30,
 }
 
 data.raw['technology']['warp-platform-size-5'].prerequisites = {"warp-platform-size-4", "metallurgic-science-pack"}
@@ -49,7 +49,7 @@ data.raw['technology']['warp-platform-size-5'].unit = {
         {"space-science-pack", 3},
         {"metallurgic-science-pack", 2}
     },
-    time = 60,
+    time = 30,
 }
 data.raw['technology']['warp-platform-size-6'].prerequisites = {"warp-platform-size-5", "electromagnetic-science-pack"}
 data.raw['technology']['warp-platform-size-6'].unit = {
@@ -63,7 +63,7 @@ data.raw['technology']['warp-platform-size-6'].unit = {
         {"metallurgic-science-pack", 2},
         {"electromagnetic-science-pack", 2}
     },
-    time = 60,
+    time = 30,
 }
 
 data.raw['technology']['warp-platform-size-7'].prerequisites = {"warp-platform-size-6", "cryogenic-science-pack"}
@@ -80,5 +80,5 @@ data.raw['technology']['warp-platform-size-7'].unit = {
         {"agricultural-science-pack", 2},
         {"cryogenic-science-pack", 2}
     },
-    time = 60,
+    time = 30,
 }

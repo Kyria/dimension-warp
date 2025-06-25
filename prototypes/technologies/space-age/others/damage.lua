@@ -65,7 +65,7 @@ data:extend {
                 {"space-science-pack", 1},
                 {"electromagnetic-science-pack", 2}
             },
-            time = 60
+            time = 30
         },
         upgrade = true
     },
@@ -92,7 +92,7 @@ data:extend {
                 {"space-science-pack", 3},
                 {"electromagnetic-science-pack", 2}
             },
-            time = 60
+            time = 30
         },
         upgrade = true
     },

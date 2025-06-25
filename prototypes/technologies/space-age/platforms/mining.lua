@@ -13,7 +13,7 @@ mining_5.unit = {
         {"space-science-pack", 1},
         {"metallurgic-science-pack", 4},
     },
-    time = 60,
+    time = 30,
 }
 
 local mining_6 = data.raw['technology']['mining-platform-upgrade-6']
@@ -29,7 +29,7 @@ mining_6.unit = {
         {"metallurgic-science-pack", 4},
         {"agricultural-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }
 
 local mining_7 = data.raw['technology']['mining-platform-upgrade-7']
@@ -45,5 +45,5 @@ mining_7.unit = {
         {"metallurgic-science-pack", 4},
         {"agricultural-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }

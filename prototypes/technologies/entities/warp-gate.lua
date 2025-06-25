@@ -21,7 +21,7 @@ data:extend{
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
             },
-            time = 60,
+            time = 30,
         },
     },
     {
@@ -35,7 +35,7 @@ data:extend{
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 2},
             },
-            time = 60,
+            time = 30,
         },
     },
     {
@@ -51,7 +51,7 @@ data:extend{
                 {"military-science-pack", 1},
                 {"chemical-science-pack", 1},
             },
-            time = 60,
+            time = 30,
         },
     },
     {
@@ -68,7 +68,7 @@ data:extend{
                 {"chemical-science-pack", 1},
                 {"utility-science-pack", 2},
             },
-            time = 60,
+            time = 30,
         },
     },
     {
@@ -86,7 +86,7 @@ data:extend{
                 {"utility-science-pack", 2},
                 {"space-science-pack", 2},
             },
-            time = 60,
+            time = 30,
         },
     }
 }

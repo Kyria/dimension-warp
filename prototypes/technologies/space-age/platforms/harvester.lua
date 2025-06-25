@@ -14,7 +14,7 @@ harvester_right_4.unit = {
         {"production-science-pack", 2},
         {"space-science-pack", 1},
     },
-    time = 60,
+    time = 30,
 }
 
 local harvester_right_5 = data.raw['technology']['dimension-harvester-right-5']
@@ -30,7 +30,7 @@ harvester_right_5.unit = {
         {"space-science-pack", 1},
         {"metallurgic-science-pack", 1},
     },
-    time = 60,
+    time = 30,
 }
 
 local harvester_right_6 = data.raw['technology']['dimension-harvester-right-6']
@@ -47,7 +47,7 @@ harvester_right_6.unit = {
         {"metallurgic-science-pack", 1},
         {"agricultural-science-pack", 1},
     },
-    time = 60,
+    time = 30,
 }
 
 -- left harvester upgrades

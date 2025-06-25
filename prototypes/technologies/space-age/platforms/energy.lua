@@ -14,7 +14,7 @@ power_5.unit = {
         {"space-science-pack", 1},
         {"electromagnetic-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }
 
 
@@ -30,7 +30,7 @@ power_6.unit = {
         {"electromagnetic-science-pack", 2},
         {"agricultural-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }
 
 
@@ -47,5 +47,5 @@ power_7.unit = {
         {"agricultural-science-pack", 2},
         {"cryogenic-science-pack", 2},
     },
-    time = 60,
+    time = 30,
 }

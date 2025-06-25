@@ -50,7 +50,7 @@ local tech_warp_platform_3 = {
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -67,7 +67,7 @@ local tech_warp_platform_4 = {
             {"utility-science-pack", 1},
             {"space-science-pack", 2}
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -84,7 +84,7 @@ local tech_warp_platform_5 = {
             {"utility-science-pack", 1},
             {"space-science-pack", 3}
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -101,7 +101,7 @@ local tech_warp_platform_6 = {
             {"utility-science-pack", 1},
             {"space-science-pack", 3}
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }
@@ -118,7 +118,7 @@ local tech_warp_platform_7 = {
             {"utility-science-pack", 1},
             {"space-science-pack", 3}
         },
-        time = 60,
+        time = 30,
     },
     upgrade = true,
 }

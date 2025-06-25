@@ -58,7 +58,7 @@ local tech_warp_generator_4 = { -- 50min
             {"military-science-pack", 3},
             {"chemical-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
 }
 
@@ -77,7 +77,7 @@ local tech_warp_generator_5 = { -- 60min
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
 }
 
@@ -96,7 +96,7 @@ local tech_warp_generator_6 = { -- unlimited time, except aquilo
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
         },
-        time = 60,
+        time = 30,
     },
 }
 
