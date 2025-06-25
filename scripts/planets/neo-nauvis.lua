@@ -160,7 +160,7 @@ local function missing_resource(mapgen)
     -- min 2 removed, max "max - 2" kept
     local number_ore = math.random(4)
     local list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
-    local weights = {3,3,2,3,2,2}
+    local weights = {1,1,3,3,2,3}
     for i = number_ore, 1, -1 do
         local index, selected = utils.weighted_random_choice(list, weights)
         mapgen.autoplace_controls[selected].richness = 0
@@ -181,7 +181,7 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
     local randomizer_list = {
         {"Normal", normal, "dw-randomizer.neo-nauvis-normal"}
     }
-    local randomizer_weights = {10}
+    local randomizer_weights = {15}
 
     if storage.warp.number >= 5 then
         randomizer_list = util.merge({randomizer_list, {
@@ -195,7 +195,7 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
             {"Radioactive", uranium_planet, "dw-randomizer.neo-nauvis-uranium"},
             {"Granitic", stone_planet, "dw-randomizer.neo-nauvis-stone"},
         }})
-        randomizer_weights = util.merge({randomizer_weights, {3, 3, 20, 1, 1, 1, 1, 1, 2}})
+        randomizer_weights = util.merge({randomizer_weights, {3, 3, 17, 2, 2, 1, 1, 1, 2}})
     end
 
     if storage.warp.number >= 10 then
@@ -203,8 +203,8 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 2)
     end
 
-    if storage.warp.number >= 50 then
-        local weight = math.min(5, math.floor(storage.warp.number / 25))
+    if storage.warp.number >= 100 then
+        local weight = math.min(4, math.floor(storage.warp.number / 100))
         randomizer_list = util.merge({randomizer_list, {
             {"Quarantine Island", death_island, "dw-randomizer.neo-nauvis-death-island"},
             {"Ravaged", death_barren, "dw-randomizer.neo-nauvis-death-barren"},
