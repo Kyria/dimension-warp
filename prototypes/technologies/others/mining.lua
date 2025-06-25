@@ -24,15 +24,14 @@ data:extend{
                 modifier = 0.1
             }
         },
-        prerequisites = {"mining-productivity-1"},
+        prerequisites = {"electric-mining-drill"},
         unit = {
-            count_formula = "250+L*50",
+            count_formula = "L*50",
             ingredients =
             {
-                {"automation-science-pack", 2},
-                {"logistic-science-pack", 1}
+                {"automation-science-pack", 1},
             },
-            time = 60
+            time = 30
         },
         upgrade = true,
         max_level = 5
@@ -47,16 +46,15 @@ data:extend{
                 modifier = 0.1
             }
         },
-        prerequisites = {"mining-productivity-2", "dimension-mining-productivity-1"},
+        prerequisites = {"mining-productivity-1", "dimension-mining-productivity-1"},
         unit = {
-            count_formula = "500+(L-5)*100",
+            count_formula = "250+(L-5)*50",
             ingredients =
             {
-                {"automation-science-pack", 2},
-                {"logistic-science-pack", 2},
-                {"chemical-science-pack", 1}
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1}
             },
-            time = 60
+            time = 30
         },
         upgrade = true,
         max_level = 10
@@ -71,17 +69,16 @@ data:extend{
                 modifier = 0.1
             }
         },
-        prerequisites = {"mining-productivity-2", "production-science-pack", "dimension-mining-productivity-6"},
+        prerequisites = {"mining-productivity-2", "dimension-mining-productivity-6"},
         unit = {
-            count_formula = "1000+(L-10)*250",
+            count_formula = "500+(L-10)*100",
             ingredients =
             {
                 {"automation-science-pack", 1},
-                {"logistic-science-pack", 2},
-                {"chemical-science-pack", 2},
-                {"production-science-pack", 1},
+                {"logistic-science-pack", 1},
+                {"chemical-science-pack", 1}
             },
-            time = 60
+            time = 30
         },
         upgrade = true,
         max_level = 15
@@ -96,20 +93,45 @@ data:extend{
                 modifier = 0.1
             }
         },
-        prerequisites = {"mining-productivity-3", "dimension-mining-productivity-11"},
+        prerequisites = {"mining-productivity-2", "production-science-pack", "dimension-mining-productivity-11"},
         unit = {
-            count_formula = "2000+(L-15)*500",
+            count_formula = "1000+(L-15)*250",
             ingredients =
             {
-                {"automation-science-pack", 2},
-                {"logistic-science-pack", 2},
-                {"chemical-science-pack", 2},
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+                {"chemical-science-pack", 1},
                 {"production-science-pack", 1},
-                {"utility-science-pack", 1},
             },
-            time = 60
+            time = 30
         },
         upgrade = true,
         max_level = 20
+    },
+    {
+        type = "technology",
+        name = "dimension-mining-productivity-21",
+        icons = icons,
+        effects = {
+            {
+                type = "mining-drill-productivity-bonus",
+                modifier = 0.1
+            }
+        },
+        prerequisites = {"mining-productivity-3", "dimension-mining-productivity-16"},
+        unit = {
+            count_formula = "2000+(L-20)*500",
+            ingredients =
+            {
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+                {"chemical-science-pack", 1},
+                {"production-science-pack", 1},
+                {"utility-science-pack", 1},
+            },
+            time = 30
+        },
+        upgrade = true,
+        max_level = 25
     },
 }
