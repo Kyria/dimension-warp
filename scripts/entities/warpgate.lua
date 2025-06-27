@@ -359,7 +359,6 @@ local function mobile_gate_placed(event)
         storage.warpgate.mobile_gate.destroy{raise_destroy=true}
     end
 
-
     -- if the player uses an outdate version for whatever reason, replace with the right one
     if gate.name ~= storage.warpgate.mobile_type then
         gate = storage.warp.current.surface.create_entity{
@@ -376,6 +375,26 @@ local function mobile_gate_placed(event)
     local surface = gate.surface
 
     storage.warpgate.mobile_gate = gate
+
+    -- check area for collision with player or enemy structure
+    local area_to_check = math2d.bounding_box.create_from_centre({gate.position.x, gate.position.y + 0.5}, 10, 2)
+    local check_entities = surface.find_entities_filtered{area = area_to_check, force = {"player", "enemy"}}
+    for _, check_e in pairs(check_entities) do
+        if check_e.name == "construction-robot" then goto continue end
+        if check_e.name == "logistic-robot" then goto continue end
+        if check_e.name == "character" then goto continue end
+
+        if check_e.name ~= gate.name then
+            utils.create_flying_text{
+                position = gate.position,
+                surface = surface,
+                text = {"dw-messages.mobile-gate-entities-present"},
+                color = util.color(defines.hexcolor.orangered.. 'd9')}
+            return
+        end
+
+        ::continue::
+    end
 
     local mobile_chests = create_entities_relative_to_position(
         surface,
