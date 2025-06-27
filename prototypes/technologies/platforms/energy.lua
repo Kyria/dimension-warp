@@ -73,7 +73,7 @@ local tech_platform_3 = {
     type = "technology", name = "power-platform-upgrade-3", icons = platform_icon,
     prerequisites = {"power-platform-upgrade-2", "electric-energy-distribution-2"},
     unit = {
-        count = 1500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
