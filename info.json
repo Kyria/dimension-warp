@@ -1,10 +1,10 @@
 {
   "name": "dimension-warp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "title": "Dimension Warp",
   "author": "Anakhon",
   "homepage": "https://github.com/Kyria/dimension-warp",
-  "description": "Dimension warp",
+  "description": "Build your base, defend it from the locals and get back to your home, Nauvis",
   "factorio_version": "2.0",
   "dependencies": [
     "base >= 2.0.29",
