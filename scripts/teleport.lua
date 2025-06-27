@@ -89,7 +89,9 @@ local function teleport_safely_player_on_event(event)
     --- make sure to teleport any new player to the current warp surface
     if storage.nauvis_lab_exploded then
         if not dw.safe_surfaces[player.surface.name] then
+            local previous_surface = player.physical_surface
             safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
+            if previous_surface == "nauvis" then game.surfaces.nauvis.clear() end
         end
     end
 end
