@@ -33,7 +33,7 @@ end
 
 local function generate_surface(planet, vanilla)
     force_map_settings()
-    --planet = "fulgora"
+
     if not game.planets[planet] then
         planet = "neo-nauvis"
     end
