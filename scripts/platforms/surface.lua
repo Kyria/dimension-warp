@@ -94,7 +94,7 @@ local function teleport_platform()
     end
 
     --- check for players, and teleport them to the new surface
-    for _, player in pairs(game.players) do
+    for _, player in pairs(game.connected_players) do
         if player.surface.name == source.name then
             if math2d.bounding_box.contains_point(platform_area_delta, player.physical_position) or player.controller_type == defines.controllers.ghost then
                 if player.controller_type == defines.controllers.ghost then
