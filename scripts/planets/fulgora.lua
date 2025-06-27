@@ -10,7 +10,7 @@ end
 local function normal(mapgen)
     mapgen.starting_area = "small"
     mapgen.autoplace_controls['scrap'] = {frequency = 1, size = 1, richness = 1}
-    mapgen.autoplace_controls["fulgora_islands"] = {size = 4, frequency = 4}
+    mapgen.autoplace_controls["fulgora_islands"] = {size = 6, frequency = 6}
     mapgen.property_expression_names["control:fulgora_islands:frequency"] = 4
     mapgen.property_expression_names["control:fulgora_islands:size"] = 4
     return mapgen
@@ -35,6 +35,7 @@ end
 
 local function oil_planet(mapgen)
     mapgen = barren(mapgen)
+    mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
     mapgen.autoplace_settings.tile.settings = {
         ["oil-ocean-shallow"] = {},
         ["oil-ocean-deep"] = {},
@@ -56,14 +57,23 @@ end
 
 local function junkyard(mapgen)
     mapgen = no_scrap(mapgen)
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-vault"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-attractor"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-colossal"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-huge"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-big"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-stonehenge"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-medium"] = {size = 4, frequency = 10}
-    mapgen.autoplace_settings.entity.settings["fulgoran-ruin-small"] = {size = 4, frequency = 10}
+    mapgen.autoplace_controls["enemy-base"] = {size = 4, frequency = 4}
+    mapgen.property_expression_names.fulgora_ruins_walls = 2
+    mapgen.property_expression_names.fulgora_ruins_paving = 2
+    mapgen.property_expression_names.fulgora_road_jitter = 2
+    mapgen.property_expression_names.fulgora_road_cells = 2
+    mapgen.property_expression_names.fulgora_road_pyramids = 2
+    mapgen.property_expression_names.fulgora_pyramids_banding = 2
+    mapgen.property_expression_names.fulgora_spots_prebanding = 2
+    mapgen.property_expression_names.fulgora_spots_banding = 2
+    mapgen.property_expression_names.fulgora_structure_jitter = 2
+    mapgen.property_expression_names.fulgora_structure_cells = 2
+    mapgen.property_expression_names.fulgora_structure_subnoise = 2
+    mapgen.property_expression_names.fulgora_structure_facets = 2
+    mapgen.property_expression_names.fulgora_road_paving_thin = 2
+    mapgen.property_expression_names.fulgora_road_paving_2 = 2
+    mapgen.property_expression_names.fulgora_road_paving_2b = 2
+    mapgen.property_expression_names.fulgora_road_paving_2c = 2
     return mapgen
 end
 
@@ -84,7 +94,7 @@ local function fulgora_randomizer(mapgen, surface_name)
             {"No Scrap", no_scrap, "dw-randomizer.fulgora-no-scrap"},
             {"Junkyard", junkyard, "dw-randomizer.fulgora-junkyard"},
         }})
-        randomizer_weights = util.merge({randomizer_weights, {2, 5, 2, 2, 5}})
+        randomizer_weights = util.merge({randomizer_weights, {2, 1, 2, 1, 3}})
     end
 
     if storage.warp.number >= 100 then
