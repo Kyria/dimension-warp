@@ -24,7 +24,7 @@ local harvester_right_1 = {
     type = "technology", name = "dimension-harvester-right-1", icons = harvester_right_icon,
     prerequisites = {"mining-platform-upgrade-1", "uranium-mining"},
     unit = {
-        count = 1000,
+        count = 500,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 2},
@@ -38,7 +38,7 @@ local harvester_right_2 = {
     type = "technology", name = "dimension-harvester-right-2", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-1", "electric-engine"},
     unit = {
-        count = 1500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 2},
@@ -52,7 +52,7 @@ local harvester_right_3 = {
     type = "technology", name = "dimension-harvester-right-3", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-2", "utility-science-pack"},
     unit = {
-        count = 2500,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},

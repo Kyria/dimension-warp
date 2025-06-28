@@ -5,7 +5,7 @@ table.insert(harvester_right_3.unit.ingredients, {"space-science-pack", 1})
 local harvester_right_4 = data.raw['technology']['dimension-harvester-right-4']
 harvester_right_4.prerequisites = {"dimension-harvester-right-3", "big-mining-drill"}
 harvester_right_4.unit = {
-    count = 7500,
+    count = 5000,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 2},
