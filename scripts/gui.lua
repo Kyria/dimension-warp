@@ -128,5 +128,6 @@ end
 
 
 dw.register_event('on_init', on_init)
+dw.register_event('on_configuration_changed', on_init)
 dw.register_event(defines.events.on_player_created, on_player_created)
 dw.register_event(defines.events.on_gui_click, warp_frame_click)
