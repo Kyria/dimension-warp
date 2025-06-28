@@ -21,26 +21,4 @@ data:extend({
         },
         flags = {"gui-icon"},
     },
-    {
-        type = "sprite",
-        name = "warp-actions-toggle-icon",
-        priority = "extra-high-no-scale",
-        layers = {
-            {
-                filename = "__base__/graphics/icons/nauvis.png",
-                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
-                width = 64,
-                height = 64,
-            },
-            {
-                filename = "__core__/graphics/icons/tooltips/tooltip-category-debug.png",
-                width = 40,
-                height = 40,
-                scale = 0.75,
-                shift = {10,10},
-                tint = util.color(defines.hexcolor.lightsteelblue),
-            },
-        },
-        flags = {"gui-icon"},
-    }
 })

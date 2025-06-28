@@ -5,37 +5,34 @@ dw.gui = dw.gui or {}
 dw.gui.set_warp_toggle_buttons = function(player)
     local buttonflow = mod_gui.get_button_flow(player)
     local button_info = buttonflow.warp_toggle or buttonflow.add({type = "sprite-button", name = "warp_toggle", sprite = "warp-toggle-icon"})
-    local button_action = buttonflow.warp_action_toggle or buttonflow.add({type = "sprite-button", name = "warp_action_toggle", sprite = "warp-actions-toggle-icon"})
     button_info.visible = true
     button_info.tooltip = {"dw-messages.gui-button-tooltip"}
-    button_action.visible = true
-    button_action.tooltip = {"dw-messages.gui-button-tooltip"}
 end
 
 dw.gui.get_warp_frame = function(player)
     local frameflow = mod_gui.get_frame_flow(player)
-    local warp_frame = frameflow.warp_frame
-    if not warp_frame then
-        warp_frame = frameflow.add({type = "flow", name = "warp_frame", direction = "vertical"})
-        warp_frame.visible = false
-        warp_frame.style.padding = {5, 0, 0, 5}
-        local surfaceflow = warp_frame.add({type = "label", name = "surface", caption = {"dw-gui.planet", "nauvis", "Nauvis", "normal"}})
-        local dimensionflow = warp_frame.add({type = "label", name = "dimension", caption = {"dw-gui.dimension", "0"}})
-        local surface_time = warp_frame.add({type = "label", name = "surface_time", caption = {"dw-gui.planet_clock", "0"}})
-        local surface_evolution = warp_frame.add({type = "label", name = "surface_evolution", caption = {"dw-gui.planet_evolution", "0"}})
-        local warpflow = warp_frame.add({type = "label", name = "warp_timer", caption = {"dw-gui.autowarp_timer", "0"}})
-        local manualwarpflow = warp_frame.add({type = "label", name = "warp_timer_manual", caption = {"dw-gui.manualwarp_timer", "0"}})
+    local warp_frame = frameflow.warp_frame or frameflow.add({type = "flow", name = "warp_frame", direction = "vertical"})
+    warp_frame.visible = warp_frame.visible or false
+    warp_frame.style.padding = {5, 0, 0, 5}
 
-        surfaceflow.visible = storage.nauvis_lab_exploded or false
-        dimensionflow.visible = storage.nauvis_lab_exploded or false
-        surface_time.visible = storage.nauvis_lab_exploded or false
-        surface_evolution.visible = storage.nauvis_lab_exploded or false
-        warpflow.visible = storage.timer.active
-        manualwarpflow.visible = storage.timer.active
+    local surfaceflow = warp_frame.surface or warp_frame.add({type = "label", name = "surface", caption = {"dw-gui.planet", "nauvis", "Nauvis", "normal"}})
+    local dimensionflow = warp_frame.dimension or warp_frame.add({type = "label", name = "dimension", caption = {"dw-gui.dimension", "0"}})
+    local surface_time = warp_frame.surface_time or warp_frame.add({type = "label", name = "surface_time", caption = {"dw-gui.planet_clock", "0"}})
+    local surface_evolution = warp_frame.surface_evolution or warp_frame.add({type = "label", name = "surface_evolution", caption = {"dw-gui.planet_evolution", "0"}})
+    local warpflow = warp_frame.warp_timer or warp_frame.add({type = "label", name = "warp_timer", caption = {"dw-gui.autowarp_timer", "0"}})
+    local manualwarpflow = warp_frame.warp_timer_manual or warp_frame.add({type = "label", name = "warp_timer_manual", caption = {"dw-gui.manualwarp_timer", "0"}})
 
+    surfaceflow.visible = storage.nauvis_lab_exploded or false
+    dimensionflow.visible = storage.nauvis_lab_exploded or false
+    surface_time.visible = storage.nauvis_lab_exploded or false
+    surface_evolution.visible = storage.nauvis_lab_exploded or false
+    warpflow.visible = storage.timer.active
+    manualwarpflow.visible = storage.timer.active
+
+    if not warp_frame.warp_button then
         warp_frame.add{type="button", name="warp_button", caption={"dw-gui.warp-button"}, style = "confirm_button"}
-        warp_frame.warp_button.visible = storage.timer.active
     end
+    warp_frame.warp_button.visible = storage.timer.active
     return warp_frame
 end
 
