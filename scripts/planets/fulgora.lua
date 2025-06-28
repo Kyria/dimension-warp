@@ -87,22 +87,23 @@ local function fulgora_randomizer(mapgen, surface_name)
     local randomizer_weights = {10}
 
     if storage.warp.number >= 50 then
-        randomizer_list = util.merge({randomizer_list, {
-            {"Barren", barren, "dw-randomizer.fulgora-barren"},
-            {"Dry", dry, "dw-randomizer.fulgora-dry"},
-            {"Bituminous", oil_planet, "dw-randomizer.fulgora-oil-planet"},
-            {"No Scrap", no_scrap, "dw-randomizer.fulgora-no-scrap"},
-            {"Junkyard", junkyard, "dw-randomizer.fulgora-junkyard"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {2, 1, 2, 1, 3}})
+        table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.fulgora-barren"})
+        table.insert(randomizer_list, {"Dry", dry, "dw-randomizer.fulgora-dry"})
+        table.insert(randomizer_list, {"Bituminous", oil_planet, "dw-randomizer.fulgora-oil-planet"})
+        table.insert(randomizer_list, {"No Scrap", no_scrap, "dw-randomizer.fulgora-no-scrap"})
+        table.insert(randomizer_list, {"Junkyard", junkyard, "dw-randomizer.fulgora-junkyard"})
+
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 3)
     end
 
-    if storage.warp.number >= 100 then
+    if storage.warp.number >= 150 then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
-        randomizer_list = util.merge({randomizer_list, {
-            {"Death World", death_world, "dw-randomizer.fulgora-death-world"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {weight, weight}})
+        table.insert(randomizer_list, {"Death World", death_world, "dw-randomizer.fulgora-death-world"})
+        table.insert(randomizer_weights, weight)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
