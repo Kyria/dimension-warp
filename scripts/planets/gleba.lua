@@ -87,28 +87,26 @@ end
 local function gleba_randomizer(mapgen, surface_name)
     mapgen.seed = math.random(2^16) + game.tick
 
-
     local randomizer_list = {
         {"Normal", normal, "dw-randomizer.gleba-normal"}
     }
     local randomizer_weights = {10}
 
     if storage.warp.number >= 100 then
-        randomizer_list = util.merge({randomizer_list, {
-            {"Barren", flooded, "dw-randomizer.gleba-flooded"},
-            {"Alternate", no_yumako_soil, "dw-randomizer.gleba-no-yumako"},
-            {"Alternate", no_jellynut_soil, "dw-randomizer.gleba-no-jellynut"},
-            {"Fertile", agricultural_fields, "dw-randomizer.gleba-fertile"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {1, 2, 2, 1}})
+        table.insert(randomizer_list, {"Barren", flooded, "dw-randomizer.gleba-flooded"})
+        table.insert(randomizer_list, {"Alternate", no_yumako_soil, "dw-randomizer.gleba-no-yumako"})
+        table.insert(randomizer_list, {"Alternate", no_jellynut_soil, "dw-randomizer.gleba-no-jellynut"})
+        table.insert(randomizer_list, {"Fertile", agricultural_fields, "dw-randomizer.gleba-fertile"})
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 1)
     end
 
     if storage.warp.number >= 200 then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
-        randomizer_list = util.merge({randomizer_list, {
-            {"Nest", pentapod_nest, "dw-randomizer.gleba-nest"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {weight, weight}})
+        table.insert(randomizer_list, {"Nest", pentapod_nest, "dw-randomizer.gleba-nest"})
+        table.insert(randomizer_weights, weight)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)

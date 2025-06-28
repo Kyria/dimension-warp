@@ -115,26 +115,32 @@ local function vulcanus_randomizer(mapgen, surface_name)
     local randomizer_weights = {10}
 
     if storage.warp.number >= 25 then
-        randomizer_list = util.merge({randomizer_list, {
-            {"Barren", barren, "dw-randomizer.vulcanus-barren"},
-            {"Erupting", eruption, "dw-randomizer.vulcanus-erupting"},
-            {"Dormant", dormant, "dw-randomizer.vulcanus-dormant"},
-            {"Alternate", missing_resource, "dw-randomizer.vulcanus-alternate"},
-            {"Chalky", calcite_planet, "dw-randomizer.vulcanus-calcite"},
-            {"Caustic", acid_planet, "dw-randomizer.vulcanus-acid"},
-            {"Hardened", tungsten_planet, "dw-randomizer.vulcanus-tungsten"},
-            {"Carbonaceous", coal_planet, "dw-randomizer.vulcanus-coal"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {3, 3, 2, 20, 1, 2, 1, 1}})
+        table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.vulcanus-barren"})
+        table.insert(randomizer_list, {"Erupting", eruption, "dw-randomizer.vulcanus-erupting"})
+        table.insert(randomizer_list, {"Dormant", dormant, "dw-randomizer.vulcanus-dormant"})
+        table.insert(randomizer_list, {"Alternate", missing_resource, "dw-randomizer.vulcanus-alternate"})
+        table.insert(randomizer_list, {"Chalky", calcite_planet, "dw-randomizer.vulcanus-calcite"})
+        table.insert(randomizer_list, {"Caustic", acid_planet, "dw-randomizer.vulcanus-acid"})
+        table.insert(randomizer_list, {"Hardened", tungsten_planet, "dw-randomizer.vulcanus-tungsten"})
+        table.insert(randomizer_list, {"Carbonaceous", coal_planet, "dw-randomizer.vulcanus-coal"})
+
+        table.insert(randomizer_weights, 3)
+        table.insert(randomizer_weights, 3)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 15)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 1)
     end
 
-    if storage.warp.number >= 100 then
+    if storage.warp.number >= 150 then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
-        randomizer_list = util.merge({randomizer_list, {
-            {"Demolisher", demolisher_planet, "dw-randomizer.vulcanus-demolisher"},
-            {"Infested", death_world, "dw-randomizer.vulcanus-death-world"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {weight, weight}})
+        table.insert(randomizer_list, {"Demolisher", demolisher_planet, "dw-randomizer.vulcanus-demolisher"})
+        table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.vulcanus-death-world"})
+
+        table.insert(randomizer_weights, weight)
+        table.insert(randomizer_weights, weight)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)

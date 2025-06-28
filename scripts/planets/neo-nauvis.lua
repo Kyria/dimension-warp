@@ -181,21 +181,28 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
     local randomizer_list = {
         {"Normal", normal, "dw-randomizer.neo-nauvis-normal"}
     }
-    local randomizer_weights = {15}
+    local randomizer_weights = {10}
 
     if storage.warp.number >= 5 then
-        randomizer_list = util.merge({randomizer_list, {
-            {"Barren", barren, "dw-randomizer.neo-nauvis-barren"},
-            {"Lonely Island", barren_island, "dw-randomizer.neo-nauvis-lonely-island"},
-            {"Alternate", missing_resource, "dw-randomizer.neo-nauvis-alternate"},
-            {"Metallic", iron_planet, "dw-randomizer.neo-nauvis-iron"},
-            {"Conductive", copper_planet, "dw-randomizer.neo-nauvis-copper"},
-            {"Carbonaceous", coal_planet, "dw-randomizer.neo-nauvis-coal"},
-            {"Bituminous", oil_planet, "dw-randomizer.neo-nauvis-oil"},
-            {"Radioactive", uranium_planet, "dw-randomizer.neo-nauvis-uranium"},
-            {"Granitic", stone_planet, "dw-randomizer.neo-nauvis-stone"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {3, 3, 17, 2, 2, 1, 1, 1, 2}})
+        table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.neo-nauvis-barren"})
+        table.insert(randomizer_list, {"Lonely Island", barren_island, "dw-randomizer.neo-nauvis-lonely-island"})
+        table.insert(randomizer_list, {"Alternate", missing_resource, "dw-randomizer.neo-nauvis-alternate"})
+        table.insert(randomizer_list, {"Metallic", iron_planet, "dw-randomizer.neo-nauvis-iron"})
+        table.insert(randomizer_list, {"Conductive", copper_planet, "dw-randomizer.neo-nauvis-copper"})
+        table.insert(randomizer_list, {"Carbonaceous", coal_planet, "dw-randomizer.neo-nauvis-coal"})
+        table.insert(randomizer_list, {"Bituminous", oil_planet, "dw-randomizer.neo-nauvis-oil"})
+        table.insert(randomizer_list, {"Radioactive", uranium_planet, "dw-randomizer.neo-nauvis-uranium"})
+        table.insert(randomizer_list, {"Granitic", stone_planet, "dw-randomizer.neo-nauvis-stone"})
+
+        table.insert(randomizer_weights, 3)
+        table.insert(randomizer_weights, 3)
+        table.insert(randomizer_weights, 15)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 2)
     end
 
     if storage.warp.number >= 10 then
@@ -205,12 +212,12 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
 
     if storage.warp.number >= 100 then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
-        randomizer_list = util.merge({randomizer_list, {
-            {"Quarantine Island", death_island, "dw-randomizer.neo-nauvis-death-island"},
-            {"Ravaged", death_barren, "dw-randomizer.neo-nauvis-death-barren"},
-            {"Infested", death_world, "dw-randomizer.neo-nauvisorld"},
-        }})
-        randomizer_weights = util.merge({randomizer_weights, {weight, weight, weight}})
+        table.insert(randomizer_list, {"Quarantine Island", death_island, "dw-randomizer.neo-nauvis-death-island"})
+        table.insert(randomizer_list, {"Ravaged", death_barren, "dw-randomizer.neo-nauvis-death-barren"})
+        table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.neo-nauvisorld"})
+        table.insert(randomizer_weights, weight)
+        table.insert(randomizer_weights, weight)
+        table.insert(randomizer_weights, weight)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
