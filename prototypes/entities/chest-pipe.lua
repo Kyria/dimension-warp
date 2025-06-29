@@ -34,6 +34,7 @@ pipetoground.fluid_box = {
         { position = {0, 0}, direction = defines.direction.north, connection_type = "normal"}, -- default
         { position = {0, 0}, direction = defines.direction.south, connection_type = "linked", linked_connection_id = 0,}
     },
+    max_pipeline_extent = 25000,
     hide_connection_info = true,
     volume = 100,
     pipe_covers = pipecoverspictures(),
