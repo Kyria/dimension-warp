@@ -193,7 +193,6 @@ dw.create_loader = function (loader_name, params)
         type = 'recipe',
         name = loader_name,
         category = "advanced-crafting",
-        localised_name = loader_name,
         ingredients = params.ingredients,
         enabled = false,
         results = {
@@ -208,7 +207,6 @@ dw.create_loader = function (loader_name, params)
     local item = {
         type = 'item',
         name = loader_name,
-        localised_name = loader_name,
         order = params.order,
         subgroup = params.subgroup,
 
