@@ -292,6 +292,8 @@ end
 ---@param event (EventData.script_raised_destroy|EventData.on_player_mined_entity|EventData.on_robot_mined_entity|EventData.on_entity_died)
 local function mobile_gate_removed_killed(event)
     local gate = event.entity
+    if not gate or gate and not gate.valid then return end
+
     if not string.match(gate.name, "mobile%-gate%-%d") then return end
 
     local gate_pos = gate.position
