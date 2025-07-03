@@ -194,24 +194,24 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
         table.insert(randomizer_list, {"Radioactive", uranium_planet, "dw-randomizer.neo-nauvis-uranium"})
         table.insert(randomizer_list, {"Granitic", stone_planet, "dw-randomizer.neo-nauvis-stone"})
 
-        table.insert(randomizer_weights, 3)
-        table.insert(randomizer_weights, 3)
+        table.insert(randomizer_weights, 4)
+        table.insert(randomizer_weights, 4)
         table.insert(randomizer_weights, 15)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 1)
-        table.insert(randomizer_weights, 1)
-        table.insert(randomizer_weights, 1)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
     end
 
-    if storage.warp.number >= 10 then
+    if storage.warp.number >= 25 then
         table.insert(randomizer_list, {"Amazonia", amazonia, "dw-randomizer.neo-nauvis-amazonia"})
-        table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 5)
     end
 
     if storage.warp.number >= 100 then
-        local weight = math.min(4, math.floor(storage.warp.number / 100))
+        local weight = math.min(5, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Quarantine Island", death_island, "dw-randomizer.neo-nauvis-death-island"})
         table.insert(randomizer_list, {"Ravaged", death_barren, "dw-randomizer.neo-nauvis-death-barren"})
         table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.neo-nauvisorld"})
