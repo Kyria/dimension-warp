@@ -190,7 +190,7 @@ local function create_update_pipes_loaders(side)
     end
 end
 
-local function create_harvester_zone(side)
+local function place_harvester_tiles(side)
     local harvester_const = dw.harvesters[side]
     local harvester = storage.harvesters[side]
 
@@ -208,6 +208,15 @@ local function create_harvester_zone(side)
     utils.add_tiles(tiles, "dimension-harvester-hazard", warn_area.left_top, warn_area.right_bottom)
     utils.add_tiles(tiles, "harvester-platform", harvester_area.left_top, harvester_area.right_bottom)
     storage.platform.mining.surface.set_tiles(tiles)
+end
+dw.platforms.place_harvester_tiles = place_harvester_tiles
+
+local function create_harvester_zone(side)
+    local harvester_const = dw.harvesters[side]
+    local harvester = storage.harvesters[side]
+    local harvester_area = math2d.bounding_box.create_from_centre(harvester_const.center, harvester.size - 1)
+
+    place_harvester_tiles(side)
     lay_hidden_ore(harvester_area)
 
     if not harvester.gate then
@@ -444,7 +453,7 @@ local function on_technology_research_finished(event)
         local side = string.match(tech.name, "dimension%-harvester%-(%a+)%-%d+")
         if side then
             storage.harvesters[side].size = dw.platform_size.harvester[tech.level]
-            storage.harvesters[side].border = math.max((tech.level - 1), 2)
+            storage.harvesters[side].border = math.max((tech.level - 1), 3)
             storage.harvesters[side].mobile_name = "harvester-" .. side .. "-grid-" .. tech.level
             create_harvester_zone(side)
         end
