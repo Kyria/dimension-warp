@@ -64,8 +64,8 @@ local function warp_timer()
             -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
             dw.update_warp_platform_size()
             if storage.platform.factory.surface then dw.platforms.init_update_factory_platform() end
-            if storage.platform.harvesters.left.gate then dw.platforms.place_harvester_tiles("left") end
-            if storage.platform.harvesters.right.gate then dw.platforms.place_harvester_tiles("right") end
+            if storage.harvesters.left.gate then dw.platforms.place_harvester_tiles("left") end
+            if storage.harvesters.right.gate then dw.platforms.place_harvester_tiles("right") end
             if storage.platform.mining.surface then dw.platforms.init_update_mining_platform() end
             if storage.platform.power.surface then dw.platforms.init_update_power_platform() end
         end
