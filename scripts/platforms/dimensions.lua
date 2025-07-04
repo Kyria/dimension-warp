@@ -27,7 +27,7 @@ local function create_special_entity(surface, entity_info, clear_area)
             {entity_info.area[1][1] + position[1], entity_info.area[1][2] + position[2]},
             {entity_info.area[2][1] + position[1], entity_info.area[2][2] + position[2]}
         }
-        local to_remove = surface.find_entities_filtered {area = area_to_clear, type = {"character"}, invert = true}
+        local to_remove = surface.find_entities_filtered {area = area_to_clear, type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
         for _, entity in pairs(to_remove) do
             entity.destroy()
         end
