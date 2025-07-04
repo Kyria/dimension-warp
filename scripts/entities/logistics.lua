@@ -32,7 +32,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
 
         --- if the chest is not valid or doesn't exist, we create it
         if not chest_A or (chest_A and not chest_A.valid) then
-            local to_remove = surface_A.find_entities_filtered {position = positions[i].chests[1], type = {"character"}, invert = true}
+            local to_remove = surface_A.find_entities_filtered {position = positions[i].chests[1], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             chest_A = surface_A.create_entity {
                 name = (type == defines.item_direction.push) and storage.stairs.chest_type.input or storage.stairs.chest_type.output,
@@ -45,7 +45,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
 
         --- if the chest is not valid or doesn't exist, we create it
         if not chest_B or (chest_B and not chest_B.valid) then
-            local to_remove = surface_B.find_entities_filtered {position = positions[i].chests[2], type = {"character"}, invert = true}
+            local to_remove = surface_B.find_entities_filtered {position = positions[i].chests[2], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             chest_B = surface_B.create_entity {
                 name = (type == defines.item_direction.push) and storage.stairs.chest_type.output or storage.stairs.chest_type.input,
@@ -65,7 +65,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
 
         --- we create each loaders, and set them the right type
         if not loader_A or (loader_A and not loader_A.valid) then
-            local to_remove = surface_A.find_entities_filtered {position = positions[i].loaders[1], type = {"character"}, invert = true}
+            local to_remove = surface_A.find_entities_filtered {position = positions[i].loaders[1], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             local loader_type = (type == defines.item_direction.push) and "input" or "output"
             loader_A = surface_A.create_entity {
@@ -79,7 +79,7 @@ local function create_loader_chest_pair(surface_A, surface_B, positions)
         end
 
         if not loader_B or (loader_B and not loader_B.valid) then
-            local to_remove = surface_B.find_entities_filtered {position = positions[i].loaders[2], type = {"character"}, invert = true}
+            local to_remove = surface_B.find_entities_filtered {position = positions[i].loaders[2], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
             for _, entity in pairs(to_remove) do entity.destroy() end
             local loader_type = (type == defines.item_direction.push) and "output" or "input"
             loader_B = surface_B.create_entity {
@@ -123,7 +123,7 @@ local function create_pipe_pairs(surface_A, surface_B, positions)
         if storage.stairs.pipe_pairs[pipe_index] then goto continue end
 
         --- destroy what's existing in pipe position
-        local to_remove = surface_A.find_entities_filtered {position = positions[i].pipes[1], type = {"character"}, invert = true}
+        local to_remove = surface_A.find_entities_filtered {position = positions[i].pipes[1], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
         for _, entity in pairs(to_remove) do entity.destroy() end
         local pipe_A = surface_A.create_entity {
             name = storage.stairs.pipes_type,
@@ -133,7 +133,7 @@ local function create_pipe_pairs(surface_A, surface_B, positions)
         }
         pipe_A.destructible = false
 
-        local to_remove = surface_B.find_entities_filtered {position = positions[i].pipes[2], type = {"character"}, invert = true}
+        local to_remove = surface_B.find_entities_filtered {position = positions[i].pipes[2], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
         for _, entity in pairs(to_remove) do entity.destroy() end
         local pipe_B = surface_B.create_entity {
             name = storage.stairs.pipes_type,
