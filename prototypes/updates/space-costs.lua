@@ -7,8 +7,8 @@ local function multiply_ingredients(recipe, multi)
     end
 end
 
-multiply_ingredients(data.raw.recipe["space-platform-foundation"], 5)
-multiply_ingredients(data.raw.recipe["space-platform-starter-pack"], 5)
+multiply_ingredients(data.raw.recipe["space-platform-foundation"], 2.5)
+multiply_ingredients(data.raw.recipe["space-platform-starter-pack"], 2.5)
 multiply_ingredients(data.raw.recipe["cargo-bay"], 2)
 multiply_ingredients(data.raw.recipe["asteroid-collector"], 2)
 multiply_ingredients(data.raw.recipe["crusher"], 2)
