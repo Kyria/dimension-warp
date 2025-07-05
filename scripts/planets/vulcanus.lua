@@ -88,7 +88,7 @@ local function missing_resource(mapgen)
     mapgen = normal(mapgen)
 
     mapgen.autoplace_controls["calcite"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["vulcanus_coal-ore"] = {richness = 1.5, size = 1, frequency = 1.5}
+    mapgen.autoplace_controls["vulcanus_coal"] = {richness = 1.5, size = 1, frequency = 1.5}
     mapgen.autoplace_controls["sulfuric_acid_geyser"] = {richness = 1.5, size = 1, frequency = 1.5}
     mapgen.autoplace_controls["tungsten_ore"] = {richness = 1.5, size = 1, frequency = 1.5}
 
