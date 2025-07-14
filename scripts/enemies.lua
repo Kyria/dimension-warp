@@ -28,7 +28,7 @@ end
 local function force_enemy_attack()
 	if not storage.timer.active then return end
 	local time_passed = (game.tick - storage.warp.time) / 3600
-	if time_passed <= 5 then return end --- at least 5min on planet
+	if time_passed <= 10 then return end --- at least 10min on planet
 	storage.warp.current.surface.set_multi_command{
 		command = {
 			type = defines.command.attack_area,
@@ -37,7 +37,7 @@ local function force_enemy_attack()
 			distraction = defines.distraction.by_enemy
 		},
 		unit_count = 500,
-		unit_search_distance = math.min(5000, 3000 * ((time_passed - 5) / 30))
+		unit_search_distance = math.min(5000, 3000 * ((time_passed - 10) / 30))
 	}
 end
 
