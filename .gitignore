@@ -39,3 +39,19 @@ luac.out
 *.x86_64
 *.hex
 
+starting_area
+TODO
+
+# temporary files to ignore
+graphics/entities/quantum-stabilizer/quantum-stabilizer-hr-animation-1.png
+graphics/entities/quantum-stabilizer/quantum-stabilizer-hr-animation-2.png
+graphics/entities/quantum-stabilizer/quantum-stabilizer-hr-emission-1.png
+graphics/entities/quantum-stabilizer/quantum-stabilizer-hr-emission-2.png
+graphics/entities/quantum-stabilizer/quantum-stabilizer-hr-shadow.png
+graphics/entities/quantum-stabilizer/quantum-stabilizer-icon.png
+graphics/icons/dimension-science-pack.png
+graphics/technology/dimension-science-pack.png
+prototypes/entities/quantum-stabilizer.lua
+prototypes/technologies/dimension-science.lua
+prototypes/technologies/quantum-stabilizer.lua
+prototypes/science-pack.lua
