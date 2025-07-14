@@ -121,3 +121,11 @@ require "scripts.entities.dimension-crane"
 require "compatibility.picker-dollies"
 
 --require "scripts.debug"
+
+local function mod_warning()
+    if script.active_mods['Repair_Turret'] then
+        game.print({"dw-warning.repair-tower-mod"})
+    end
+end
+dw.register_event('on_init', mod_warning)
+dw.register_event('on_configuration_changed', mod_warning)
