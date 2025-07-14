@@ -128,8 +128,8 @@ local function vulcanus_randomizer(mapgen, surface_name)
         randomizer_weights = util.merge({randomizer_weights, {3, 3, 2, 20, 1, 2, 1, 1}})
     end
 
-    if storage.warp.number >= 70 then
-        local weight = math.min(4, math.floor(storage.warp.number / 50))
+    if storage.warp.number >= 100 then
+        local weight = math.min(4, math.floor(storage.warp.number / 100))
         randomizer_list = util.merge({randomizer_list, {
             {"Demolisher", demolisher_planet, "dw-randomizer.vulcanus-demolisher"},
             {"Infested", death_world, "dw-randomizer.vulcanus-death-world"},
