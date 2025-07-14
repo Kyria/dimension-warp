@@ -380,6 +380,16 @@ local function mobile_gate_placed(event)
 
     -- check area for collision with player or enemy structure
     local area_to_check = math2d.bounding_box.create_from_centre({gate.position.x, gate.position.y + 0.5}, 10, 2)
+
+    if utils.check_deployable_collision(area_to_check, defines.deployable_collision_source.mobile_gate) then
+        utils.create_flying_text{
+            position = gate.position,
+            surface = surface,
+            text = {"dw-messages.mobile-gate-other-deployable"},
+            color = util.color(defines.hexcolor.orangered.. 'd9')}
+        return
+    end
+
     local check_entities = surface.find_entities_filtered{area = area_to_check, force = {"player", "enemy"}}
     for _, check_e in pairs(check_entities) do
         if check_e.name == "construction-robot" then goto continue end
@@ -454,10 +464,14 @@ local function mobile_gate_placed(event)
 end
 
 dw.register_event(defines.events.on_research_finished, gate_research)
+
 dw.register_event(defines.events.on_built_entity, mobile_gate_placed)
 dw.register_event(defines.events.on_robot_built_entity, mobile_gate_placed)
+dw.register_event(defines.events.script_raised_revive, mobile_gate_placed) -- trigerred by mods that revive ghost
+
 dw.register_event(defines.events.script_raised_destroy, mobile_gate_removed_killed) -- triggered by destroy()
 dw.register_event(defines.events.on_player_mined_entity, mobile_gate_removed_killed)
 dw.register_event(defines.events.on_robot_mined_entity, mobile_gate_removed_killed)
 dw.register_event(defines.events.on_entity_died, mobile_gate_removed_killed)
+
 

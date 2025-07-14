@@ -2,7 +2,6 @@
 ------------------------------------------------------------
 ---
 local function prevent_building_except_in_factory(event)
-    local source = (event.robot) and event.robot or game.players[event.player_index]
     local entity = event.entity
 
     if not entity.valid then return end
@@ -14,3 +13,4 @@ end
 
 dw.register_event(defines.events.on_built_entity, prevent_building_except_in_factory)
 dw.register_event(defines.events.on_robot_built_entity, prevent_building_except_in_factory)
+dw.register_event(defines.events.script_raised_revive, prevent_building_except_in_factory)

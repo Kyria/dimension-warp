@@ -310,7 +310,9 @@ local function recall_harvester(side)
 
     -- find all entities we want to teleport back to harvester zone
     local harvester_entities = surface.find_entities_filtered {
-        type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon", "car", "spider-vehicle", "player", "character", "radar", "resource"},
+        type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
+                "car", "spider-vehicle", "player", "character", "radar", "resource",
+                "dw-chest", "dw-logistic-input", "dw-logistic-output"},
         area = deployed_area,
         invert = true,
     }
@@ -342,6 +344,21 @@ local function harvester_placed(event)
     local position = event.entity.position
     local surface = storage.warp.current.surface
     local side = string.match(harvester_grid.name, "harvester%-(%a+)%-grid%-%d")
+
+    -- check area before anything else
+    local check_area = math2d.bounding_box.create_from_centre(position, storage.harvesters[side].size)
+    if utils.check_deployable_collision(check_area, defines.deployable_collision_source[side .. "_harvester"]) then
+        utils.spill_or_return_item(event)
+        utils.create_flying_text{
+            position = harvester_grid.position,
+            surface = harvester_grid.surface,
+            text = {"dw-messages.harvester-deployable-collision"},
+            color = util.color(defines.hexcolor.orangered.. 'd9')
+        }
+        harvester_grid.destroy()
+        return
+    end
+
     harvester_grid.destroy()
 
     if storage.harvesters[side].deployed then return end
@@ -364,7 +381,6 @@ local function harvester_placed(event)
         draw_on_ground = true,
         filled = true
     }
-
 
     local deployed_area = math2d.bounding_box.create_from_centre(position, storage.harvesters[side].size - 1)
     local harvester_area = math2d.bounding_box.create_from_centre(dw.harvesters[side].center, storage.harvesters[side].size - 1)
@@ -412,6 +428,7 @@ local function harvester_placed(event)
 end
 
 local function replace_mined_item(side, event)
+    if event.name == defines.events.script_raised_destroy then return end
     local mobile_gate = 'harvester-' .. side .. '-mobile-gate'
     local buffer = event.buffer
     for i = 1, #buffer, 1 do
@@ -524,9 +541,11 @@ dw.register_event(defines.events.on_research_finished, on_technology_research_fi
 
 dw.register_event(defines.events.on_built_entity, harvester_placed)
 dw.register_event(defines.events.on_robot_built_entity, harvester_placed)
+dw.register_event(defines.events.script_raised_revive, harvester_placed) -- need to catch this events, if a mod create the ghost
 
 dw.register_event(defines.events.on_player_mined_entity, harvester_mined)
 dw.register_event(defines.events.on_robot_mined_entity, harvester_mined)
+dw.register_event(defines.events.script_raised_destroy, harvester_mined) -- need to catch this events, if a mod delete the item
 
 dw.register_event(defines.events.on_player_flipped_entity, flipped_linked_belt)
 dw.register_event(defines.events.on_player_rotated_entity, rotate_linked_belt)

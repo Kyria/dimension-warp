@@ -129,7 +129,9 @@ dw.register_event("on_nth_tick_60", move_crane_items)
 
 dw.register_event(defines.events.on_built_entity, crane_built)
 dw.register_event(defines.events.on_robot_built_entity, crane_built)
+dw.register_event(defines.events.script_raised_revive, crane_built)
 
 dw.register_event(defines.events.on_player_mined_entity, crane_destroyed)
 dw.register_event(defines.events.on_robot_mined_entity, crane_destroyed)
 dw.register_event(defines.events.on_entity_died, crane_destroyed)
+dw.register_event(defines.events.script_raised_destroy, crane_destroyed)

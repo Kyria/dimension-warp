@@ -101,20 +101,12 @@ function utils.link_cables(entity1, entity2, wire_connectors)
     end
 end
 
----Check that we construct entity only on surface, not any platform.
----If we do, destroy and return the item.
----@param event EventData.on_built_entity|EventData.on_robot_built_entity the event data
----@param allowed_surfaces table<string,boolean> the surface list, key must be surface name with true if allowed
----@param localized_message string the localized message
----@return boolean # true if the surface is allowed
-function utils.entity_built_surface_check(event, allowed_surfaces, localized_message)
-
-    local source = (event.robot) and event.robot or game.players[event.player_index] ---@type LuaEntity|LuaPlayer
+function utils.spill_or_return_item(event)
+    if event.name == defines.events.script_raised_revive then return end -- mod that revive item. Meaning it probably dealt with the item.
     local entity = event.entity
+    local source = (event.robot) and event.robot or game.players[event.player_index] ---@type LuaEntity|LuaPlayer
     local consumed = (event.stack) and event.stack or event.consumed_items[1]
-    local item_stack = {name=consumed, count=1}
-
-    if allowed_surfaces[entity.surface.name] then return true end
+    local item_stack = {name=consumed.name, count=1}
 
     if consumed.quality then item_stack.quality = consumed.quality.name end
 
@@ -128,7 +120,19 @@ function utils.entity_built_surface_check(event, allowed_surfaces, localized_mes
             force = entity.force
         }
     end
+end
 
+---Check that we construct entity only on surface, not any platform.
+---If we do, destroy and return the item.
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity the event data
+---@param allowed_surfaces table<string,boolean> the surface list, key must be surface name with true if allowed
+---@param localized_message string the localized message
+---@return boolean # true if the surface is allowed
+function utils.entity_built_surface_check(event, allowed_surfaces, localized_message)
+    local entity = event.entity
+
+    if allowed_surfaces[entity.surface.name] then return true end
+    utils.spill_or_return_item(event)
     utils.create_flying_text{
         position = entity.position,
         surface = entity.surface,
@@ -167,4 +171,25 @@ function utils.adjust_resource_proportion(mapgen, resource_list, main_resource, 
         end
     end
     return mapgen
+end
+
+
+function utils.check_deployable_collision(box, source)
+    if source ~= defines.deployable_collision_source.left_harvester and storage.harvesters.left.deployed then
+        if math2d.bounding_box.collides_with(box, storage.harvesters.left.area) then
+            return true
+        end
+    end
+    if source ~= defines.deployable_collision_source.right_harvester and storage.harvesters.right.deployed then
+        if math2d.bounding_box.collides_with(box, storage.harvesters.left.area) then
+            return true
+        end
+    end
+    if source ~= defines.deployable_collision_source.mobile_gate and storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
+        local area_to_check = math2d.bounding_box.create_from_centre({storage.warpgate.mobile_gate.position.x, storage.warpgate.mobile_gate.position.y + 0.5}, 10, 2)
+        if math2d.bounding_box.collides_with(box, area_to_check) then
+            return true
+        end
+    end
+    return false
 end

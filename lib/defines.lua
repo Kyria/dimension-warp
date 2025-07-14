@@ -21,6 +21,12 @@ defines.loader_facing = {
     right = {input = defines.direction.east, output = defines.direction.east},
 }
 
+defines.deployable_collision_source = {
+    left_harvester = 1,
+    right_harvester = 2,
+    mobile_gate = 3,
+}
+
 defines.opposite_loader = {
     input = "output",
     output = "input"
