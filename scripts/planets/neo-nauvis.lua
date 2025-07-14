@@ -160,7 +160,7 @@ local function missing_resource(mapgen)
     -- min 2 removed, max "max - 2" kept
     local number_ore = math.random(4)
     local list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
-    local weights = {1,1,3,3,2,3}
+    local weights = {1,1,2,2,2,1}
     for i = number_ore, 1, -1 do
         local index, selected = utils.weighted_random_choice(list, weights)
         mapgen.autoplace_controls[selected].richness = 0
