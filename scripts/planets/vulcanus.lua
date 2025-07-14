@@ -138,7 +138,7 @@ local function vulcanus_randomizer(mapgen, surface_name)
     end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
-    mapgen = dormant(mapgen)
+    mapgen = randomizer[2](mapgen)
 
     local surface = game.create_surface(surface_name, mapgen)
     storage.warp.randomizer = randomizer[1]
