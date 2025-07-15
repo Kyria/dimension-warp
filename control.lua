@@ -37,13 +37,6 @@ local function set_globals()
         players_count = 0,
     }
 
-    -- mapgen
-    storage.mapgen = storage.mapgen or {
-        defaults = {},
-        autoplace_controls = {},
-        autoplace_settings = {},
-    }
-
     -- list of teleport locations with status, and both teleporter entity (fom/to)
     storage.teleporter = storage.teleporter or {
         ['warp-to-factory'] =               {active = false},

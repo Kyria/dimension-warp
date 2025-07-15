@@ -78,43 +78,6 @@ local function generate_surface(planet, vanilla)
 end
 dw.generate_surface = generate_surface
 
-
-local function update_default_mapgen()
-    for _, planet in pairs(game.planets) do
-        if planet.prototype.entities_require_heating then goto continue end
-        if planet.name == "nauvis" then goto continue end
-        if dw.safe_surfaces[planet.name] then goto continue end
-
-        storage.mapgen.defaults[planet.name] = planet.prototype.map_gen_settings
-        ::continue::
-    end
-end
-
-local function update_autoplace_list()
-    for _, planet in pairs(game.planets) do
-        if planet.prototype.entities_require_heating then goto continue end
-        if dw.safe_surfaces[planet.name] then goto continue end
-
-        local mapgen = planet.prototype.map_gen_settings
-        if not mapgen or not mapgen.autoplace_settings.entity then goto continue end
-
-        storage.mapgen.autoplace_settings[planet.name] = {total = 0, autoplace = {}}
-
-        -- store autoplace controls
-        if mapgen.autoplace_settings.entity then
-            for name, _ in pairs(mapgen.autoplace_settings.entity.settings) do
-                if prototypes.entity[name].type == 'resource' then
-                    storage.mapgen.autoplace_settings[planet.name].autoplace[name] = true
-                    storage.mapgen.autoplace_settings[planet.name].total = storage.mapgen.autoplace_settings[planet.name].total + 1
-                end
-            end
-        end
-
-        ::continue::
-    end
-end
-
-
 local function update_surfaces_properties()
     if storage.warp.status ~= defines.warp.warping then return end
     game.delete_surface(storage.warp.previous.name)
@@ -135,7 +98,3 @@ end
 
 
 dw.register_event(defines.events.on_surface_deleted, surface_deleted)
-dw.register_event('on_init', update_autoplace_list)
-dw.register_event('on_init', update_default_mapgen)
-dw.register_event('on_configuration_changed', update_autoplace_list)
-dw.register_event('on_configuration_changed', update_default_mapgen)
