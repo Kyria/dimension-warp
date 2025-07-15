@@ -2,14 +2,15 @@
 ------------------------------------------------------------
 dw.gui = dw.gui or {}
 
-dw.gui.set_warp_toggle_buttons = function(player)
+local function set_warp_toggle_buttons(player)
     local buttonflow = mod_gui.get_button_flow(player)
     local button_info = buttonflow.warp_toggle or buttonflow.add({type = "sprite-button", name = "warp_toggle", sprite = "warp-toggle-icon"})
     button_info.visible = true
     button_info.tooltip = {"dw-messages.gui-button-tooltip"}
 end
+dw.gui.set_warp_toggle_buttons = set_warp_toggle_buttons
 
-dw.gui.get_warp_frame = function(player)
+local function get_warp_frame(player)
     local frameflow = mod_gui.get_frame_flow(player)
     local warp_frame = frameflow.warp_frame or frameflow.add({type = "flow", name = "warp_frame", direction = "vertical"})
     warp_frame.visible = warp_frame.visible or false
@@ -35,10 +36,11 @@ dw.gui.get_warp_frame = function(player)
     warp_frame.warp_button.visible = storage.timer.active
     return warp_frame
 end
+dw.gui.get_warp_frame = get_warp_frame
 
-dw.update_manual_warp_button = function()
+local function update_manual_warp_button()
     for _, player in pairs(game.players) do
-        local frame = dw.gui.get_warp_frame(player)
+        local frame = get_warp_frame(player)
         local button = frame.warp_button
         button.visible = storage.timer.active
 
@@ -61,25 +63,26 @@ dw.update_manual_warp_button = function()
         end
     end
 end
+dw.gui.update_manual_warp_button = update_manual_warp_button
 
 local function warp_frame_click(event)
     local player = game.players[event.player_index]
     local button = event.element
     if button.name == "warp_toggle" then
-        local frame = dw.gui.get_warp_frame(player)
+        local frame = get_warp_frame(player)
         frame.visible = not frame.visible
     end
 
     if button.name == "warp_button" then
         storage.votes.count = storage.votes.count + 1
         storage.votes.players[event.player_index] = true
-        dw.update_manual_warp_button()
+        update_manual_warp_button()
     end
 end
 
 local function prepare_warp_gui(player)
-    dw.gui.set_warp_toggle_buttons(player)
-    dw.gui.get_warp_frame(player)
+    set_warp_toggle_buttons(player)
+    get_warp_frame(player)
 end
 
 local function on_init(event)
@@ -95,9 +98,9 @@ end
 
 
 
-dw.update_gui = function()
+local function update()
     for _, player in pairs(game.players) do
-        local frame = dw.gui.get_warp_frame(player)
+        local frame = get_warp_frame(player)
 
         frame.surface.visible = storage.nauvis_lab_exploded or false
         frame.dimension.visible = storage.nauvis_lab_exploded or false
@@ -125,7 +128,7 @@ dw.update_gui = function()
         end
     end
 end
-
+dw.gui.update = update
 
 dw.register_event('on_init', on_init)
 dw.register_event('on_configuration_changed', on_init)

@@ -59,7 +59,7 @@ local function warp_timer()
             -- reset evolution based on warp number
             game.forces.enemy.set_evolution_factor(math.min(100, 1.8 ^ (storage.warp.number / 20) + math.log(storage.warp.number, 10) * 5) / 100, storage.warp.current.surface)
             storage.pollution = 1
-            dw.update_manual_warp_button()
+            dw.gui.update_manual_warp_button()
 
             -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
             dw.update_warp_platform_size()
@@ -73,7 +73,7 @@ local function warp_timer()
     end
 
     --- each seconds, we update the GUI
-    dw.update_gui()
+    dw.gui.update()
 end
 
 
@@ -84,7 +84,7 @@ local function update_warp_vote_threshold()
         storage.votes.min_vote = new_vote_threshold
         storage.votes.count = 0
         storage.votes.players = {}
-        dw.update_manual_warp_button()
+        dw.gui.update_manual_warp_button()
     end
 end
 
@@ -162,7 +162,7 @@ local function warp_generator_research(event)
             storage.timer.base = -1
             storage.timer.warp = -1
         end
-        dw.update_manual_warp_button()
+        dw.gui.update_manual_warp_button()
     end
 end
 
