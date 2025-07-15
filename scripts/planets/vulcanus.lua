@@ -114,7 +114,7 @@ local function vulcanus_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 25 then
+    if storage.warp.number >= 25 and not storage.vulcanus_first_warp then
         table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.vulcanus-barren"})
         table.insert(randomizer_list, {"Erupting", eruption, "dw-randomizer.vulcanus-erupting"})
         table.insert(randomizer_list, {"Dormant", dormant, "dw-randomizer.vulcanus-dormant"})
@@ -134,7 +134,7 @@ local function vulcanus_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 1)
     end
 
-    if storage.warp.number >= 150 then
+    if storage.warp.number >= 150 and not storage.vulcanus_first_warp then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Demolisher", demolisher_planet, "dw-randomizer.vulcanus-demolisher"})
         table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.vulcanus-death-world"})
@@ -142,6 +142,8 @@ local function vulcanus_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, weight)
         table.insert(randomizer_weights, weight)
     end
+
+    if storage.vulcanus_first_warp then storage.vulcanus_first_warp = false end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)
@@ -153,4 +155,12 @@ local function vulcanus_randomizer(mapgen, surface_name)
     return surface
 end
 
+local function on_technology_research_finished(event)
+    local tech = event.research
+    if tech.name == "planet-discovery-vulcanus" then
+        storage.vulcanus_first_warp = true
+    end
+end
+
+dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
 dw.mapgen.vulcanus.randomizer = vulcanus_randomizer

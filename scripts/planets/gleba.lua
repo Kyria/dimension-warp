@@ -92,7 +92,7 @@ local function gleba_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 100 then
+    if storage.warp.number >= 100 and not storage.gleba_first_warp then
         table.insert(randomizer_list, {"Barren", flooded, "dw-randomizer.gleba-flooded"})
         table.insert(randomizer_list, {"Alternate", no_yumako_soil, "dw-randomizer.gleba-no-yumako"})
         table.insert(randomizer_list, {"Alternate", no_jellynut_soil, "dw-randomizer.gleba-no-jellynut"})
@@ -103,11 +103,13 @@ local function gleba_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 1)
     end
 
-    if storage.warp.number >= 200 then
+    if storage.warp.number >= 200 and not storage.gleba_first_warp then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Nest", pentapod_nest, "dw-randomizer.gleba-nest"})
         table.insert(randomizer_weights, weight)
     end
+
+    if storage.gleba_first_warp then storage.gleba_first_warp = false end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)
@@ -119,4 +121,13 @@ local function gleba_randomizer(mapgen, surface_name)
     return surface
 end
 
+
+local function on_technology_research_finished(event)
+    local tech = event.research
+    if tech.name == "planet-discovery-gleba" then
+        storage.gleba_first_warp = true
+    end
+end
+
+dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
 dw.mapgen.gleba.randomizer = gleba_randomizer

@@ -86,7 +86,7 @@ local function fulgora_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 50 then
+    if storage.warp.number >= 50 and not storage.fulgora_first_warp then
         table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.fulgora-barren"})
         table.insert(randomizer_list, {"Dry", dry, "dw-randomizer.fulgora-dry"})
         table.insert(randomizer_list, {"Bituminous", oil_planet, "dw-randomizer.fulgora-oil-planet"})
@@ -100,11 +100,13 @@ local function fulgora_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 3)
     end
 
-    if storage.warp.number >= 150 then
+    if storage.warp.number >= 150 and not storage.fulgora_first_warp then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Death World", death_world, "dw-randomizer.fulgora-death-world"})
         table.insert(randomizer_weights, weight)
     end
+
+    if storage.fulgora_first_warp then storage.fulgora_first_warp = false end
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)
@@ -116,4 +118,12 @@ local function fulgora_randomizer(mapgen, surface_name)
     return surface
 end
 
+local function on_technology_research_finished(event)
+    local tech = event.research
+    if tech.name == "planet-discovery-fulgora" then
+        storage.fulgora_first_warp = true
+    end
+end
+
+dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
 dw.mapgen.fulgora.randomizer = fulgora_randomizer
