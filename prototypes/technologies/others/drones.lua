@@ -44,56 +44,56 @@ speed_1.type = "technology"
 speed_1.icon = nil
 speed_1.icon_size = nil
 speed_1.icons = speed_icon
-speed_1.unit.count = speed_1.unit.count * 10
+speed_1.unit.count = speed_1.unit.count * 3
 speed_1.prerequisites = {"worker-robots-speed-1"}
 
 speed_2.name = "dimension-worker-robots-speed-2"
 speed_2.icon = nil
 speed_2.icon_size = nil
 speed_2.icons = speed_icon
-speed_2.unit.count = speed_2.unit.count * 10
+speed_2.unit.count = speed_2.unit.count * 3
 speed_2.prerequisites = {"worker-robots-speed-2", "dimension-worker-robots-speed-1"}
 
 speed_3.name = "dimension-worker-robots-speed-3"
 speed_3.icon = nil
 speed_3.icon_size = nil
 speed_3.icons = speed_icon
-speed_3.unit.count = speed_3.unit.count * 10
+speed_3.unit.count = speed_3.unit.count * 2
 speed_3.prerequisites = {"worker-robots-speed-3", "dimension-worker-robots-speed-2"}
 
 speed_4.name = "dimension-worker-robots-speed-4"
 speed_4.icon = nil
 speed_4.icon_size = nil
 speed_4.icons = speed_icon
-speed_4.unit.count = speed_4.unit.count * 10
+speed_4.unit.count = speed_4.unit.count * 2
 speed_4.prerequisites = {"worker-robots-speed-4", "dimension-worker-robots-speed-3"}
 
 speed_5.name = "dimension-worker-robots-speed-5"
 speed_5.icon = nil
 speed_5.icon_size = nil
 speed_5.icons = speed_icon
-speed_5.unit.count = speed_5.unit.count * 10
+speed_5.unit.count = speed_5.unit.count * 2
 speed_5.prerequisites = {"worker-robots-speed-5", "dimension-worker-robots-speed-4"}
 
 capacity_1.name = "dimension-worker-robots-storage-1"
 capacity_1.icon = nil
 capacity_1.icon_size = nil
 capacity_1.icons = capacity_icon
-capacity_1.unit.count = capacity_1.unit.count * 10
+capacity_1.unit.count = capacity_1.unit.count * 1.5
 capacity_1.prerequisites = {"worker-robots-storage-1"}
 
 capacity_2.name = "dimension-worker-robots-storage-2"
 capacity_2.icon = nil
 capacity_2.icon_size = nil
 capacity_2.icons = capacity_icon
-capacity_2.unit.count = capacity_2.unit.count * 10
+capacity_2.unit.count = capacity_2.unit.count * 1.5
 capacity_2.prerequisites = {"worker-robots-storage-2", "dimension-worker-robots-storage-1"}
 
 capacity_3.name = "dimension-worker-robots-storage-3"
 capacity_3.icon = nil
 capacity_3.icon_size = nil
 capacity_3.icons = capacity_icon
-capacity_3.unit.count = capacity_3.unit.count * 10
+capacity_3.unit.count = capacity_3.unit.count * 1.5
 capacity_3.prerequisites = {"worker-robots-storage-3", "dimension-worker-robots-storage-2"}
 
 data:extend{
