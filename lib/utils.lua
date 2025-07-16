@@ -181,7 +181,7 @@ function utils.check_deployable_collision(box, source)
         end
     end
     if source ~= defines.deployable_collision_source.right_harvester and storage.harvesters.right.deployed then
-        if math2d.bounding_box.collides_with(box, storage.harvesters.left.area) then
+        if math2d.bounding_box.collides_with(box, storage.harvesters.right.area) then
             return true
         end
     end
