@@ -33,7 +33,7 @@ local function force_enemy_attack()
 		command = {
 			type = defines.command.attack_area,
 			destination = {0, 0},
-			radius = math.floor(storage.platform.warp.size / 1.5),
+			radius = math.floor(storage.platform.warp.size / 2),
 			distraction = defines.distraction.by_enemy
 		},
 		unit_count = 500,
