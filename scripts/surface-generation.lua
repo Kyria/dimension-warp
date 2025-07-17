@@ -17,9 +17,9 @@ local function force_map_settings()
     game.map_settings.pollution.enemy_attack_pollution_consumption_modifier = 1.0
 
     game.map_settings.enemy_evolution.enabled = true --
-    game.map_settings.enemy_evolution.time_factor = 0.000004 -- default 0.000004
+    game.map_settings.enemy_evolution.time_factor = 0.000006 -- default 0.000004
     game.map_settings.enemy_evolution.destroy_factor = 0.0002 -- default 0.002
-    game.map_settings.enemy_evolution.pollution_factor = 0.0000002 -- default 0.0000009
+    game.map_settings.enemy_evolution.pollution_factor = 0.0000005 -- default 0.0000009
 
     game.map_settings.unit_group.min_group_gathering_time = 600
     game.map_settings.unit_group.max_group_gathering_time = 2 * 600
