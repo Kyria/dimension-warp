@@ -155,12 +155,11 @@ local function warp_generator_research(event)
     if string.match(tech.name, "warp%-generator%-%d+") then
         if tech.level < 6 then
             storage.timer.base =  (20 + (tech.level - 1)  * 10) * 60
-            if not storage.timer.warp then
-                storage.timer.warp = storage.timer.base
-            end
         else
-            storage.timer.base = -1
-            storage.timer.warp = -1
+            storage.timer.base = storage.timer.base + 30
+        end
+        if not storage.timer.warp then
+            storage.timer.warp = storage.timer.base
         end
         dw.gui.update_manual_warp_button()
     end
