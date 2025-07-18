@@ -52,7 +52,7 @@ local harvester_right_3 = {
     type = "technology", name = "dimension-harvester-right-3", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-2", "utility-science-pack"},
     unit = {
-        count = 2000,
+        count = 1500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
@@ -67,7 +67,7 @@ local harvester_right_4 = {
     type = "technology", name = "dimension-harvester-right-4", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-3", "logistic-system"},
     unit = {
-        count = 5000,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
@@ -82,7 +82,7 @@ local harvester_right_5 = {
     type = "technology", name = "dimension-harvester-right-5", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-4", "mining-productivity-3"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
@@ -98,7 +98,7 @@ local harvester_right_6 = {
     type = "technology", name = "dimension-harvester-right-6", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-5", "warp-generator-5"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},

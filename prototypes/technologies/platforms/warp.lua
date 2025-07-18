@@ -43,7 +43,7 @@ local tech_warp_platform_3 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-2", "utility-science-pack", "warp-generator-4"},
     unit = {
-        count = 1500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -59,7 +59,7 @@ local tech_warp_platform_4 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-3", "space-science-pack", "warp-generator-5"},
     unit = {
-        count = 2500,
+        count = 1500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -76,13 +76,13 @@ local tech_warp_platform_5 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-4"},
     unit = {
-        count = 5000,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 1},
-            {"space-science-pack", 3}
+            {"space-science-pack", 2}
         },
         time = 30,
     },
@@ -93,7 +93,7 @@ local tech_warp_platform_6 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-5"},
     unit = {
-        count = 10000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -110,7 +110,7 @@ local tech_warp_platform_7 = {
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-platform-size"} }},
     prerequisites = {"warp-platform-size-6"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},

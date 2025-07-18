@@ -86,7 +86,7 @@ local tech_platform_4 = {
     type = "technology", name = "mining-platform-upgrade-4", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-3", "advanced-material-processing-2"},
     unit = {
-        count = 2000,
+        count = 1500,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
@@ -100,12 +100,12 @@ local tech_platform_5 = {
     type = "technology", name = "mining-platform-upgrade-5", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-4", "coal-liquefaction"},
     unit = {
-        count = 2500,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 4},
+            {"production-science-pack", 1},
         },
         time = 30,
     },
@@ -115,12 +115,12 @@ local tech_platform_6 = {
     type = "technology", name = "mining-platform-upgrade-6", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-5", "space-science-pack"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 3},
+            {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
         time = 30,
@@ -131,12 +131,12 @@ local tech_platform_7 = {
     type = "technology", name = "mining-platform-upgrade-7", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-6", "warp-generator-5"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 3},
+            {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
         time = 30,

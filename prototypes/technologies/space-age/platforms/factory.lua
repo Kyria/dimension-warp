@@ -11,12 +11,12 @@ table.insert(factory_5.unit.ingredients, {"metallurgic-science-pack", 2})
 local factory_6 = data.raw['technology']['factory-platform-upgrade-6']
 factory_6.prerequisites = {"factory-platform-upgrade-5", "biolab"}
 factory_6.unit = {
-    count = 5000,
+    count = 2500,
     ingredients = {
         {"automation-science-pack", 2},
         {"logistic-science-pack", 1},
         {"chemical-science-pack", 1},
-        {"production-science-pack", 3},
+        {"production-science-pack", 2},
         {"space-science-pack", 1},
         {"metallurgic-science-pack", 1},
         {"agricultural-science-pack", 2},
@@ -29,12 +29,12 @@ factory_6.unit = {
 local factory_7 = data.raw['technology']['factory-platform-upgrade-7']
 factory_7.prerequisites = {"factory-platform-upgrade-6", "quantum-processor"}
 factory_7.unit = {
-    count = 10000,
+    count = 5000,
     ingredients = {
         {"automation-science-pack", 2},
         {"logistic-science-pack", 1},
         {"chemical-science-pack", 1},
-        {"production-science-pack", 3},
+        {"production-science-pack", 2},
         {"space-science-pack", 1},
         {"metallurgic-science-pack", 1},
         {"agricultural-science-pack", 1},

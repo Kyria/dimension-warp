@@ -25,7 +25,7 @@ data:extend{
             ingredients = {
                 {"automation-science-pack", 1},
             },
-            time = 30,
+            time = 15,
         },
     },
     {
@@ -75,7 +75,7 @@ data:extend{
             "power-platform",
         },
         unit = {
-            count = 2000,
+            count = 1000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 2},

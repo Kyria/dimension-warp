@@ -87,11 +87,11 @@ local tech_platform_4 = {
     type = "technology", name = "power-platform-upgrade-4", icons = platform_icon,
     prerequisites = {"power-platform-upgrade-3", "nuclear-power"},
     unit = {
-        count = 2000,
+        count = 1500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
-            {"chemical-science-pack", 3},
+            {"chemical-science-pack", 2},
         },
         time = 30,
     },
@@ -101,12 +101,12 @@ local tech_platform_5 = {
     type = "technology", name = "power-platform-upgrade-5", icons = platform_icon,
     prerequisites = {"power-platform-upgrade-4", "kovarex-enrichment-process"},
     unit = {
-        count = 2500,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 2},
+            {"production-science-pack", 1},
         },
         time = 30,
     },
@@ -116,12 +116,12 @@ local tech_platform_6 = {
     type = "technology", name = "power-platform-upgrade-6", icons = platform_icon,
     prerequisites = {"power-platform-upgrade-5", "space-science-pack"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 2},
+            {"production-science-pack", 1},
             {"space-science-pack", 2},
         },
         time = 30,
@@ -132,12 +132,12 @@ local tech_platform_7 = {
     type = "technology", name = "power-platform-upgrade-7", icons = platform_icon,
     prerequisites = {"power-platform-upgrade-6", "warp-generator-5"},
     unit = {
-        count = 10000,
+        count = 5000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 2},
-            {"production-science-pack", 2},
+            {"production-science-pack", 1},
             {"space-science-pack", 2},
         },
         time = 30,

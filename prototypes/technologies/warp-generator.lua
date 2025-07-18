@@ -55,7 +55,7 @@ local tech_warp_generator_4 = { -- 50min
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
-            {"military-science-pack", 3},
+            {"military-science-pack", 2},
             {"chemical-science-pack", 2},
         },
         time = 30,
@@ -68,11 +68,11 @@ local tech_warp_generator_5 = { -- 60min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-4", "effect-transmission", "military-4"},
     unit = {
-        count = 2500,
+        count = 2000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
-            {"military-science-pack", 3},
+            {"military-science-pack", 2},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
@@ -81,17 +81,17 @@ local tech_warp_generator_5 = { -- 60min
     },
 }
 
-local tech_warp_generator_6 = { -- unlimited time, except aquilo
+local tech_warp_generator_6 = { -- +30 min (90min)
     type = "technology", name = "warp-generator-6",
     icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.lawngreen.. 'd9')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-5"},
     unit = {
-        count = 5000,
+        count = 2500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
-            {"military-science-pack", 3},
+            {"military-science-pack", 2},
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
