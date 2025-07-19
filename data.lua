@@ -52,3 +52,6 @@ end
 if mods['aai-loaders'] then
     require 'prototypes.compatibilities.aai-loaders'
 end
+if mods['aai-containers'] then
+    require 'prototypes.compatibilities.aai-containers'
+end

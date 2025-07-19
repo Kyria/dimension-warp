@@ -15,14 +15,12 @@ input_chest.name = "dw-logistic-input"
 input_chest.minable = nil
 input_chest.placeable_by = nil
 input_chest.fast_replaceable_group = "stair-chest"
-util.recursive_tint(input_chest, util.color(defines.hexcolor.dimgrey.. 'd9'))
 
 local output_chest = table.deepcopy(data.raw['logistic-container'][default_output] or data.raw['logistic-container']['active-provider-chest'])
 output_chest.name = "dw-logistic-output"
 output_chest.minable = nil
 output_chest.placeable_by = nil
 output_chest.fast_replaceable_group = "stair-chest"
-util.recursive_tint(output_chest, util.color(defines.hexcolor.dimgrey.. 'd9'))
 
 local pipetoground = table.deepcopy(data.raw['pipe-to-ground']['pipe-to-ground'])
 pipetoground.name = "dw-pipe"
@@ -45,25 +43,31 @@ local yumako_chest_input = table.deepcopy(data.raw['logistic-container']['buffer
 yumako_chest_input.name = "dw-crane-yumako-seed-input"
 yumako_chest_input.minable = nil
 yumako_chest_input.placeable_by = nil
-util.recursive_tint(yumako_chest_input, util.color(defines.hexcolor.coral.. 'd9'))
 
 local yumako_chest_output = table.deepcopy(data.raw['logistic-container']['passive-provider-chest'])
 yumako_chest_output.name = "dw-crane-yumako-output"
 yumako_chest_output.minable = nil
 yumako_chest_output.placeable_by = nil
-util.recursive_tint(yumako_chest_output, util.color(defines.hexcolor.coral.. 'd9'))
 
 local jellynut_chest_input = table.deepcopy(data.raw['logistic-container']['buffer-chest'])
 jellynut_chest_input.name = "dw-crane-jellynut-seed-input"
 jellynut_chest_input.minable = nil
 jellynut_chest_input.placeable_by = nil
-util.recursive_tint(jellynut_chest_input, util.color(defines.hexcolor.olive.. 'd9'))
 
 local jellynut_chest_output = table.deepcopy(data.raw['logistic-container']['passive-provider-chest'])
 jellynut_chest_output.name = "dw-crane-jellynut-output"
 jellynut_chest_output.minable = nil
 jellynut_chest_output.placeable_by = nil
-util.recursive_tint(jellynut_chest_output, util.color(defines.hexcolor.olive.. 'd9'))
+
+if not mods['aai-containers'] then
+    util.recursive_tint(input_chest, util.color(defines.hexcolor.dimgrey.. 'd9'))
+    util.recursive_tint(output_chest, util.color(defines.hexcolor.dimgrey.. 'd9'))
+    util.recursive_tint(yumako_chest_input, util.color(defines.hexcolor.coral.. 'd9'))
+    util.recursive_tint(yumako_chest_output, util.color(defines.hexcolor.coral.. 'd9'))
+    util.recursive_tint(yumako_chest_output, util.color(defines.hexcolor.coral.. 'd9'))
+    util.recursive_tint(jellynut_chest_input, util.color(defines.hexcolor.olive.. 'd9'))
+    util.recursive_tint(jellynut_chest_output, util.color(defines.hexcolor.olive.. 'd9'))
+end
 
 data:extend{
     dimension_chest,
