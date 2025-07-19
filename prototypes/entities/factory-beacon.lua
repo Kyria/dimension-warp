@@ -258,19 +258,19 @@ beacon_3.energy_usage = "60MW"
 local beacon_4 = table.deepcopy(base)
 beacon_4.name = "dw-factory-beacon-4"
 beacon_4.module_slots = 6
-beacon_4.supply_area_distance = 24
+beacon_4.supply_area_distance = 28
 beacon_4.energy_usage = "80MW"
 
 local beacon_5 = table.deepcopy(base)
 beacon_5.name = "dw-factory-beacon-5"
 beacon_5.module_slots = 7
-beacon_5.supply_area_distance = 34
+beacon_5.supply_area_distance = 38
 beacon_5.energy_usage = "100MW"
 
 local beacon_6 = table.deepcopy(base)
 beacon_6.name = "dw-factory-beacon-6"
 beacon_6.module_slots = 8
-beacon_6.supply_area_distance = 45
+beacon_6.supply_area_distance = 47
 beacon_6.energy_usage = "200MW"
 
 local beacon_7 = table.deepcopy(base)
