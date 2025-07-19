@@ -95,8 +95,8 @@ local dimension_crane_jellynut_recipe = {
     icons = dimension_crane_jellynut.icons,
     ingredients = {
         {type = "item", name = "agricultural-tower", amount = 10},
-        {type = "item", name = "yumako-seed", amount = 100},
-        {type = "item", name = "jellynut-seed", amount = 100},
+        {type = "item", name = "yumako-seed", amount = 25},
+        {type = "item", name = "jellynut-seed", amount = 25},
         {type = "item", name = "pentapod-egg", amount = 10},
         {type = "item", name = "carbon-fiber", amount = 5},
     },
