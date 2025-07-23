@@ -63,7 +63,7 @@ data:extend {
                 {"military-science-pack", 2},
                 {"utility-science-pack", 1},
                 {"space-science-pack", 1},
-                {"electromagnetic-science-pack", 2}
+                {"electromagnetic-science-pack", 1}
             },
             time = 30
         },
