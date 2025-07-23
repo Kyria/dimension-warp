@@ -23,17 +23,17 @@ data:extend {
             {
                 type = "ammo-damage",
                 ammo_category = "tesla",
-                modifier = 0.3
+                modifier = 0.5
             },
         },
         prerequisites = {"electric-weapons-damage-3",  "tesla-weapons"},
         unit = {
             count = 1000,
             ingredients = {
-                {"automation-science-pack", 3},
-                {"logistic-science-pack", 2},
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
                 {"chemical-science-pack", 1},
-                {"military-science-pack", 3},
+                {"military-science-pack", 1},
                 {"utility-science-pack", 1},
                 {"space-science-pack", 1},
                 {"electromagnetic-science-pack", 1}
@@ -50,17 +50,17 @@ data:extend {
             {
                 type = "ammo-damage",
                 ammo_category = "tesla",
-                modifier = 0.4
+                modifier = 0.5
             },
         },
         prerequisites = {"dimension-tesla-weapons-damage-1"},
         unit = {
-            count = 2500,
+            count = 1500,
             ingredients = {
-                {"automation-science-pack", 3},
+                {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
                 {"chemical-science-pack", 1},
-                {"military-science-pack", 3},
+                {"military-science-pack", 2},
                 {"utility-science-pack", 1},
                 {"space-science-pack", 1},
                 {"electromagnetic-science-pack", 2}
@@ -82,15 +82,15 @@ data:extend {
         },
         prerequisites = {"dimension-tesla-weapons-damage-2"},
         unit = {
-            count = 5000,
+            count = 2000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
                 {"chemical-science-pack", 1},
-                {"military-science-pack", 3},
+                {"military-science-pack", 2},
                 {"utility-science-pack", 1},
-                {"space-science-pack", 3},
-                {"electromagnetic-science-pack", 2}
+                {"space-science-pack", 1},
+                {"electromagnetic-science-pack", 1}
             },
             time = 30
         },
