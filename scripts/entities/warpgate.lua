@@ -156,14 +156,16 @@ local function create_warpgate()
     local to_remove = surface.find_entities_filtered {area = area, type = {"character", "warp-gate"}, invert = true}
     for _, entity in pairs(to_remove) do entity.destroy() end
 
-    local gate = surface.create_entity {
-        name = dw.warp_gate.name,
-        position = dw.warp_gate.position,
-        force = game.forces.player,
-        direction = defines.direction.north,
-    }
-    gate.destructible = false
-    storage.warpgate.gate = gate
+    if not storage.warpgate.gate or (storage.warpgate.gate.valid and not storage.warpgate.gate.valid) then
+        local gate = surface.create_entity {
+            name = dw.warp_gate.name,
+            position = dw.warp_gate.position,
+            force = game.forces.player,
+            direction = defines.direction.north,
+        }
+        gate.destructible = false
+        storage.warpgate.gate = gate
+    end
 
     create_entities_relative_to_position(
         surface,
@@ -198,18 +200,20 @@ local function create_warpgate()
     )
     link_warp_gate(nil, nil, nil, true)
 
-    local power_pole = surface.create_entity {
-        name = "dw-hidden-gate-pole",
-        position = dw.warp_gate.position,
-        force = game.forces.player,
-        direction = defines.direction.north,
-    }
-    power_pole.destructible = false
-    storage.warpgate.gatepole = power_pole
+    if not storage.warpgate.gatepole or (storage.warpgate.gatepole and not storage.warpgate.gatepole.valid) then
+        local power_pole = surface.create_entity {
+            name = "dw-hidden-gate-pole",
+            position = dw.warp_gate.position,
+            force = game.forces.player,
+            direction = defines.direction.north,
+        }
+        power_pole.destructible = false
+        storage.warpgate.gatepole = power_pole
+    end
 
     local radio_tower_pole = surface.find_entity(dw.entities.surface_radio_pole.name, dw.entities.surface_radio_pole.position)
-    if radio_tower_pole and power_pole then
-        utils.link_cables(power_pole, radio_tower_pole, defines.wire_connectors.power)
+    if radio_tower_pole and storage.warpgate.gatepole then
+        utils.link_cables(storage.warpgate.gatepole, radio_tower_pole, defines.wire_connectors.power)
     end
 end
 
