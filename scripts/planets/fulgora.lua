@@ -100,7 +100,7 @@ local function fulgora_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 3)
     end
 
-    if storage.warp.number >= 150 and not storage.fulgora_first_warp then
+    if storage.warp.number >= 120 and not storage.fulgora_first_warp then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Death World", death_world, "dw-randomizer.fulgora-death-world"})
         table.insert(randomizer_weights, weight)

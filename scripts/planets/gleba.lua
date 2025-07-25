@@ -103,7 +103,7 @@ local function gleba_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 1)
     end
 
-    if storage.warp.number >= 200 and not storage.gleba_first_warp then
+    if storage.warp.number >= 150 and not storage.gleba_first_warp then
         local weight = math.min(4, math.floor(storage.warp.number / 100))
         table.insert(randomizer_list, {"Nest", pentapod_nest, "dw-randomizer.gleba-nest"})
         table.insert(randomizer_weights, weight)

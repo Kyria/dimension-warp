@@ -210,8 +210,8 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 5)
     end
 
-    if storage.warp.number >= 100 then
-        local weight = math.min(5, math.floor(storage.warp.number / 100))
+    if storage.warp.number >= 75 then
+        local weight = math.min(5, math.floor(storage.warp.number / 50))
         table.insert(randomizer_list, {"Quarantine Island", death_island, "dw-randomizer.neo-nauvis-death-island"})
         table.insert(randomizer_list, {"Ravaged", death_barren, "dw-randomizer.neo-nauvis-death-barren"})
         table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.neo-nauvisorld"})
