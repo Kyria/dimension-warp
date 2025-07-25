@@ -153,7 +153,7 @@ local function create_warpgate()
         {dw.warp_gate.area[1][1] + dw.warp_gate.position[1], dw.warp_gate.area[1][2] + dw.warp_gate.position[2]},
         {dw.warp_gate.area[2][1] + dw.warp_gate.position[1], dw.warp_gate.area[2][2] + dw.warp_gate.position[2]}
     }
-    local to_remove = surface.find_entities_filtered {area = area, type = {"character", "warp-gate"}, invert = true}
+    local to_remove = surface.find_entities_filtered {area = area, name = {"character", "warp-gate", "dw-hidden-gate-pole"}, invert = true}
     for _, entity in pairs(to_remove) do entity.destroy() end
 
     if not storage.warpgate.gate or (storage.warpgate.gate.valid and not storage.warpgate.gate.valid) then
