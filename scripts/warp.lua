@@ -125,11 +125,7 @@ end
 
 local function select_destination()
     local total_dest, destinations = get_allowed_planet()
-    if storage.allowed_warp_selection and math.random() > 0.7 then
-        --- warp to selected
-    else
-        return destinations[math.random(total_dest)]
-    end
+    return destinations[math.random(total_dest)]
 end
 
 
