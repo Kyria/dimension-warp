@@ -25,9 +25,10 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 
 ## Compatibilities
 
-* Vanilla / Space-Age
-* Krastorio2 (should work)
+* Vanilla or Space Age.
+* Krastorio2 (should work, not fully tested)
 * AAI Industry / Loaders / Containers
+* Any planet mod may work, but you'll just end with the normal version each time.
 
 ## Q&A
 
