@@ -11,18 +11,15 @@ data:extend{
         },
         prerequisites = {
             "electric-energy-distribution-1",
-            "concrete",
-            "factory-platform",
-            "mining-platform",
             "power-platform"
         },
         unit = {
-            count = 500,
+            count = 250,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
             },
-            time = 30,
+            time = 15,
         },
     }
 }

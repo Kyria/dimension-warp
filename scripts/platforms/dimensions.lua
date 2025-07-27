@@ -178,14 +178,17 @@ local function on_technology_research_finished(event)
 
     if tech.name == "factory-platform" then
         storage.platform.factory.size = dw.platform_size.factory[1]
+        game.print({"dw-messages.factory-unlocked"})
         init_update_factory_platform()
     end
     if tech.name == "mining-platform" then
         storage.platform.mining.size = dw.platform_size.mining[1]
+        game.print({"dw-messages.mining-unlocked"})
         init_update_mining_platform()
     end
     if tech.name == "power-platform" then
         storage.platform.power.size = dw.platform_size.power[1]
+        game.print({"dw-messages.power-unlocked"})
         init_update_power_platform()
     end
 

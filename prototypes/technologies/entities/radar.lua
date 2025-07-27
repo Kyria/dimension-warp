@@ -11,6 +11,7 @@ data:extend{
         },
         prerequisites = {
             "electrified-ground",
+            "concrete",
             "radar"
         },
         unit = {
