@@ -91,7 +91,7 @@ local function teleport_safely_player_on_event(event)
         if not dw.safe_surfaces[player.surface.name] then
             local previous_surface = player.physical_surface
             safe_teleport(player, storage.warp.current.surface, {0, 0}, true)
-            if previous_surface == "nauvis" then game.surfaces.nauvis.clear() end
+            if previous_surface == "nauvis" and storage.all_players_left_nauvis then game.surfaces.nauvis.clear() end
         end
     end
 end
