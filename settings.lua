@@ -82,7 +82,7 @@ data:extend {
         minimum_value = 0.1,
         default_value = 0.51,
         maximum_value = 1,
-        order = "c-a",
+        order = "a-a",
     },
     {
         type = "int-setting",
@@ -91,7 +91,7 @@ data:extend {
         minimum_value = 10,
         default_value = 15,
         maximum_value = 60,
-        order = "c-b",
+        order = "a-b",
     },
     {
         type = "double-setting",
@@ -100,7 +100,22 @@ data:extend {
         minimum_value = 0.5,
         default_value = 0.5,
         maximum_value = 2,
-        order = "c-c",
+        order = "a-c",
     },
-
+    {
+        type = "double-setting",
+        name = "dw-helper-pollution-multiplier",
+        setting_type = "runtime-global",
+        minimum_value = 0.1,
+        default_value = 1,
+        maximum_value = 3,
+        order = "b-a",
+    },
+    {
+        type = "bool-setting",
+        name = "dw-helper-starter-item",
+        setting_type = "runtime-global",
+        default_value = false,
+        order = "b-b",
+    },
 }

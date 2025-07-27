@@ -20,7 +20,7 @@ local function pollute()
 	--- leave a max, but if we pollute every 3 sec, it's still around 5.2h before we reach the max
 	storage.pollution = math.min(1000000, storage.pollution + (storage.pollution ^ 0.25) * 0.75)
 
-	pollution = pollution + storage.pollution
+	pollution = pollution + storage.pollution * settings.global['dw-helper-pollution-multiplier'].value
 	storage.warp.current.surface.pollute({-1, 0}, pollution, "radio-station")
 end
 

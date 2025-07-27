@@ -4,6 +4,9 @@ require "lib.lib"
 --- Globals
 ------------------------------------------------------------
 local function set_globals()
+    --- player cheat bag
+    storage.cheat_bag = storage.cheat_bag or {}
+
     --- platform globals (size + surface)
     storage.platform = storage.platform or {
         warp = {size = dw.platform_size.warp[1]},
@@ -93,6 +96,20 @@ dw.register_event('on_init', set_globals)
 dw.register_event('on_configuration_changed', set_globals)
 
 ------------------------------------------------------------
+--- Warnings
+------------------------------------------------------------
+local function mod_warning()
+    if script.active_mods['Repair_Turret'] then
+        game.print({"dw-warning.repair-tower-mod"})
+    end
+end
+dw.register_event('on_init', mod_warning)
+dw.register_event('on_configuration_changed', mod_warning)
+
+------------------------------------------------------------
+
+require "scripts.player"
+
 require "scripts.surface-generation"
 require "scripts.teleport"
 require "scripts.gui"
@@ -114,11 +131,3 @@ require "scripts.entities.dimension-crane"
 require "compatibility.picker-dollies"
 
 --require "scripts.debug"
-
-local function mod_warning()
-    if script.active_mods['Repair_Turret'] then
-        game.print({"dw-warning.repair-tower-mod"})
-    end
-end
-dw.register_event('on_init', mod_warning)
-dw.register_event('on_configuration_changed', mod_warning)
