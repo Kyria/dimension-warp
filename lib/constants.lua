@@ -129,7 +129,7 @@ dw.entities = {
     },
     pole_power_mining = {
         name = "dw-hidden-gate-pole",
-        position = {0, -3},
+        position = {0, -4},
         area = {{0, 0}, {0, 0}}
     },
 }
