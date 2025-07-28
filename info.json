@@ -1,6 +1,6 @@
 {
   "name": "dimension-warp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "title": "Dimension Warp",
   "author": "Anakhon",
   "homepage": "https://github.com/Kyria/dimension-warp",
@@ -11,6 +11,7 @@
     "? space-age >= 2.0.29",
     "(?) aai-containers",
     "(?) Krastorio2",
+    "(?) Krastorio2-spaced-out",
     "! factorissimo-2-notnotmelon"
   ]
 }

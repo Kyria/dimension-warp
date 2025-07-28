@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+Date: 2025.07.28
+  Changes:
+    - Lower research time for some early platform and dimension tech, to speed up progression while keeping cost.
+  Compatibility:
+    - Add Krastorio2-Space-Out compatibility
+      - This also includes loader progression from the mod which is slightly different than Krastorio2
+  Bugfixes:
+    - Fix missing Krastorio2 resources in map generation settings.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2025.07.27
   Changes:
