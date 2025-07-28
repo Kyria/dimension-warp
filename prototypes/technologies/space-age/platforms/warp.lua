@@ -3,7 +3,7 @@ data.raw['technology']['warp-platform-size-1'].unit = {
     ingredients = {
         {"automation-science-pack", 1},
     },
-    time = 30,
+    time = 15,
 }
 data.raw['technology']['warp-platform-size-2'].unit = {
     count = 500,
