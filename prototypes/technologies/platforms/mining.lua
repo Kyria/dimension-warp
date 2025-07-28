@@ -25,7 +25,7 @@ local tech_platform = {
         ingredients = {
             {"automation-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
 }
 

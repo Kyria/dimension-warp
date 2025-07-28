@@ -26,7 +26,7 @@ local tech_warp_generator_2 = { -- 30min
         ingredients = {
             {"automation-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
 }
 
@@ -41,7 +41,7 @@ local tech_warp_generator_3 = { -- 40min
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
 }
 

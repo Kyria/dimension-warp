@@ -19,7 +19,7 @@ local tech_warp_platform_1 = {
         ingredients = {
             {"automation-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
