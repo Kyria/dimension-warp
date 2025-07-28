@@ -1,9 +1,8 @@
-local other_mod_loader = settings.startup['dw-another-mod-loader'].value and (mods['aai-loaders'] or mods['Krastorio2'])
-
 -- add missing belts for K2
-local template = {
-    ['advanced-loader'] = {
-        mod = "Krastorio2",
+local template = {}
+
+if mods['Krastorio2'] then
+    template['advanced-loader'] = {
         order = 'd[a]-e',
         subgroup = 'loader',
         stack_size = 50,
@@ -18,24 +17,35 @@ local template = {
         tech = "kr-logistic-4",
         next = "dw-superior-loader",
         recipe_category = mods['space-age'] and "pressing" or "crafting",
-    },
-    ['superior-loader'] = {
-        mod = "Krastorio2",
-        order = 'd[a]-f',
-        subgroup = 'loader',
-        stack_size = 50,
-        tint = util.color('#D201F7d9'),
-        tint_darker = util.color('#7a248ad9'),
-        belt = data.raw['transport-belt']['kr-superior-transport-belt'],
-        ingredients = {
-            {type = 'item', name = "dw-advanced-loader", amount = 1},
-            {type = "item", name = "kr-imersium-gear-wheel", amount = 25},
-            {type = "item", name = "kr-imersium-plate", amount = 25},
-        },
-        tech = "kr-logistic-5",
-        recipe_category = mods['space-age'] and "pressing" or "crafting",
-    },
+    }
+
+end
+
+template['superior-loader'] = {
+    order = 'd[a]-f',
+    subgroup = 'loader',
+    stack_size = 50,
+    tint = util.color('#D201F7d9'),
+    tint_darker = util.color('#7a248ad9'),
+    belt = data.raw['transport-belt']['kr-superior-transport-belt'],
+    tech = "kr-logistic-5",
+    recipe_category = mods['space-age'] and "pressing" or "crafting",
 }
+
+if mods['Krastorio2'] then
+    template['superior-loader'].ingredients = {
+        {type = 'item', name = "dw-advanced-loader", amount = 1},
+        {type = "item", name = "kr-imersium-gear-wheel", amount = 25},
+        {type = "item", name = "kr-imersium-plate", amount = 25},
+    }
+elseif mods['Krastorio2-spaced-out'] then
+    template['superior-loader'].ingredients = {
+        {type = 'item', name = "dw-turbo-loader", amount = 1},
+        {type = "item", name = "kr-imersium-gear-wheel", amount = 25},
+        {type = "item", name = "kr-imersium-plate", amount = 25},
+    }
+end
+
 
 if dw.setting_loader_mod == "Krastorio2" then
     local loader = table.deepcopy(data.raw['loader-1x1']['kr-loader'])
@@ -111,8 +121,6 @@ if dw.setting_loader_mod == "vanilla" then
 
     local data_list = {}
     for loader_name, params in pairs(template) do
-        if params.mod and not mods[params.mod] then goto continue end
-
         local loader, recipe, item = dw.create_loader(loader_name, params)
         local dim_loader = table.deepcopy(loader)
         dim_loader.name = "dw-stair-" .. dim_loader.name:gsub('dw%-', '')
@@ -133,7 +141,11 @@ if dw.setting_loader_mod == "vanilla" then
 
     data:extend(data_list)
 
-    data.raw['loader-1x1']['dw-express-loader'].next_upgrade = "dw-advanced-loader"
-    data:extend{dw.create_stair_loader_tech('advanced-loader', template['advanced-loader'].tech, "dw-express-loader-stairs")}
-    data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-advanced-loader-stairs")}
+    if mods['Krastorio2'] then
+        data.raw['loader-1x1']['dw-express-loader'].next_upgrade = "dw-advanced-loader"
+        data:extend{dw.create_stair_loader_tech('advanced-loader', template['advanced-loader'].tech, "dw-express-loader-stairs")}
+        data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-advanced-loader-stairs")}
+    else
+        data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-turbo-loader-stairs")}
+    end
 end

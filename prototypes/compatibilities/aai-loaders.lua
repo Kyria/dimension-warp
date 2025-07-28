@@ -1,5 +1,3 @@
-local other_mod_loader = settings.startup['dw-another-mod-loader'].value and (mods['aai-loaders'] or mods['Krastorio2'])
-
 if dw.setting_loader_mod == "aai-loaders" then
     local loader = table.deepcopy(data.raw['loader-1x1']['aai-loader'])
     local fast_loader = table.deepcopy(data.raw['loader-1x1']['aai-fast-loader'])

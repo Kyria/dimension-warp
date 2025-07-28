@@ -46,7 +46,7 @@ require 'prototypes.entities.harvesters'
 require 'prototypes.entities.harvesters-linked-belt'
 
 
-if mods['Krastorio2'] then
+if mods['Krastorio2'] or mods['Krastorio2-spaced-out'] then
     require 'prototypes.compatibilities.krastorio2'
 end
 if mods['aai-loaders'] then
