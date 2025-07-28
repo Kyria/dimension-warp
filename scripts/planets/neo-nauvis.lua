@@ -2,6 +2,16 @@ dw.mapgen = dw.mapgen or {}
 dw.mapgen['neo-nauvis'] = dw.mapgen['neo-nauvis'] or {}
 
 local resource_list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
+local missing_resource_weights = {1,1,2,2,2,1}
+
+if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
+    table.insert(resource_list, "kr-imersite")
+    table.insert(resource_list, "kr-mineral-water")
+    table.insert(resource_list, "kr-rare-metal-ore")
+    table.insert(missing_resource_weights, 1)
+    table.insert(missing_resource_weights, 1)
+    table.insert(missing_resource_weights, 1)
+end
 
 ---An island with no resources
 local function barren_island(mapgen)
@@ -14,13 +24,9 @@ local function barren_island(mapgen)
     mapgen.property_expression_names.trees_forest_path_cutout = 1
 
     -- remove resources except wood
-    mapgen.autoplace_controls["iron-ore"].richness = 0
-    mapgen.autoplace_controls["copper-ore"].richness = 0
-    mapgen.autoplace_controls["stone"].richness = 0
-    mapgen.autoplace_controls["coal"].richness = 0
-    mapgen.autoplace_controls["uranium-ore"].richness = 0
-    mapgen.autoplace_controls["crude-oil"].richness = 0
-    mapgen.autoplace_controls["enemy-base"].frequency = 0
+    for _, resource in pairs(resource_list) do
+        mapgen.autoplace_controls[resource].richness = 0
+    end
 
     return mapgen
 end
@@ -36,13 +42,9 @@ end
 
 -- A barren world (no water / no resources)
 local function barren(mapgen)
-    mapgen.autoplace_controls["iron-ore"].richness = 0
-    mapgen.autoplace_controls["copper-ore"].richness = 0
-    mapgen.autoplace_controls["stone"].richness = 0
-    mapgen.autoplace_controls["coal"].richness = 0
-    mapgen.autoplace_controls["uranium-ore"].richness = 0
-    mapgen.autoplace_controls["crude-oil"].richness = 0
-    mapgen.autoplace_controls["enemy-base"].frequency = 0
+    for _, resource in pairs(resource_list) do
+        mapgen.autoplace_controls[resource].richness = 0
+    end
     mapgen.autoplace_controls["trees"].frequency = 0
     mapgen.autoplace_controls["rocks"].frequency = 5
     mapgen.autoplace_controls["rocks"].size = 5
@@ -63,7 +65,7 @@ end
 -- Biters ate everything from this world.
 local function death_barren(mapgen)
     barren(mapgen)
-    mapgen.autoplace_controls["enemy-base"].frequency = 4
+    mapgen.autoplace_controls["enemy-base"].frequency = 5
     mapgen.autoplace_controls["enemy-base"].size = 10
     mapgen.starting_area = "very-small"
     return mapgen
@@ -80,12 +82,9 @@ local function amazonia(mapgen)
     mapgen.autoplace_controls["enemy-base"].frequency = 2.5
     mapgen.autoplace_controls["enemy-base"].size = 3
 
-    mapgen.autoplace_controls["iron-ore"] = {richness = 1, size = 4, frequency = 2}
-    mapgen.autoplace_controls["copper-ore"] = {richness = 1, size = 4, frequency = 2}
-    mapgen.autoplace_controls["stone"] = {richness = 1, size = 4, frequency = 2}
-    mapgen.autoplace_controls["coal"] = {richness = 1, size = 4, frequency = 2}
-    mapgen.autoplace_controls["uranium-ore"] = {richness = 1, size = 4, frequency = 2}
-    mapgen.autoplace_controls["crude-oil"] = {richness = 1, size = 4, frequency = 2}
+    for _, resource in pairs(resource_list) do
+        mapgen.autoplace_controls[resource] = {richness = 1, size = 4, frequency = 2}
+    end
 
     mapgen.starting_area = "big"
 
@@ -99,12 +98,9 @@ local function normal(mapgen)
     mapgen.autoplace_controls["enemy-base"].frequency = 1.5
     mapgen.autoplace_controls["enemy-base"].size = 1
 
-    mapgen.autoplace_controls["iron-ore"] = {richness = 1, size = 1, frequency = 1}
-    mapgen.autoplace_controls["copper-ore"] = {richness = 1, size = 1, frequency = 1}
-    mapgen.autoplace_controls["stone"] = {richness = 1, size = 1, frequency = 1}
-    mapgen.autoplace_controls["coal"] = {richness = 1, size = 1, frequency = 1}
-    mapgen.autoplace_controls["uranium-ore"] = {richness = 1, size = 1, frequency = 1}
-    mapgen.autoplace_controls["crude-oil"] = {richness = 1, size = 1, frequency = 1}
+    for _, resource in pairs(resource_list) do
+        mapgen.autoplace_controls[resource] = {richness = 1, size = 1, frequency = 1}
+    end
 
     mapgen.starting_area = "normal"
     return mapgen
@@ -135,6 +131,18 @@ local function stone_planet(mapgen)
     mapgen = normal(mapgen)
     return utils.adjust_resource_proportion(mapgen, resource_list, "stone", 2, 2, 1)
 end
+local function kr_imersite_planet(mapgen)
+    mapgen = normal(mapgen)
+    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-imersite", 3, 2, 5)
+end
+local function kr_mineral_water_planet(mapgen)
+    mapgen = normal(mapgen)
+    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-mineral-water", 3, 2, 5)
+end
+local function kr_rare_metal_planet(mapgen)
+    mapgen = normal(mapgen)
+    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-rare-metal-ore", 1.5, 1, 8)
+end
 
 -- Danger
 local function death_world(mapgen)
@@ -150,17 +158,14 @@ end
 local function missing_resource(mapgen)
     mapgen = normal(mapgen)
 
-    mapgen.autoplace_controls["iron-ore"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["copper-ore"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["stone"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["coal"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["uranium-ore"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["crude-oil"] = {richness = 1.5, size = 1, frequency = 1.5}
+    for _, resource in pairs(resource_list) do
+        mapgen.autoplace_controls[resource] = {richness = 1.5, size = 1, frequency = 1.5}
+    end
 
     -- min 2 removed, max "max - 2" kept
-    local number_ore = math.random(4)
-    local list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
-    local weights = {1,1,2,2,2,1}
+    local number_ore = math.random(#resource_list - 2)
+    local list = table.deepcopy(resource_list)
+    local weights = table.deepcopy(missing_resource_weights)
     for i = number_ore, 1, -1 do
         local index, selected = utils.weighted_random_choice(list, weights)
         mapgen.autoplace_controls[selected].richness = 0
@@ -203,6 +208,16 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
+
+        if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
+            table.insert(randomizer_list, {"Aquiferous", kr_mineral_water_planet, "dw-randomizer.neo-nauvis-kr-mineral-water"})
+            table.insert(randomizer_list, {"Violetine", kr_imersite_planet, "dw-randomizer.neo-nauvis-kr-imersite"})
+            table.insert(randomizer_list, {"Alloyed", kr_rare_metal_planet, "dw-randomizer.neo-nauvis-kr-rare-metal"})
+            table.insert(randomizer_weights, 2)
+            table.insert(randomizer_weights, 2)
+            table.insert(randomizer_weights, 2)
+        end
+
     end
 
     if storage.warp.number >= 25 then
