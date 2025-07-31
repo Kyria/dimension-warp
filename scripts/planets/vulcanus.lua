@@ -43,6 +43,7 @@ local function dormant(mapgen)
         territory_variation_expression = "demolisher_variation_expression",
         minimum_territory_size = 10
     }
+    mapgen.autoplace_controls["enemy-base"] = {size = 3, frequency = 3}
     mapgen.autoplace_settings.tile.settings['lava'] = nil
     mapgen.autoplace_settings.tile.settings['lava-hot'] = nil
     return mapgen

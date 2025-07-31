@@ -12,6 +12,27 @@ local function flooded(mapgen)
     mapgen.autoplace_controls.gleba_enemy_base = {frequency = 3, size = 1}
     mapgen.autoplace_controls.gleba_water.frequency = 6
     mapgen.autoplace_controls.gleba_water.size = 10
+
+    mapgen.autoplace_settings.tile.settings['natural-yumako-soil'] = nil
+    mapgen.autoplace_settings.tile.settings['wetland-yumako'] = nil
+    mapgen.autoplace_settings.tile.settings["wetland-light-green-slime"] = nil
+    mapgen.autoplace_settings.tile.settings["wetland-green-slime"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-brown-blubber"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-olive-blubber"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-olive-blubber-2"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-olive-blubber-3"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-pale-green"] = nil
+    mapgen.autoplace_settings.tile.settings['natural-jellynut-soil'] = nil
+    mapgen.autoplace_settings.tile.settings['wetland-jellynut'] = nil
+    mapgen.autoplace_settings.tile.settings["wetland-pink-tentacle"] = nil
+    mapgen.autoplace_settings.tile.settings["wetland-red-tentacle"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-cream-red"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-vein"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-vein-2"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-vein-3"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-vein-4"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-vein-dead"] = nil
+    mapgen.autoplace_settings.tile.settings["lowland-red-infection"] = nil
     return mapgen
 end
 
@@ -48,7 +69,7 @@ end
 
 local function agricultural_fields(mapgen)
     mapgen = normal(mapgen)
-    mapgen.autoplace_controls.gleba_enemy_base = {frequency = 1, size = 2}
+    mapgen.autoplace_controls.gleba_enemy_base = {frequency = 0.5, size = 2}
     mapgen.property_expression_names.gleba_fertile_spots_coastal_raw = 0.85
     mapgen.property_expression_names.gleba_fertile_spots_coastal = 0.85
     mapgen.property_expression_names.gleba_fertile_solid = 0.85
@@ -93,14 +114,14 @@ local function gleba_randomizer(mapgen, surface_name)
     local randomizer_weights = {10}
 
     if storage.warp.number >= 100 and not storage.gleba_first_warp then
-        table.insert(randomizer_list, {"Barren", flooded, "dw-randomizer.gleba-flooded"})
+        table.insert(randomizer_list, {"Flooded", flooded, "dw-randomizer.gleba-flooded"})
         table.insert(randomizer_list, {"Alternate", no_yumako_soil, "dw-randomizer.gleba-no-yumako"})
         table.insert(randomizer_list, {"Alternate", no_jellynut_soil, "dw-randomizer.gleba-no-jellynut"})
         table.insert(randomizer_list, {"Fertile", agricultural_fields, "dw-randomizer.gleba-fertile"})
-        table.insert(randomizer_weights, 1)
         table.insert(randomizer_weights, 2)
+        table.insert(randomizer_weights, 4)
+        table.insert(randomizer_weights, 4)
         table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 1)
     end
 
     if storage.warp.number >= 150 and not storage.gleba_first_warp then

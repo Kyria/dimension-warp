@@ -28,6 +28,7 @@ end
 
 local function dry(mapgen)
     mapgen = normal(mapgen)
+    mapgen.autoplace_controls["enemy-base"] = {size = 2, frequency = 3}
     mapgen.autoplace_settings.tile.settings['oil-ocean-shallow'] = nil
     mapgen.autoplace_settings.tile.settings['oil-ocean-deep'] = nil
     return mapgen
