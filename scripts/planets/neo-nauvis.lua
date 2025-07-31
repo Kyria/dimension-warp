@@ -13,6 +13,37 @@ if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out
     table.insert(missing_resource_weights, 1)
 end
 
+local barren_tiles = {"sand-1", "sand-2", "sand-3", "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"}
+
+if script.active_mods['alien-biomes'] then
+    barren_tiles = {
+        "mineral-aubergine-dirt-1", "mineral-aubergine-dirt-2", "mineral-aubergine-dirt-3", "mineral-aubergine-dirt-4", "mineral-aubergine-dirt-5", "mineral-aubergine-dirt-6",
+        "mineral-aubergine-sand-1", "mineral-aubergine-sand-2", "mineral-aubergine-sand-3",
+        "mineral-beige-dirt-1", "mineral-beige-dirt-2", "mineral-beige-dirt-3", "mineral-beige-dirt-4", "mineral-beige-dirt-5", "mineral-beige-dirt-6",
+        "mineral-beige-sand-1", "mineral-beige-sand-2", "mineral-beige-sand-3",
+        "mineral-black-dirt-1", "mineral-black-dirt-2", "mineral-black-dirt-3", "mineral-black-dirt-4", "mineral-black-dirt-5", "mineral-black-dirt-6",
+        "mineral-black-sand-1", "mineral-black-sand-2", "mineral-black-sand-3",
+        "mineral-brown-dirt-1", "mineral-brown-dirt-2", "mineral-brown-dirt-3", "mineral-brown-dirt-4", "mineral-brown-dirt-5", "mineral-brown-dirt-6",
+        "mineral-brown-sand-1", "mineral-brown-sand-2", "mineral-brown-sand-3",
+        "mineral-cream-dirt-1", "mineral-cream-dirt-2", "mineral-cream-dirt-3", "mineral-cream-dirt-4", "mineral-cream-dirt-5", "mineral-cream-dirt-6",
+        "mineral-cream-sand-1", "mineral-cream-sand-2", "mineral-cream-sand-3",
+        "mineral-dustyrose-dirt-1", "mineral-dustyrose-dirt-2", "mineral-dustyrose-dirt-3", "mineral-dustyrose-dirt-4", "mineral-dustyrose-dirt-5", "mineral-dustyrose-dirt-6",
+        "mineral-dustyrose-sand-1", "mineral-dustyrose-sand-2", "mineral-dustyrose-sand-3",
+        "mineral-grey-dirt-1", "mineral-grey-dirt-2", "mineral-grey-dirt-3", "mineral-grey-dirt-4", "mineral-grey-dirt-5", "mineral-grey-dirt-6",
+        "mineral-grey-sand-1", "mineral-grey-sand-2", "mineral-grey-sand-3", "mineral-purple-dirt-1",
+        "mineral-purple-dirt-2", "mineral-purple-dirt-3", "mineral-purple-dirt-4", "mineral-purple-dirt-5", "mineral-purple-dirt-6",
+        "mineral-purple-sand-1", "mineral-purple-sand-2", "mineral-purple-sand-3",
+        "mineral-red-dirt-1", "mineral-red-dirt-2", "mineral-red-dirt-3", "mineral-red-dirt-4", "mineral-red-dirt-5", "mineral-red-dirt-6",
+        "mineral-red-sand-1", "mineral-red-sand-2", "mineral-red-sand-3",
+        "mineral-tan-dirt-1", "mineral-tan-dirt-2", "mineral-tan-dirt-3", "mineral-tan-dirt-4", "mineral-tan-dirt-5", "mineral-tan-dirt-6",
+        "mineral-tan-sand-1", "mineral-tan-sand-2", "mineral-tan-sand-3", "mineral-violet-dirt-1",
+        "mineral-violet-dirt-2", "mineral-violet-dirt-3", "mineral-violet-dirt-4", "mineral-violet-dirt-5", "mineral-violet-dirt-6",
+        "mineral-violet-sand-1", "mineral-violet-sand-2", "mineral-violet-sand-3",
+        "mineral-white-dirt-1", "mineral-white-dirt-2", "mineral-white-dirt-3", "mineral-white-dirt-4", "mineral-white-dirt-5", "mineral-white-dirt-6",
+        "mineral-white-sand-1", "mineral-white-sand-2", "mineral-white-sand-3",
+    }
+end
+
 ---An island with no resources
 local function barren_island(mapgen)
     -- make the island
@@ -22,6 +53,9 @@ local function barren_island(mapgen)
     mapgen.property_expression_names.cliffiness = "cliffiness_basic"
     mapgen.property_expression_names.cliff_elevation = "cliff_elevation_from_elevation"
     mapgen.property_expression_names.trees_forest_path_cutout = 1
+
+    mapgen.autoplace_controls["enemy-base"].frequency = 0
+    mapgen.autoplace_controls["enemy-base"].size = 0
 
     -- remove resources except wood
     for _, resource in pairs(resource_list) do
@@ -45,19 +79,18 @@ local function barren(mapgen)
     for _, resource in pairs(resource_list) do
         mapgen.autoplace_controls[resource].richness = 0
     end
+
+    mapgen.autoplace_controls["enemy-base"].frequency = 0
+    mapgen.autoplace_controls["enemy-base"].size = 0
+
     mapgen.autoplace_controls["trees"].frequency = 0
     mapgen.autoplace_controls["rocks"].frequency = 5
     mapgen.autoplace_controls["rocks"].size = 5
 
-    mapgen.autoplace_settings.tile.settings = {
-        ["sand-1"] = {richness=1, frequency=1, size=1},
-        ["sand-2"] = {richness=1, frequency=1, size=1},
-        ["sand-3"] = {richness=1, frequency=1, size=1},
-        ["red-desert-0"] = {richness=1, frequency=1, size=1},
-        ["red-desert-1"] = {richness=1, frequency=1, size=1},
-        ["red-desert-2"] = {richness=1, frequency=1, size=1},
-        ["red-desert-3"] = {richness=1, frequency=1, size=1},
-    }
+    mapgen.autoplace_settings.tile.settings = {}
+    for _, b_tile in pairs(barren_tiles) do
+        mapgen.autoplace_settings.tile.settings[b_tile] = {richness=1, frequency=1, size=1}
+    end
     mapgen.autoplace_settings.decorative.settings = {}
     return mapgen
 end

@@ -15,10 +15,10 @@ local function generate_lab_structure()
     surface.request_to_generate_chunks({x= 0, y = 0}, 8)
     surface.force_generate_chunk_requests()
 
-    --- remove rocks that may prevent the blueprint to be correctly placed
-    local rocks = surface.find_entities_filtered{area = {{-40, -32}, {32, 32}}, name = {"big-rock", "huge-rock", "big-sand-rock"}}
-    for _, rock in pairs(rocks) do
-        rock.destroy()
+    --- remove rocks and trees that may prevent the blueprint to be correctly placed
+    local rock_n_trees = surface.find_entities_filtered{area = {{-40, -32}, {32, 32}}, type={"tree", "simple-entity"}}
+    for _, entity in pairs(rock_n_trees) do
+        entity.destroy()
     end
 
     --- create the blueprint

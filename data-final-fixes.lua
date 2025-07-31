@@ -20,3 +20,5 @@ if mods['space-age'] then
         if not planet.pollutant_type then planet.pollutant_type = "pollution" end
     end
 end
+
+if mods['alien-biomes'] then require 'prototypes.update-final.compatibilities.alien-biomes' end
