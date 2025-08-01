@@ -62,3 +62,24 @@ create_surface_tile {
     base_tile = data.raw["tile"]['hazard-concrete-right'],
     layer = 50
 }
+
+------------------------
+--- Space background
+local dimension_space = table.deepcopy(data.raw['tile']['empty-space'] and data.raw['tile']['empty-space'] or data.raw['tile']['out-of-map'])
+dimension_space.name = "dimension-space"
+dimension_space.collision_mask = {
+    layers={
+        ground_tile=true,
+        water_tile=true,
+        resource=true,
+        floor=true,
+        item=true,
+        object=true,
+        player=true,
+        doodad=true,
+        out_of_map=true
+    }
+}
+dimension_space.absorptions_per_second = nil
+dimension_space.default_cover_tile = nil
+data:extend({dimension_space})

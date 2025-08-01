@@ -25,7 +25,7 @@ data:extend {
         type = "string-setting",
         name = "dw-default-tile-background",
         setting_type = "startup",
-        default_value = "empty-space",
+        default_value = "dimension-space",
         order = "b-a",
     },
     {
