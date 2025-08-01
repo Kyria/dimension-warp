@@ -13,11 +13,11 @@ local function safe_teleport(player_or_vehicle, surface, position, force_telepor
     position = {x = position.x or position[1], y = position.y or position[2]}
     local is_player = player_or_vehicle.is_player()
     local controller_type = is_player and player_or_vehicle.controller_type or nil
-    local type = is_player and (player_or_vehicle.character or controller_type == defines.controllers.ghost) and "character" or player_or_vehicle.prototype
+    local type = is_player and "character" or player_or_vehicle.prototype
     local index = is_player and player_or_vehicle.index or player_or_vehicle.unit_number
 
     if not surface then return end
-    if is_player and non_player_controllers[player_or_vehicle.controller_type] and not force_teleport then return end
+    if is_player and non_player_controllers[controller_type] and not force_teleport then return end
 
     -- prevent teleporting from anywhere to the surface if we are currently in warp
     if storage.warp.status ~= defines.warp.awaiting and surface.name == storage.warp.previous.name then
