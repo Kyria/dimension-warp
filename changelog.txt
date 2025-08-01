@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 2025.08.01
+  Changes:
+    - Change the default tile for platform background to a new one that prevents space platform foundation to be built on it.
+    - Remove the settings that allowed it to be changed.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.2
 Date: 2025.07.31
   Compatibility:
