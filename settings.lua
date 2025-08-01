@@ -23,13 +23,6 @@ data:extend {
     },
     {
         type = "string-setting",
-        name = "dw-default-tile-background",
-        setting_type = "startup",
-        default_value = "dimension-space",
-        order = "b-a",
-    },
-    {
-        type = "string-setting",
         name = "dw-default-tile-platform",
         setting_type = "startup",
         default_value = "concrete",

@@ -2,9 +2,6 @@
 ---
 local nauvis = data.raw["planet"]["nauvis"]
 
-local tile_name = settings.startup['dw-default-tile-background'].value
-local default_tile = (data.raw['tile'][tile_name]) and tile_name or "out-of-map"
-
 local produstia = {
     name = "produstia",
     order = "a[produstia]",
@@ -46,7 +43,7 @@ local produstia = {
         property_expression_names = {},
         autoplace_controls = {},
         autoplace_settings = {
-            tile = {treat_missing_as_default = false, settings = {[default_tile] = {}}},
+            tile = {treat_missing_as_default = false, settings = {["dimension-space"] = {}}},
             entity = {treat_missing_as_default = false, settings = {}},
             decorative = {treat_missing_as_default = false, settings = {}},
         },

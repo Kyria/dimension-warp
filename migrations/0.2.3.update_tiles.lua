@@ -1,6 +1,4 @@
-local tile_name = settings.startup['dw-default-tile-background'].value
-local default_tile =  (prototypes.tile[tile_name]) and tile_name or "out-of-map"
-
+local default_tile =  "dimension-space"
 local safe_tiles = {
     ["dimension-harvester-hazard"] = true,
     ["harvester-platform"] = true,
