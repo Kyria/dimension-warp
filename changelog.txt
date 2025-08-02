@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 2025.08.02
+  Changes:
+    - Dimension technologies have been re-adjusted (cost, time, progression). The goal is to have a smoother experience and less wait.
+      - Most technologies have their cost reduced (about 50% for early levels).
+      - All platform techs have reduced research time (30->15).
+      - Harvesters are available after Smeltus upgrade, as soon as Electrified Grounds is researched instead of Uranium Mining (which is still require for indoor drill placement, due to technical limitation).
+      - Mobile gate is available earlier, as soon as Warp Generator 2 is researched, instead of requiring Warp Generator 3.
+      - Warp Generator 1 is researched after 100 automation science pack, instead of only 25, allowing for more tech choice between the start of the countdown.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: 2025.08.01
   Changes:
