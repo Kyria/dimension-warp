@@ -44,7 +44,7 @@ data:extend {
         unit = {
             count_formula = "(2^L)*20",
             ingredients = {
-                {"automation-science-pack", 2},
+                {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
             },
             time = 30,

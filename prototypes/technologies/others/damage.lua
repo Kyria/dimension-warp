@@ -38,11 +38,11 @@ data:extend {
         },
         prerequisites = {"military", "physical-projectile-damage-1"},
         unit = {
-            count = 250,
+            count = 100,
             ingredients = {
-                {"automation-science-pack", 2}
+                {"automation-science-pack", 1}
             },
-            time = 30
+            time = 15
         },
         upgrade = true
     },
@@ -69,12 +69,12 @@ data:extend {
         },
         prerequisites = {"physical-projectile-damage-2", "dimension-physical-projectile-damage-1", "logistic-science-pack"},
         unit = {
-            count = 500,
+            count = 250,
             ingredients = {
                 {"automation-science-pack", 1},
-                {"logistic-science-pack", 2}
+                {"logistic-science-pack", 1}
             },
-            time = 30
+            time = 15
         },
         upgrade = true
     },
@@ -102,13 +102,13 @@ data:extend {
         },
         prerequisites = {"physical-projectile-damage-3", "dimension-physical-projectile-damage-2", "military-science-pack"},
         unit = {
-            count = 1000,
+            count = 500,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
                 {"military-science-pack", 2}
             },
-            time = 30
+            time = 15
         },
         upgrade = true
     },

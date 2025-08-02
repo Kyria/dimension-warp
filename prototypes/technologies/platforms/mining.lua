@@ -21,7 +21,7 @@ local tech_platform = {
         },
     },
     unit = {
-        count = 250,
+        count = 100,
         ingredients = {
             {"automation-science-pack", 1},
         },
@@ -46,12 +46,12 @@ local tech_platform_1 = {
     type = "technology", name = "mining-platform-upgrade-1", icons = platform_icon,
     prerequisites = {"mining-platform", "electric-mining-drill", "advanced-material-processing"},
     unit = {
-        count = 500,
+        count = 200,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -59,12 +59,12 @@ local tech_platform_2 = {
     type = "technology", name = "mining-platform-upgrade-2", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-1", "plastics"},
     unit = {
-        count = 750,
+        count = 400,
         ingredients = {
             {"automation-science-pack", 1},
-            {"logistic-science-pack", 2},
+            {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -72,13 +72,13 @@ local tech_platform_3 = {
     type = "technology", name = "mining-platform-upgrade-3", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-2", "low-density-structure"},
     unit = {
-        count = 1000,
+        count = 700,
         ingredients = {
-            {"automation-science-pack", 1},
+            {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 3},
+            {"chemical-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -86,13 +86,13 @@ local tech_platform_4 = {
     type = "technology", name = "mining-platform-upgrade-4", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-3", "advanced-material-processing-2"},
     unit = {
-        count = 1500,
+        count = 1100,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 2},
+            {"chemical-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -100,14 +100,14 @@ local tech_platform_5 = {
     type = "technology", name = "mining-platform-upgrade-5", icons = platform_icon,
     prerequisites = {"mining-platform-upgrade-4", "coal-liquefaction"},
     unit = {
-        count = 2000,
+        count = 1600,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 2},
-            {"production-science-pack", 1},
+            {"chemical-science-pack", 1},
+            {"production-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -119,11 +119,11 @@ local tech_platform_6 = {
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 2},
+            {"chemical-science-pack", 1},
             {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -135,11 +135,11 @@ local tech_platform_7 = {
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
-            {"chemical-science-pack", 2},
+            {"chemical-science-pack", 1},
             {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }

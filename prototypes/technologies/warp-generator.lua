@@ -13,7 +13,7 @@ local tech_warp_generator_1 = { -- 20min
     research_trigger = {
         type = "craft-item",
         item = "automation-science-pack",
-        count = 25,
+        count = 100,
     }
 }
 local tech_warp_generator_2 = { -- 30min
@@ -22,7 +22,7 @@ local tech_warp_generator_2 = { -- 30min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-1", "radar"},
     unit = {
-        count = 250,
+        count = 100,
         ingredients = {
             {"automation-science-pack", 1},
         },
@@ -36,7 +36,7 @@ local tech_warp_generator_3 = { -- 40min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-2", "military-2"},
     unit = {
-        count = 500,
+        count = 250,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -51,14 +51,14 @@ local tech_warp_generator_4 = { -- 50min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-3", "military-3", "advanced-oil-processing"},
     unit = {
-        count = 1000,
+        count = 500,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"military-science-pack", 2},
             {"chemical-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
 }
 
@@ -68,7 +68,7 @@ local tech_warp_generator_5 = { -- 60min
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-4", "effect-transmission", "military-4"},
     unit = {
-        count = 2000,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -77,7 +77,7 @@ local tech_warp_generator_5 = { -- 60min
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
 }
 
@@ -96,7 +96,7 @@ local tech_warp_generator_6 = { -- +30 min (90min)
             {"utility-science-pack", 2},
             {"production-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
 }
 

@@ -22,7 +22,7 @@ factory_6.unit = {
         {"agricultural-science-pack", 2},
         {"electromagnetic-science-pack", 2},
     },
-    time = 30,
+    time = 15,
 }
 
 
@@ -41,5 +41,5 @@ factory_7.unit = {
         {"electromagnetic-science-pack", 1},
         {"cryogenic-science-pack", 2},
     },
-    time = 30,
+    time = 15,
 }

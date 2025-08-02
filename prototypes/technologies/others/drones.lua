@@ -44,35 +44,35 @@ speed_1.type = "technology"
 speed_1.icon = nil
 speed_1.icon_size = nil
 speed_1.icons = speed_icon
-speed_1.unit.count = speed_1.unit.count * 3
+speed_1.unit.count = speed_1.unit.count * 2
 speed_1.prerequisites = {"worker-robots-speed-1"}
 
 speed_2.name = "dimension-worker-robots-speed-2"
 speed_2.icon = nil
 speed_2.icon_size = nil
 speed_2.icons = speed_icon
-speed_2.unit.count = speed_2.unit.count * 3
+speed_2.unit.count = speed_2.unit.count * 2
 speed_2.prerequisites = {"worker-robots-speed-2", "dimension-worker-robots-speed-1"}
 
 speed_3.name = "dimension-worker-robots-speed-3"
 speed_3.icon = nil
 speed_3.icon_size = nil
 speed_3.icons = speed_icon
-speed_3.unit.count = speed_3.unit.count * 2
+speed_3.unit.count = speed_3.unit.count * 1.5
 speed_3.prerequisites = {"worker-robots-speed-3", "dimension-worker-robots-speed-2"}
 
 speed_4.name = "dimension-worker-robots-speed-4"
 speed_4.icon = nil
 speed_4.icon_size = nil
 speed_4.icons = speed_icon
-speed_4.unit.count = speed_4.unit.count * 2
+speed_4.unit.count = speed_4.unit.count * 1.5
 speed_4.prerequisites = {"worker-robots-speed-4", "dimension-worker-robots-speed-3"}
 
 speed_5.name = "dimension-worker-robots-speed-5"
 speed_5.icon = nil
 speed_5.icon_size = nil
 speed_5.icons = speed_icon
-speed_5.unit.count = speed_5.unit.count * 2
+speed_5.unit.count = speed_5.unit.count * 1.5
 speed_5.prerequisites = {"worker-robots-speed-5", "dimension-worker-robots-speed-4"}
 
 capacity_1.name = "dimension-worker-robots-storage-1"

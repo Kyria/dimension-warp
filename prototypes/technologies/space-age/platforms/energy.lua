@@ -6,7 +6,7 @@ table.insert(power_4.unit.ingredients, {"space-science-pack", 1})
 local power_5 = data.raw['technology']['power-platform-upgrade-5']
 power_5.prerequisites = {"power-platform-upgrade-4", "lightning-collector"}
 power_5.unit = {
-    count = 2000,
+    count = 1600,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},
@@ -14,7 +14,7 @@ power_5.unit = {
         {"space-science-pack", 1},
         {"electromagnetic-science-pack", 2},
     },
-    time = 30,
+    time = 15,
 }
 
 
@@ -30,7 +30,7 @@ power_6.unit = {
         {"electromagnetic-science-pack", 2},
         {"agricultural-science-pack", 2},
     },
-    time = 30,
+    time = 15,
 }
 
 
@@ -47,5 +47,5 @@ power_7.unit = {
         {"agricultural-science-pack", 2},
         {"cryogenic-science-pack", 2},
     },
-    time = 30,
+    time = 15,
 }

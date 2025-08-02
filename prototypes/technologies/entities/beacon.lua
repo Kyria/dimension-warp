@@ -18,7 +18,7 @@ end
 local beacon_1 = make_tech(1,
     {"modules", "factory-platform"},
     {
-        count = 500,
+        count = 150,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -29,7 +29,7 @@ local beacon_1 = make_tech(1,
 local beacon_2 = make_tech(2,
     {"dw-factory-beacon-1", "factory-platform-upgrade-1"},
     {
-        count = 750,
+        count = 300,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -41,7 +41,7 @@ local beacon_2 = make_tech(2,
 local beacon_3 = make_tech(3,
     {"dw-factory-beacon-2", "factory-platform-upgrade-2"},
     {
-        count = 1000,
+        count = 600,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -53,7 +53,7 @@ local beacon_3 = make_tech(3,
 local beacon_4 = make_tech(4,
     {"dw-factory-beacon-3", "factory-platform-upgrade-3"},
     {
-        count = 500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
@@ -66,7 +66,7 @@ local beacon_4 = make_tech(4,
 local beacon_5 = make_tech(5,
     {"dw-factory-beacon-4", "factory-platform-upgrade-4"},
     {
-        count = 500,
+        count = 1000,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},

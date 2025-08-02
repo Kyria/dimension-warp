@@ -13,12 +13,12 @@ data:extend {
         research_trigger = {
             type = "craft-item",
             item = "steel-plate",
-            count = 2000
+            count = 1000
         },
         effects = {
             {
                 type = "character-mining-speed",
-                modifier = 2
+                modifier = 3
             }
         },
     }

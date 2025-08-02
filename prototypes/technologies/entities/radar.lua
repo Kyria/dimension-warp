@@ -15,7 +15,7 @@ data:extend{
             "radar"
         },
         unit = {
-            count = 500,
+            count = 200,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},

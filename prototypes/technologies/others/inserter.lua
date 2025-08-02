@@ -31,7 +31,7 @@ data:extend{
         },
         prerequisites = {"inserter-capacity-bonus-2"},
         unit = {
-            count = 600,
+            count = 200,
             ingredients = {
                 {"automation-science-pack", 2},
                 {"logistic-science-pack", 2}
@@ -56,7 +56,7 @@ data:extend{
         },
         prerequisites = {"inserter-capacity-bonus-1", "dimension-inserter-capacity-1"},
         unit = {
-            count = 750,
+            count = 400,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 3}
@@ -81,7 +81,7 @@ data:extend{
         },
         prerequisites = {"inserter-capacity-bonus-2", "dimension-inserter-capacity-2"},
         unit = {
-            count = 1000,
+            count = 600,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 2},
@@ -107,7 +107,7 @@ data:extend{
         },
         prerequisites = {"inserter-capacity-bonus-3", "dimension-inserter-capacity-3"},
         unit = {
-            count = 2000,
+            count = 800,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
@@ -134,7 +134,7 @@ data:extend{
         },
         prerequisites = {"inserter-capacity-bonus-4", "dimension-inserter-capacity-4"},
         unit = {
-            count = 5000,
+            count = 1000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},

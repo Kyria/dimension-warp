@@ -22,35 +22,49 @@ local harvester_left_icon = {
 }
 local harvester_right_1 = {
     type = "technology", name = "dimension-harvester-right-1", icons = harvester_right_icon,
-    prerequisites = {"mining-platform-upgrade-1", "uranium-mining"},
+    prerequisites = {"mining-platform-upgrade-1", "electrified-ground"},
     unit = {
-        count = 500,
+        count = 250,
         ingredients = {
-            {"automation-science-pack", 2},
-            {"logistic-science-pack", 2},
-            {"chemical-science-pack", 1},
+            {"automation-science-pack", 1},
+            {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
 local harvester_right_2 = {
     type = "technology", name = "dimension-harvester-right-2", icons = harvester_right_icon,
-    prerequisites = {"dimension-harvester-right-1", "electric-engine"},
+    prerequisites = {"dimension-harvester-right-1", "electric-engine", "uranium-mining"},
     unit = {
-        count = 1000,
+        count = 500,
         ingredients = {
-            {"automation-science-pack", 2},
+            {"automation-science-pack", 1},
             {"logistic-science-pack", 2},
             {"chemical-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
 local harvester_right_3 = {
     type = "technology", name = "dimension-harvester-right-3", icons = harvester_right_icon,
     prerequisites = {"dimension-harvester-right-2", "utility-science-pack"},
+    unit = {
+        count = 750,
+        ingredients = {
+            {"automation-science-pack", 1},
+            {"logistic-science-pack", 2},
+            {"chemical-science-pack", 1},
+            {"utility-science-pack", 2},
+        },
+        time = 15,
+    },
+    upgrade = true,
+}
+local harvester_right_4 = {
+    type = "technology", name = "dimension-harvester-right-4", icons = harvester_right_icon,
+    prerequisites = {"dimension-harvester-right-3", "logistic-system"},
     unit = {
         count = 1500,
         ingredients = {
@@ -59,22 +73,7 @@ local harvester_right_3 = {
             {"chemical-science-pack", 1},
             {"utility-science-pack", 2},
         },
-        time = 30,
-    },
-    upgrade = true,
-}
-local harvester_right_4 = {
-    type = "technology", name = "dimension-harvester-right-4", icons = harvester_right_icon,
-    prerequisites = {"dimension-harvester-right-3", "logistic-system"},
-    unit = {
-        count = 2000,
-        ingredients = {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 2},
-            {"chemical-science-pack", 1},
-            {"utility-science-pack", 2},
-        },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -90,7 +89,7 @@ local harvester_right_5 = {
             {"production-science-pack", 2},
             {"utility-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -107,7 +106,7 @@ local harvester_right_6 = {
             {"utility-science-pack", 2},
             {"space-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -119,7 +118,7 @@ harvester_left_1.icons = harvester_left_icon
 local harvester_left_2 = table.deepcopy(harvester_right_2)
 harvester_left_2.name = "dimension-harvester-left-2"
 harvester_left_2.icons = harvester_left_icon
-harvester_left_2.prerequisites = {"dimension-harvester-left-1", "electric-engine"}
+harvester_left_2.prerequisites = {"dimension-harvester-left-1", "electric-engine", "uranium-mining"}
 
 local harvester_left_3 = table.deepcopy(harvester_right_3)
 harvester_left_3.name = "dimension-harvester-left-3"

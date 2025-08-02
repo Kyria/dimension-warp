@@ -182,7 +182,7 @@ local tech = {
     },
     prerequisites= {"carbon-fiber"},
     unit = {
-        count = 1000,
+        count = 500,
         time = 60,
         ingredients = {
             {"automation-science-pack", 1},

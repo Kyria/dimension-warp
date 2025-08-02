@@ -20,7 +20,7 @@ local tech_platform = {
         },
     },
     unit = {
-        count = 250,
+        count = 100,
         ingredients = {
             {"automation-science-pack", 1},
         },
@@ -45,12 +45,12 @@ local tech_platform_1 = {
     type = "technology", name = "factory-platform-upgrade-1", icons = platform_icon,
     prerequisites = {"factory-platform", "automation-2"},
     unit = {
-        count = 500,
+        count = 200,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -58,12 +58,12 @@ local tech_platform_2 = {
     type = "technology", name = "factory-platform-upgrade-2", icons = platform_icon,
     prerequisites = {"factory-platform-upgrade-1", "advanced-circuit"},
     unit = {
-        count = 750,
+        count = 400,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -71,13 +71,13 @@ local tech_platform_3 = {
     type = "technology", name = "factory-platform-upgrade-3", icons = platform_icon,
     prerequisites = {"factory-platform-upgrade-2", "processing-unit"},
     unit = {
-        count = 1000,
+        count = 700,
         ingredients = {
             {"automation-science-pack", 1},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -85,14 +85,14 @@ local tech_platform_4 = {
     type = "technology", name = "factory-platform-upgrade-4", icons = platform_icon,
     prerequisites = {"factory-platform-upgrade-3", "production-science-pack"},
     unit = {
-        count = 1500,
+        count = 1100,
         ingredients = {
             {"automation-science-pack", 2},
-            {"logistic-science-pack", 2},
+            {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"production-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -100,14 +100,14 @@ local tech_platform_5 = {
     type = "technology", name = "factory-platform-upgrade-5", icons = platform_icon,
     prerequisites = {"factory-platform-upgrade-4", "automation-3"},
     unit = {
-        count = 2000,
+        count = 1600,
         ingredients = {
             {"automation-science-pack", 2},
             {"logistic-science-pack", 1},
             {"chemical-science-pack", 1},
             {"production-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -123,7 +123,7 @@ local tech_platform_6 = {
             {"production-science-pack", 2},
             {"space-science-pack", 2},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }
@@ -139,7 +139,7 @@ local tech_platform_7 = {
             {"production-science-pack", 2},
             {"space-science-pack", 1},
         },
-        time = 30,
+        time = 15,
     },
     upgrade = true,
 }

@@ -5,7 +5,7 @@ table.insert(harvester_right_3.unit.ingredients, {"space-science-pack", 1})
 local harvester_right_4 = data.raw['technology']['dimension-harvester-right-4']
 harvester_right_4.prerequisites = {"dimension-harvester-right-3", "big-mining-drill"}
 harvester_right_4.unit = {
-    count = 2000,
+    count = 1500,
     ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 2},
@@ -14,7 +14,7 @@ harvester_right_4.unit = {
         {"production-science-pack", 2},
         {"space-science-pack", 1},
     },
-    time = 30,
+    time = 15,
 }
 
 local harvester_right_5 = data.raw['technology']['dimension-harvester-right-5']
@@ -30,7 +30,7 @@ harvester_right_5.unit = {
         {"space-science-pack", 1},
         {"metallurgic-science-pack", 1},
     },
-    time = 30,
+    time = 15,
 }
 
 local harvester_right_6 = data.raw['technology']['dimension-harvester-right-6']
@@ -47,7 +47,7 @@ harvester_right_6.unit = {
         {"metallurgic-science-pack", 1},
         {"agricultural-science-pack", 1},
     },
-    time = 30,
+    time = 15,
 }
 
 -- left harvester upgrades

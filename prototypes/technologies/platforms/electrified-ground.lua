@@ -14,7 +14,7 @@ data:extend{
             "power-platform"
         },
         unit = {
-            count = 250,
+            count = 100,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
