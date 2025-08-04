@@ -223,7 +223,7 @@ base.icons_positioning = {{
     multi_row_initial_height_modifier = -.3
 }}
 base.profile = {1, 1}
-base.distribution_effectivity = 1
+base.distribution_effectivity = 2
 base.beacon_counter = "total"
 base.minable = nil
 base.collision_box = {{-1.8, -1.8}, {1.8, 1.8}}
@@ -241,19 +241,19 @@ local beacon_1 = table.deepcopy(base)
 beacon_1.name = "dw-factory-beacon-1"
 beacon_1.module_slots = 3
 beacon_1.supply_area_distance = 8
-beacon_1.energy_usage = "20MW"
+beacon_1.energy_usage = "10MW"
 
 local beacon_2 = table.deepcopy(base)
 beacon_2.name = "dw-factory-beacon-2"
 beacon_2.module_slots = 4
 beacon_2.supply_area_distance = 12
-beacon_2.energy_usage = "40MW"
+beacon_2.energy_usage = "20MW"
 
 local beacon_3 = table.deepcopy(base)
 beacon_3.name = "dw-factory-beacon-3"
 beacon_3.module_slots = 5
 beacon_3.supply_area_distance = 17
-beacon_3.energy_usage = "60MW"
+beacon_3.energy_usage = "40MW"
 
 local beacon_4 = table.deepcopy(base)
 beacon_4.name = "dw-factory-beacon-4"
