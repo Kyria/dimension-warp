@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.3
+Date: 2025.08.06
+  Bugfixes:
+    - Fix the Krastorio2 shelter to be correctly destroyed and recreated between warps to avoid issues.
+---------------------------------------------------------------------------------------------------
+Version: 0.3.2
+Date: 2025.08.05
+  Changes:
+    - Adjust the given item at start when Krastorio2 is active so people can actually use the item (fission generator uses fuel).
+---------------------------------------------------------------------------------------------------
 Version: 0.3.1
 Date: 2025.08.04
   Changes:
