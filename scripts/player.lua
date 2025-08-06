@@ -25,8 +25,16 @@ local function check_cheat_bag(event)
         local grid = armor_inventory[1].grid
 
         if grid then
-            grid.put({name = "fission-reactor-equipment"})
-            grid.put({name = "personal-roboport-mk2-equipment"})
+            if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
+                player.insert{name="kr-fuel", count = 200}
+                grid.put({name = "kr-portable-generator-equipment"})
+                grid.put({name = "kr-superior-solar-panel-equipment"})
+                grid.put({name = "kr-superior-solar-panel-equipment"})
+                grid.put({name = "kr-superior-solar-panel-equipment"})
+            else
+                grid.put({name = "fission-reactor-equipment"})
+                grid.put({name = "personal-roboport-mk2-equipment"})
+            end
             grid.put({name = "personal-roboport-mk2-equipment"})
             grid.put({name = "battery-mk2-equipment"})
             grid.put({name = "battery-mk2-equipment"})
