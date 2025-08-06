@@ -5,18 +5,9 @@ data:extend({
         priority = "extra-high-no-scale",
         layers = {
             {
-                filename = "__base__/graphics/icons/nauvis.png",
-                tint = util.color(defines.hexcolor.royalblue.. 'd9'),
-                width = 64,
-                height = 64,
-            },
-            {
-                filename = "__base__/graphics/icons/info.png",
-                width = 64,
-                height = 64,
-                scale = 0.5,
-                shift = {10,10},
-                tint = util.color(defines.hexcolor.lightsteelblue.. 'd9'),
+                filename = "__dimension-warp__/graphics/sprites/black-hole-32.png",
+                width = 32,
+                height = 32,
             },
         },
         flags = {"gui-icon"},

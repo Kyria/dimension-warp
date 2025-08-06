@@ -9,15 +9,8 @@ neo_nauvis.hidden = true
 neo_nauvis.distance = 30
 neo_nauvis.orientation = 0.46
 
-neo_nauvis.icons = {{
-    icon = nauvis.icon,
-    tint = util.color(defines.hexcolor.royalblue.. 'd9')
-}}
-neo_nauvis.starmap_icons = {{
-    icon = nauvis.starmap_icon,
-    icon_size = 512,
-    tint = util.color(defines.hexcolor.royalblue.. 'd9')
-}}
+neo_nauvis.icons = {{icon = "__dimension-warp__/graphics/icons/planets/dimension-warp-64.png", icon_size = 64},}
+neo_nauvis.starmap_icons = {{icon = "__dimension-warp__/graphics/icons/planets/dimension-warp-512.png", icon_size = 512},}
 
 if mods['space-age'] then
     local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")

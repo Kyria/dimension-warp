@@ -1,11 +1,9 @@
 local tech_neonauvis = {
     type = "technology",
     name = "neo-nauvis",
-    icons = {{
-        icon = "__base__/graphics/icons/starmap-planet-nauvis.png",
-        tint = util.color(defines.hexcolor.royalblue.. 'd9'),
-        icon_size = 512,
-    }},
+    icons = {
+        {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", icon_size = 512},
+    },
     visible_when_disabled = false,
     research_trigger = { type = "build-entity", entity = "warp-gate" },
     effects = {{ type = "unlock-space-location", space_location = "neo-nauvis" }},

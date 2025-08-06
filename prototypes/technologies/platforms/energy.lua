@@ -1,7 +1,7 @@
 local icon = "__base__/graphics/technology/nuclear-power.png"
 local platform_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
-    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
+    {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", tint = util.color('#aaaaaa77'), icon_size = 512},
+    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'ff'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-planet.png",
         icon_size = 128,
@@ -33,8 +33,8 @@ local tech_platform = {
 --- upgrade techs
 ---
 local platform_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
-    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9'), icon_size=256, scale = 0.4, shift = {20, 20}},
+    {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", tint = util.color('#aaaaaa77'), icon_size = 512},
+    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'ff'), icon_size=256, scale = 0.4, shift = {20, 20}},
     {
         icon = "__core__/graphics/icons/technology/constants/constant-recipe-productivity.png",
         icon_size = 128,
@@ -146,8 +146,8 @@ local tech_platform_7 = {
 }
 
 local water_icon = {
-    {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
-    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'd9'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
+    {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", tint = util.color('#aaaaaa77'), icon_size = 512},
+    {icon = icon, tint = util.color(defines.hexcolor.darkgoldenrod.. 'ff'), icon_size=256, scale = 0.4, shift = {20, 20}, floating = true},
     {
         icon = "__base__/graphics/icons/fluid/water.png",
         icon_size = 64,

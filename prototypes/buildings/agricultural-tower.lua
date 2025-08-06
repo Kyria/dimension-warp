@@ -164,7 +164,7 @@ local tech = {
     type = "technology",
     name = "dimension-crane",
     icons = {
-        {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
+        {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", tint = util.color('#aaaaaa77'), icon_size = 512},
         {
             icon = "__space-age__/graphics/technology/agriculture.png",
             icon_size = 256,

@@ -63,3 +63,4 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 
 * [01526 swoosh 2.wav by Robinhood76](https://freesound.org/s/92909/) - License: Attribution NonCommercial 4.0 (warpdrive sound)
 * [Woosh Noise 1.wav by potentjello](https://freesound.org/s/194081/) - License: Creative Commons 0 (teleport sound)
+* [Space icons created by smalllikeart - Flaticon](https://www.flaticon.com/free-icons/space) - Blackhole icon toggle

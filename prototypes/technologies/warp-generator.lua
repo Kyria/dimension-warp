@@ -1,13 +1,20 @@
 local function generate_icon(overlay_icon, tint)
     return {
-        {icon = "__base__/graphics/icons/starmap-planet-nauvis.png", icon_size = 512, tint = util.color(defines.hexcolor.royalblue.. 'd9')},
-        {icon = overlay_icon, tint = tint, scale = 1, shift = {30, 30}, floating = true}
+        {icon = "__dimension-warp__/graphics/icons/technologies/dimension-warp-512.png", tint = util.color('#aaaaaa77'), icon_size = 512},
+        {
+            icon = "__core__/graphics/icons/technology/constants/" .. overlay_icon,
+            icon_size = 128,
+            scale = 0.75,
+            shift = {50, 45},
+            floating = true,
+            tint = tint
+        }
     }
 end
 
 local tech_warp_generator_1 = { -- 20min
     type = "technology", name = "warp-generator-1",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-sun"].icon, util.color(defines.hexcolor.gold.. 'd9')),
+    icons = generate_icon("constant-battery.png", nil), --util.color(defines.hexcolor.gold.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator"} }},
     prerequisites = {"neo-nauvis", "automation-science-pack"},
     research_trigger = {
@@ -18,7 +25,7 @@ local tech_warp_generator_1 = { -- 20min
 }
 local tech_warp_generator_2 = { -- 30min
     type = "technology", name = "warp-generator-2",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.darkgoldenrod.. 'd9')),
+    icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.darkgoldenrod.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-1", "radar"},
     unit = {
@@ -32,7 +39,7 @@ local tech_warp_generator_2 = { -- 30min
 
 local tech_warp_generator_3 = { -- 40min
     type = "technology", name = "warp-generator-3",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.darkgoldenrod.. 'd9')),
+    icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.darkgoldenrod.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-2", "military-2"},
     unit = {
@@ -47,7 +54,7 @@ local tech_warp_generator_3 = { -- 40min
 
 local tech_warp_generator_4 = { -- 50min
     type = "technology", name = "warp-generator-4",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.yellowgreen.. 'd9')),
+    icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.yellowgreen.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-3", "military-3", "advanced-oil-processing"},
     unit = {
@@ -64,7 +71,7 @@ local tech_warp_generator_4 = { -- 50min
 
 local tech_warp_generator_5 = { -- 60min
     type = "technology", name = "warp-generator-5",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.yellowgreen.. 'd9')),
+    icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.yellowgreen.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-4", "effect-transmission", "military-4"},
     unit = {
@@ -83,7 +90,7 @@ local tech_warp_generator_5 = { -- 60min
 
 local tech_warp_generator_6 = { -- +30 min (90min)
     type = "technology", name = "warp-generator-6",
-    icons = generate_icon(data.raw["virtual-signal"]["signal-speed"].icon, util.color(defines.hexcolor.lawngreen.. 'd9')),
+    icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.lawngreen.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
     prerequisites = {"warp-generator-5"},
     unit = {
