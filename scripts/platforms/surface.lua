@@ -111,35 +111,36 @@ local function teleport_platform()
     --- Check for some other stuff we cannot just clone (due to mod scripts)
     --- Krastorio2 Shelter, as it creates stuff when built.
     local shelter_data = {}
-    local krastorio_shelter = source.find_entities_filtered{
-        name = (prototypes.entity["kr-shelter-plus-container"] and {"kr-shelter-container", "kr-shelter-plus-container"} or {"kr-shelter-container"}),
-        area = platform_area_delta,
-    }
-    if krastorio_shelter[1] then -- player can only put 1 per surface, so there's at most 1
-        local shelter = krastorio_shelter[1]
-        shelter_data.name = shelter.name
-        shelter_data.position = shelter.position
-        shelter_data.inventory = {}
-        local inventory = shelter.get_inventory(defines.inventory.chest)
-        if inventory then
-            for i = 1, #inventory do
-                local stack = inventory[i]
-                if stack.valid_for_read then
-                    table.insert(shelter_data.inventory, {
-                        name = stack.name,
-                        count = stack.count,
-                        type = stack.type,
-                        quality = stack.quality,
-                        spoil_tick = stack.spoil_tick,
-                        spoil_percent = stack.spoil_percent,
-                        health = stack.health,
-                    })
+    if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
+        local krastorio_shelter = source.find_entities_filtered{
+            name = (prototypes.entity["kr-shelter-plus-container"] and {"kr-shelter-container", "kr-shelter-plus-container"} or {"kr-shelter-container"}),
+            area = platform_area_delta,
+        }
+        if krastorio_shelter[1] then -- player can only put 1 per surface, so there's at most 1
+            local shelter = krastorio_shelter[1]
+            shelter_data.name = shelter.name
+            shelter_data.position = shelter.position
+            shelter_data.inventory = {}
+            local inventory = shelter.get_inventory(defines.inventory.chest)
+            if inventory then
+                for i = 1, #inventory do
+                    local stack = inventory[i]
+                    if stack.valid_for_read then
+                        table.insert(shelter_data.inventory, {
+                            name = stack.name,
+                            count = stack.count,
+                            type = stack.type,
+                            quality = stack.quality,
+                            spoil_tick = stack.spoil_tick,
+                            spoil_percent = stack.spoil_percent,
+                            health = stack.health,
+                        })
+                    end
                 end
             end
+            shelter.destroy{raise_destroy=true}
         end
-        shelter.destroy{raise_destroy=true}
     end
-
 
     --- clone the left entities (includes biters... ?)
     storage.warp.previous.surface.clone_area{
