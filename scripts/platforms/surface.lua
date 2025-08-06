@@ -108,6 +108,39 @@ local function teleport_platform()
         end
     end
 
+    --- Check for some other stuff we cannot just clone (due to mod scripts)
+    --- Krastorio2 Shelter, as it creates stuff when built.
+    local shelter_data = {}
+    local krastorio_shelter = source.find_entities_filtered{
+        name = (prototypes.entity["kr-shelter-plus-container"] and {"kr-shelter-container", "kr-shelter-plus-container"} or {"kr-shelter-container"}),
+        area = platform_area_delta,
+    }
+    if krastorio_shelter[1] then -- player can only put 1 per surface, so there's at most 1
+        local shelter = krastorio_shelter[1]
+        shelter_data.name = shelter.name
+        shelter_data.position = shelter.position
+        shelter_data.inventory = {}
+        local inventory = shelter.get_inventory(defines.inventory.chest)
+        if inventory then
+            for i = 1, #inventory do
+                local stack = inventory[i]
+                if stack.valid_for_read then
+                    table.insert(shelter_data.inventory, {
+                        name = stack.name,
+                        count = stack.count,
+                        type = stack.type,
+                        quality = stack.quality,
+                        spoil_tick = stack.spoil_tick,
+                        spoil_percent = stack.spoil_percent,
+                        health = stack.health,
+                    })
+                end
+            end
+        end
+        shelter.destroy{raise_destroy=true}
+    end
+
+
     --- clone the left entities (includes biters... ?)
     storage.warp.previous.surface.clone_area{
         source_area = platform_area,
@@ -137,6 +170,24 @@ local function teleport_platform()
             if train then
                 train.schedule = train_data.schedule
                 train.manual_mode = train_data.manual_mode
+            end
+        end
+    end
+
+    --- Krastorio2 Shelter - put it back and restore its inventory
+    if shelter_data.name then
+        local shelter = destination.create_entity{
+            name = shelter_data.name,
+            position = shelter_data.position,
+            force = game.forces.player,
+            raise_built = true
+        }
+        if shelter then
+            local inventory = shelter.get_inventory(defines.inventory.chest)
+            if inventory then
+                for _, stack in pairs(shelter_data.inventory) do
+                    inventory.insert(stack)
+                end
             end
         end
     end
