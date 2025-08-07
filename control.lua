@@ -7,7 +7,15 @@ local function set_globals()
     --- player cheat bag
     storage.cheat_bag = storage.cheat_bag or {}
 
-    --- platform globals (size + surface)
+    --- GUI stuffs
+    storage.gui = storage.gui or {
+        item_watch = {},
+        watchdogs = {[1] = true, [2] = true, [3] = true},
+        count_watchdogs = 3,
+        count_watched_item = 0,
+    }
+
+   --- porm gls (size + surface)
     storage.platform = storage.platform or {
         warp = {size = dw.platform_size.warp[1]},
         factory = {size = 0, surface = nil},

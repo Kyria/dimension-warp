@@ -90,15 +90,16 @@ local tech_list = {
 
 local function debug_gui(player)
     local frame = dw.gui.get_warp_frame(player)
-    local line = frame.add{type = "line"}
-    line.style.top_margin = 5
-    frame.add{type = "label", caption = "Debug"}
-    frame.add{type = "button", name = "give-starter-item", caption = "Items"}
-    frame.add{type = "button", name = "trigger-next-warp", caption = "Warp Next"}
 
-    local debugtech = frame.add({type = "flow", name="debug-tech", direction = "horizontal"})
-    debugtech.add{type = "drop-down", name = "tech-select", caption = "Tech", items=tech_list}
-    debugtech.add{type = "button", name = "debug-tech-grant", caption = "Grant"}
+    local line = frame["dw-debug-line"] or frame.add{type = "line", name = "dw-debug-line"}
+    line.style.top_margin = 5
+    if not frame["dw-debug-label"] then frame.add{type = "label", name = "dw-debug-label", caption = "Debug"} end
+    if not frame["give-starter-item"] then frame.add{type = "button", name = "give-starter-item", caption = "Items"} end
+    if not frame["trigger-next-warp"] then frame.add{type = "button", name = "trigger-next-warp", caption = "Warp Next"} end
+
+    local debugtech = frame['debug-tech'] or frame.add({type = "flow", name="debug-tech", direction = "horizontal"})
+    if not debugtech["tech-select"] then debugtech.add{type = "drop-down", name = "tech-select", caption = "Tech", items=tech_list} end
+    if not debugtech["debug-tech-grant"] then debugtech.add{type = "button", name = "debug-tech-grant", caption = "Grant"} end
 end
 
 local function give_debug_items(player_index)
@@ -147,6 +148,17 @@ local function on_player_created(event)
     debug_gui(player)
 end
 
+local function warp_frame_click(event)
+    local player = game.players[event.player_index]
+    local button = event.element
+    if button.name == "warp_toggle" then
+        debug_gui(player)
+    end
+end
+
+
 dw.register_event('on_init', init)
+dw.register_event('on_configuration_changed', init)
+dw.register_event(defines.events.on_gui_click, warp_frame_click)
 dw.register_event(defines.events.on_player_created, on_player_created)
 dw.register_event(defines.events.on_gui_click, debug_clicked)
