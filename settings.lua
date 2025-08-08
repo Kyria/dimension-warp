@@ -111,4 +111,42 @@ data:extend {
         default_value = false,
         order = "b-b",
     },
+
+    -- user settings
+    {
+        type = "string-setting",
+        name = "dw-gui-thousand-delimiter",
+        setting_type = "runtime-per-user",
+        default_value = " ",
+        allowed_values = {" ", ",", "."},
+        order = "a-a",
+    },
+    {
+        type = "bool-setting",
+        name = "dw-gui-highlight-qty-change",
+        setting_type = "runtime-per-user",
+        default_value = true,
+        order = "a-b",
+    },
+    {
+        type = "string-setting",
+        name = "dw-gui-default-color",
+        setting_type = "runtime-per-user",
+        default_value = "#CCCCCC",
+        order = "a-c",
+    },
+    {
+        type = "string-setting",
+        name = "dw-gui-increase-qty-color",
+        setting_type = "runtime-per-user",
+        default_value = "#8FDD8F",
+        order = "a-d",
+    },
+    {
+        type = "string-setting",
+        name = "dw-gui-decrease-qty-color",
+        setting_type = "runtime-per-user",
+        default_value = "#F0A97A",
+        order = "a-e",
+    },
 }
