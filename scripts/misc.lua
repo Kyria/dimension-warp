@@ -22,6 +22,7 @@ local function check_cheat_bag(event)
         -- insert the items now
         player.insert{name="power-armor", count = 1}
         player.insert{name="construction-robot", count = 50}
+        player.force.create_ghost_on_entity_death = true
         local grid = armor_inventory[1].grid
 
         if grid then
@@ -53,31 +54,15 @@ local function check_cheat_bag(event)
     end
 end
 
---- Count all items in logistic network across surfaces
-local function count_logistic_items()
-    local surfaces_networks = game.forces.player.logistic_networks
-    for _, network_list in pairs(surfaces_networks) do
-        for _, network in pairs(network_list) do
-            local item_list = network.get_contents()
-            for _, item in pairs(item_list) do
-                if storage.gui.item_list[item.name .. '-' .. item.quality] then
-                    local item_qty = storage.gui.item_list[item.name .. '-' .. item.quality]
-                    item_qty.qty = item_qty.qty + (item.count >= 0 and item.count or 0)
-                end
-            end
-        end
-    end
-end
-
 ---Count items from all chests (non logistic) in a given surface
 ---@param surface LuaSurface
 ---@param area ?BoundingBox
 local function count_chest_items(surface, area)
     local chests
     if area then
-        chests = surface.find_entities_filtered{area=area, type="container", force=game.forces.player}
+        chests = surface.find_entities_filtered{area=area, type={"container", "logistic-container"}, force=game.forces.player}
     else
-        chests = surface.find_entities_filtered{type="container", force=game.forces.player}
+        chests = surface.find_entities_filtered{type={"container", "logistic-container"}, force=game.forces.player}
     end
     for _, chest in pairs(chests) do
         for _, item_qty in pairs(storage.gui.item_list) do
@@ -106,7 +91,6 @@ local function count_stored_items(event)
     storage.gui.item_list = item_list
 
     -- count items
-    count_logistic_items()
     count_chest_items(storage.warp.current.surface, math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size))
     if storage.platform.factory.surface then count_chest_items(storage.platform.factory.surface) end
     if storage.platform.mining.surface then count_chest_items(storage.platform.mining.surface) end
@@ -117,4 +101,4 @@ local function count_stored_items(event)
 end
 
 dw.register_event(defines.events.on_player_changed_position, check_cheat_bag)
-dw.register_event("on_nth_tick_180", count_stored_items)
+dw.register_event("on_nth_tick_300", count_stored_items)
