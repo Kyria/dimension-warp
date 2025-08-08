@@ -13,6 +13,7 @@ local function set_globals()
         watchdogs = {[1] = true, [2] = true, [3] = true},
         count_watchdogs = 3,
         count_watched_item = 0,
+        item_list = {},
     }
 
    --- porm gls (size + surface)
@@ -116,7 +117,7 @@ dw.register_event('on_configuration_changed', mod_warning)
 
 ------------------------------------------------------------
 
-require "scripts.player"
+require "scripts.misc"
 
 require "scripts.surface-generation"
 require "scripts.teleport"

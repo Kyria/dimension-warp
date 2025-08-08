@@ -40,10 +40,12 @@ local function get_warp_frame(player)
 end
 dw.gui.get_warp_frame = get_warp_frame
 
-local function get_or_create_item_selector(frame, name)
+local function get_or_create_item_selector(player, frame, name)
     local flow = frame[name] or frame.add({type = "flow", name = name, direction = "horizontal"})
 
     local item_button = flow.item or flow.add{type="choose-elem-button", name="item", elem_type="item-with-quality"}
+    item_button.elem_value = storage.gui.item_watch[name]
+
     local item_count = flow.count or flow.add{type="label", name="count", caption = "0"}
 
     item_button.style.width = 25
@@ -57,32 +59,32 @@ local function get_or_create_item_selector(frame, name)
     item_count.style.right_padding = 5
     item_count.style.vertical_align = "center"
     item_count.style.horizontal_align = "right"
-    item_count.style.font_color = util.color("#ccc")
+    item_count.style.font_color = util.color(settings.get_player_settings(player)['dw-gui-default-color'].value)
     item_count.style.hovered_font_color  = util.color("#C4E9FF")
 
     return flow
 end
 
-local function get_container_flow(player)
+local function get_container_frame(player)
     local frameflow = mod_gui.get_frame_flow(player)
     local dw_frame = frameflow.dw_frame or frameflow.add({type = "flow", name = "dw_frame", direction = "vertical"})
-    local container_flow = dw_frame.container_flow or dw_frame.add({type = "flow", name = "container_flow", direction = "vertical", visible = false})
-    container_flow.visible = container_flow.visible or false
-    container_flow.style.margin = {5, 0, 0, 5}
+    local container_frame = dw_frame.container_frame or dw_frame.add({type = "frame", name = "container_frame", direction = "vertical", visible = false, style="dw_frame"})
+    container_frame.visible = container_frame.visible or false
+    container_frame.style.margin = {5, 0, 0, 5}
 
-    if not container_flow.header_label then container_flow.add{type = "label", name = "header_label", caption = {"blabla"}} end
-    if not container_flow.header_line then container_flow.add{type = "line", name = "header_line"} end
+    if not container_frame.header_label then container_frame.add{type = "label", name = "header_label", caption = {"dw-gui.item-watch"}} end
+    if not container_frame.header_line then container_frame.add{type = "line", name = "header_line"} end
 
-    local item_table = container_flow.item_table or container_flow.add({type = "table", name = "item_table", column_count = 3})
-    if not container_flow.footer_line then container_flow.add{type = "line", name = "footer_line"} end
+    local item_table = container_frame.item_table or container_frame.add({type = "table", name = "item_table", column_count = 3})
+    if not container_frame.footer_line then container_frame.add{type = "line", name = "footer_line"} end
 
     for watchdog, _ in pairs(storage.gui.watchdogs) do
-        get_or_create_item_selector(item_table, 'watch-item-' .. watchdog)
+        get_or_create_item_selector(player, item_table, 'watch-item-' .. watchdog)
     end
 
-    return container_flow
+    return container_frame
 end
-dw.gui.get_container_flow = get_container_flow
+dw.gui.get_container_frame = get_container_frame
 
 local function update_manual_warp_button()
     for _, player in pairs(game.players) do
@@ -126,11 +128,13 @@ local function warp_frame_click(event)
     end
 
     if button.name == "container_toggle" then
-        local frame = get_container_flow(player)
+        local frame = get_container_frame(player)
         frame.visible = not frame.visible
     end
 end
 
+---Event fired when player change an item in the item watcher
+---@param event EventData.on_gui_elem_changed
 local function item_watch_changed(event)
     local elem = event.element
     local name = elem.parent.name
@@ -171,7 +175,7 @@ local function item_watch_changed(event)
 
     -- update player UI
     for _, player in pairs(game.players) do
-        local frame = get_container_flow(player)
+        local frame = get_container_frame(player)
         frame.item_table[name].item.elem_value = item
         frame.item_table[name].count.caption = "0"
 
@@ -181,10 +185,55 @@ local function item_watch_changed(event)
     end
 end
 
+--- Update the watchdogs labels to display the actual item quantity
+local function update_watchdogs_gui()
+    for _, player in pairs(game.connected_players) do
+        local highlight_change = settings.get_player_settings(player)['dw-gui-highlight-qty-change'].value
+        local default_color = settings.get_player_settings(player)['dw-gui-default-color'].value
+        local increase_color = settings.get_player_settings(player)['dw-gui-increase-qty-color'].value
+        local decrease_color = settings.get_player_settings(player)['dw-gui-decrease-qty-color'].value
+        local delimiter = settings.get_player_settings(player)['dw-gui-thousand-delimiter'].value
+
+        for watchdog, item in pairs(storage.gui.item_watch) do
+            local item_quantity = storage.gui.item_list[item.name .. '-' .. item.quality] or 0
+            local frameflow = mod_gui.get_frame_flow(player)
+
+            if not frameflow.dw_frame or not frameflow.dw_frame.container_frame then
+                get_container_frame(player)
+            end
+
+            local frame = frameflow.dw_frame.container_frame
+            if not frame.item_table[watchdog].count then
+                get_container_frame(player)
+            end
+
+            if highlight_change then
+                local color = util.color(default_color)
+                if item_quantity.qty > item_quantity.prev then
+                    color = util.color(increase_color)
+                elseif item_quantity.qty < item_quantity.prev then
+                    color = util.color(decrease_color)
+                end
+                frame.item_table[watchdog].count.style.font_color = color
+            end
+
+            -- starting 1million, we don't display the exact value anymore.
+            if item_quantity.qty >= 1000000 then
+                frame.item_table[watchdog].count.caption = util.format_number(item_quantity.qty, true)
+            else
+                frame.item_table[watchdog].count.caption = utils.format_thousands(item_quantity.qty, delimiter)
+            end
+        end
+    end
+end
+dw.gui.update_watchdogs_gui = update_watchdogs_gui
+
+---Call by all init method to create the user GUI.
+---@param player LuaPlayer
 local function prepare_warp_gui(player)
     set_warp_toggle_buttons(player)
     get_warp_frame(player)
-    get_container_flow(player)
+    get_container_frame(player)
 end
 
 local function on_init(event)
@@ -198,8 +247,7 @@ local function on_player_created(event)
     prepare_warp_gui(player)
 end
 
-
-
+--- Update all the GUI information (except items)
 local function update()
     for _, player in pairs(game.players) do
         local frame = get_warp_frame(player)

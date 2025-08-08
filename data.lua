@@ -16,13 +16,12 @@ dw.setting_loader_mod =
     )
     or "vanilla"
 
-
-
 require 'lib.defines'
 require 'lib.constants'
 require 'lib.utils'
 require 'prototypes.scripts.loaders'
 
+require 'prototypes.styles'
 require 'prototypes.sounds'
 require 'prototypes.subgroup'
 require 'prototypes.sprite'
