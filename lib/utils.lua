@@ -8,6 +8,13 @@ function utils.format_time(sec)
     return string.format("%02d:%02d:%02d", hours, minutes, seconds)
 end
 
+function utils.format_thousands(n, delimiter)
+    delimiter = delimiter or " "
+    local s = tostring(n)
+    -- Reverse, insert delimiter every 3 digits, reverse back, trim leading delimiter
+    return s:reverse():gsub("(%d%d%d)", "%1" .. delimiter):reverse():gsub("^" .. delimiter, "")
+end
+
 
 --- weighted random choice.
 function utils.weighted_random_choice(elements, weights)
