@@ -209,14 +209,17 @@ local function update_watchdogs_gui()
                 get_container_frame(player)
             end
 
+            local item_variation = item_quantity.qty - item_quantity.prev
+            frame.item_table[watchdog].count.tooltip = nil
             if highlight_change then
                 local color = util.color(default_color)
-                if item_quantity.qty > item_quantity.prev then
+                if item_variation > 0 then
                     color = util.color(increase_color)
-                elseif item_quantity.qty < item_quantity.prev then
+                elseif item_variation < 0 then
                     color = util.color(decrease_color)
                 end
                 frame.item_table[watchdog].count.style.font_color = color
+                frame.item_table[watchdog].count.tooltip = (item_variation ~= 0 and {"dw-gui.item-variation", item_variation} or nil)
             end
 
             -- starting 1million, we don't display the exact value anymore.
