@@ -60,9 +60,9 @@ end
 local function count_chest_items(surface, area)
     local chests
     if area then
-        chests = surface.find_entities_filtered{area=area, type={"container", "logistic-container"}, force=game.forces.player}
+        chests = surface.find_entities_filtered{area=area, type={"container", "logistic-container", "cargo-landing-pad"}, force=game.forces.player}
     else
-        chests = surface.find_entities_filtered{type={"container", "logistic-container"}, force=game.forces.player}
+        chests = surface.find_entities_filtered{type={"container", "logistic-container", "cargo-landing-pad"}, force=game.forces.player}
     end
     for _, chest in pairs(chests) do
         for _, item_qty in pairs(storage.gui.item_list) do
