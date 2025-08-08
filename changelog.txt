@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.5
+Date: 2028.08.08
+  Gui:
+    - Add a new button to toggle an item watchlist GUI.
+      - Player can select items to watch and they'll be counted across all surfaces.
+      - Configurations per player have been added to allow player to define delimiters, colors and if they want highlight when quantities change.
+  Graphics:
+    - Update technology icon to use the mod planet icon instead of Nauvis.
+    - Update the mod toggle button sprite to use another image more suited for this usage.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.4
 Date: 2025.08.06
   Bugfixes:
