@@ -1,11 +1,20 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.7
+Date: 2025.08.08
+  Changes:
+    - Update the way items are counted as logistic networks contains player, cars... inventories.
+    - Items are now counted every 5 seconds instead of every 3.
+    - When player select to have the given armor at the beginning, entity ghosts are now activated so drone can reconstruct dead entities.
+  Gui:
+    - Add a tooltip to the item watchlist GUI to show the change in quantity since last update. Only available if the player display change highlights.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.6
-Date: 2028.08.08
+Date: 2025.08.08
   Bugfixes:
     - Fix a crash in "on_gui_elem_changed" event. Make sure we only process the event if we add an item to the watchlist, as other mods (like FactorySearch) can also use this GUI element.
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.5
-Date: 2028.08.08
+Date: 2025.08.08
   Gui:
     - Add a new button to toggle an item watchlist GUI.
       - Player can select items to watch and they'll be counted across all surfaces.
