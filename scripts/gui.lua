@@ -141,6 +141,8 @@ local function item_watch_changed(event)
     local item = elem.elem_value -- name, quality
     local remove_watchdog = false
 
+    if not name or not name:match('watch%-item%-%d+') then return end
+
     -- add the item to the watchlist, or remove it if required
     if item then
         -- add the item to the watchlist, only increase the counter if the watcher didn't have any item yet

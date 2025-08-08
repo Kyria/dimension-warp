@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.6
+Date: 2028.08.08
+  Bugfixes:
+    - Fix a crash in "on_gui_elem_changed" event. Make sure we only process the event if we add an item to the watchlist, as other mods (like FactorySearch) can also use this GUI element.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.5
 Date: 2028.08.08
   Gui:
