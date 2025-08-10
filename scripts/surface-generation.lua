@@ -53,6 +53,8 @@ local function generate_surface(planet, vanilla)
         local surface = dw.mapgen[planet].randomizer(mapgen, storage.warp.current.name)
 
         surface.localised_name = game.planets[planet].prototype.localised_name
+        -- force the name, in case we are in a situation where it's fixed (eg. aquilo)
+        storage.warp.current.name = surface.name
         storage.warp.current.surface = surface
         storage.warp.current.surface_index = surface.index
 
