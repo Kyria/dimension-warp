@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.8
+Date: 2025.08.10
+  Changes:
+    - Add a setting to prevents enemies from being forced to attack the player before the 5th warp (configurable in settings).
+  Bugfixes:
+    - Fix a crash when warping from aquilo, as the surface name is not customizable (due to how we create the surface).
+---------------------------------------------------------------------------------------------------
 Version: 0.3.7
 Date: 2025.08.08
   Changes:
