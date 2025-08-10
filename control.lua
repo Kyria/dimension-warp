@@ -16,7 +16,7 @@ local function set_globals()
         item_list = {},
     }
 
-   --- porm gls (size + surface)
+    --- porm gls (size + surface)
     storage.platform = storage.platform or {
         warp = {size = dw.platform_size.warp[1]},
         factory = {size = 0, surface = nil},

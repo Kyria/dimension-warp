@@ -26,7 +26,9 @@ end
 
 --- Force enemies in a given radius to attack everything
 local function force_enemy_attack()
+	local force_attack_wave = settings.global['dw-helper-enemy-force-attack'].value
 	if not storage.timer.active then return end
+	if storage.warp.number < force_attack_wave then return end
 	local time_passed = (game.tick - storage.warp.time) / 3600
 	if time_passed <= 10 then return end --- at least 10min on planet
 	storage.warp.current.surface.set_multi_command{

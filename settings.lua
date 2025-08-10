@@ -111,6 +111,15 @@ data:extend {
         default_value = false,
         order = "b-b",
     },
+    {
+        type = "int-setting",
+        name = "dw-helper-enemy-force-attack",
+        setting_type = "runtime-global",
+        minimum_value = 1,
+        default_value = 5,
+        maximum_value = 25,
+        order = "b-c",
+    },
 
     -- user settings
     {
