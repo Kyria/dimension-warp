@@ -94,7 +94,13 @@ local function teleport_safely_player_on_event(event)
             if previous_surface == "nauvis" and storage.all_players_left_nauvis then game.surfaces.nauvis.clear() end
         end
     end
+
+    --- only display for first character.
+    if player.index == 1 then
+        game.print({"dw-messages.intro"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
+    end
 end
+
 
 
 dw.register_event(defines.events.on_player_died, dead_on_previous_surface)

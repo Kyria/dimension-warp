@@ -86,11 +86,13 @@ end
 
 local function check_if_player_changed_surface()
     if not storage.nauvis_lab_exploded then return end
+    if storage.nauvis_cleared then return end
+
     if storage.all_players_left_nauvis then
-        dw.remove_event(defines.events.on_tick, check_if_player_changed_surface)
         game.surfaces['nauvis'].clear()
         storage.teleporter['nauvis-gate'] = nil
         game.forces['player'].lock_space_location('nauvis')
+        storage.nauvis_cleared = true
         return
     end
 
@@ -107,8 +109,8 @@ local function check_if_player_changed_surface()
         end
     end
 
-    --- we leave players 5min then wel them if they are not on the new surface
-    if game.tick == 0 or game.tick % 18000 ~= 0 then return end
+    --- we leave players 5min then we kill them if they are not on the new surface
+    if game.tick == 0 or game.tick < 18000 then return end
     for _, player in pairs(game.players) do
         if player.surface.name == 'nauvis' then
             player.print({"dw-messages.intro-death"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
@@ -121,13 +123,12 @@ end
 local function destroy_nauvis_lab_event()
 
     --- if the event was already fired, just remove it and forget
-    if storage.nauvis_lab_exploded then
-        --dw.remove_event(defines.events.on_tick, destroy_nauvis_lab_event)
-        return
-    end
+    if storage.nauvis_lab_exploded then return end
 
+    --- check if we actually built the "lab" and are not in the start
     if not storage.intro_built_entities then return end
     if game.tick == 0 or game.tick % 300 ~= 0 then return end
+
     for _, entity in pairs(storage.intro_built_entities) do
         entity.die(game.forces['neutral'], nil)
     end
@@ -159,21 +160,9 @@ local function destroy_nauvis_lab_event()
     dw.update_warp_platform_size()
 end
 
---- lay message for first character, and make sure new players are teleported to the new surface
-local function on_character_created(event)
-    local player = game.players[event.player_index]
-
-    --- only display for first character.
-    if player.index == 1 then
-        game.print({"dw-messages.intro"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
-    end
-end
-
-
 --- display message when player teleports to the new surface
 local function player_teleported_to_neo_nauvis(event)
     if storage.lab_intro_finished or storage.warp.number > 1 then
-        dw.remove_event(defines.events.on_player_changed_surface, player_teleported_to_neo_nauvis)
         return
     end
 
@@ -198,7 +187,6 @@ local function on_init()
 end
 
 dw.register_event("on_init", on_init)
-dw.register_event(defines.events.on_tick, destroy_nauvis_lab_event)
-dw.register_event(defines.events.on_tick, check_if_player_changed_surface)
-dw.register_event(defines.events.on_player_created, on_character_created)
+dw.register_event("on_nth_tick_300", destroy_nauvis_lab_event)
+dw.register_event("on_nth_tick_600", check_if_player_changed_surface)
 dw.register_event(defines.events.on_player_changed_surface, player_teleported_to_neo_nauvis)
