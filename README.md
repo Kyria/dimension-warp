@@ -30,6 +30,15 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 * AAI Industry / Loaders / Containers
 * Any planet mod may work, but you'll just end with the normal version each time.
 
+## Mod Recommandations
+
+Some mods that may help you during your run:
+
+* Early drones (from the mod or other mods like Tiny Start 2)
+* RPG System
+* AAI Containers if you don't have any
+* K2 Fluid Storage if you don't have Krastorio2
+
 ## Q&A
 
 **Why do some mod techs have high costs (surface size, warp timer)?**<br>
@@ -58,6 +67,10 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 * [Quezler](https://mods.factorio.com/user/Quezler) / [Warptorio2 - warp harvester indoor drill placement](https://mods.factorio.com/mod/warptorio2-warp-harvester-indoor-drill-placement) - For making the mod that gave me the solution for placing drills in harvesters when not deployed.
 * [Nonoce](https://mods.factorio.com/user/NONOCE) / [Warptorio](https://mods.factorio.com/mod/warptorio) - For the original mod
 * [PyroFire](https://mods.factorio.com/user/PyroFire) / [Warptorio2](https://mods.factorio.com/mod/warptorio2) - For expanding and making better this first version.
+
+### Translations
+
+* Russian: [Shadow_Man](https://mods.factorio.com/user/Shadow_Man)
 
 ### Others
 
