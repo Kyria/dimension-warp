@@ -1,7 +1,7 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen.vulcanus = dw.mapgen.vulcanus or {}
 
-local resource_list = {"calcite", "vulcanus_coal", "sulfuric_acid_geyser", "tungsten_ore"}
+dw.mapgen.vulcanus.resource_list = {"calcite", "vulcanus_coal", "sulfuric_acid_geyser", "tungsten_ore"}
 
 local function add_biters(mapgen)
     mapgen.autoplace_controls["enemy-base"] = {size = 1, frequency = 2}
@@ -51,19 +51,19 @@ end
 
 local function calcite_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "calcite", 2, 2, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "calcite", 2, 2, 1)
 end
 local function coal_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "vulcanus_coal", 2, 2, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "vulcanus_coal", 2, 2, 1)
 end
 local function acid_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "sulfuric_acid_geyser", 2, 2, 3)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "sulfuric_acid_geyser", 2, 2, 3)
 end
 local function tungsten_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "tungsten_ore", 2, 4, 5)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "tungsten_ore", 2, 4, 5)
 end
 
 local function demolisher_planet(mapgen)

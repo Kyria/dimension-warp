@@ -1,22 +1,22 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen['neo-nauvis'] = dw.mapgen['neo-nauvis'] or {}
 
-local resource_list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
-local missing_resource_weights = {1,1,2,2,2,1}
+dw.mapgen['neo-nauvis'].resource_list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
+dw.mapgen['neo-nauvis'].missing_resource_weights = {1,1,2,2,2,1}
 
 if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
-    table.insert(resource_list, "kr-imersite")
-    table.insert(resource_list, "kr-mineral-water")
-    table.insert(resource_list, "kr-rare-metal-ore")
-    table.insert(missing_resource_weights, 1)
-    table.insert(missing_resource_weights, 1)
-    table.insert(missing_resource_weights, 1)
+    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-imersite")
+    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-mineral-water")
+    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-rare-metal-ore")
+    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
+    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
+    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
 end
 
-local barren_tiles = {"sand-1", "sand-2", "sand-3", "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"}
+dw.mapgen['neo-nauvis'].barren_tiles = {"sand-1", "sand-2", "sand-3", "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"}
 
 if script.active_mods['alien-biomes'] then
-    barren_tiles = {
+    dw.mapgen['neo-nauvis'].barren_tiles = {
         "mineral-aubergine-dirt-1", "mineral-aubergine-dirt-2", "mineral-aubergine-dirt-3", "mineral-aubergine-dirt-4", "mineral-aubergine-dirt-5", "mineral-aubergine-dirt-6",
         "mineral-aubergine-sand-1", "mineral-aubergine-sand-2", "mineral-aubergine-sand-3",
         "mineral-beige-dirt-1", "mineral-beige-dirt-2", "mineral-beige-dirt-3", "mineral-beige-dirt-4", "mineral-beige-dirt-5", "mineral-beige-dirt-6",
@@ -58,7 +58,7 @@ local function barren_island(mapgen)
     mapgen.autoplace_controls["enemy-base"].size = 0
 
     -- remove resources except wood
-    for _, resource in pairs(resource_list) do
+    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource].richness = 0
     end
 
@@ -76,7 +76,7 @@ end
 
 -- A barren world (no water / no resources)
 local function barren(mapgen)
-    for _, resource in pairs(resource_list) do
+    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource].richness = 0
     end
 
@@ -88,7 +88,7 @@ local function barren(mapgen)
     mapgen.autoplace_controls["rocks"].size = 5
 
     mapgen.autoplace_settings.tile.settings = {}
-    for _, b_tile in pairs(barren_tiles) do
+    for _, b_tile in pairs(dw.mapgen['neo-nauvis'].barren_tiles) do
         mapgen.autoplace_settings.tile.settings[b_tile] = {richness=1, frequency=1, size=1}
     end
     mapgen.autoplace_settings.decorative.settings = {}
@@ -115,7 +115,7 @@ local function amazonia(mapgen)
     mapgen.autoplace_controls["enemy-base"].frequency = 2.5
     mapgen.autoplace_controls["enemy-base"].size = 3
 
-    for _, resource in pairs(resource_list) do
+    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 4, frequency = 2}
     end
 
@@ -131,7 +131,7 @@ local function normal(mapgen)
     mapgen.autoplace_controls["enemy-base"].frequency = 1.5
     mapgen.autoplace_controls["enemy-base"].size = 1
 
-    for _, resource in pairs(resource_list) do
+    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 1, frequency = 1}
     end
 
@@ -142,39 +142,39 @@ end
 -- massive 1 resource
 local function iron_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "iron-ore", 2, 2, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "iron-ore", 2, 2, 1)
 end
 local function coal_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "coal", 1.5, 3, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "coal", 1.5, 3, 1)
 end
 local function copper_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "copper-ore", 2, 2, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "copper-ore", 2, 2, 1)
 end
 local function oil_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "crude-oil", 3, 2, 5)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "crude-oil", 3, 2, 5)
 end
 local function uranium_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "uranium-ore", 2, 2, 5)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "uranium-ore", 2, 2, 5)
 end
 local function stone_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "stone", 2, 2, 1)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "stone", 2, 2, 1)
 end
 local function kr_imersite_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-imersite", 3, 2, 5)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-imersite", 3, 2, 5)
 end
 local function kr_mineral_water_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-mineral-water", 3, 2, 5)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-mineral-water", 3, 2, 5)
 end
 local function kr_rare_metal_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, resource_list, "kr-rare-metal-ore", 1.5, 1, 8)
+    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-rare-metal-ore", 1.5, 1, 8)
 end
 
 -- Danger
@@ -191,14 +191,14 @@ end
 local function missing_resource(mapgen)
     mapgen = normal(mapgen)
 
-    for _, resource in pairs(resource_list) do
+    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource] = {richness = 1.5, size = 1, frequency = 1.5}
     end
 
     -- min 2 removed, max "max - 2" kept
-    local number_ore = math.random(#resource_list - 2)
-    local list = table.deepcopy(resource_list)
-    local weights = table.deepcopy(missing_resource_weights)
+    local number_ore = math.random(#dw.mapgen['neo-nauvis'].resource_list - 2)
+    local list = table.deepcopy(dw.mapgen['neo-nauvis'].resource_list)
+    local weights = table.deepcopy(dw.mapgen['neo-nauvis'].missing_resource_weights)
     for i = number_ore, 1, -1 do
         local index, selected = utils.weighted_random_choice(list, weights)
         mapgen.autoplace_controls[selected].richness = 0

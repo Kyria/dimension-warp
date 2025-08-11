@@ -1,7 +1,7 @@
 --- Teleport mechanics are all here
 ------------------------------------------------------------
 
-local non_player_controllers = {
+non_player_controllers = {
     [defines.controllers.god] = true,
     [defines.controllers.editor] = true,
     [defines.controllers.spectator] = true,
