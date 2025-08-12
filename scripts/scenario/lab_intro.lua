@@ -98,7 +98,7 @@ local function check_if_player_changed_surface()
 
     --- we check every 10sec if a player is still present, otherwise we flag it
     local any_player_on_nauvis = false
-    if game.tick > 0 and game.tick % 600 ~= 0 then
+    if game.tick > 0 and game.tick % 600 == 0 then
         for _, player in pairs(game.players) do
             if player.surface.name == 'nauvis' then
                 any_player_on_nauvis = true
