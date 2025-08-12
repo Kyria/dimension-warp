@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.11
+Date: 2025.08.12
+  Bugfixes:
+    - Fix a condition not properly set due to previous change when we check if players left nauvis.
+    - Fix harvesters linked belt tier not working properly with K2 and K2SO.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.10
 Date: 2025.08.11
   Bugfixes:

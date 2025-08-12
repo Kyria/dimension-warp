@@ -18,6 +18,7 @@ local function create_linked_belt(name, base)
         fast_replaceable_group = "harvest-linked-belt"
     }
 end
+dw.harvester_create_linked_belt = create_linked_belt
 
 -- works for vanilla, aai loaders and krastorio2
 data:extend{
@@ -29,12 +30,4 @@ data:extend{
 -- space age specific
 if data.raw['loader-1x1']["dw-stair-turbo-loader"] then
     data:extend{create_linked_belt("harvest-turbo-linked-belt", data.raw['loader-1x1']["dw-stair-turbo-loader"])}
-end
-
--- krastorio2 specifics
-if data.raw['loader-1x1']["dw-stair-advanced-loader"] then
-    data:extend{
-        create_linked_belt("harvest-advanced-linked-belt", data.raw['loader-1x1']["dw-stair-advanced-loader"]),
-        create_linked_belt("harvest-superior-linked-belt", data.raw['loader-1x1']["dw-stair-superior-loader"]),
-    }
 end

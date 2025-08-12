@@ -115,6 +115,12 @@ if dw.setting_loader_mod == "Krastorio2" then
         dw_tech_adv_loader,
         dw_tech_sup_loader,
     }
+
+    -- create the missing linked belts for K2
+    data:extend{
+        dw.harvester_create_linked_belt("harvest-advanced-linked-belt", data.raw['loader-1x1']["dw-stair-advanced-loader"]),
+        dw.harvester_create_linked_belt("harvest-superior-linked-belt", data.raw['loader-1x1']["dw-stair-superior-loader"])
+    }
 end
 
 if dw.setting_loader_mod == "vanilla" then
@@ -142,10 +148,23 @@ if dw.setting_loader_mod == "vanilla" then
     data:extend(data_list)
 
     if mods['Krastorio2'] then
+        -- Loader
         data.raw['loader-1x1']['dw-express-loader'].next_upgrade = "dw-advanced-loader"
         data:extend{dw.create_stair_loader_tech('advanced-loader', template['advanced-loader'].tech, "dw-express-loader-stairs")}
         data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-advanced-loader-stairs")}
+
+        -- harvesterlinked belts for K2
+        data:extend{
+            dw.harvester_create_linked_belt("harvest-advanced-linked-belt", data.raw['loader-1x1']["dw-stair-advanced-loader"]),
+            dw.harvester_create_linked_belt("harvest-superior-linked-belt", data.raw['loader-1x1']["dw-stair-superior-loader"])
+        }
     else
+        -- Loader
         data:extend{dw.create_stair_loader_tech('superior-loader', template['superior-loader'].tech, "dw-turbo-loader-stairs")}
+
+        -- harvesterlinked belts for K2
+        data:extend{
+            dw.harvester_create_linked_belt("harvest-superior-linked-belt", data.raw['loader-1x1']["dw-stair-superior-loader"])
+        }
     end
 end
