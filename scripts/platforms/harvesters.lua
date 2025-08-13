@@ -311,8 +311,7 @@ local function recall_harvester(side)
     -- find all entities we want to teleport back to harvester zone
     local harvester_entities = surface.find_entities_filtered {
         type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
-                "car", "spider-vehicle", "player", "character", "radar", "resource",
-                "dw-chest", "dw-logistic-input", "dw-logistic-output"},
+                "car", "spider-vehicle", "player", "character", "radar", "resource"},
         area = deployed_area,
         invert = true,
     }
@@ -464,15 +463,34 @@ local function harvester_mined(event)
 
 end
 
+local function replace_harvester_inventory(side)
+    for _, player in pairs(game.players) do
+        local inventory = player.get_main_inventory()
+        if inventory and not inventory.is_empty() then
+            for i = 1, #inventory, 1 do
+                if inventory[i].valid_for_read then
+                    if string.match(inventory[i].name, "harvester%-" .. side .. "%-grid%-%d") then
+                        local new_harvester = {name = storage.harvesters[side].mobile_name, count = inventory[i].count}
+                        inventory[i].clear()
+                        inventory.insert(new_harvester)
+                    end
+                end
+            end
+        end
+    end
+end
+
 local function on_technology_research_finished(event)
     local tech = event.research
     if string.match(tech.name, "dimension%-harvester%-%a+%-%d+") then
         local side = string.match(tech.name, "dimension%-harvester%-(%a+)%-%d+")
         if side then
+            recall_harvester(side)
             storage.harvesters[side].size = dw.platform_size.harvester[tech.level]
             storage.harvesters[side].border = math.max((tech.level - 1), 3)
             storage.harvesters[side].mobile_name = "harvester-" .. side .. "-grid-" .. tech.level
             create_harvester_zone(side)
+            replace_harvester_inventory(side)
         end
     end
     if string.match(tech.name, "dw%-number%-stairs%-.*") then
