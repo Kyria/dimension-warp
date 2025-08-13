@@ -192,9 +192,15 @@ function utils.check_deployable_collision(box, source)
             return true
         end
     end
-    if source ~= defines.deployable_collision_source.mobile_gate and storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
-        local area_to_check = math2d.bounding_box.create_from_centre({storage.warpgate.mobile_gate.position.x, storage.warpgate.mobile_gate.position.y + 0.5}, 10, 2)
-        if math2d.bounding_box.collides_with(box, area_to_check) then
+    if source ~= defines.deployable_collision_source.mobile_gate then
+        if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
+            local area_to_check = math2d.bounding_box.create_from_centre({storage.warpgate.mobile_gate.position.x, storage.warpgate.mobile_gate.position.y + 0.5}, 10, 2)
+            if math2d.bounding_box.collides_with(box, area_to_check) then
+                return true
+            end
+        end
+        local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
+        if math2d.bounding_box.collides_with(box, platform_area) then
             return true
         end
     end
