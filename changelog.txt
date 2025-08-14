@@ -12,6 +12,8 @@ Date: 2025.08.14
     - When upgrading a harvester side, the harvester will be recalled if deployed (to prevent area overlapping) and item will be changed to the new tier in inventory. (fix #5)
   Bugfixes:
     - Fix intro message being displayed each time host joins the game.
+  Locale:
+    - Update RU.
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.11
 Date: 2025.08.12
