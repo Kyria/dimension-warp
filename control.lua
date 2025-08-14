@@ -117,6 +117,7 @@ dw.register_event('on_configuration_changed', mod_warning)
 
 ------------------------------------------------------------
 
+require "scripts.commands"
 require "scripts.misc"
 
 require "scripts.surface-generation"

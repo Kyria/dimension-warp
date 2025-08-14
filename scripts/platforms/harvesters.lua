@@ -31,7 +31,7 @@ local function create_update_pipes_loaders(side)
             inner_position = math2d.position.add(inner_position, harvester.mobile.position)
         end
 
-        if harvester.loaders[i] then
+        if harvester.loaders[i] and harvester.loaders[i].valid then
             local inner_loader = harvester.loaders[i][1]
             local outer_loader = harvester.loaders[i][2]
             -- check for position
@@ -132,7 +132,7 @@ local function create_update_pipes_loaders(side)
         inner_position = math2d.position.add(inner_position, harvester.mobile.position)
     end
 
-    if not harvester.pipe then
+    if not harvester.pipe or (harvester.pipe and (not harvester.pipe[1].valid or not harvester.pipe[2].valid)) then
         local to_remove = inner_surface.find_entities_filtered {position = inner_position, type = {"character"}, invert = true}
         for _, entity in pairs(to_remove) do entity.destroy() end
         local to_remove = storage.platform.mining.surface.find_entities_filtered {position = outer_position, type = {"character"}, invert = true}
@@ -189,6 +189,7 @@ local function create_update_pipes_loaders(side)
         harvester.pipe = {inner_pipe, outer_pipe}
     end
 end
+dw.platforms.create_update_pipes_loaders = create_update_pipes_loaders
 
 local function place_harvester_tiles(side)
     local harvester_const = dw.harvesters[side]
@@ -219,20 +220,22 @@ local function create_harvester_zone(side)
     place_harvester_tiles(side)
     lay_hidden_ore(harvester_area)
 
-    if not harvester.gate then
+    if not harvester.gate or (harvester.gate and not harvester.gate.valid) then
         local harvester_gate = storage.platform.mining.surface.create_entity{
             name = harvester_const.name,
             position = harvester_const.center,
             force = game.forces.player,
         }
         harvester_gate.destructible = false
+        harvester.gate = harvester_gate
+    end
+    if not harvester.pole or (harvester.pole and not harvester.pole.valid) then
         local pole = storage.platform.mining.surface.create_entity{
             name = harvester_const.pole,
             position = harvester_const.center,
             force = game.forces.player,
         }
         pole.destructible = false
-        harvester.gate = harvester_gate
         harvester.pole = pole
     end
 
@@ -254,6 +257,7 @@ local function create_harvester_zone(side)
 
     create_update_pipes_loaders(side)
 end
+dw.platforms.create_harvester_zone = create_harvester_zone
 
 --- Link the pipe and loaders deployed in surface to the one in Smeltus
 local function link_harvester_pipe_chest(side)

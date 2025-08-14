@@ -156,7 +156,7 @@ local function create_warpgate()
     local to_remove = surface.find_entities_filtered {area = area, name = {"character", "warp-gate", "dw-hidden-gate-pole"}, invert = true}
     for _, entity in pairs(to_remove) do entity.destroy() end
 
-    if not storage.warpgate.gate or (storage.warpgate.gate.valid and not storage.warpgate.gate.valid) then
+    if not storage.warpgate.gate or (storage.warpgate.gate and not storage.warpgate.gate.valid) then
         local gate = surface.create_entity {
             name = dw.warp_gate.name,
             position = dw.warp_gate.position,
@@ -216,6 +216,7 @@ local function create_warpgate()
         utils.link_cables(storage.warpgate.gatepole, radio_tower_pole, defines.wire_connectors.power)
     end
 end
+dw.gate.create_warpgate = create_warpgate
 
 --- create the mobile gate for the user to pick it after each warp / from shortcuts
 local function create_mobile_gate()

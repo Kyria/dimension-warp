@@ -1,4 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.12
+Date: ????
+  Features:
+    - Add a command to allow reset of harvesters and platform.
+      - This will remove any mod entity that cannot be destructed, and make sure everything is in place.
+      - Both command leave entities untouched, except those related to the mod.
+      - /dw_reset_warp_platform resets the warp platform entities. Warning: it deletes mod chests, so you need to empty them first.
+      - /dw_reset_harvesters resets the harvester after recalling them.
+  Changes:
+    - The harvesters cannot be placed anymore over the warp platform (collision check is done during placement). (fix #5)
+    - When upgrading a harvester side, the harvester will be recalled if deployed (to prevent area overlapping) and item will be changed to the new tier in inventory. (fix #5)
+  Bugfixes:
+    - Fix intro message being displayed each time host joins the game.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.11
 Date: 2025.08.12
   Bugfixes:

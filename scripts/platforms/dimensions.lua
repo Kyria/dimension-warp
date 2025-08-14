@@ -42,6 +42,7 @@ local function create_special_entity(surface, entity_info, clear_area)
     entity.destructible = false
     return entity
 end
+dw.platforms.create_special_entity = create_special_entity
 
 local function create_warp_factory_teleporters_logistic()
     local gate_1 = create_special_entity(storage.platform.factory.surface, dw.entities.gate_factory_surface, true)

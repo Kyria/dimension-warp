@@ -120,7 +120,7 @@ local function create_pipe_pairs(surface_A, surface_B, positions)
     for i = 1, max, 1 do
         local pipe_index = surface_name_A .. '_' .. positions[i].pipes[1][1] .. '_' .. positions[i].pipes[1][2]
 
-        if storage.stairs.pipe_pairs[pipe_index] then goto continue end
+        if storage.stairs.pipe_pairs[pipe_index] and storage.stairs.pipe_pairs[pipe_index].valid then goto continue end
 
         --- destroy what's existing in pipe position
         local to_remove = surface_A.find_entities_filtered {position = positions[i].pipes[1], type = {"character", "rocket-silo-rocket", "cargo-pod"}, invert = true}
