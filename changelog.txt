@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.12
-Date: ????
+Date: 2025.08.14
   Features:
     - Add a command to allow reset of harvesters and platform.
       - This will remove any mod entity that cannot be destructed, and make sure everything is in place.
