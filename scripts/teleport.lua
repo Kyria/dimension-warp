@@ -96,7 +96,7 @@ local function teleport_safely_player_on_event(event)
     end
 
     --- only display for first character.
-    if player.index == 1 then
+    if player.index == 1 and not storage.nauvis_lab_exploded then
         game.print({"dw-messages.intro"}, {color=util.color(defines.hexcolor.orange.. 'd9')})
     end
 end
