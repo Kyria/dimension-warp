@@ -54,7 +54,7 @@ warp_gate.collision_mask = {layers={object=true, item=true, floor=true, water_ti
 warp_gate.working_sound = nil
 warp_gate.energy_source = {
         type = "electric",
-        buffer_capacity = "1GJ",
+        buffer_capacity = "100MJ",
         usage_priority = "secondary-output",
         input_flow_limit = "20GW",
         output_flow_limit = "20GW",
