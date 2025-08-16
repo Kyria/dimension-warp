@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.13
 Date: ????
+  Features:
+    - Add a setting to only allow 1 harvester per side in inventory (default: disabled)
   Balancing:
     - Change gates capacity from 1GJ each to 100MJ.
 ---------------------------------------------------------------------------------------------------

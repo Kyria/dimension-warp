@@ -435,11 +435,27 @@ local function replace_mined_item(side, event)
     local mobile_gate = 'harvester-' .. side .. '-mobile-gate'
     local buffer = event.buffer
     for i = 1, #buffer, 1 do
-        if buffer[i].valid_for_read then
-            if buffer[1] and buffer[1].name == mobile_gate then
+        if buffer[i] and buffer[i].valid_for_read then
+            if buffer[i].name == mobile_gate then
                 local new_gate = {name = storage.harvesters[side].mobile_name,count = buffer[i].count}
                 buffer[i].clear()
                 buffer.insert(new_gate)
+            end
+        end
+    end
+
+    if settings.global['dw-harvester-only-one'].value then
+        local quantity = 0
+        local player = game.players[event.player_index]
+        local inventory = player.get_main_inventory()
+        for i = 1, #inventory, 1 do
+            if inventory[i] and inventory[i].valid_for_read then
+                if inventory[i].name == mobile_gate or inventory[i].name == storage.harvesters[side].mobile_name then
+                    quantity = quantity + 1
+                    if quantity > 0 then
+                        inventory[i].clear()
+                    end
+                end
             end
         end
     end

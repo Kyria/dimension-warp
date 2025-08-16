@@ -120,6 +120,15 @@ data:extend {
         maximum_value = 25,
         order = "b-c",
     },
+    {
+        type = "bool-setting",
+        name = "dw-harvester-only-one",
+        setting_type = "runtime-global",
+        default_value = false,
+        order = "c-a",
+    },
+
+
 
     -- user settings
     {
