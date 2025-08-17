@@ -139,5 +139,6 @@ require "scripts.entities.logistics"
 require "scripts.entities.dimension-crane"
 
 require "compatibility.picker-dollies"
+require "compatibility.factorissimo3"
 
 --require "scripts.debug"
