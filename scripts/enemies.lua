@@ -43,5 +43,22 @@ local function force_enemy_attack()
 	}
 end
 
+--- Calculate and set the new evolution value when warping depending on warp number
+local function set_warp_evolution_factor()
+	-- storage.warp.number / 5 only makes sure we have anincrease before the exponent starts.
+	-- warp 100 = 0.25, 150 = 0.414, 200 = 0.656, 243+ = 1
+	local biter_evolution = math.min(100, 1.5 ^ (storage.warp.number / 25) + storage.warp.number / 5) / 100
+
+	-- warp 100 = 0.23, 150 = 0.358, 200 = 0.505, 250 = 0.689, 300 = 0.94, 310+ = 1
+	local pentapod_evolution = math.min(100, 1.8 ^ (storage.warp.number / 50) + storage.warp.number / 5) / 100
+
+	if storage.warp.current.planet ~= "gleba" then
+		game.forces.enemy.set_evolution_factor(biter_evolution, storage.warp.current.surface)
+	else
+		game.forces.enemy.set_evolution_factor(pentapod_evolution, storage.warp.current.surface)
+	end
+end
+dw.set_warp_evolution_factor = set_warp_evolution_factor
+
 dw.register_event('on_nth_tick_180', pollute)
 dw.register_event('on_nth_tick_7200', force_enemy_attack)
