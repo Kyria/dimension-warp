@@ -31,7 +31,7 @@ local function create_update_pipes_loaders(side)
             inner_position = math2d.position.add(inner_position, harvester.mobile.position)
         end
 
-        if harvester.loaders[i] and harvester.loaders[i].valid then
+        if harvester.loaders[i] and utils.is_valid(harvester.loaders[i][1]) and utils.is_valid(harvester.loaders[i][2]) then
             local inner_loader = harvester.loaders[i][1]
             local outer_loader = harvester.loaders[i][2]
             -- check for position
@@ -132,30 +132,7 @@ local function create_update_pipes_loaders(side)
         inner_position = math2d.position.add(inner_position, harvester.mobile.position)
     end
 
-    if not harvester.pipe or (harvester.pipe and (not harvester.pipe[1].valid or not harvester.pipe[2].valid)) then
-        local to_remove = inner_surface.find_entities_filtered {position = inner_position, type = {"character"}, invert = true}
-        for _, entity in pairs(to_remove) do entity.destroy() end
-        local to_remove = storage.platform.mining.surface.find_entities_filtered {position = outer_position, type = {"character"}, invert = true}
-        for _, entity in pairs(to_remove) do entity.destroy() end
-
-        local inner_pipe = inner_surface.create_entity {
-            name = storage.harvesters.pipes_type,
-            position = inner_position,
-            direction = ((side == "left") and defines.direction.west or defines.direction.east),
-            force = game.forces.player,
-        }
-        local outer_pipe = inner_surface.create_entity {
-            name = storage.harvesters.pipes_type,
-            position = outer_position,
-            direction = ((side == "left") and defines.direction.east or defines.direction.west),
-            force = game.forces.player,
-        }
-        inner_pipe.destructible = false
-        outer_pipe.destructible = false
-        inner_pipe.fluidbox.add_linked_connection(0, outer_pipe, 0)
-        harvester.pipe = {inner_pipe, outer_pipe}
-    else
-
+    if harvester.pipe and utils.is_valid(harvester.pipe[1]) and utils.is_valid(harvester.pipe[2]) then
         local inner_pipe = harvester.pipe[1]
         local outer_pipe = harvester.pipe[2]
         if outer_pipe.position.x ~= outer_position.x then
@@ -183,6 +160,29 @@ local function create_update_pipes_loaders(side)
             inner_pipe = new_inner
         end
 
+        inner_pipe.destructible = false
+        outer_pipe.destructible = false
+        inner_pipe.fluidbox.add_linked_connection(0, outer_pipe, 0)
+        harvester.pipe = {inner_pipe, outer_pipe}
+
+    else
+        local to_remove = inner_surface.find_entities_filtered {position = inner_position, type = {"character"}, invert = true}
+        for _, entity in pairs(to_remove) do entity.destroy() end
+        local to_remove = storage.platform.mining.surface.find_entities_filtered {position = outer_position, type = {"character"}, invert = true}
+        for _, entity in pairs(to_remove) do entity.destroy() end
+
+        local inner_pipe = inner_surface.create_entity {
+            name = storage.harvesters.pipes_type,
+            position = inner_position,
+            direction = ((side == "left") and defines.direction.west or defines.direction.east),
+            force = game.forces.player,
+        }
+        local outer_pipe = inner_surface.create_entity {
+            name = storage.harvesters.pipes_type,
+            position = outer_position,
+            direction = ((side == "left") and defines.direction.east or defines.direction.west),
+            force = game.forces.player,
+        }
         inner_pipe.destructible = false
         outer_pipe.destructible = false
         inner_pipe.fluidbox.add_linked_connection(0, outer_pipe, 0)
@@ -220,7 +220,7 @@ local function create_harvester_zone(side)
     place_harvester_tiles(side)
     lay_hidden_ore(harvester_area)
 
-    if not harvester.gate or (harvester.gate and not harvester.gate.valid) then
+    if utils.is_nil_or_invalid(harvester.gate) then
         local harvester_gate = storage.platform.mining.surface.create_entity{
             name = harvester_const.name,
             position = harvester_const.center,
@@ -229,7 +229,7 @@ local function create_harvester_zone(side)
         harvester_gate.destructible = false
         harvester.gate = harvester_gate
     end
-    if not harvester.pole or (harvester.pole and not harvester.pole.valid) then
+    if utils.is_nil_or_invalid(harvester.pole) then
         local pole = storage.platform.mining.surface.create_entity{
             name = harvester_const.pole,
             position = harvester_const.center,
@@ -340,7 +340,7 @@ dw.platforms.recall_harvester = recall_harvester
 
 local function harvester_placed(event)
     local harvester_grid = event.entity
-    if not harvester_grid or harvester_grid and not harvester_grid.valid then return end
+    if utils.is_nil_or_invalid(harvester_grid) then return end
     if not string.match(harvester_grid.name, "harvester%-%a+%-grid%-%d") then return end
     if not utils.entity_built_surface_check(event, {[storage.warp.current.name]=true}, "dw-messages.cannot-build-harvester") then return end
 
@@ -464,15 +464,15 @@ end
 local function harvester_mined(event)
     local entity = event.entity
     local name = entity.name
-    if not entity or entity and not entity.valid then return end
+    if utils.is_nil_or_invalid(entity) then return end
 
-    if entity.valid and string.match(name, "harvester%-%a+%-mobile%-gate") then
+    if string.match(name, "harvester%-%a+%-mobile%-gate") then
         local side = string.match(name, "harvester%-(%a+)%-mobile%-gate")
         recall_harvester(side)
         replace_mined_item(side, event)
     end
 
-    if entity.valid and string.match(name, "harvester%-%a+%-gate") then
+    if string.match(name, "harvester%-%a+%-gate") then
         local side = string.match(name, "harvester%-(%a+)%-gate")
         local new_gate = entity.surface.find_entity(name, entity.position)
         new_gate.destructible = false
@@ -555,7 +555,7 @@ end
 
 local function rotate_linked_belt(event)
     local entity = event.entity
-    if not entity.valid then return end
+    if utils.is_nil_or_invalid(entity) then return end
 
     if string.match(entity.name, "harvest.*linked%-belt") then
         entity.direction = event.previous_direction
@@ -565,7 +565,7 @@ end
 
 local function flipped_linked_belt(event)
     local entity = event.entity
-    if not entity.valid then return end
+    if utils.is_nil_or_invalid(entity) then return end
 
     if string.match(entity.name, "harvest.*linked%-belt") then
         if event.horizontal then

@@ -206,3 +206,11 @@ function utils.check_deployable_collision(box, source)
     end
     return false
 end
+
+function utils.is_valid(entity)
+    return entity and entity.valid
+end
+
+function utils.is_nil_or_invalid(entity)
+    return not entity or (entity and not entity.valid)
+end
