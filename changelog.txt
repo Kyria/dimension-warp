@@ -1,15 +1,16 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.0
-Date: ????
+Date: 2025.08.19
   Features:
     - Add a setting to only allow 1 harvester per side in inventory (default: disabled)
-  Balancing:
+  Changes:
     - Change gates capacity from 1GJ each to 100MJ.
     - Change most entities fluidbox to allow extra long distance (due to deployable harvester / gate).
       - Added assembling machines, pumps, valves, mining drills, boilers, fluid turrets
-    - Change magazine size of shotgun (10->12) and gun/riffle ammo (10->20)
+  Balancing:
+    - Update magazine size of shotgun (10->12) and gun/riffle ammo (10->20)
     - Separate the formula for biter evolution and pentapod evolutions, as pentapods are deadlier.
-    - Change the formula behind the evolution after each warp to make it more smooth during warp progression.
+    - Update the formula behind the evolution after each warp to make it more smooth during warp progression.
       - Biter evolution: warp 100 = 0.25, 150 = 0.414, 200 = 0.656, 243+ = 1
       - Pentapod evolution: warp 100 = 0.23, 150 = 0.358, 200 = 0.505, 250 = 0.689, 300 = 0.94, 310+ = 1
   Bugfixes:
