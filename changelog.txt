@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.3.13
+Version: 0.4.0
 Date: ????
   Features:
     - Add a setting to only allow 1 harvester per side in inventory (default: disabled)
@@ -7,6 +7,7 @@ Date: ????
     - Change gates capacity from 1GJ each to 100MJ.
     - Change most entities fluidbox to allow extra long distance (due to deployable harvester / gate).
       - Added assembling machines, pumps, valves, mining drills, boilers, fluid turrets
+    - Change magazine size of shotgun (10->12) and gun/riffle ammo (10->20)
   Bugfixes:
     - Fix bug introduced in previous fix that prevent linked belt in harvester to be properly moved when harvester size is upgraded.
 ---------------------------------------------------------------------------------------------------
