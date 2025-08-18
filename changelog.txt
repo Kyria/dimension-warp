@@ -5,6 +5,8 @@ Date: ????
     - Add a setting to only allow 1 harvester per side in inventory (default: disabled)
   Balancing:
     - Change gates capacity from 1GJ each to 100MJ.
+    - Change most entities fluidbox to allow extra long distance (due to deployable harvester / gate).
+      - Added assembling machines, pumps, valves, mining drills, boilers, fluid turrets
   Bugfixes:
     - Fix bug introduced in previous fix that prevent linked belt in harvester to be properly moved when harvester size is upgraded.
 ---------------------------------------------------------------------------------------------------
