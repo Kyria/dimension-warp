@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.1
+Date: ????
+  Bugfixes:
+    - Fix bug that destroyed spidertron when recalling a deployed harvester with a spidertron over it.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.0
 Date: 2025.08.19
   Features:

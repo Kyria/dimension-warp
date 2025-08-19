@@ -315,7 +315,7 @@ local function recall_harvester(side)
     -- find all entities we want to teleport back to harvester zone
     local harvester_entities = surface.find_entities_filtered {
         type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
-                "car", "spider-vehicle", "player", "character", "radar", "resource"},
+                "car", "spider-vehicle", "spider-leg", "player", "character", "radar", "resource"},
         area = deployed_area,
         invert = true,
     }
