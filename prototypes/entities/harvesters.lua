@@ -61,7 +61,7 @@ local function create_item(name, icons)
         name = name,
         subgroup = "warpgate",
 
-        stack_size = 1,
+        stack_size = 10,
         weight = 1.5 * tons,
         icons = icons,
 

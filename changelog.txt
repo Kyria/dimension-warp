@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.1
 Date: ????
+  Changes:
+    - Update stack size of deployable to 10 instead of 1
   Bugfixes:
     - Fix bug that destroyed spidertron when recalling a deployed harvester with a spidertron over it.
 ---------------------------------------------------------------------------------------------------
