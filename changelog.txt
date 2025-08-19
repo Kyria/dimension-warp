@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.1
 Date: ????
+  Features:
+    - Add shortcuts for the different deployables. The shortcut will "use" item in inventory if it finds any, avoiding stockpilling when clearing cursor.
   Changes:
     - Update stack size of deployable to 10 instead of 1
   Bugfixes:
