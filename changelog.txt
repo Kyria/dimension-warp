@@ -5,6 +5,7 @@ Date: ????
     - Add shortcuts for the different deployables. The shortcut will "use" item in inventory if it finds any, avoiding stockpilling when clearing cursor.
   Changes:
     - Update stack size of deployable to 10 instead of 1
+    - Change some parameters in randomizer to change daytime as well.
   Bugfixes:
     - Fix bug that destroyed spidertron when recalling a deployed harvester with a spidertron over it.
 ---------------------------------------------------------------------------------------------------

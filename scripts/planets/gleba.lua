@@ -105,19 +105,35 @@ local function pentapod_nest(mapgen)
     return mapgen
 end
 
+-- force dusk on planet
+local function surface_always_dusk(surface)
+    surface.daytime = 0.35
+    surface.freeze_daytime = true
+end
+
+-- force night on planet
+local function surface_always_night(surface)
+    surface.daytime = 0.5
+    surface.freeze_daytime = true
+end
+
+local function surface_random_day_tick(surface)
+    surface.ticks_per_day = 60 * 60 * math.random(3,20)
+end
+
 local function gleba_randomizer(mapgen, surface_name)
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
-        {"Normal", normal, "dw-randomizer.gleba-normal"}
+        {"Normal", normal, nil, "dw-randomizer.gleba-normal"}
     }
     local randomizer_weights = {10}
 
     if storage.warp.number >= 100 and not storage.gleba_first_warp then
-        table.insert(randomizer_list, {"Flooded", flooded, "dw-randomizer.gleba-flooded"})
-        table.insert(randomizer_list, {"Alternate", no_yumako_soil, "dw-randomizer.gleba-no-yumako"})
-        table.insert(randomizer_list, {"Alternate", no_jellynut_soil, "dw-randomizer.gleba-no-jellynut"})
-        table.insert(randomizer_list, {"Fertile", agricultural_fields, "dw-randomizer.gleba-fertile"})
+        table.insert(randomizer_list, {"Flooded", flooded, surface_always_dusk,"dw-randomizer.gleba-flooded"})
+        table.insert(randomizer_list, {"Alternate", no_yumako_soil, nil, "dw-randomizer.gleba-no-yumako"})
+        table.insert(randomizer_list, {"Alternate", no_jellynut_soil, nil, "dw-randomizer.gleba-no-jellynut"})
+        table.insert(randomizer_list, {"Fertile", agricultural_fields, surface_random_day_tick, "dw-randomizer.gleba-fertile"})
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 4)
         table.insert(randomizer_weights, 4)
@@ -125,12 +141,12 @@ local function gleba_randomizer(mapgen, surface_name)
     end
 
     if storage.warp.number >= 150 and not storage.gleba_first_warp then
-        local weight = math.min(4, math.floor(storage.warp.number / 100))
-        table.insert(randomizer_list, {"Nest", pentapod_nest, "dw-randomizer.gleba-nest"})
+        local weight = math.floor(storage.warp.number / 100)
+        table.insert(randomizer_list, {"Nest", pentapod_nest, surface_always_night, "dw-randomizer.gleba-nest"})
         table.insert(randomizer_weights, weight)
     end
 
-    if storage.gleba_first_warp then storage.gleba_first_warp = false end
+    storage.gleba_first_warp = false
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)

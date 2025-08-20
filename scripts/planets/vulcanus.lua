@@ -105,25 +105,40 @@ local function missing_resource(mapgen)
     return mapgen
 end
 
+-- force dusk on planet
+local function surface_always_dusk(surface)
+    surface.daytime = 0.35
+    surface.freeze_daytime = true
+end
+
+-- force night on planet
+local function surface_always_night(surface)
+    surface.daytime = 0.5
+    surface.freeze_daytime = true
+end
+
+local function surface_random_day_tick(surface)
+    surface.ticks_per_day = 60 * 60 * math.random(1,5)
+end
 
 local function vulcanus_randomizer(mapgen, surface_name)
     mapgen = add_biters(mapgen)
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
-        {"Normal", normal, "dw-randomizer.vulcanus-normal"}
+        {"Normal", normal, nil, "dw-randomizer.vulcanus-normal"}
     }
     local randomizer_weights = {10}
 
     if storage.warp.number >= 25 and not storage.vulcanus_first_warp then
-        table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.vulcanus-barren"})
-        table.insert(randomizer_list, {"Erupting", eruption, "dw-randomizer.vulcanus-erupting"})
-        table.insert(randomizer_list, {"Dormant", dormant, "dw-randomizer.vulcanus-dormant"})
-        table.insert(randomizer_list, {"Alternate", missing_resource, "dw-randomizer.vulcanus-alternate"})
-        table.insert(randomizer_list, {"Chalky", calcite_planet, "dw-randomizer.vulcanus-calcite"})
-        table.insert(randomizer_list, {"Caustic", acid_planet, "dw-randomizer.vulcanus-acid"})
-        table.insert(randomizer_list, {"Hardened", tungsten_planet, "dw-randomizer.vulcanus-tungsten"})
-        table.insert(randomizer_list, {"Carbonaceous", coal_planet, "dw-randomizer.vulcanus-coal"})
+        table.insert(randomizer_list, {"Barren", barren, surface_always_dusk, "dw-randomizer.vulcanus-barren"})
+        table.insert(randomizer_list, {"Erupting", eruption, surface_always_night, "dw-randomizer.vulcanus-erupting"})
+        table.insert(randomizer_list, {"Dormant", dormant, surface_random_day_tick, "dw-randomizer.vulcanus-dormant"})
+        table.insert(randomizer_list, {"Alternate", missing_resource, surface_random_day_tick, "dw-randomizer.vulcanus-alternate"})
+        table.insert(randomizer_list, {"Chalky", calcite_planet, nil, "dw-randomizer.vulcanus-calcite"})
+        table.insert(randomizer_list, {"Caustic", acid_planet, nil, "dw-randomizer.vulcanus-acid"})
+        table.insert(randomizer_list, {"Hardened", tungsten_planet, nil, "dw-randomizer.vulcanus-tungsten"})
+        table.insert(randomizer_list, {"Carbonaceous", coal_planet, nil, "dw-randomizer.vulcanus-coal"})
 
         table.insert(randomizer_weights, 3)
         table.insert(randomizer_weights, 3)
@@ -136,22 +151,23 @@ local function vulcanus_randomizer(mapgen, surface_name)
     end
 
     if storage.warp.number >= 125 and not storage.vulcanus_first_warp then
-        local weight = math.min(4, math.floor(storage.warp.number / 100))
-        table.insert(randomizer_list, {"Demolisher", demolisher_planet, "dw-randomizer.vulcanus-demolisher"})
-        table.insert(randomizer_list, {"Infested", death_world, "dw-randomizer.vulcanus-death-world"})
+        local weight = math.floor(storage.warp.number / 60)
+        table.insert(randomizer_list, {"Demolisher", demolisher_planet, surface_always_night, "dw-randomizer.vulcanus-demolisher"})
+        table.insert(randomizer_list, {"Infested", death_world, surface_always_night, "dw-randomizer.vulcanus-death-world"})
 
         table.insert(randomizer_weights, weight)
         table.insert(randomizer_weights, weight)
     end
 
-    if storage.vulcanus_first_warp then storage.vulcanus_first_warp = false end
+    storage.vulcanus_first_warp = false
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)
 
     local surface = game.create_surface(surface_name, mapgen)
+    if randomizer[3] then randomizer[3](surface) end
     storage.warp.randomizer = randomizer[1]
-    storage.warp.message = randomizer[3]
+    storage.warp.message = randomizer[4]
 
     return surface
 end

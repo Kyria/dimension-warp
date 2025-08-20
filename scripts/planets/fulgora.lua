@@ -28,6 +28,7 @@ end
 
 local function dry(mapgen)
     mapgen = normal(mapgen)
+    mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
     mapgen.autoplace_controls["enemy-base"] = {size = 2, frequency = 3}
     mapgen.autoplace_settings.tile.settings['oil-ocean-shallow'] = nil
     mapgen.autoplace_settings.tile.settings['oil-ocean-deep'] = nil
@@ -46,6 +47,7 @@ end
 
 local function death_world(mapgen)
     mapgen = normal(mapgen)
+    mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
     mapgen.autoplace_controls["enemy-base"] = {size = 8, frequency = 4}
     return mapgen
 end
@@ -58,6 +60,7 @@ end
 
 local function junkyard(mapgen)
     mapgen = no_scrap(mapgen)
+    mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
     mapgen.autoplace_controls["enemy-base"] = {size = 4, frequency = 4}
     mapgen.property_expression_names.fulgora_ruins_walls = 2
     mapgen.property_expression_names.fulgora_ruins_paving = 2
@@ -78,21 +81,37 @@ local function junkyard(mapgen)
     return mapgen
 end
 
+-- force dusk on planet
+local function surface_always_dusk(surface)
+    surface.daytime = 0.35
+    surface.freeze_daytime = true
+end
+
+-- force night on planet
+local function surface_always_night(surface)
+    surface.daytime = 0.5
+    surface.freeze_daytime = true
+end
+
+local function surface_random_day_tick(surface)
+    surface.ticks_per_day = 60 * 60 * math.random(2,10)
+end
+
 local function fulgora_randomizer(mapgen, surface_name)
     mapgen = add_biters(mapgen)
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
-        {"Normal", normal, "dw-randomizer.fulgora-normal"}
+        {"Normal", normal, nil, "dw-randomizer.fulgora-normal"}
     }
     local randomizer_weights = {10}
 
     if storage.warp.number >= 50 and not storage.fulgora_first_warp then
-        table.insert(randomizer_list, {"Barren", barren, "dw-randomizer.fulgora-barren"})
-        table.insert(randomizer_list, {"Dry", dry, "dw-randomizer.fulgora-dry"})
-        table.insert(randomizer_list, {"Bituminous", oil_planet, "dw-randomizer.fulgora-oil-planet"})
-        table.insert(randomizer_list, {"No Scrap", no_scrap, "dw-randomizer.fulgora-no-scrap"})
-        table.insert(randomizer_list, {"Junkyard", junkyard, "dw-randomizer.fulgora-junkyard"})
+        table.insert(randomizer_list, {"Barren", barren, surface_always_dusk, "dw-randomizer.fulgora-barren"})
+        table.insert(randomizer_list, {"Dry", dry, surface_random_day_tick, "dw-randomizer.fulgora-dry"})
+        table.insert(randomizer_list, {"Bituminous", oil_planet, nil, "dw-randomizer.fulgora-oil-planet"})
+        table.insert(randomizer_list, {"No Scrap", no_scrap, surface_random_day_tick, "dw-randomizer.fulgora-no-scrap"})
+        table.insert(randomizer_list, {"Junkyard", junkyard, surface_always_night, "dw-randomizer.fulgora-junkyard"})
 
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 1)
@@ -102,19 +121,20 @@ local function fulgora_randomizer(mapgen, surface_name)
     end
 
     if storage.warp.number >= 120 and not storage.fulgora_first_warp then
-        local weight = math.min(4, math.floor(storage.warp.number / 100))
-        table.insert(randomizer_list, {"Death World", death_world, "dw-randomizer.fulgora-death-world"})
+        local weight = math.floor(storage.warp.number / 60)
+        table.insert(randomizer_list, {"Death World", death_world, surface_always_night, "dw-randomizer.fulgora-death-world"})
         table.insert(randomizer_weights, weight)
     end
 
-    if storage.fulgora_first_warp then storage.fulgora_first_warp = false end
+    storage.fulgora_first_warp = false
 
     local _, randomizer = utils.weighted_random_choice(randomizer_list, randomizer_weights)
     mapgen = randomizer[2](mapgen)
 
     local surface = game.create_surface(surface_name, mapgen)
+    if randomizer[3] then randomizer[3](surface) end
     storage.warp.randomizer = randomizer[1]
-    storage.warp.message = randomizer[3]
+    storage.warp.message = randomizer[4]
 
     return surface
 end
