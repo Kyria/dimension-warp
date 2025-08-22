@@ -1,6 +1,9 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen['neo-nauvis'] = dw.mapgen['neo-nauvis'] or {}
 
+---------------------------------
+--- Resource management
+---------------------------------
 dw.mapgen['neo-nauvis'].resource_list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
 dw.mapgen['neo-nauvis'].missing_resource_weights = {1,1,2,2,2,1}
 
@@ -13,6 +16,9 @@ if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out
     table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
 end
 
+---------------------------------
+--- Tiles management
+---------------------------------
 dw.mapgen['neo-nauvis'].barren_tiles = {"sand-1", "sand-2", "sand-3", "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"}
 
 if script.active_mods['alien-biomes'] then
@@ -44,6 +50,33 @@ if script.active_mods['alien-biomes'] then
     }
 end
 
+---------------------------------
+--- Enemy management
+---------------------------------
+-- number here is a multiplier for the values, as some mod just change standards enemies
+dw.mapgen['neo-nauvis'].enemies = {
+    biter = {"enemy-base", 1.3},
+}
+if script.active_mods['Explosive_biters'] then
+    dw.mapgen['neo-nauvis'].enemies.explosive = {"hot_enemy_base", 0.75}
+    dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+end
+if script.active_mods['Cold_biters'] then
+    dw.mapgen['neo-nauvis'].enemies.frost = {"frost_enemy_base", 0.75}
+    dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+end
+
+local function set_enemy_autoplace(mapgen, base_frequency, base_size)
+    for _, enemy in pairs(dw.mapgen['neo-nauvis'].enemies) do
+        local frequency = enemy[2] * base_frequency
+        local size = enemy[2] * base_size
+        mapgen.autoplace_controls[enemy[1]] = {richness=1, frequency=frequency, size=size}
+    end
+end
+
+---------------------------------
+--- Randomizers
+---------------------------------
 ---An island with no resources
 local function barren_island(mapgen)
     -- make the island
@@ -54,8 +87,7 @@ local function barren_island(mapgen)
     mapgen.property_expression_names.cliff_elevation = "cliff_elevation_from_elevation"
     mapgen.property_expression_names.trees_forest_path_cutout = 1
 
-    mapgen.autoplace_controls["enemy-base"].frequency = 0
-    mapgen.autoplace_controls["enemy-base"].size = 0
+    set_enemy_autoplace(mapgen, 0, 0)
 
     -- remove resources except wood
     for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
@@ -68,9 +100,8 @@ end
 -- A quarantine island
 local function death_island(mapgen)
     mapgen = barren_island(mapgen)
-    mapgen.autoplace_controls["enemy-base"].frequency = 10
-    mapgen.autoplace_controls["enemy-base"].size = 4
-    mapgen.starting_area = "very-small"
+    set_enemy_autoplace(mapgen, 6, 4)
+    mapgen.starting_area = 0.25
     return mapgen
 end
 
@@ -80,8 +111,7 @@ local function barren(mapgen)
         mapgen.autoplace_controls[resource].richness = 0
     end
 
-    mapgen.autoplace_controls["enemy-base"].frequency = 0
-    mapgen.autoplace_controls["enemy-base"].size = 0
+    set_enemy_autoplace(mapgen, 0, 0)
 
     mapgen.autoplace_controls["trees"].frequency = 0
     mapgen.autoplace_controls["rocks"].frequency = 5
@@ -98,9 +128,9 @@ end
 -- Biters ate everything from this world.
 local function death_barren(mapgen)
     barren(mapgen)
-    mapgen.autoplace_controls["enemy-base"].frequency = 5
-    mapgen.autoplace_controls["enemy-base"].size = 10
-    mapgen.starting_area = "very-small"
+
+    set_enemy_autoplace(mapgen, 4, 10)
+    mapgen.starting_area = 0.25
     return mapgen
 end
 
@@ -112,8 +142,7 @@ local function amazonia(mapgen)
     mapgen.property_expression_names.moisture = "moisture_nauvis"
     mapgen.property_expression_names["control:moisture:bias"] = 5
 
-    mapgen.autoplace_controls["enemy-base"].frequency = 2.5
-    mapgen.autoplace_controls["enemy-base"].size = 3
+    set_enemy_autoplace(mapgen, 1.2, 2.2)
 
     for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 4, frequency = 2}
@@ -128,8 +157,8 @@ end
 local function normal(mapgen)
     mapgen.autoplace_controls["trees"].frequency = 1
     mapgen.autoplace_controls["trees"].size = 1
-    mapgen.autoplace_controls["enemy-base"].frequency = 1.5
-    mapgen.autoplace_controls["enemy-base"].size = 1
+
+    set_enemy_autoplace(mapgen, 1.2, 1)
 
     for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 1, frequency = 1}
@@ -181,9 +210,8 @@ end
 local function death_world(mapgen)
     mapgen = normal(mapgen)
 
-    mapgen.autoplace_controls["enemy-base"].frequency = 10
-    mapgen.autoplace_controls["enemy-base"].size = 10
-    mapgen.starting_area = 0
+    set_enemy_autoplace(mapgen, 7, 10)
+    mapgen.starting_area = 0.25
     return mapgen
 end
 
@@ -222,6 +250,7 @@ end
 
 local function surface_random_day_tick(surface)
     surface.ticks_per_day = 60 * 60 * math.random(3,20)
+    surface.daytime = math.random()
 end
 
 
@@ -271,7 +300,7 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
 
     if storage.warp.number >= 25 then
         table.insert(randomizer_list, {"Amazonia", amazonia, surface_random_day_tick, "dw-randomizer.neo-nauvis-amazonia"})
-        table.insert(randomizer_weights, 5)
+        table.insert(randomizer_weights, 6)
     end
 
     if storage.warp.number >= 75 then

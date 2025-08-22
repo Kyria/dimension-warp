@@ -8,7 +8,11 @@ Date: ????
     - Update stack size of deployable to 10 instead of 1
     - Change some parameters in randomizer to change daytime as well.
   Compatibility:
-    - Add compatibility with Cold Biters
+    - Add compatibility with different biter mods to be used in randomizers:
+      - Cold Biters
+      - Armoured Biters
+      - Explosive Biters
+      - Toxic Biters
   Bugfixes:
     - Fix bug that destroyed spidertron when recalling a deployed harvester with a spidertron over it.
 ---------------------------------------------------------------------------------------------------

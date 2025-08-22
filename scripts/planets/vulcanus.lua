@@ -3,12 +3,30 @@ dw.mapgen.vulcanus = dw.mapgen.vulcanus or {}
 
 dw.mapgen.vulcanus.resource_list = {"calcite", "vulcanus_coal", "sulfuric_acid_geyser", "tungsten_ore"}
 
-local function add_biters(mapgen)
-    mapgen.autoplace_controls["enemy-base"] = {size = 1, frequency = 2}
-    mapgen.starting_area = "very-small"
-    return mapgen
+---------------------------------
+--- Enemy management
+---------------------------------
+-- number here is a multiplier for the values, as some mod just change standards enemies
+dw.mapgen.vulcanus.enemies = {
+    biter = {"enemy-base", 1},
+}
+
+if script.active_mods['Explosive_biters'] then
+    dw.mapgen.vulcanus.enemies.explosive = {"hot_enemy_base", 1}
+    dw.mapgen.vulcanus.enemies.biter[2] = 0.6
 end
 
+local function set_enemy_autoplace(mapgen, base_frequency, base_size)
+    for _, enemy in pairs(dw.mapgen.vulcanus.enemies) do
+        local frequency = enemy[2] * base_frequency
+        local size = enemy[2] * base_size
+        mapgen.autoplace_controls[enemy[1]] = {richness=1, frequency=frequency, size=size}
+    end
+end
+
+---------------------------------
+--- Randomizers
+---------------------------------
 local function barren(mapgen)
     mapgen.autoplace_controls["calcite"].richness = 0
     mapgen.autoplace_controls["vulcanus_coal"].richness = 0
@@ -32,6 +50,7 @@ local function normal(mapgen)
     mapgen.autoplace_controls["vulcanus_coal"] = {frequency = 1, richness = 1, size = 1}
     mapgen.autoplace_controls["sulfuric_acid_geyser"] = {frequency = 1, richness = 1, size = 1}
     mapgen.autoplace_controls["tungsten_ore"] = {frequency = 0.8, richness = 1, size = 1}
+    set_enemy_autoplace(mapgen, 2, 1)
     return mapgen
 end
 
@@ -43,9 +62,10 @@ local function dormant(mapgen)
         territory_variation_expression = "demolisher_variation_expression",
         minimum_territory_size = 10
     }
-    mapgen.autoplace_controls["enemy-base"] = {size = 3, frequency = 3}
     mapgen.autoplace_settings.tile.settings['lava'] = nil
     mapgen.autoplace_settings.tile.settings['lava-hot'] = nil
+
+    set_enemy_autoplace(mapgen, 3, 3)
     return mapgen
 end
 
@@ -80,7 +100,7 @@ end
 
 local function death_world(mapgen)
     mapgen = demolisher_planet(mapgen)
-    mapgen.autoplace_controls["enemy-base"] = {size = 8, frequency = 4}
+    set_enemy_autoplace(mapgen, 4, 8)
     return mapgen
 end
 
@@ -122,7 +142,7 @@ local function surface_random_day_tick(surface)
 end
 
 local function vulcanus_randomizer(mapgen, surface_name)
-    mapgen = add_biters(mapgen)
+    mapgen.starting_area = "very-small"
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
