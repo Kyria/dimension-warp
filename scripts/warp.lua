@@ -109,7 +109,7 @@ local function get_allowed_planet()
         -- remove nauvis, dimension surfaces from the list
         if not ignore_planet(planet.name) then
             if force.is_space_location_unlocked(planet.name) then
-                if current_require_heat and planet.name == current.name then
+                if current_require_heat and planet.name == current.planet.name then
                     goto continue
                 end
                 table.insert(allowed_planets, planet.name)
