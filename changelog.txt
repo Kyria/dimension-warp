@@ -13,6 +13,7 @@ Date: ????
       - Armoured Biters
       - Explosive Biters
       - Toxic Biters
+      - Fulgoran Enemies (Electric Flying Enemies)
   Bugfixes:
     - Fix bug that destroyed spidertron when recalling a deployed harvester with a spidertron over it.
 ---------------------------------------------------------------------------------------------------

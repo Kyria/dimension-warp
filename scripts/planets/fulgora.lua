@@ -1,18 +1,37 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen.fulgora = dw.mapgen.fulgora or {}
 
-local function add_biters(mapgen)
-    mapgen.autoplace_controls["enemy-base"] = {size = 1, frequency = 2}
-    mapgen.starting_area = "very-small"
-    return mapgen
+---------------------------------
+--- Enemy management
+---------------------------------
+-- number here is a multiplier for the values, as some mod just change standards enemies
+dw.mapgen.fulgora.enemies = {
+    biter = {"enemy-base", 1.5},
+}
+
+if script.active_mods['Electric_flying_enemies'] then
+    dw.mapgen.fulgora.enemies.explosive = {"electric_enemies", 1}
+    dw.mapgen.fulgora.enemies.biter = nil
 end
 
+local function set_enemy_autoplace(mapgen, base_frequency, base_size)
+    for _, enemy in pairs(dw.mapgen.fulgora.enemies) do
+        local frequency = enemy[2] * base_frequency
+        local size = enemy[2] * base_size
+        mapgen.autoplace_controls[enemy[1]] = {richness=1, frequency=frequency, size=size}
+    end
+end
+
+---------------------------------
+--- Randomizers
+---------------------------------
 local function normal(mapgen)
     mapgen.starting_area = "small"
     mapgen.autoplace_controls['scrap'] = {frequency = 1, size = 1, richness = 1}
     mapgen.autoplace_controls["fulgora_islands"] = {size = 6, frequency = 6}
     mapgen.property_expression_names["control:fulgora_islands:frequency"] = 4
     mapgen.property_expression_names["control:fulgora_islands:size"] = 4
+    set_enemy_autoplace(mapgen, 1.5, 1)
     return mapgen
 end
 
@@ -29,9 +48,10 @@ end
 local function dry(mapgen)
     mapgen = normal(mapgen)
     mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
-    mapgen.autoplace_controls["enemy-base"] = {size = 2, frequency = 3}
     mapgen.autoplace_settings.tile.settings['oil-ocean-shallow'] = nil
     mapgen.autoplace_settings.tile.settings['oil-ocean-deep'] = nil
+
+    set_enemy_autoplace(mapgen, 3, 2)
     return mapgen
 end
 
@@ -48,7 +68,7 @@ end
 local function death_world(mapgen)
     mapgen = normal(mapgen)
     mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
-    mapgen.autoplace_controls["enemy-base"] = {size = 8, frequency = 4}
+    set_enemy_autoplace(mapgen, 4, 8)
     return mapgen
 end
 
@@ -60,8 +80,8 @@ end
 
 local function junkyard(mapgen)
     mapgen = no_scrap(mapgen)
+    set_enemy_autoplace(mapgen, 4, 4)
     mapgen.autoplace_controls['fulgora_cliff'].frequency = 0
-    mapgen.autoplace_controls["enemy-base"] = {size = 4, frequency = 4}
     mapgen.property_expression_names.fulgora_ruins_walls = 2
     mapgen.property_expression_names.fulgora_ruins_paving = 2
     mapgen.property_expression_names.fulgora_road_jitter = 2
@@ -98,7 +118,6 @@ local function surface_random_day_tick(surface)
 end
 
 local function fulgora_randomizer(mapgen, surface_name)
-    mapgen = add_biters(mapgen)
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
@@ -111,18 +130,18 @@ local function fulgora_randomizer(mapgen, surface_name)
         table.insert(randomizer_list, {"Dry", dry, surface_random_day_tick, "dw-randomizer.fulgora-dry"})
         table.insert(randomizer_list, {"Bituminous", oil_planet, nil, "dw-randomizer.fulgora-oil-planet"})
         table.insert(randomizer_list, {"No Scrap", no_scrap, surface_random_day_tick, "dw-randomizer.fulgora-no-scrap"})
-        table.insert(randomizer_list, {"Junkyard", junkyard, surface_always_night, "dw-randomizer.fulgora-junkyard"})
 
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 1)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 1)
-        table.insert(randomizer_weights, 3)
     end
 
     if storage.warp.number >= 120 and not storage.fulgora_first_warp then
         local weight = math.floor(storage.warp.number / 60)
+        table.insert(randomizer_list, {"Junkyard", junkyard, surface_always_dusk, "dw-randomizer.fulgora-junkyard"})
         table.insert(randomizer_list, {"Death World", death_world, surface_always_night, "dw-randomizer.fulgora-death-world"})
+        table.insert(randomizer_weights, weight)
         table.insert(randomizer_weights, weight)
     end
 
