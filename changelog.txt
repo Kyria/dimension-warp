@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.1
-Date: ????
+Date: 2025.08.22
   Features:
     - Add shortcuts for the different deployables. The shortcut will "use" item in inventory if it finds any, avoiding stockpilling when clearing cursor.
     - Add Aquilo mapgen randomizers
