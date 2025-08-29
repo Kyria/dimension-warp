@@ -2,8 +2,11 @@
 Version: 0.4.2
 Date: ????
   Changes:
+    - Improve factory beacon description and tech description.
   Bugfixes:
     - Fix Gleba randomizer not putting the right value in the message for warp, generating an error.
+  Locale:
+    - Update RU locale with 0.4.1 change.
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.1
 Date: 2025.08.22
