@@ -1,5 +1,6 @@
 --- warp between surface and timers are managed in this file
 ------------------------------------------------------------
+dw.warp = dw.warp or {}
 
 local function calculate_manual_warp_time()
     local base_time = 10 --seconds
@@ -10,6 +11,54 @@ local function calculate_manual_warp_time()
     return math.min(max_time, base_time + warp_zone + warp_multi)
 end
 
+-- return if we should ignore the planet for warp selection
+local function ignore_planet(planet)
+    -- ignore nauvis
+    if planet == "nauvis" then return true end
+    -- ignore specials surface frm the mod
+    if dw.safe_surfaces[planet] then return true end
+    return false
+end
+
+local function get_allowed_planet()
+    local force = game.forces['player']
+    local allowed_planets = {}
+    local total = 0
+    local current = storage.warp.current.surface
+    local current_require_heat = current.planet.prototype.entities_require_heating
+    for _, planet in pairs(game.planets) do
+        -- remove nauvis, dimension surfaces from the list
+        if not ignore_planet(planet.name) then
+            if force.is_space_location_unlocked(planet.name) then
+                if current_require_heat and planet.name == current.planet.name then
+                    goto continue
+                end
+                table.insert(allowed_planets, planet.name)
+                total = total + 1
+
+                ::continue::
+            end
+        end
+    end
+    return total, allowed_planets
+end
+
+
+local function select_destination()
+    local total_dest, destinations = get_allowed_planet()
+    return destinations[math.random(total_dest)]
+end
+
+local function prepare_warp_to_next_surface()
+    if storage.warp.status ~= defines.warp.awaiting then return end
+    storage.warp.status = defines.warp.preparing
+
+    local target = select_destination() --- dw select random surface
+    dw.generate_surface(target)
+
+    storage.warp.status = defines.warp.warping
+    dw.teleport_platform()
+end
 
 local function warp_timer()
     if not storage.nauvis_lab_exploded then return end
@@ -41,7 +90,7 @@ local function warp_timer()
             dw.platforms.recall_harvester("right")
 
             -- generate new surface and teleport
-            dw.prepare_warp_to_next_surface()
+            prepare_warp_to_next_surface()
             -- play sound
             game.play_sound{path = "dw-warpdrive"}
             if storage.warp.message then game.print({storage.warp.message}) end
@@ -75,6 +124,7 @@ local function warp_timer()
     --- each seconds, we update the GUI
     dw.gui.update()
 end
+dw.warp.warp_timer = warp_timer
 
 
 local function update_warp_vote_threshold()
@@ -87,59 +137,6 @@ local function update_warp_vote_threshold()
         dw.gui.update_manual_warp_button()
     end
 end
-
-
--- return if we should ignore the planet for warp selection
-local function ignore_planet(planet)
-    -- ignore nauvis
-    if planet == "nauvis" then return true end
-    -- ignore specials surface frm the mod
-    if dw.safe_surfaces[planet] then return true end
-    return false
-end
-
-
-local function get_allowed_planet()
-    local force = game.forces['player']
-    local allowed_planets = {}
-    local total = 0
-    local current = storage.warp.current.surface
-    local current_require_heat = current.planet.prototype.entities_require_heating
-    for _, planet in pairs(game.planets) do
-        -- remove nauvis, dimension surfaces from the list
-        if not ignore_planet(planet.name) then
-            if force.is_space_location_unlocked(planet.name) then
-                if current_require_heat and planet.name == current.planet.name then
-                    goto continue
-                end
-                table.insert(allowed_planets, planet.name)
-                total = total + 1
-
-                ::continue::
-            end
-        end
-    end
-    return total, allowed_planets
-end
-
-
-local function select_destination()
-    local total_dest, destinations = get_allowed_planet()
-    return destinations[math.random(total_dest)]
-end
-
-
-dw.prepare_warp_to_next_surface = function()
-    if storage.warp.status ~= defines.warp.awaiting then return end
-    storage.warp.status = defines.warp.preparing
-
-    local target = select_destination() --- dw select random surface
-    dw.generate_surface(target)
-
-    storage.warp.status = defines.warp.warping
-    dw.teleport_platform()
-end
-
 
 local function warp_generator_research(event)
     local tech = event.research

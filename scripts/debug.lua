@@ -131,9 +131,8 @@ end
 local function debug_clicked(event)
     if not event.element.valid then return end
     if event.element.name == "trigger-next-warp" then
-        dw.prepare_warp_to_next_surface()
-        storage.timer.warp = storage.timer.base
-        dw.set_warp_evolution_factor()
+        storage.timer.warp = 1
+        dw.warp.warp_timer()
     end
     if event.element.name == "give-starter-item" then give_debug_items(event.player_index) end
     if event.element.name == "debug-tech-grant" then grant_tech(event.player_index) end
