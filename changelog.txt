@@ -3,6 +3,7 @@ Version: 0.4.2
 Date: ????
   Changes:
     - Improve factory beacon description and tech description.
+    - Change Produstia size and Warp Generator tech cost to have a smoother progression.
   Bugfixes:
     - Fix Gleba randomizer not putting the right value in the message for warp, generating an error.
   Locale:

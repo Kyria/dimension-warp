@@ -81,7 +81,6 @@ local tech_warp_generator_5 = { -- 60min
             {"logistic-science-pack", 1},
             {"military-science-pack", 2},
             {"chemical-science-pack", 1},
-            {"utility-science-pack", 2},
             {"production-science-pack", 2},
         },
         time = 15,

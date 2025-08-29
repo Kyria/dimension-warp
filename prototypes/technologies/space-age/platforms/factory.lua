@@ -1,12 +1,23 @@
 local factory_4 = data.raw['technology']['factory-platform-upgrade-4']
 table.insert(factory_4.prerequisites, "space-science-pack")
 table.insert(factory_4.prerequisites, "warp-generator-5")
-table.insert(factory_4.unit.ingredients, {"space-science-pack", 1})
+factory_4.unit.ingredients = {
+    {"automation-science-pack", 2},
+    {"logistic-science-pack", 1},
+    {"chemical-science-pack", 1},
+    {"space-science-pack", 2},
+}
 
 local factory_5 = data.raw['technology']['factory-platform-upgrade-5']
 table.insert(factory_5.prerequisites, "turbo-transport-belt")
-table.insert(factory_5.unit.ingredients, {"space-science-pack", 1})
-table.insert(factory_5.unit.ingredients, {"metallurgic-science-pack", 2})
+factory_5.unit.ingredients = {
+    {"automation-science-pack", 2},
+    {"logistic-science-pack", 1},
+    {"chemical-science-pack", 1},
+    {"production-science-pack", 2},
+    {"space-science-pack", 2},
+    {"metallurgic-science-pack", 2},
+}
 
 local factory_6 = data.raw['technology']['factory-platform-upgrade-6']
 factory_6.prerequisites = {"factory-platform-upgrade-5", "biolab"}
