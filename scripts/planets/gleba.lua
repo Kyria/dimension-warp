@@ -152,8 +152,9 @@ local function gleba_randomizer(mapgen, surface_name)
     mapgen = randomizer[2](mapgen)
 
     local surface = game.create_surface(surface_name, mapgen)
+    if randomizer[3] then randomizer[3](surface) end
     storage.warp.randomizer = randomizer[1]
-    storage.warp.message = randomizer[3]
+    storage.warp.message = randomizer[4]
 
     return surface
 end
