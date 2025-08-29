@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.2
-Date: ????
+Date: 2025.08.29
   Changes:
     - Improve factory beacon description and tech description.
     - Change Produstia size and Warp Generator tech cost to have a smoother progression.
