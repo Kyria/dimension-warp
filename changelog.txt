@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.3
+Date: 2025.09.01
+  Changes:
+    - Harvesters cannot be deconstructed with drones anymore.
+  Bugfixes:
+    - Fix drones generating an error when deconstructing a harvester while "max 1 in inventory" was set.
+    - Fix drones being teleported with the deconstructed harvester (fixed by the above change).
+  Locale:
+    - Update RU locale with 0.4.2 change.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.2
 Date: 2025.08.29
   Changes:

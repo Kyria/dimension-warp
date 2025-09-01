@@ -16,7 +16,7 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 * **Dimensions techs** have been added to provide a bit of **QoL** (damage, drone speed, ...)
 * **Harvesters platforms** and the ability to put miners while not deployed
 * **Enemies** have been added to almost **all surfaces** (except Aquilo) and pollution spread everywhere.
-* Except Aquilo (Factorio limitation), **all planets have variations** that are randommly selected when warping.
+* **All planets have variations** that are randommly selected when warping.
 * **Loaders are included** in the mod to be used, and support item stacking [space-age only]
 * **Items stacks and spoilage have been reworked**. This can be turned off in the settings for a vanilla experience of this.
 * **Space related stuff** (rocket cost, foundation, space buildings) are **more expensive**.
@@ -26,9 +26,15 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
 ## Compatibilities
 
 * Vanilla or Space Age.
-* Krastorio2 (should work, not fully tested)
+* Krastorio2 / Krastorio2 Spaced-Out
 * AAI Industry / Loaders / Containers
 * Any planet mod may work, but you'll just end with the normal version each time.
+* Enemies mods:
+    * [Cold Biters](https://mods.factorio.com/mod/Cold_biters)
+    * [Armoured Biters](https://mods.factorio.com/mod/ArmouredBiters)
+    * [Explosive Biters](https://mods.factorio.com/mod/Explosive_biters)
+    * [Toxic Biters](https://mods.factorio.com/mod/Toxic_biters)
+    * [Fulgoran Enemies (Electric Flying Enemies)](https://mods.factorio.com/mod/Electric_flying_enemies)
 
 ## Mod Recommandations
 

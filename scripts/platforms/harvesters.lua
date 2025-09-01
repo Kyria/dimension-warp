@@ -444,7 +444,7 @@ local function replace_mined_item(side, event)
         end
     end
 
-    if settings.global['dw-harvester-only-one'].value then
+    if settings.global['dw-harvester-only-one'].value and event.player_index then
         local quantity = 0
         local player = game.players[event.player_index]
         local inventory = player.get_main_inventory()

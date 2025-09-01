@@ -33,6 +33,7 @@ harvester_left_mobilegate.icons[1].tint = util.color(defines.hexcolor.orange .. 
 harvester_left_mobilegate.minable = {mining_time = 0.2, result = "harvester-left-mobile-gate"}
 harvester_left_mobilegate.placeable_by = nil
 harvester_left_mobilegate.remains_when_mined = nil
+harvester_left_mobilegate.flags = {"placeable-player"}
 
 
 local harvester_right_gate = table.deepcopy(harvester_left_gate)
@@ -54,6 +55,7 @@ harvester_right_mobilegate.icons[1].tint = util.color(defines.hexcolor.orange ..
 harvester_right_mobilegate.minable = {mining_time = 0.2, result = "harvester-right-mobile-gate"}
 harvester_right_mobilegate.placeable_by = nil
 harvester_right_mobilegate.remains_when_mined = nil
+harvester_right_mobilegate.flags = {"placeable-player"}
 
 local function create_item(name, icons)
     return {
