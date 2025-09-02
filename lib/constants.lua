@@ -257,7 +257,7 @@ dw.stairs = {
 dw.warp_gate = {
     name = "warp-gate",
     position = {0, 6.5},
-    area = {{-2, -2}, {1, 1}},
+    area = {{-2, -1.5}, {1, 1}},
     direction = defines.loader_facing.bottom,
     --- relative position to warp_gate center
     chests = {

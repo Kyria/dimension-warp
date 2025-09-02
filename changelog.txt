@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.4
+Date: ????
+  Bugfixes:
+    - Correct the warpgate area that was too big and destroyed entities when it shouldn't have during creation / upgrade in the platform.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.3
 Date: 2025.09.01
   Changes:
