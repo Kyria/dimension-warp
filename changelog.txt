@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.4
 Date: ????
+  Changes:
+    - Increase modules slots and update the area of the factory beacon.
   Bugfixes:
     - Correct the warpgate area that was too big and destroyed entities when it shouldn't have during creation / upgrade in the platform.
 ---------------------------------------------------------------------------------------------------
