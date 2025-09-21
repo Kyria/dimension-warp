@@ -4,7 +4,7 @@
   "title": "Dimension Warp",
   "author": "Anakhon",
   "homepage": "https://github.com/Kyria/dimension-warp",
-  "description": "Build your base, defend it from the locals and get back to your home, Nauvis",
+  "description": "Build your base, defend it from the locals and get back to your home, Nauvis. A remake of the great warptorio2 (Vanilla and SpaceAge compatible).",
   "factorio_version": "2.0",
   "dependencies": [
     "base >= 2.0.29",
@@ -18,6 +18,8 @@
     "(?) Krastorio2",
     "(?) Krastorio2-spaced-out",
     "(?) alien-biomes",
-    "! factorissimo-2-notnotmelon"
+    "! factorissimo-2-notnotmelon",
+    "! lane-filtered-loaders",
+    "! loaders-make-full-stacks"
   ]
 }
