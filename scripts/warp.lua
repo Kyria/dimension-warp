@@ -6,9 +6,8 @@ local function calculate_manual_warp_time()
     local base_time = 10 --seconds
     local max_time = settings.global['dw-manual-warp-max-time'].value * 60
     local warp_zone = math.floor(storage.warp.number * settings.global['dw-manual-warp-zone-multiplier'].value)
-    local warp_multi = math.floor((1 + (math.min(150, storage.warp.number)) / 10) ^ (2 + (math.min(150, storage.warp.number) / 100)))
 
-    return math.min(max_time, base_time + warp_zone + warp_multi)
+    return math.min(max_time, base_time + warp_zone ^ 1.35)
 end
 
 -- return if we should ignore the planet for warp selection
