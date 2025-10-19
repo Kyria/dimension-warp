@@ -16,6 +16,7 @@ local function ignore_planet(planet)
     if planet == "nauvis" then return true end
     -- ignore specials surface frm the mod
     if dw.safe_surfaces[planet] then return true end
+    if planet:match('.*%-factory%-floor') or planet:match('factory%s-travel%s-surface') then return true end
     return false
 end
 
