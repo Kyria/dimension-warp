@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.4.4
-Date: ????
+Version: 0.5.0
+Date: 2025.10.22
   Features:
     - Add collision mechanism to prevent building in specific surfaces / places (this prevents building from being placed, instead of having to rely on some events).
   Compatibility:
@@ -8,7 +8,7 @@ Date: ????
   Changes:
     - Increase modules slots and update the area of the factory beacon.
   Balancing:
-    - Adjust the progression of manual warp to be more linear (default: 15min at warp 308, with max multiplier, at warp 77)
+    - Adjust the progression of manual warp to be more linear (default: 15min at warp 308, with max multiplier from settings, at warp 77)
   Bugfixes:
     - Correct the warpgate area that was too big and destroyed entities when it shouldn't have during creation / upgrade in the platform.
     - Also correct all the warpgate between surface that had the same issue.
