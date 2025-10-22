@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.4
 Date: ????
+  Features:
+    - Add collision mechanism to prevent building in specific surfaces / places (this prevents building from being placed, instead of having to rely on some events).
   Changes:
     - Increase modules slots and update the area of the factory beacon.
   Balancing:

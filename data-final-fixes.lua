@@ -1,4 +1,6 @@
 -- change default import for items when importing on space platform.
+require 'prototypes.update-final.collision'
+
 if mods['space-age'] then
     for _, item in pairs(data.raw.item) do
         item.default_import_location = 'produstia'
