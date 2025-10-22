@@ -1,3 +1,5 @@
+local collision_mask_util = require("collision-mask-util")
+
 -- create specfic collision layers
 data:extend{
     {type = "collision-layer", name = "surface-tiles"},
@@ -27,6 +29,7 @@ for _, tile in pairs(data.raw.tile) do
 end
 
 -- add collision to specific buildings
+-- only surface tiles, no DW tiles from platforms or surfaces.
 local only_surface_entities = {
     data.raw.container["harvester-left-grid-1"],
     data.raw.container["harvester-left-grid-2"],
@@ -49,19 +52,44 @@ local only_surface_entities = {
     data.raw.accumulator["mobile-gate-5"]
 }
 
-if mods['space-age'] then
-    table.insert(only_surface_entities, data.raw['agricultural-tower']["dimension-crane-yumako"])
-    table.insert(only_surface_entities, data.raw['agricultural-tower']["dimension-crane-jellynut"])
-end
-
+-- produstia only
 local only_produstia = {
     data.raw["rocket-silo"]["rocket-silo"],
     data.raw["cargo-landing-pad"]["cargo-landing-pad"]
 }
 
+-- produstia, electria, smeltus only
 local only_sub_surfaces = {}
 
+-- produstia, electria, smeltus + surface platform
+local only_dw_surfaces = {}
+
+-- others, depending on mod loaded
+if mods['space-age'] then
+    table.insert(only_surface_entities, data.raw['agricultural-tower']["dimension-crane-yumako"])
+    table.insert(only_surface_entities, data.raw['agricultural-tower']["dimension-crane-jellynut"])
+end
+
+if mods['factorissimo-2-notnotmelon'] then
+    if mods['space-age'] then
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['factory-1'])
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['factory-2'])
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['factory-3'])
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['space-factory-1'])
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['space-factory-2'])
+        table.insert(only_sub_surfaces, data.raw['storage-tank']['space-factory-3'])
+    else
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['factory-1'])
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['factory-2'])
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['factory-3'])
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['space-factory-1'])
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['space-factory-2'])
+        table.insert(only_dw_surfaces, data.raw['storage-tank']['space-factory-3'])
+    end
+end
+
 for _, entity in pairs(only_surface_entities) do
+    if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['platform'] = true
     entity.collision_mask.layers['produstia'] = true
     entity.collision_mask.layers['electria'] = true
@@ -69,9 +97,7 @@ for _, entity in pairs(only_surface_entities) do
 end
 
 for _, entity in pairs(only_produstia) do
-    if not entity.collision_mask then
-        entity.collision_mask = {layers={item=true, meltable=true, object=true, player=true, water_tile=true, is_object=true, is_lower_object=true}}
-    end
+    if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['surface-tiles'] = true
     entity.collision_mask.layers['platform'] = true
     entity.collision_mask.layers['electria'] = true
@@ -79,5 +105,13 @@ for _, entity in pairs(only_produstia) do
 end
 
 for _, entity in pairs(only_sub_surfaces) do
+    if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
+    entity.collision_mask.layers['surface-tiles'] = true
+    entity.collision_mask.layers['platform'] = true
+end
+
+for _, entity in pairs(only_dw_surfaces) do
+    if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['surface-tiles'] = true
 end
+
