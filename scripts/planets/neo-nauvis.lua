@@ -58,12 +58,20 @@ dw.mapgen['neo-nauvis'].enemies = {
     biter = {"enemy-base", 1.3},
 }
 if script.active_mods['Explosive_biters'] then
-    dw.mapgen['neo-nauvis'].enemies.explosive = {"hot_enemy_base", 0.75}
-    dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+    if prototypes.autoplace_control.hot_enemy_base then
+        dw.mapgen['neo-nauvis'].enemies.explosive = {"hot_enemy_base", 0.75}
+        dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+    else
+        dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] + 0.3
+    end
 end
 if script.active_mods['Cold_biters'] then
-    dw.mapgen['neo-nauvis'].enemies.frost = {"frost_enemy_base", 0.75}
-    dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+    if prototypes.autoplace_control.frost_enemy_base then
+        dw.mapgen['neo-nauvis'].enemies.frost = {"frost_enemy_base", 0.75}
+        dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] - 0.2
+    else
+        dw.mapgen['neo-nauvis'].enemies.biter[2] = dw.mapgen['neo-nauvis'].enemies.biter[2] + 0.3
+    end
 end
 
 local function set_enemy_autoplace(mapgen, base_frequency, base_size)

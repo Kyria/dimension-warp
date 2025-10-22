@@ -9,7 +9,7 @@ dw.mapgen.aquilo.resource_list = {"aquilo_crude_oil", "fluorine_vent", "lithium_
 dw.mapgen.aquilo.enemies = {
     biter = {"enemy-base", 1},
 }
-if script.active_mods['Cold_biters'] then
+if script.active_mods['Cold_biters'] and prototypes.autoplace_control.frost_enemy_base then
     dw.mapgen.aquilo.enemies.frost = {"frost_enemy_base", 1}
     dw.mapgen.aquilo.enemies.biter = nil
 end

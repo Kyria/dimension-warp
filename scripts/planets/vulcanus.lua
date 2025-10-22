@@ -11,7 +11,7 @@ dw.mapgen.vulcanus.enemies = {
     biter = {"enemy-base", 1},
 }
 
-if script.active_mods['Explosive_biters'] then
+if script.active_mods['Explosive_biters'] and prototypes.autoplace_control.hot_enemy_base then
     dw.mapgen.vulcanus.enemies.explosive = {"hot_enemy_base", 1}
     dw.mapgen.vulcanus.enemies.biter[2] = 0.6
 end
