@@ -83,27 +83,27 @@ dw.entities = {
     gate_factory_surface = {
         name = "surface-gate",
         position = {0, -6.5},
-        area = {{-2, -2}, {1, 1}}
+        area = {{-2, -1.5}, {1, 1}}
     },
     gate_factory_mining = {
         name = "mining-gate",
         position = {0, 6.5},
-        area = {{-2, -2}, {1, 1}}
+        area = {{-2, -1.5}, {1, 1}}
     },
     gate_mining_factory = {
         name = "factory-gate",
         position = {0, -6.5},
-        area = {{-2, -2}, {1, 1}}
+        area = {{-2, -1.5}, {1, 1}}
     },
     gate_mining_power = {
         name = "power-gate",
         position = {0, 6.5},
-        area = {{-2, -2}, {1, 1}}
+        area = {{-2, -1.5}, {1, 1}}
     },
     gate_power_mining = {
         name = "mining-gate",
         position = {0, -4.5},
-        area = {{-2, -2}, {1, 1}}
+        area = {{-2, -1.5}, {1, 1}}
     },
 
     -- inter surface power poles
