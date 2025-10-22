@@ -4,7 +4,7 @@ Date: ????
   Features:
     - Add collision mechanism to prevent building in specific surfaces / places (this prevents building from being placed, instead of having to rely on some events).
   Compatibility:
-    - Add compatibility with Factorissimo. Limitation: surface platform is only allowed with Vanilla factorio (as the switch between planet still breaks the factories).
+    - Add compatibility with Factorissimo. Limitation: surface platform is only allowed with Vanilla factorio (as the switch between planet still breaks the factories). Thanks @LIMachi
   Changes:
     - Increase modules slots and update the area of the factory beacon.
   Balancing:
