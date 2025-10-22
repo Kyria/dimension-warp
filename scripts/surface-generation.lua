@@ -87,7 +87,7 @@ end
 dw.update_surfaces_properties = update_surfaces_properties
 
 local function surface_deleted(event)
-    if event.surface_index == storage.warp.previous.surface_index then
+    if storage.warp.previous and event.surface_index == storage.warp.previous.surface_index then
         local planet = game.planets[storage.warp.current.planet]
         if not planet.prototype.entities_require_heating then
             planet.associate_surface(storage.warp.current.surface)
