@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.5.1
+Date: ????
+  Changes:
+    - Add custom tooltip to entities with custom collision to inform players where entities can be placed.
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
 Date: 2025.10.22
   Features:

@@ -1,5 +1,24 @@
 local collision_mask_util = require("collision-mask-util")
 
+function add_custom_tooltip(entity, custom_tooltip_localized)
+    entity.custom_tooltip_fields = entity.custom_tooltip_fields or {}
+
+    -- apparently we can pass custom struct keys to tooltips...
+    for index, tooltip in ipairs(entity.custom_tooltip_fields) do
+        if tooltip.key and tooltip.key == "restricted-buildable-area" then
+            entity.custom_tooltip_fields[index].value = custom_tooltip_localized
+            return
+        end
+    end
+
+    table.insert(entity.custom_tooltip_fields, {
+        key = "restricted-buildable-area",
+        name = "",
+        value = custom_tooltip_localized,
+        order = 0,
+    })
+end
+
 -- create specfic collision layers
 data:extend{
     {type = "collision-layer", name = "surface-tiles"},
@@ -88,12 +107,16 @@ if mods['factorissimo-2-notnotmelon'] then
     end
 end
 
+-- apply collision masks
 for _, entity in pairs(only_surface_entities) do
     if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['platform'] = true
     entity.collision_mask.layers['produstia'] = true
     entity.collision_mask.layers['electria'] = true
     entity.collision_mask.layers['smeltus'] = true
+
+    local area = {"", {"tile-name.warp-platform"}, ", ", {"space-location-name.produstia"}, ", ", {"space-location-name.smeltus"}, ", ", {"space-location-name.electria"}}
+    add_custom_tooltip(entity, {"dw-messages.forbidden-buildable-area", area})
 end
 
 for _, entity in pairs(only_produstia) do
@@ -102,16 +125,23 @@ for _, entity in pairs(only_produstia) do
     entity.collision_mask.layers['platform'] = true
     entity.collision_mask.layers['electria'] = true
     entity.collision_mask.layers['smeltus'] = true
+    add_custom_tooltip(entity, {"dw-messages.restricted-buildable-area", {"space-location-name.produstia"}})
 end
 
 for _, entity in pairs(only_sub_surfaces) do
     if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['surface-tiles'] = true
     entity.collision_mask.layers['platform'] = true
+
+    local area = {"", {"space-location-name.produstia"}, ", ", {"space-location-name.smeltus"}, ", ", {"space-location-name.electria"}}
+    add_custom_tooltip(entity, {"dw-messages.restricted-buildable-area", area})
 end
 
 for _, entity in pairs(only_dw_surfaces) do
     if not entity.collision_mask then entity.collision_mask = collision_mask_util.get_mask(entity) end
     entity.collision_mask.layers['surface-tiles'] = true
+
+    local area = {"", {"tile-name.warp-platform"}, ", ", {"space-location-name.produstia"}, ", ", {"space-location-name.smeltus"}, ", ", {"space-location-name.electria"}}
+    add_custom_tooltip(entity, {"dw-messages.restricted-buildable-area", area})
 end
 
