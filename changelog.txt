@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.5.1
-Date: ????
+Date: 2025.10.27
   Changes:
     - Add custom tooltip to entities with custom collision to inform players where entities can be placed.
     - Change progression for platforms size (except warp and produstia).
