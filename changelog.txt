@@ -1,9 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.5.1
+Version: 0.5.2
 Date: 2025.10.27
   Changes:
     - Add custom tooltip to entities with custom collision to inform players where entities can be placed.
     - Change progression for platforms size (except warp and produstia).
+    - Change harvester border size to be a little bit bigger.
   Bugfixes:
     - Fix locale key for the death world message in neo nauvis.
 ---------------------------------------------------------------------------------------------------

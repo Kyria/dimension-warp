@@ -200,7 +200,7 @@ local function place_harvester_tiles(side)
     local side_area = math2d.bounding_box.create_from_centre(harvester_const.center, harvester.size + 1 + harvester.border * 2)
     local path_area = {
         {harvester_const.center[1] - harvester.border, harvester_const.center[2] - harvester.border},
-        {side == "left" and (-storage.platform.mining.size.x / 2) or (storage.platform.mining.size.x / 2), harvester.border - 1}
+        {side == "left" and (-storage.platform.mining.size.x / 2) or (storage.platform.mining.size.x / 2), harvester_const.center[2] + harvester.border - 1}
     }
 
     local tiles = {}
@@ -507,7 +507,7 @@ local function on_technology_research_finished(event)
         if side then
             recall_harvester(side)
             storage.harvesters[side].size = dw.platform_size.harvester[tech.level]
-            storage.harvesters[side].border = math.max((tech.level - 1), 3)
+            storage.harvesters[side].border = tech.level + 2
             storage.harvesters[side].mobile_name = "harvester-" .. side .. "-grid-" .. tech.level
             create_harvester_zone(side)
             replace_harvester_inventory(side)
