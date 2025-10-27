@@ -2,9 +2,9 @@
 dw.platform_size = {
     warp = {8, 22, 36, 50, 64, 78, 92, 106},
     factory = {20, 36, 56, 76, 98, 118, 136, 152},
-    mining = {{x=20, y=16},{x=26, y=18},{x=34, y=22},{x=52, y=32},{x=70, y=42},{x=88, y=50},{x=110, y=60},{x=136, y=70}},
-    power = {18, 24, 30, 36, 48, 54, 66, 84},
-    harvester = {12, 16, 22, 30, 40, 52}
+    mining = {{x=20, y=16},{x=32, y=22},{x=46, y=30},{x=62, y=40},{x=80, y=48},{x=100, y=56},{x=118, y=62},{x=136, y=70}},
+    power = {18, 26, 34, 42, 52, 64, 74, 84},
+    harvester = {12, 18, 26, 32, 42, 52}
 }
 
 --- surfaces where players are safe when they connect (no need for safe teleport)
