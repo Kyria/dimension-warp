@@ -7,7 +7,7 @@ local function calculate_manual_warp_time()
     local max_time = settings.global['dw-manual-warp-max-time'].value * 60
     local warp_zone = math.floor(storage.warp.number * settings.global['dw-manual-warp-zone-multiplier'].value)
 
-    return math.min(max_time, base_time + warp_zone ^ 1.35)
+    return math.min(max_time, math.floor(base_time + warp_zone ^ 1.35))
 end
 
 -- return if we should ignore the planet for warp selection
@@ -80,7 +80,7 @@ local function warp_timer()
             end
         end
 
-        if storage.timer.warp == 0 or storage.timer.manual_warp == 0 then
+        if storage.timer.warp <= 0 or storage.timer.manual_warp <= 0 then
             -- return warp gate
             if storage.warpgate.mobile_gate then
                 storage.warpgate.mobile_gate.destroy{raise_destroy=true}

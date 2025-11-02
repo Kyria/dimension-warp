@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.5.3
+Date: 2025.11.02
+  Bugfixes:
+    - Fix manual warp timer not being an integer, causing warp timer to be negative sometimes. Also make sure that if any timer is negative, we warp.
+---------------------------------------------------------------------------------------------------
 Version: 0.5.2
 Date: 2025.10.27
   Changes:
