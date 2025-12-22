@@ -232,6 +232,7 @@ base.drawing_box = {{-2, -2}, {2, 2}}
 base.energy_usage = "20MW"
 base.placeable_by = nil
 base.fast_replaceable_group = "factory-beacon"
+base.next_upgrade = nil
 base.allowed_effects = {"consumption", "speed", "pollution", "productivity", "quality"}
 
 ------------------------
