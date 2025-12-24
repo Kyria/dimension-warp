@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 2025.xx.xx
+  Features:
+    - Add the ability to select the preferrred planet to warp (only for space age). (70% chance) 
+      - Add a technology to allow player to select preferred planet to warp to. 
+      - Add GUI to select preferred planet when the technology is researched.
+    - Add settings to configure the information displayed in the GUI.
+  Changes:
+    - Change warp generator 4 and 5 prerequisites.
+  Compatibility:
+    - Add compatibility with Bobs (PR from @Enderdraak #15)
+---------------------------------------------------------------------------------------------------
 Version: 0.5.3
 Date: 2025.11.02
   Bugfixes:

@@ -2,6 +2,7 @@ local tech_list = {
     "------- MISC -------",
     "electrified-ground",
     "platform-radar",
+    "warp-preferred-planet",
     "------- Platform -------",
     "power-platform",
     "mining-platform",
@@ -156,9 +157,19 @@ local function warp_frame_click(event)
     end
 end
 
+local function update_debug() 
+    for _, player in pairs(game.players) do
+        local frame = dw.gui.get_warp_frame(player)
+        frame.destroy()
+        storage.warp.preferred_destination = nil
+        dw.gui.get_warp_frame(player)
+        debug_gui(player)
+    end
+end
 
 dw.register_event('on_init', init)
 dw.register_event('on_configuration_changed', init)
 dw.register_event(defines.events.on_gui_click, warp_frame_click)
 dw.register_event(defines.events.on_player_created, on_player_created)
 dw.register_event(defines.events.on_gui_click, debug_clicked)
+commands.add_command("dw_debug", "", update_debug)

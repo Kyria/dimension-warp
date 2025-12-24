@@ -14,6 +14,8 @@ local function set_globals()
         count_watchdogs = 3,
         count_watched_item = 0,
         item_list = {},
+        planet_selector_enabled = false,
+        planet_selector_list = {}
     }
 
     --- porm gls (size + surface)
@@ -31,6 +33,7 @@ local function set_globals()
         previous = nil,
         status = defines.warp.awaiting,
         time = game.tick,
+        preferred_destination = nil,
     }
 
     -- timer informations
@@ -141,4 +144,4 @@ require "scripts.entities.dimension-crane"
 
 require "compatibility.picker-dollies"
 
---require "scripts.debug"
+-- require "scripts.debug"
