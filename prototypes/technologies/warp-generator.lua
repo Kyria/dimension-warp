@@ -73,7 +73,7 @@ local tech_warp_generator_5 = { -- 60min
     type = "technology", name = "warp-generator-5",
     icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.yellowgreen.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
-    prerequisites = {"warp-generator-4", "effect-transmission", "military-4"},
+    prerequisites = {"warp-generator-4", "production-science-pack"},
     unit = {
         count = 1000,
         ingredients = {
@@ -91,7 +91,7 @@ local tech_warp_generator_6 = { -- +30 min (90min)
     type = "technology", name = "warp-generator-6",
     icons = generate_icon("constant-speed.png", util.color(defines.hexcolor.lawngreen.. 'ff')),
     effects = {{ type = "nothing", effect_description = {"technology-description.warp-generator-efficiency"} }},
-    prerequisites = {"warp-generator-5"},
+    prerequisites = {"warp-generator-5", "effect-transmission", "military-4"},
     unit = {
         count = 2500,
         ingredients = {
