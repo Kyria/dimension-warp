@@ -1,6 +1,16 @@
 utils = {} or utils
 
 
+-- return if we should ignore the planet for warp selection
+function utils.ignore_planet(planet)
+    -- ignore nauvis
+    if planet == "nauvis" then return true end
+    -- ignore specials surface frm the mod
+    if dw.safe_surfaces[planet] then return true end
+    if planet:match('.*%-factory%-floor') or planet:match('factory%-travel%-surface') then return true end
+    return false
+end
+
 function utils.format_time(sec)
     local seconds = sec % 60
     local minutes = math.floor((sec / 60) % 60)

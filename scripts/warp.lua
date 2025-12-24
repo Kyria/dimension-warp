@@ -10,16 +10,6 @@ local function calculate_manual_warp_time()
     return math.min(max_time, math.floor(base_time + warp_zone ^ 1.35))
 end
 
--- return if we should ignore the planet for warp selection
-local function ignore_planet(planet)
-    -- ignore nauvis
-    if planet == "nauvis" then return true end
-    -- ignore specials surface frm the mod
-    if dw.safe_surfaces[planet] then return true end
-    if planet:match('.*%-factory%-floor') or planet:match('factory%-travel%-surface') then return true end
-    return false
-end
-
 local function get_allowed_planet()
     local force = game.forces['player']
     local allowed_planets = {}
@@ -28,7 +18,7 @@ local function get_allowed_planet()
     local current_require_heat = current.planet.prototype.entities_require_heating
     for _, planet in pairs(game.planets) do
         -- remove nauvis, dimension surfaces from the list
-        if not ignore_planet(planet.name) then
+        if not utils.ignore_planet(planet.name) then
             if force.is_space_location_unlocked(planet.name) then
                 if current_require_heat and planet.name == current.planet.name then
                     goto continue
@@ -46,6 +36,13 @@ end
 
 local function select_destination()
     local total_dest, destinations = get_allowed_planet()
+    if storage.warp.preferred_destination then
+        for _, dest in pairs(destinations) do
+            if dest == storage.warp.preferred_destination then
+                return math.random() < 0.7 and dest or destinations[math.random(total_dest)]
+            end
+        end
+    end
     return destinations[math.random(total_dest)]
 end
 
@@ -140,7 +137,7 @@ end
 
 local function warp_generator_research(event)
     local tech = event.research
-    if string.match(tech.name, "warp%-generator%-1") then
+    if tech.name == "warp-generator-1" then
         storage.timer.active = true
         storage.timer.manual_warp = calculate_manual_warp_time()
         game.print({"dw-messages.warp-generator-1"})
@@ -155,6 +152,9 @@ local function warp_generator_research(event)
             storage.timer.warp = storage.timer.base
         end
         dw.gui.update_manual_warp_button()
+    end
+    if tech.name == "warp-preferred-planet" then
+        storage.planet_selector_enabled = true
     end
 end
 

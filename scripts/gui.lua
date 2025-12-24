@@ -2,6 +2,24 @@
 ------------------------------------------------------------
 dw.gui = dw.gui or {}
 
+local function get_player_gui_settings(player)
+    local player_settings = settings.get_player_settings(player)
+    return {
+        highlight_change = player_settings['dw-gui-highlight-qty-change'].value --[[@as boolean]],
+        default_color = player_settings['dw-gui-default-color'].value --[[@as string]],
+        increase_color = player_settings['dw-gui-increase-qty-color'].value --[[@as string]],
+        decrease_color = player_settings['dw-gui-decrease-qty-color'].value --[[@as string]],
+        delimiter = player_settings['dw-gui-thousand-delimiter'].value --[[@as string]],
+        info_planet = player_settings['dw-gui-info-planet'].value --[[@as boolean]],
+        info_dimension = player_settings['dw-gui-info-dimension'].value --[[@as boolean]],
+        info_planet_clock = player_settings['dw-gui-info-planet-clock'].value --[[@as boolean]],
+        info_evolution = player_settings['dw-gui-info-evolution'].value --[[@as boolean]],
+        info_warp_timer = player_settings['dw-gui-info-warp-timer'].value --[[@as boolean]],
+        info_manual_timer = player_settings['dw-gui-info-manual-warp-timer'].value --[[@as boolean]],
+        planet_selector = player_settings['dw-gui-planet-selector'].value --[[@as boolean]],
+    }
+end
+
 local function set_warp_toggle_buttons(player)
     local buttonflow = mod_gui.get_button_flow(player)
     local warp_toggle = buttonflow.warp_toggle or buttonflow.add({type = "sprite-button", name = "warp_toggle", sprite = "warp-toggle-icon"})
@@ -9,7 +27,7 @@ local function set_warp_toggle_buttons(player)
     warp_toggle.visible = true
     warp_toggle.tooltip = {"dw-messages.gui-button-tooltip"}
     container_toggle.visible = true
-    container_toggle.tooltip = "bla"
+    container_toggle.tooltip = {"dw-messages.gui-watchitem-tooltip"}
 end
 dw.gui.set_warp_toggle_buttons = set_warp_toggle_buttons
 
@@ -20,20 +38,45 @@ local function get_warp_frame(player)
     warp_frame.visible = warp_frame.visible or false
     warp_frame.style.padding = {5, 0, 0, 5}
 
-    local surfaceflow = warp_frame.surface or warp_frame.add({type = "label", name = "surface", caption = {"dw-gui.planet", "nauvis", "Nauvis", "normal"}})
-    local dimensionflow = warp_frame.dimension or warp_frame.add({type = "label", name = "dimension", caption = {"dw-gui.dimension", "0"}})
-    local surface_time = warp_frame.surface_time or warp_frame.add({type = "label", name = "surface_time", caption = {"dw-gui.planet_clock", "0"}})
-    local surface_evolution = warp_frame.surface_evolution or warp_frame.add({type = "label", name = "surface_evolution", caption = {"dw-gui.planet_evolution", "0"}})
-    local warpflow = warp_frame.warp_timer or warp_frame.add({type = "label", name = "warp_timer", caption = {"dw-gui.autowarp_timer", "0"}})
-    local manualwarpflow = warp_frame.warp_timer_manual or warp_frame.add({type = "label", name = "warp_timer_manual", caption = {"dw-gui.manualwarp_timer", "0"}})
+    local surfaceflow = warp_frame.surface or warp_frame.add{type = "label", name = "surface", caption = {"dw-gui.planet", "nauvis", "Nauvis", "normal"}}
+    local dimensionflow = warp_frame.dimension or warp_frame.add{type = "label", name = "dimension", caption = {"dw-gui.dimension", "0"}}
+    local surface_time = warp_frame.surface_time or warp_frame.add{type = "label", name = "surface_time", caption = {"dw-gui.planet_clock", "0"}}
+    local surface_evolution = warp_frame.surface_evolution or warp_frame.add{type = "label", name = "surface_evolution", caption = {"dw-gui.planet_evolution", "0"}}
+    local warpflow = warp_frame.warp_timer or warp_frame.add{type = "label", name = "warp_timer", caption = {"dw-gui.autowarp_timer", "0"}}
+    local manualwarpflow = warp_frame.warp_timer_manual or warp_frame.add{type = "label", name = "warp_timer_manual", caption = {"dw-gui.manualwarp_timer", "0"}}
+    local destination_flow = warp_frame.destination_flow or warp_frame.add{type = "flow", name = "destination_flow", direction = "horizontal"}
     local warp_button = warp_frame.warp_button or warp_frame.add{type="button", name="warp_button", caption={"dw-gui.warp-button"}, style = "confirm_button"}
 
-    surfaceflow.visible = storage.nauvis_lab_exploded or false
-    dimensionflow.visible = storage.nauvis_lab_exploded or false
-    surface_time.visible = storage.nauvis_lab_exploded or false
-    surface_evolution.visible = storage.nauvis_lab_exploded or false
-    warpflow.visible = storage.timer.active
-    manualwarpflow.visible = storage.timer.active
+    -- preferred destination selector buttons
+    local preferred_dest_label = destination_flow.label or destination_flow.add{type="label", name="label", caption={"dw-gui.preferred-destination"}}
+    local destination_list = {
+        none = destination_flow['preferred-none'] or destination_flow.add{type="sprite-button", name="preferred-none", sprite="virtual-signal.signal-deny", auto_toggle=true, toggled=true},
+    }
+    destination_list.none.style.width = 25
+    destination_list.none.style.height = 25
+    destination_list.none.style.padding = 0
+    destination_list.none.style.margin = 0
+    storage.planet_selector_list["preferred-none"] = true
+    
+    for _, planet in pairs(game.planets) do
+        if not utils.ignore_planet(planet.name) and player.force.is_space_location_unlocked(planet.name) then 
+            destination_list["preferred-" .. planet.name] = destination_flow["preferred-" .. planet.name] or destination_flow.add{type="sprite-button", name="preferred-" .. planet.name, sprite="space-location." .. planet.name, tooltip = {"space-location-name." .. planet.name}, auto_toggle=true}
+            destination_list["preferred-" .. planet.name].style.width = 25
+            destination_list["preferred-" .. planet.name].style.height = 25
+            destination_list["preferred-" .. planet.name].style.padding = 0
+            destination_list["preferred-" .. planet.name].style.margin = 0
+            storage.planet_selector_list["preferred-" .. planet.name] = true
+        end
+    end
+
+    local player_gui_settings = get_player_gui_settings(player)
+    surfaceflow.visible = player_gui_settings.info_planet and (storage.nauvis_lab_exploded or false)
+    dimensionflow.visible = player_gui_settings.info_dimension and (storage.nauvis_lab_exploded or false)
+    surface_time.visible = player_gui_settings.info_planet_clock and (storage.nauvis_lab_exploded or false)
+    surface_evolution.visible = player_gui_settings.info_evolution and (storage.nauvis_lab_exploded or false)
+    warpflow.visible = player_gui_settings.info_warp_timer and storage.timer.active
+    manualwarpflow.visible = player_gui_settings.info_manual_timer and storage.timer.active
+    destination_flow.visible = player_gui_settings.planet_selector and storage.planet_selector_enabled
     warp_button.visible = storage.timer.active
 
     return warp_frame
@@ -59,7 +102,7 @@ local function get_or_create_item_selector(player, frame, name)
     item_count.style.right_padding = 5
     item_count.style.vertical_align = "center"
     item_count.style.horizontal_align = "right"
-    item_count.style.font_color = util.color(settings.get_player_settings(player)['dw-gui-default-color'].value)
+    item_count.style.font_color = util.color(get_player_gui_settings(player).default_color)
     item_count.style.hovered_font_color  = util.color("#C4E9FF")
 
     return flow
@@ -113,6 +156,20 @@ local function update_manual_warp_button()
 end
 dw.gui.update_manual_warp_button = update_manual_warp_button
 
+local function update_preferred_destination(previous_destination, current_destination)
+    for _, player in pairs(game.players) do
+        local frame = get_warp_frame(player)
+        local previous_button = frame.destination_flow["preferred-" .. previous_destination]
+        if previous_button then
+            previous_button.toggled = false
+        end
+        local current_button = frame.destination_flow["preferred-" .. current_destination]
+        if current_button then
+            current_button.toggled = true
+        end
+    end
+end
+
 local function warp_frame_click(event)
     local player = game.players[event.player_index]
     local button = event.element
@@ -130,6 +187,17 @@ local function warp_frame_click(event)
     if button.name == "container_toggle" then
         local frame = get_container_frame(player)
         frame.visible = not frame.visible
+    end
+
+    if button.name:match('^preferred%-') then
+        local planet_name = button.name:sub(11)
+        local previous = storage.warp.preferred_destination or "none"
+        if button.toggled then
+            storage.warp.preferred_destination = planet_name
+        else
+            storage.warp.preferred_destination = nil
+        end
+        update_preferred_destination(previous, storage.warp.preferred_destination or "none")
     end
 end
 
@@ -190,11 +258,7 @@ end
 --- Update the watchdogs labels to display the actual item quantity
 local function update_watchdogs_gui()
     for _, player in pairs(game.connected_players) do
-        local highlight_change = settings.get_player_settings(player)['dw-gui-highlight-qty-change'].value
-        local default_color = settings.get_player_settings(player)['dw-gui-default-color'].value
-        local increase_color = settings.get_player_settings(player)['dw-gui-increase-qty-color'].value
-        local decrease_color = settings.get_player_settings(player)['dw-gui-decrease-qty-color'].value
-        local delimiter = settings.get_player_settings(player)['dw-gui-thousand-delimiter'].value
+        local player_gui_settings = get_player_gui_settings(player)
 
         for watchdog, item in pairs(storage.gui.item_watch) do
             local item_quantity = storage.gui.item_list[item.name .. '-' .. item.quality] or 0
@@ -211,12 +275,12 @@ local function update_watchdogs_gui()
 
             local item_variation = item_quantity.qty - item_quantity.prev
             frame.item_table[watchdog].count.tooltip = nil
-            if highlight_change then
-                local color = util.color(default_color)
+            if player_gui_settings.highlight_change then
+                local color = util.color(player_gui_settings.default_color)
                 if item_variation > 0 then
-                    color = util.color(increase_color)
+                    color = util.color(player_gui_settings.increase_color)
                 elseif item_variation < 0 then
-                    color = util.color(decrease_color)
+                    color = util.color(player_gui_settings.decrease_color)
                 end
                 frame.item_table[watchdog].count.style.font_color = color
                 frame.item_table[watchdog].count.tooltip = (item_variation ~= 0 and {"dw-gui.item-variation", item_variation} or nil)
@@ -226,7 +290,7 @@ local function update_watchdogs_gui()
             if item_quantity.qty >= 1000000 then
                 frame.item_table[watchdog].count.caption = util.format_number(item_quantity.qty, true)
             else
-                frame.item_table[watchdog].count.caption = utils.format_thousands(item_quantity.qty, delimiter)
+                frame.item_table[watchdog].count.caption = utils.format_thousands(item_quantity.qty, player_gui_settings.delimiter)
             end
         end
     end
@@ -257,10 +321,13 @@ local function update()
     for _, player in pairs(game.players) do
         local frame = get_warp_frame(player)
 
-        frame.surface.visible = storage.nauvis_lab_exploded or false
-        frame.dimension.visible = storage.nauvis_lab_exploded or false
-        frame.surface_time.visible = storage.nauvis_lab_exploded or false
-        frame.surface_evolution.visible = storage.nauvis_lab_exploded or false
+        local player_gui_settings = get_player_gui_settings(player)
+        
+        frame.surface.visible = player_gui_settings.info_planet and (storage.nauvis_lab_exploded or false)
+        frame.dimension.visible = player_gui_settings.info_dimension and (storage.nauvis_lab_exploded or false)
+        frame.surface_time.visible = player_gui_settings.info_planet_clock and (storage.nauvis_lab_exploded or false)
+        frame.surface_evolution.visible = player_gui_settings.info_evolution and (storage.nauvis_lab_exploded or false)
+        frame.destination_flow.visible = player_gui_settings.planet_selector and storage.planet_selector_enabled
 
         frame.surface.caption = {"dw-gui.planet", storage.warp.current.planet, {"space-location-name." .. storage.warp.current.planet}, storage.warp.randomizer or "normal"}
         frame.dimension.caption = {"dw-gui.dimension", storage.warp.number}
@@ -269,14 +336,14 @@ local function update()
 
         if storage.timer.active then
             if storage.timer.warp >= 0 then
-                frame.warp_timer.visible = true
+                frame.warp_timer.visible = player_gui_settings.info_warp_timer
                 local timer = utils.format_time(storage.timer.warp)
                 if storage.timer.warp <= 60 then timer = "[font=default-bold][color=#faf17a]" .. timer .. "[/color][/font]" end
                 frame.warp_timer.caption = {"dw-gui.autowarp_timer", timer}
             else
                 frame.warp_timer.visible = false
             end
-            frame.warp_timer_manual.visible = true
+            frame.warp_timer_manual.visible = player_gui_settings.info_manual_timer
             local timer = utils.format_time(storage.timer.manual_warp)
             if storage.timer.manual_warp < 10 then timer = "[font=default-bold][color=#faf17a]" .. timer .. "[/color][/font]" end
             frame.warp_timer_manual.caption = {"dw-gui.manualwarp_timer", timer}
