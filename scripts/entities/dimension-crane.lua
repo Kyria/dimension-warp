@@ -24,7 +24,8 @@ local function transfer_seeds(from_inventory, to_inventory, name, quantity)
 end
 
 local function transfer_seeds_fruits(towers, seed_chest, fruit_chest, seed_name)
-    for index, tower in pairs(towers) do
+    for index = #towers, 1, -1 do
+        local tower = towers[index]
         if not tower.valid then
             table.remove(towers, index)
             goto continue

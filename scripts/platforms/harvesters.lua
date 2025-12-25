@@ -321,7 +321,8 @@ local function recall_harvester(side)
     }
 
     -- don't clone harvester gate and any vehicles with players inside
-    for index, h_entity in pairs(harvester_entities) do
+    for index = #harvester_entities, 1, -1 do
+        local h_entity = harvester_entities[index]
         if h_entity.name == dw.harvesters[side].mobile_name then
             table.remove(harvester_entities, index)
         end
@@ -341,7 +342,7 @@ local function recall_harvester(side)
 
     -- remove the entities
     for _, h_entity in pairs(harvester_entities) do
-        h_entity.destroy()
+        h_entity.destroy{raise_destroy = true}
     end
 
     storage.harvesters[side].mobile.destroy()
@@ -406,7 +407,8 @@ local function harvester_placed(event)
     }
 
     -- don't clone harvester gate and pole and any vehicles with players inside
-    for index, h_entity in pairs(harvester_entities) do
+    for index = #harvester_entities, 1, -1 do
+        local h_entity = harvester_entities[index]
         if h_entity.name == dw.harvesters[side].pole or h_entity.name == dw.harvesters[side].name then
             table.remove(harvester_entities, index)
         end
@@ -425,7 +427,7 @@ local function harvester_placed(event)
     }
 
     for _, h_entity in pairs(harvester_entities) do
-        h_entity.destroy()
+        h_entity.destroy{raise_destroy = true}
     end
 
     local pole = surface.create_entity{
