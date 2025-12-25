@@ -35,20 +35,31 @@ dw.safe_teleport = safe_teleport
 ---
 local function check_player_teleport()
     for player_index, player in pairs(game.connected_players) do
-        if player.driving then goto continue end
-        if not player.walking_state.walking then goto continue end
+        if not player.walking_state.walking and not player.driving then goto continue end
 
         -- prevent teleport spam
         if (storage.players_last_teleport[player_index] or 0) > game.tick - 20 then
             goto continue
         end
 
-
+        -- use the bounding box to determine the size of the check area
         local position = player.physical_position
+        local bounding_box = player.character and player.character.bounding_box
+        if player.driving then
+            position = player.physical_vehicle.position
+            bounding_box = player.physical_vehicle.bounding_box
+        end
+        if player.character and player.character.is_flying then
+            position.y = position.y + player.character.flight_height
+        end
+        if not bounding_box then goto continue end
+
+        local entity_size = 0.2 + math2d.position.distance(bounding_box.left_top, bounding_box.right_bottom) / 2
         local check_area = {
-            {position.x - 0.4, position.y - 0.5},
-            {position.x + 0.4, position.y + 0.5}
+            {position.x - entity_size, position.y - entity_size},
+            {position.x + entity_size, position.y + entity_size}
         }
+        
         local entities = player.surface.find_entities_filtered{area = check_area, subgroup="warpgate"}
 
         --- is the entities found an active teleporter ?
@@ -58,10 +69,27 @@ local function check_player_teleport()
                 if not teleporter.from.valid or not teleporter.to.valid then goto continue_teleport end
                 if player.surface.name ~= teleporter.from.surface.name then goto continue_teleport end
                 if teleporter.from == found_entity then
-                    local distance = math2d.position.distance(teleporter.from.position, position)
-                    local final_pos = util.moveposition(teleporter.to.position, player.walking_state.direction, distance + 0.5)
+                    local relative_position = math2d.position.subtract(teleporter.from.position, position)
 
-                    safe_teleport(player, teleporter.to.surface, final_pos)
+                    -- make sure we are outside of the teleporter area when teleporting
+                    -- so we check current length with increase, compared to the "length" of the target teleporter half-size + entity size
+                    local distance = math2d.position.vector_length(relative_position) * 1.3
+                    local teleporter_check_distance = entity_size - 0.2 + math2d.position.distance(teleporter.to.bounding_box.left_top, teleporter.to.bounding_box.right_bottom) / 2
+                    if distance < teleporter_check_distance then
+                        relative_position = math2d.position.multiply_scalar(relative_position, (teleporter_check_distance / distance) + 0.3)
+                    else
+                        relative_position = math2d.position.multiply_scalar(relative_position, 1.3)
+                    end
+
+                    local final_pos = math2d.position.add(teleporter.to.position, relative_position)
+
+                    if player.driving then
+                        local speed = player.physical_vehicle.speed
+                        safe_teleport(player.vehicle, teleporter.to.surface, final_pos)
+                        if player.physical_vehicle.type == "car" then player.physical_vehicle.speed = speed end
+                    else
+                        safe_teleport(player, teleporter.to.surface, final_pos)
+                    end
                     player.play_sound{path = "dw-teleport"}
                     goto continue
                 end

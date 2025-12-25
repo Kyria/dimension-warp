@@ -8,6 +8,8 @@ Date: 2025.xx.xx
     - Add settings to configure the information displayed in the GUI.
   Changes:
     - Change warp generator 4 and 5 prerequisites.
+    - Try to improve teleportation detection and target position calculation. 
+    - Teleportation now allows vehicle teleportation when driving. (Recall of harvesters did not change and still doesn't teleport vehicles)
   Compatibility:
     - Add compatibility with Bobs (PR from @Enderdraak #15)
 ---------------------------------------------------------------------------------------------------
