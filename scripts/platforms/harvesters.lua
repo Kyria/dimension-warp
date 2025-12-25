@@ -315,10 +315,22 @@ local function recall_harvester(side)
     -- find all entities we want to teleport back to harvester zone
     local harvester_entities = surface.find_entities_filtered {
         type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
-                "car", "spider-vehicle", "spider-leg", "player", "character", "radar", "resource"},
+                "spider-leg", "player", "character", "resource"},
         area = deployed_area,
         invert = true,
     }
+
+    -- don't clone harvester gate and any vehicles with players inside
+    for index, h_entity in pairs(harvester_entities) do
+        if h_entity.name == dw.harvesters[side].mobile_name then
+            table.remove(harvester_entities, index)
+        end
+        if h_entity.type == "car" or h_entity.type == "spider-vehicle" then
+            if h_entity.get_driver() or h_entity.get_passenger() then
+                table.remove(harvester_entities, index)
+            end
+        end
+    end
 
     local destination_offset = math2d.position.subtract(dw.harvesters[side].center, deployed_center)
     storage.platform.mining.surface.clone_entities{
@@ -388,14 +400,20 @@ local function harvester_placed(event)
     local deployed_area = math2d.bounding_box.create_from_centre(position, storage.harvesters[side].size - 1)
     local harvester_area = math2d.bounding_box.create_from_centre(dw.harvesters[side].center, storage.harvesters[side].size - 1)
     local harvester_entities = storage.platform.mining.surface.find_entities_filtered {
-        type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon", "car", "spider-vehicle", "player", "character", "radar", "resource"},
+        type = {"locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon", "spider-leg", "player", "character", "resource"},
         area = harvester_area,
         invert = true,
     }
 
+    -- don't clone harvester gate and pole and any vehicles with players inside
     for index, h_entity in pairs(harvester_entities) do
-        if h_entity.name == dw.harvesters[side].pole then
+        if h_entity.name == dw.harvesters[side].pole or h_entity.name == dw.harvesters[side].name then
             table.remove(harvester_entities, index)
+        end
+        if h_entity.type == "car" or h_entity.type == "spider-vehicle" then
+            if h_entity.get_driver() or h_entity.get_passenger() then
+                table.remove(harvester_entities, index)
+            end
         end
     end
 
