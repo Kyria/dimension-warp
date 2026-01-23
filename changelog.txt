@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.6.0
-Date: 2025.xx.xx
+Date: 2026.01.23
   Features:
     - Add the ability to select the preferrred planet to warp (only for space age). (70% chance) 
       - Add a technology to allow player to select preferred planet to warp to. 
@@ -12,7 +12,7 @@ Date: 2025.xx.xx
     - Teleportation now allows vehicle teleportation when driving.
     - Deploy and recall harvesters now teleport vehicles as well (car, tank, spidertron) unless a player is inside.
   Compatibility:
-    - Add compatibility with Bobs (PR from @Enderdraak #15)
+    - Add compatibility with Bobs (PR from @Enderdraak #15). Not all mods have been tested.
     - Make sure that any custom entity in harvesters (other than train, player and resources) are also teleported when recalling / deploying harvesters.
 ---------------------------------------------------------------------------------------------------
 Version: 0.5.3

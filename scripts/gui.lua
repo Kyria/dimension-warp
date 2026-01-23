@@ -56,7 +56,7 @@ local function get_warp_frame(player)
     destination_list.none.style.height = 25
     destination_list.none.style.padding = 0
     destination_list.none.style.margin = 0
-    storage.planet_selector_list["preferred-none"] = true
+    storage.gui.planet_selector_list["preferred-none"] = true
     
     for _, planet in pairs(game.planets) do
         if not utils.ignore_planet(planet.name) and player.force.is_space_location_unlocked(planet.name) then 
@@ -65,7 +65,7 @@ local function get_warp_frame(player)
             destination_list["preferred-" .. planet.name].style.height = 25
             destination_list["preferred-" .. planet.name].style.padding = 0
             destination_list["preferred-" .. planet.name].style.margin = 0
-            storage.planet_selector_list["preferred-" .. planet.name] = true
+            storage.gui.planet_selector_list["preferred-" .. planet.name] = true
         end
     end
 
@@ -76,7 +76,7 @@ local function get_warp_frame(player)
     surface_evolution.visible = player_gui_settings.info_evolution and (storage.nauvis_lab_exploded or false)
     warpflow.visible = player_gui_settings.info_warp_timer and storage.timer.active
     manualwarpflow.visible = player_gui_settings.info_manual_timer and storage.timer.active
-    destination_flow.visible = player_gui_settings.planet_selector and storage.planet_selector_enabled
+    destination_flow.visible = player_gui_settings.planet_selector and storage.gui.planet_selector_enabled
     warp_button.visible = storage.timer.active
 
     return warp_frame
@@ -327,7 +327,7 @@ local function update()
         frame.dimension.visible = player_gui_settings.info_dimension and (storage.nauvis_lab_exploded or false)
         frame.surface_time.visible = player_gui_settings.info_planet_clock and (storage.nauvis_lab_exploded or false)
         frame.surface_evolution.visible = player_gui_settings.info_evolution and (storage.nauvis_lab_exploded or false)
-        frame.destination_flow.visible = player_gui_settings.planet_selector and storage.planet_selector_enabled
+        frame.destination_flow.visible = player_gui_settings.planet_selector and storage.gui.planet_selector_enabled
 
         frame.surface.caption = {"dw-gui.planet", storage.warp.current.planet, {"space-location-name." .. storage.warp.current.planet}, storage.warp.randomizer or "normal"}
         frame.dimension.caption = {"dw-gui.dimension", storage.warp.number}

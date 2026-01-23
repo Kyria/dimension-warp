@@ -154,7 +154,7 @@ local function warp_generator_research(event)
         dw.gui.update_manual_warp_button()
     end
     if tech.name == "warp-preferred-planet" then
-        storage.planet_selector_enabled = true
+        storage.gui.planet_selector_enabled = true
     end
 end
 
