@@ -1,10 +1,12 @@
 --- Surface generation and randomization
 ------------------------------------------------------------
 require "scripts.planets.neo-nauvis"
-require "scripts.planets.fulgora"
-require "scripts.planets.gleba"
-require "scripts.planets.vulcanus"
-require "scripts.planets.aquilo"
+if script.active_mods['space-age'] then
+    require "scripts.planets.fulgora"
+    require "scripts.planets.gleba"
+    require "scripts.planets.vulcanus"
+    require "scripts.planets.aquilo"
+end
 
 local function force_map_settings()
     game.map_settings.pollution.enabled = true
