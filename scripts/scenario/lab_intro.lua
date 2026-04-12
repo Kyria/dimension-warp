@@ -171,6 +171,7 @@ local function player_teleported_to_neo_nauvis(event)
 
     if surface.name == storage.warp.current.name then
         game.print({"dw-messages.intro-new-dimension-start"}, {color=util.color(defines.hexcolor.green.. 'd9')})
+        dw.rampant.check_surface_processed(storage.warp.current.surface)
     end
     storage.lab_intro_finished = true
 end

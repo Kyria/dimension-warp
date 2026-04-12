@@ -1,7 +1,18 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen.aquilo = dw.mapgen.aquilo or {}
 
-dw.mapgen.aquilo.resource_list = {"aquilo_crude_oil", "fluorine_vent", "lithium_brine"}
+local function get_update_aquilo_resources()
+    storage.aquilo_resources = {}
+    local aquilo_mgs = game.planets.aquilo.prototype.map_gen_settings
+    for name, _ in pairs(aquilo_mgs.autoplace_controls) do
+        local autoplace_prototype = prototypes.autoplace_control[name]
+        if autoplace_prototype then
+            if autoplace_prototype.category == "resource" then
+                table.insert(storage.aquilo_resources, name)
+            end
+        end
+    end
+end
 ---------------------------------
 --- Enemy management
 ---------------------------------
@@ -29,33 +40,26 @@ end
 ---------------------------------
 local function barren(mapgen)
     set_enemy_autoplace(mapgen, 0, 0)
-    for _, resource in pairs(dw.mapgen.aquilo.resource_list) do
+    for _, resource in pairs(storage.aquilo_resources) do
         mapgen.autoplace_controls[resource] = {richness = 0, size = 1, frequency = 1}
     end
     return mapgen
 end
 
 local function normal(mapgen)
+    mapgen.starting_area = 0.5
     set_enemy_autoplace(mapgen, 1.5, 1)
-    for _, resource in pairs(dw.mapgen.aquilo.resource_list) do
+    for _, resource in pairs(storage.aquilo_resources) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 1, frequency = 1}
     end
     return mapgen
 end
 
-local function oil_planet(mapgen)
+-- massive 1 resource
+local function resource_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.aquilo.resource_list, "aquilo_crude_oil", 3, 1, 2)
-end
-
-local function fluorine_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.aquilo.resource_list, "fluorine_vent", 5, 3, 4)
-end
-
-local function lithium_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.aquilo.resource_list, "lithium_brine", 3, 2, 4)
+    local resource = storage.aquilo_resources[math.random(#storage.aquilo_resources)]
+    return utils.adjust_resource_proportion(mapgen, storage.aquilo_resources, resource, 3, 2, 4)
 end
 
 local function ammoniacal_planet(mapgen)
@@ -63,14 +67,14 @@ local function ammoniacal_planet(mapgen)
     mapgen.autoplace_settings.tile.settings = {}
     mapgen.autoplace_settings.tile.settings['ammoniacal-ocean'] = {richness = 1, size = 1, frequency = 1}
     mapgen.autoplace_settings.tile.settings['ammoniacal-ocean-2'] = {richness = 1, size = 1, frequency = 1}
-    for _, resource in pairs(dw.mapgen.aquilo.resource_list) do
+    for _, resource in pairs(storage.aquilo_resources) do
         mapgen.autoplace_controls[resource] = {richness = 0, size = 1, frequency = 1}
     end
     return mapgen
 end
 
 local function dry_ice_planet(mapgen)
-    for _, resource in pairs(dw.mapgen.aquilo.resource_list) do
+    for _, resource in pairs(storage.aquilo_resources) do
         mapgen.autoplace_controls[resource] = {richness = 4, size = 2, frequency = 1}
     end
 
@@ -83,7 +87,7 @@ local function dry_ice_planet(mapgen)
     mapgen.autoplace_settings.entity.settings["lithium-iceberg-big"] = nil
     mapgen.autoplace_settings.entity.settings["lithium-iceberg-huge"] = nil
 
-    mapgen.starting_area = "small"
+    mapgen.starting_area = 0.4
     set_enemy_autoplace(mapgen, 3, 3, true)
 
     return mapgen
@@ -112,14 +116,10 @@ local function aquilo_randomizer(mapgen, surface_name)
 
     if storage.warp.number >= 100 and not storage.aquilo_first_warp then
         table.insert(randomizer_list, {"Barren", barren, surface_random_day_tick, "dw-randomizer.aquilo-barren"})
-        table.insert(randomizer_list, {"Bituminous", oil_planet, surface_random_day_tick, "dw-randomizer.aquilo-oil"})
-        table.insert(randomizer_list, {"Toxic", fluorine_planet, surface_random_day_tick, "dw-randomizer.aquilo-fluorine"})
-        table.insert(randomizer_list, {"Alkali", lithium_planet, surface_random_day_tick, "dw-randomizer.aquilo-lithium"})
+        table.insert(randomizer_list, {"Concentrated", resource_planet, surface_random_day_tick, "dw-randomizer.aquilo-concentrated"})
         table.insert(randomizer_list, {"Ammoniacal", ammoniacal_planet, surface_random_day_tick, "dw-randomizer.aquilo-ammoniacal"})
 
 
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
@@ -156,3 +156,6 @@ end
 
 dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
 dw.mapgen.aquilo.randomizer = aquilo_randomizer
+
+dw.register_event('on_init', get_update_aquilo_resources)
+dw.register_event('on_configuration_changed', get_update_aquilo_resources)

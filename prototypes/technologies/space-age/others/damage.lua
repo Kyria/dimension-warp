@@ -28,7 +28,7 @@ data:extend {
         },
         prerequisites = {"electric-weapons-damage-3",  "tesla-weapons"},
         unit = {
-            count = 500,
+            count = 1000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
@@ -55,7 +55,7 @@ data:extend {
         },
         prerequisites = {"dimension-tesla-weapons-damage-1"},
         unit = {
-            count = 1000,
+            count = 2000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},
@@ -82,7 +82,7 @@ data:extend {
         },
         prerequisites = {"dimension-tesla-weapons-damage-2"},
         unit = {
-            count = 2000,
+            count = 3000,
             ingredients = {
                 {"automation-science-pack", 1},
                 {"logistic-science-pack", 1},

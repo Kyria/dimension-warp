@@ -1,6 +1,6 @@
 {
   "name": "dimension-warp",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "title": "Dimension Warp",
   "author": "Anakhon",
   "homepage": "https://github.com/Kyria/dimension-warp",
@@ -17,8 +17,10 @@
     "(?) aai-containers",
     "(?) Krastorio2",
     "(?) Krastorio2-spaced-out",
+    "(?) bobores",
     "(?) alien-biomes",
     "(?) factorissimo-2-notnotmelon",
+    "(?) RampantFixed",
     "! lane-filtered-loaders",
     "! loaders-make-full-stacks"
   ]

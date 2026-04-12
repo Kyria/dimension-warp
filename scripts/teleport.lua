@@ -45,9 +45,12 @@ local function check_player_teleport()
         -- use the bounding box to determine the size of the check area
         local position = player.physical_position
         local bounding_box = player.character and player.character.bounding_box
+        
         if player.driving then
-            position = player.physical_vehicle.position
-            bounding_box = player.physical_vehicle.bounding_box
+            local vehicle = (player.controller_type ~= defines.controllers.remote) and player.physical_vehicle or player.vehicle
+            if not vehicle then goto continue end
+            position = vehicle.position
+            bounding_box = vehicle.bounding_box
         end
         if player.character and player.character.is_flying then
             position.y = position.y + player.character.flight_height
@@ -84,9 +87,11 @@ local function check_player_teleport()
                     local final_pos = math2d.position.add(teleporter.to.position, relative_position)
 
                     if player.driving then
-                        local speed = player.physical_vehicle.speed
+                        local vehicle = (player.controller_type ~= defines.controllers.remote) and player.physical_vehicle or player.vehicle
+                        if not vehicle then goto continue end
+                        local speed = vehicle.speed
                         safe_teleport(player.vehicle, teleporter.to.surface, final_pos)
-                        if player.physical_vehicle.type == "car" then player.physical_vehicle.speed = speed end
+                        if vehicle.type == "car" then vehicle.speed = speed end
                     else
                         safe_teleport(player, teleporter.to.surface, final_pos)
                     end

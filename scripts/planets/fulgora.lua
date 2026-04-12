@@ -26,14 +26,15 @@ end
 --- Randomizers
 ---------------------------------
 local function normal(mapgen)
-    mapgen.starting_area = "small"
+    mapgen.starting_area = 0.2
     mapgen.autoplace_controls['scrap'] = {frequency = 1, size = 1, richness = 1}
     mapgen.autoplace_controls["fulgora_islands"] = {size = 6, frequency = 6}
     mapgen.property_expression_names["control:fulgora_islands:frequency"] = 4
     mapgen.property_expression_names["control:fulgora_islands:size"] = 4
-    set_enemy_autoplace(mapgen, 1.5, 1)
+    set_enemy_autoplace(mapgen, 2.5, 1)
     return mapgen
 end
+
 
 local function barren(mapgen)
     mapgen = normal(mapgen)
@@ -138,7 +139,7 @@ local function fulgora_randomizer(mapgen, surface_name)
     end
 
     if storage.warp.number >= 120 and not storage.fulgora_first_warp then
-        local weight = math.floor(storage.warp.number / 60)
+        local weight = math.floor(storage.warp.number / 50)
         table.insert(randomizer_list, {"Junkyard", junkyard, surface_always_dusk, "dw-randomizer.fulgora-junkyard"})
         table.insert(randomizer_list, {"Death World", death_world, surface_always_night, "dw-randomizer.fulgora-death-world"})
         table.insert(randomizer_weights, weight)

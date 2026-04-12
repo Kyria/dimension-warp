@@ -26,6 +26,7 @@ end
 
 --- Force enemies in a given radius to attack everything
 local function force_enemy_attack()
+	if dw.rampant.active then return end -- rampant already manages this. 
 	local force_attack_wave = settings.global['dw-helper-enemy-force-attack'].value
 	if not storage.timer.active then return end
 	if storage.warp.number < force_attack_wave then return end

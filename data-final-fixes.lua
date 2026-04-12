@@ -23,4 +23,6 @@ if mods['space-age'] then
     end
 end
 
-if mods['alien-biomes'] then require 'prototypes.update-final.compatibilities.alien-biomes' end
+-- force autoplce from nauvis to neo-nauvis
+local nauvis_mgs = data.raw.planet['nauvis'].map_gen_settings
+data.raw.planet['neo-nauvis'].map_gen_settings = table.deepcopy(nauvis_mgs)

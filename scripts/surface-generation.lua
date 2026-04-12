@@ -74,7 +74,7 @@ local function generate_surface(planet, vanilla)
         --- we also force the timer for these planet
         storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
     end
-
+    dw.rampant.check_surface_processed(storage.warp.current.surface)
     storage.warp.current.surface.request_to_generate_chunks({x= 0, y = 0}, storage.platform.warp.size / 32 + 1)
     storage.warp.current.surface.force_generate_chunk_requests()
 end

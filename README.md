@@ -35,15 +35,35 @@ This mod was written from scratch, as I wanted to learn how to make mods (and at
     * [Explosive Biters](https://mods.factorio.com/mod/Explosive_biters)
     * [Toxic Biters](https://mods.factorio.com/mod/Toxic_biters)
     * [Fulgoran Enemies (Electric Flying Enemies)](https://mods.factorio.com/mod/Electric_flying_enemies)
+* [RampantFixed](https://mods.factorio.com/mod/RampantFixed) + [Rampant Arsenal](https://mods.factorio.com/mod/RampantArsenalFork?from=search)
+
+## Rampant Fixed recommendation
+
+If you are going for Rampant, in the beginning you are requested to set *Planet processing settings*.
+
+Good example value can be the following: 
+
+![Rampant Settings](graphics/misc/rampant_settings.png)
+
+This settings make sure you are not attacked until 5min have passed and at least 5% evolution per planet. You can adjust the value to your test, just keep in mind higher value may lead to Rampant doing not so much. 
+Make sure to enable "Other" surface and "Aquilo" as well. 
+
+Other mod values are fixed by Dimension Warp (to ensure some rampant behavior) or are left to your test.
 
 ## Mod Recommandations
 
 Some mods that may help you during your run:
 
-* Early drones (from the mod or other mods like Tiny Start 2)
+### Make things easier: 
+
+* Early drones mods (included in the mod or from other mods like Tiny Start 2)
 * RPG System
-* AAI Containers if you don't have any
-* K2 Fluid Storage if you don't have Krastorio2
+* Efficient Robot + Faster Robot
+
+### Others 
+
+* K2 Fluid Storage 
+* AAI Industry + Krastorio2 if you like increased complexity
 
 ## Q&A
 

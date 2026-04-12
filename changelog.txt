@@ -1,8 +1,23 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.7.0
+Date: 2026.04.12
+  Changes:
+    - Update Aquilo mapgen and noise to have somewhat continent like while still having icebergs.
+    - Make sure biters can spawn on Aquilo (forced by mapgen) and can walk from anywhere to the center of the map (where the player is).
+    - Adjust mapgen of all planets for resources and biters.
+  Bugfixes:
+    - Fix teleport detection not working properly when player is in a vehicle with remote controller.
+  Compatibility:
+    - Fix compatibility with mods that add custom ores (Krastorio2, Bobs...).
+    - Make sure RampantFixed works with the mod and change some mod behavior when it's detected.
+  Balancing:
+    - Change Dimension Tesla weapon damage tech cost to be more expensive.
+    - Change Tesla turret to have a longer cooldown and high energy consumptions (6MW charge, 36MJ per shot instead of 7MW and 12MJ) when not using RampantFixed.
+---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 2026.01.23
   Features:
-    - Add the ability to select the preferrred planet to warp (only for space age). (70% chance) 
+    - - Add the ability to select the preferred planet to warp (only for space age). (70% chance) 
       - Add a technology to allow player to select preferred planet to warp to. 
       - Add GUI to select preferred planet when the technology is researched.
     - Add settings to configure the information displayed in the GUI.

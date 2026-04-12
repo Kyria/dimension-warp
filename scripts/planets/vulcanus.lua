@@ -1,7 +1,18 @@
 dw.mapgen = dw.mapgen or {}
 dw.mapgen.vulcanus = dw.mapgen.vulcanus or {}
 
-dw.mapgen.vulcanus.resource_list = {"calcite", "vulcanus_coal", "sulfuric_acid_geyser", "tungsten_ore"}
+local function get_update_vulcanus_resources()
+    storage.vulcanus_resources = {}
+    local vulcanus_mgs = game.planets.vulcanus.prototype.map_gen_settings
+    for name, _ in pairs(vulcanus_mgs.autoplace_controls) do
+        local autoplace_prototype = prototypes.autoplace_control[name]
+        if autoplace_prototype then
+            if autoplace_prototype.category == "resource" then
+                table.insert(storage.vulcanus_resources, name)
+            end
+        end
+    end
+end
 
 ---------------------------------
 --- Enemy management
@@ -28,10 +39,9 @@ end
 --- Randomizers
 ---------------------------------
 local function barren(mapgen)
-    mapgen.autoplace_controls["calcite"].richness = 0
-    mapgen.autoplace_controls["vulcanus_coal"].richness = 0
-    mapgen.autoplace_controls["sulfuric_acid_geyser"].richness = 0
-    mapgen.autoplace_controls["tungsten_ore"].richness = 0
+    for _, resource in pairs(storage.vulcanus_resources) do
+        mapgen.autoplace_controls[resource] = {richness = 0, size = 1, frequency = 1}
+    end
     return mapgen
 end
 
@@ -45,11 +55,10 @@ local function eruption(mapgen)
 end
 
 local function normal(mapgen)
-    mapgen.starting_area = "small"
-    mapgen.autoplace_controls["calcite"] = {frequency = 1, richness = 1, size = 1}
-    mapgen.autoplace_controls["vulcanus_coal"] = {frequency = 1, richness = 1, size = 1}
-    mapgen.autoplace_controls["sulfuric_acid_geyser"] = {frequency = 1, richness = 1, size = 1}
-    mapgen.autoplace_controls["tungsten_ore"] = {frequency = 0.8, richness = 1, size = 1}
+    mapgen.starting_area = 0.5
+    for _, resource in pairs(storage.vulcanus_resources) do
+        mapgen.autoplace_controls[resource] = {frequency = 1, richness = 1, size = 1}
+    end
     set_enemy_autoplace(mapgen, 2, 1)
     return mapgen
 end
@@ -69,24 +78,15 @@ local function dormant(mapgen)
     return mapgen
 end
 
-local function calcite_planet(mapgen)
+-- massive 1 resource
+local function resource_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "calcite", 2, 2, 1)
-end
-local function coal_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "vulcanus_coal", 2, 2, 1)
-end
-local function acid_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "sulfuric_acid_geyser", 2, 2, 3)
-end
-local function tungsten_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen.vulcanus.resource_list, "tungsten_ore", 2, 4, 5)
+    local resource = storage.vulcanus_resources[math.random(#storage.vulcanus_resources)]
+    return utils.adjust_resource_proportion(mapgen, storage.vulcanus_resources, resource, 2, 3, 4)
 end
 
 local function demolisher_planet(mapgen)
+    mapgen.starting_area = 0.2
     mapgen = normal(mapgen)
 
     mapgen.territory_settings = {
@@ -107,20 +107,19 @@ end
 -- Something's missing...
 local function missing_resource(mapgen)
     mapgen = normal(mapgen)
+    mapgen.starting_area = 0.4
 
-    mapgen.autoplace_controls["calcite"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["vulcanus_coal"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["sulfuric_acid_geyser"] = {richness = 1.5, size = 1, frequency = 1.5}
-    mapgen.autoplace_controls["tungsten_ore"] = {richness = 1.5, size = 1, frequency = 1.5}
+    for _, resource in pairs(storage.vulcanus_resources) do
+        mapgen.autoplace_controls[resource] = {richness = 1.5, size = 1, frequency = 1.5}
+    end
 
     local number_ore = math.random(2)
-    local list = {"calcite", "vulcanus_coal", "sulfuric_acid_geyser", "tungsten_ore"}
-    local weights = {2,1,1,4}
+    local list = table.deepcopy(storage.vulcanus_resources)
     for i = number_ore, 1, -1 do
-        local index, selected = utils.weighted_random_choice(list, weights)
+        local index = math.random(#list)
+        local selected = list[index]
         mapgen.autoplace_controls[selected].richness = 0
         table.remove(list, index)
-        table.remove(weights, index)
     end
     return mapgen
 end
@@ -142,7 +141,6 @@ local function surface_random_day_tick(surface)
 end
 
 local function vulcanus_randomizer(mapgen, surface_name)
-    mapgen.starting_area = "very-small"
     mapgen.seed = math.random(2^16) + game.tick
 
     local randomizer_list = {
@@ -155,19 +153,13 @@ local function vulcanus_randomizer(mapgen, surface_name)
         table.insert(randomizer_list, {"Erupting", eruption, surface_always_night, "dw-randomizer.vulcanus-erupting"})
         table.insert(randomizer_list, {"Dormant", dormant, surface_random_day_tick, "dw-randomizer.vulcanus-dormant"})
         table.insert(randomizer_list, {"Alternate", missing_resource, surface_random_day_tick, "dw-randomizer.vulcanus-alternate"})
-        table.insert(randomizer_list, {"Chalky", calcite_planet, nil, "dw-randomizer.vulcanus-calcite"})
-        table.insert(randomizer_list, {"Caustic", acid_planet, nil, "dw-randomizer.vulcanus-acid"})
-        table.insert(randomizer_list, {"Hardened", tungsten_planet, nil, "dw-randomizer.vulcanus-tungsten"})
-        table.insert(randomizer_list, {"Carbonaceous", coal_planet, nil, "dw-randomizer.vulcanus-coal"})
+        table.insert(randomizer_list, {"Concentrated", resource_planet, nil, "dw-randomizer.vulcanus-concentrated"})
 
         table.insert(randomizer_weights, 3)
         table.insert(randomizer_weights, 3)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 15)
-        table.insert(randomizer_weights, 1)
         table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 1)
-        table.insert(randomizer_weights, 1)
     end
 
     if storage.warp.number >= 125 and not storage.vulcanus_first_warp then
@@ -201,3 +193,6 @@ end
 
 dw.register_event(defines.events.on_research_finished, on_technology_research_finished)
 dw.mapgen.vulcanus.randomizer = vulcanus_randomizer
+
+dw.register_event('on_init', get_update_vulcanus_resources)
+dw.register_event('on_configuration_changed', get_update_vulcanus_resources)

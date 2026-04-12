@@ -1,4 +1,5 @@
 require "lib.lib"
+require "lib.rampant"
 
 ------------------------------------------------------------
 --- Globals
@@ -111,8 +112,8 @@ dw.register_event('on_configuration_changed', set_globals)
 --- Warnings
 ------------------------------------------------------------
 local function mod_warning()
-    if script.active_mods['Repair_Turret'] then
-        game.print({"dw-warning.repair-tower-mod"})
+    if dw.rampant.active then
+        game.print({"dw-messages.rampant-settings"})
     end
 end
 dw.register_event('on_init', mod_warning)

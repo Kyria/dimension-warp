@@ -4,16 +4,17 @@ dw.mapgen['neo-nauvis'] = dw.mapgen['neo-nauvis'] or {}
 ---------------------------------
 --- Resource management
 ---------------------------------
-dw.mapgen['neo-nauvis'].resource_list = {"iron-ore", "copper-ore", "stone", "coal", "uranium-ore", "crude-oil"}
-dw.mapgen['neo-nauvis'].missing_resource_weights = {1,1,2,2,2,1}
-
-if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
-    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-imersite")
-    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-mineral-water")
-    table.insert(dw.mapgen['neo-nauvis'].resource_list, "kr-rare-metal-ore")
-    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
-    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
-    table.insert(dw.mapgen['neo-nauvis'].missing_resource_weights, 1)
+local function get_update_nauvis_resources()
+    storage.nauvis_resources = {}
+    local nauvis_mgs = game.planets.nauvis.prototype.map_gen_settings
+    for name, _ in pairs(nauvis_mgs.autoplace_controls) do
+        local autoplace_prototype = prototypes.autoplace_control[name]
+        if autoplace_prototype then
+            if autoplace_prototype.category == "resource" then
+                table.insert(storage.nauvis_resources, name)
+            end
+        end
+    end
 end
 
 ---------------------------------
@@ -98,7 +99,7 @@ local function barren_island(mapgen)
     set_enemy_autoplace(mapgen, 0, 0)
 
     -- remove resources except wood
-    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
+    for _, resource in pairs(storage.nauvis_resources) do
         mapgen.autoplace_controls[resource].richness = 0
     end
 
@@ -115,7 +116,7 @@ end
 
 -- A barren world (no water / no resources)
 local function barren(mapgen)
-    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
+    for _, resource in pairs(storage.nauvis_resources) do
         mapgen.autoplace_controls[resource].richness = 0
     end
 
@@ -152,11 +153,11 @@ local function amazonia(mapgen)
 
     set_enemy_autoplace(mapgen, 1.2, 2.2)
 
-    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
+    for _, resource in pairs(storage.nauvis_resources) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 4, frequency = 2}
     end
 
-    mapgen.starting_area = "big"
+    mapgen.starting_area = 0.6
 
     return mapgen
 end
@@ -166,52 +167,21 @@ local function normal(mapgen)
     mapgen.autoplace_controls["trees"].frequency = 1
     mapgen.autoplace_controls["trees"].size = 1
 
-    set_enemy_autoplace(mapgen, 1.2, 1)
+    set_enemy_autoplace(mapgen, 1.4, 1)
 
-    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
+    for _, resource in pairs(storage.nauvis_resources) do
         mapgen.autoplace_controls[resource] = {richness = 1, size = 1, frequency = 1}
     end
 
-    mapgen.starting_area = "normal"
+    mapgen.starting_area = 0.9
     return mapgen
 end
 
 -- massive 1 resource
-local function iron_planet(mapgen)
+local function resource_planet(mapgen)
     mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "iron-ore", 2, 2, 1)
-end
-local function coal_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "coal", 1.5, 3, 1)
-end
-local function copper_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "copper-ore", 2, 2, 1)
-end
-local function oil_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "crude-oil", 3, 2, 5)
-end
-local function uranium_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "uranium-ore", 2, 2, 5)
-end
-local function stone_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "stone", 2, 2, 1)
-end
-local function kr_imersite_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-imersite", 3, 2, 5)
-end
-local function kr_mineral_water_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-mineral-water", 3, 2, 5)
-end
-local function kr_rare_metal_planet(mapgen)
-    mapgen = normal(mapgen)
-    return utils.adjust_resource_proportion(mapgen, dw.mapgen['neo-nauvis'].resource_list, "kr-rare-metal-ore", 1.5, 1, 8)
+    local resource = storage.nauvis_resources[math.random(#storage.nauvis_resources)]
+    return utils.adjust_resource_proportion(mapgen, storage.nauvis_resources, resource, 1, 4, 7)
 end
 
 -- Danger
@@ -225,21 +195,20 @@ end
 
 -- Something's missing...
 local function missing_resource(mapgen)
-    mapgen = normal(mapgen)
+    mapgen.starting_area = 0.6
 
-    for _, resource in pairs(dw.mapgen['neo-nauvis'].resource_list) do
+    for _, resource in pairs(storage.nauvis_resources) do
         mapgen.autoplace_controls[resource] = {richness = 1.5, size = 1, frequency = 1.5}
     end
 
     -- min 2 removed, max "max - 2" kept
-    local number_ore = math.random(#dw.mapgen['neo-nauvis'].resource_list - 2)
-    local list = table.deepcopy(dw.mapgen['neo-nauvis'].resource_list)
-    local weights = table.deepcopy(dw.mapgen['neo-nauvis'].missing_resource_weights)
+    local number_ore = math.random(#storage.nauvis_resources - 2)
+    local list = table.deepcopy(storage.nauvis_resources)
     for i = number_ore, 1, -1 do
-        local index, selected = utils.weighted_random_choice(list, weights)
+        local index = math.random(#list)
+        local selected = list[index]
         mapgen.autoplace_controls[selected].richness = 0
         table.remove(list, index)
-        table.remove(weights, index)
     end
     return mapgen
 end
@@ -278,32 +247,13 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
         table.insert(randomizer_list, {"Barren", barren, surface_always_dusk, "dw-randomizer.neo-nauvis-barren"})
         table.insert(randomizer_list, {"Lonely Island", barren_island, surface_always_dusk, "dw-randomizer.neo-nauvis-lonely-island"})
         table.insert(randomizer_list, {"Alternate", missing_resource, surface_random_day_tick, "dw-randomizer.neo-nauvis-alternate"})
-        table.insert(randomizer_list, {"Metallic", iron_planet, nil, "dw-randomizer.neo-nauvis-iron"})
-        table.insert(randomizer_list, {"Conductive", copper_planet, nil, "dw-randomizer.neo-nauvis-copper"})
-        table.insert(randomizer_list, {"Carbonaceous", coal_planet, nil, "dw-randomizer.neo-nauvis-coal"})
-        table.insert(randomizer_list, {"Bituminous", oil_planet, nil, "dw-randomizer.neo-nauvis-oil"})
-        table.insert(randomizer_list, {"Radioactive", uranium_planet, nil, "dw-randomizer.neo-nauvis-uranium"})
-        table.insert(randomizer_list, {"Granitic", stone_planet, nil, "dw-randomizer.neo-nauvis-stone"})
+        table.insert(randomizer_list, {"Concentrated", resource_planet, nil, "dw-randomizer.neo-nauvis-concentrated"})
+
 
         table.insert(randomizer_weights, 4)
         table.insert(randomizer_weights, 4)
         table.insert(randomizer_weights, 15)
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
-        table.insert(randomizer_weights, 2)
-
-        if script.active_mods['Krastorio2'] or script.active_mods['Krastorio2-spaced-out'] then
-            table.insert(randomizer_list, {"Aquiferous", kr_mineral_water_planet, nil, "dw-randomizer.neo-nauvis-kr-mineral-water"})
-            table.insert(randomizer_list, {"Violetine", kr_imersite_planet, nil, "dw-randomizer.neo-nauvis-kr-imersite"})
-            table.insert(randomizer_list, {"Alloyed", kr_rare_metal_planet, nil, "dw-randomizer.neo-nauvis-kr-rare-metal"})
-            table.insert(randomizer_weights, 2)
-            table.insert(randomizer_weights, 2)
-            table.insert(randomizer_weights, 2)
-        end
-
+        table.insert(randomizer_weights, 1)
     end
 
     if storage.warp.number >= 25 then
@@ -333,3 +283,6 @@ local function neo_nauvis_randomizer(mapgen, surface_name)
 end
 
 dw.mapgen['neo-nauvis'].randomizer = neo_nauvis_randomizer
+
+dw.register_event('on_init', get_update_nauvis_resources)
+dw.register_event('on_configuration_changed', get_update_nauvis_resources)

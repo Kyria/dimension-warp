@@ -216,4 +216,72 @@ data:extend {
         default_value = true,
         order = "c",
     },
+
+    --- rampant settings overrides
+    {
+        type = "double-setting",
+        name = "rampantFixed--aiPointsScaler",
+        setting_type = "runtime-global",
+        default_value = 1.25,
+        allowed_values = {1.25},
+        hidden = true,
+        order = "rampant"
+    },
+    {
+        type = "bool-setting",
+        name = "rampantFixed--allowDaytimeNonRampantActions",
+        setting_type = "runtime-global",
+        default_value = true,
+        forced_value = true,
+        hidden = true,
+        order = "rampant"
+    },
+        {
+        type = "bool-setting",
+        name = "rampantFixed--raidAIToggle",
+        setting_type = "runtime-global",
+        default_value = true,
+        forced_value = true,
+        hidden = true,
+        order = "rampant"
+    },
+    {
+        type = "bool-setting",
+        name = "rampantFixed--siegeAIToggle",
+        setting_type = "runtime-global",
+        default_value = true,
+        forced_value = true,
+        hidden = true,
+        order = "rampant"
+    },
+    {
+        type = "bool-setting",
+        name = "rampantFixed--addWallResistanceAcid",
+        description = "rampantFixed--addWallResistanceAcid",
+        setting_type = "startup",
+        default_value = true,
+        forced_value = true,
+        hidden = true,
+        order = "rampant"
+    },
+    {
+        type = "int-setting",
+        name = "rampantFixed--max-evo-dist",
+        setting_type = "startup",
+        default_value = 7000,  --- default is 9600
+        minimum_value = 1000,
+        maximum_value = 1000000,
+        hidden = true,
+        order = "rampant"
+    },
+    {
+        type = "bool-setting",
+        name = "rampantFixed--allowExternalControl",
+        setting_type = "startup",
+        default_value = true,
+        forced_value = true,
+        hidden = true,
+        order = "rampant"
+    },
+
 }
