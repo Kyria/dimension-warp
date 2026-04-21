@@ -122,7 +122,15 @@ local function get_container_frame(player)
     if not container_frame.footer_line then container_frame.add{type = "line", name = "footer_line"} end
 
     for watchdog, _ in pairs(storage.gui.watchdogs) do
-        get_or_create_item_selector(player, item_table, 'watch-item-' .. watchdog)
+        local item = storage.gui.item_watch['watch-item-' .. watchdog]
+        
+        -- if we have an item watched, but not existing (mod change) remove the watchdog
+        if item and not prototypes.item[item.name] then
+            dw.gui.update_watchdog('watch-item-' .. watchdog, nil)
+            container_frame.item_table['watch-item-' .. watchdog].destroy()
+        else
+            get_or_create_item_selector(player, item_table, 'watch-item-' .. watchdog)
+        end
     end
 
     return container_frame
@@ -201,16 +209,12 @@ local function warp_frame_click(event)
     end
 end
 
----Event fired when player change an item in the item watcher
----@param event EventData.on_gui_elem_changed
-local function item_watch_changed(event)
-    local elem = event.element
-    local name = elem.parent.name
-    local item = elem.elem_value -- name, quality
+--- Update the item watcher list, and the watchdogs if needed.
+---@param name string the watchdog item index
+---@param item PrototypeWithQuality|nil the item to watch or nil to remove the watch
+---@return boolean true if a watchdog has been removed, false otherwise
+local function update_watchdog(name, item)
     local remove_watchdog = false
-
-    if not name or not name:match('watch%-item%-%d+') then return end
-
     -- add the item to the watchlist, or remove it if required
     if item then
         -- add the item to the watchlist, only increase the counter if the watcher didn't have any item yet
@@ -243,6 +247,21 @@ local function item_watch_changed(event)
         end
     end
 
+    return remove_watchdog
+end
+dw.gui.update_watchdog = update_watchdog
+
+---Event fired when player change an item in the item watcher
+---@param event EventData.on_gui_elem_changed
+local function item_watch_changed(event)
+    local elem = event.element
+    local name = elem.parent.name
+    local item = elem.elem_value --[[@as PrototypeWithQuality]]
+
+    if not name or not name:match('watch%-item%-%d+') then return end
+
+    local remove_watchdog = update_watchdog(name, item)
+    
     -- update player UI
     for _, player in pairs(game.players) do
         local frame = get_container_frame(player)
