@@ -26,3 +26,17 @@ end
 -- force autoplce from nauvis to neo-nauvis
 local nauvis_mgs = data.raw.planet['nauvis'].map_gen_settings
 data.raw.planet['neo-nauvis'].map_gen_settings = table.deepcopy(nauvis_mgs)
+
+-- fix harvester techs uranium mining requirements sometimes removed(hidden) in mods. 
+if data.raw.technology['uranium-mining'].hidden then
+    for _, tech_name in pairs({'dimension-harvester-right-2', 'dimension-harvester-left-2'}) do
+        local prereqs = data.raw.technology[tech_name].prerequisites
+        if prereqs then
+            for i = #prereqs, 1, -1 do
+                if prereqs[i] == 'uranium-mining' then
+                    table.remove(prereqs, i)
+                end
+            end
+        end
+    end
+end

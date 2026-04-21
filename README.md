@@ -45,10 +45,10 @@ Good example value can be the following:
 
 ![Rampant Settings](graphics/misc/rampant_settings.png)
 
-This settings make sure you are not attacked until 5min have passed and at least 5% evolution per planet. You can adjust the value to your test, just keep in mind higher value may lead to Rampant doing not so much. 
+This settings make sure you are not attacked until 5min have passed and at least 5% evolution per planet. You can adjust the value to your taste, just keep in mind higher value may lead to Rampant doing not so much. 
 Make sure to enable "Other" surface and "Aquilo" as well. 
 
-Other mod values are fixed by Dimension Warp (to ensure some rampant behavior) or are left to your test.
+Other mod values are fixed by Dimension Warp (to ensure some rampant behavior) or are left to your taste.
 
 ## Mod Recommandations
 

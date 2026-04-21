@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.7.1
+Date: 2026.04.21
+  Bugfixes:
+    - Fix a bug with item watchdog that could cause crash when modifying / updating mod if an item changed its ID.
+  Compatibility:
+    - Fix compatibility with mods that hide "uranium-mining", preventing the research of Harvesters T2.
+---------------------------------------------------------------------------------------------------
 Version: 0.7.0
 Date: 2026.04.12
   Changes:
