@@ -74,7 +74,7 @@ local function get_warp_frame(player)
     dimensionflow.visible = player_gui_settings.info_dimension and (storage.nauvis_lab_exploded or false)
     surface_time.visible = player_gui_settings.info_planet_clock and (storage.nauvis_lab_exploded or false)
     surface_evolution.visible = player_gui_settings.info_evolution and (storage.nauvis_lab_exploded or false)
-    warpflow.visible = player_gui_settings.info_warp_timer and storage.timer.active
+    warpflow.visible = player_gui_settings.info_warp_timer and storage.timer.active and not storage.victory
     manualwarpflow.visible = player_gui_settings.info_manual_timer and storage.timer.active
     destination_flow.visible = player_gui_settings.planet_selector and storage.gui.planet_selector_enabled
     warp_button.visible = storage.timer.active

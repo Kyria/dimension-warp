@@ -12,6 +12,7 @@ local tech_neonauvis = {
 
 data:extend{tech_neonauvis}
 
+require 'nauvis'
 require 'warp-generator'
 require 'platforms.warp'
 require 'platforms.factory'
@@ -34,6 +35,7 @@ require 'entities.warp-gate'
 
 -- specific changes for tech if space-age is active.
 if mods['space-age'] then
+    require 'space-age.nauvis'
     require 'space-age.warp-generator'
     require 'space-age.others.damage'
     require 'space-age.others.mining'

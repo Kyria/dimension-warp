@@ -1,4 +1,29 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.1
+Date: 2026.05.01
+  Bugfixes:
+    - Fix the migration script that deleted everything, even if vanilla.
+---------------------------------------------------------------------------------------------------
+Version: 0.8.0
+Date: 2026.05.01
+  Changes:
+    - BREAKING CHANGE [Space Age ONLY]:
+      - Space platforms and all space related technologies are now hidden and not available, prerequisites have been changed to adapt to this change.
+      - ATTENTION: if you have space platforms, they will be removed when updating, so remove them before updating the mod.
+      - Rocket silo, Cargo Bays will also be removed at launch. (Cargo bay content is saved in a chest, or spilled if there's too much).
+      - Add recipe for Ice (Water Refrigeration) to replace the fact space is disabled.
+      - Add recipe unlock the vulcanus carbon recipe when reaching space science.
+      - Add end game recipe for promethium crafting, as space is not available anymore.
+    - Without Space Age, rocket silo and cargo bays still exist, but are not anymore the win condition.
+    - Space science pack has been renamed "Dimensional science pack".
+    - Victory condition is now to unlock the last technology that give access to nauvis again.
+    - Win also disable pollution and timer, but manual warp is still available. 
+    - Once unlocked, Nauvis can be used as a normal planet and will never be reset (warping and surface generation logic has been altered to do this).
+  Info:
+    - This was the first step to remove space platform content from the mod. 
+    - Despite the technology description, auto-warping is not yet implemented during the win technology research.
+    - The win technology is only temporary and will be replaced with another mechanism later.
+---------------------------------------------------------------------------------------------------
 Version: 0.7.2
 Date: 2026.04.30
   Locale:

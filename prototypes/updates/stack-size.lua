@@ -105,4 +105,7 @@ if mods['space-age'] then
     data.raw.item["copper-bacteria"].stack_size = stack_size_value
     data.raw.item["nutrients"].stack_size = stack_size_value
     data.raw.capsule["bioflux"].stack_size = stack_size_value
+
+    -- asteroid chunks
+    data.raw.item["promethium-asteroid-chunk"].stack_size = stack_size_value * 0.125
 end

@@ -58,27 +58,7 @@ if mods['space-age'] then
     produstia.asteroid_spawn_influence = 1
     produstia.asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.1)
     produstia.parked_platforms_orientation = 0.9
-
-    local ss_edge = data.raw['space-location']['solar-system-edge']
-    local space_connection = {
-        type = "space-connection",
-        name = "produstia-solar-system-edge",
-        subgroup = "planet-connections",
-        from = "produstia",
-        to = "solar-system-edge",
-        order = "p",
-        length = 200000,
-        asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.aquilo_solar_system_edge),
-        icons = {
-            {icon = "__space-age__/graphics/icons/planet-route.png"},
-            {icon = "__base__/graphics/icons/assembling-machine-3.png", icon_size = 64, scale = 0.333, shift = {-6, -6}},
-            {icon = ss_edge.icon, icon_size = ss_edge.icon_size or 64, scale = 0.333 * (64 / (ss_edge.icon_size or 64)), shift = {6, 6}}
-        },
-    }
-    data:extend({produstia, space_connection})
-
-else
-    data:extend({produstia})
 end
 
+data:extend({produstia})
 utils.add_music(nauvis, produstia)

@@ -61,20 +61,27 @@ local function generate_surface(planet, vanilla)
         storage.warp.current.surface_index = surface.index
 
     else
-        if game.planets[planet].prototype.entities_require_heating then
-            local surface = game.planets[planet].create_surface()
+        if planet == "nauvis" then
+            local surface = game.planets.nauvis.surface or game.planets.nauvis.create_surface()
             storage.warp.current.name = surface.name
             storage.warp.current.surface = surface
             storage.warp.current.surface_index = surface.index
         else
-            mapgen.seed = math.random(2^16) + game.tick
-            local surface = game.create_surface(storage.warp.current.name, mapgen)
-            surface.localised_name = game.planets[planet].prototype.localised_name
-            storage.warp.current.surface = surface
-            storage.warp.current.surface_index = surface.index
+            if game.planets[planet].prototype.entities_require_heating then
+                local surface = game.planets[planet].create_surface()
+                storage.warp.current.name = surface.name
+                storage.warp.current.surface = surface
+                storage.warp.current.surface_index = surface.index
+            else
+                mapgen.seed = math.random(2^16) + game.tick
+                local surface = game.create_surface(storage.warp.current.name, mapgen)
+                surface.localised_name = game.planets[planet].prototype.localised_name
+                storage.warp.current.surface = surface
+                storage.warp.current.surface_index = surface.index
+            end
+            --- we also force the timer for these planet
+            storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
         end
-        --- we also force the timer for these planet
-        storage.timer.warp = (storage.timer.base > 0) and math.min(storage.timer.base, 30 * 60) or (30 * 60)
     end
     dw.rampant.check_surface_processed(storage.warp.current.surface)
     storage.warp.current.surface.request_to_generate_chunks({x= 0, y = 0}, storage.platform.warp.size / 32 + 1)
@@ -82,23 +89,52 @@ local function generate_surface(planet, vanilla)
 end
 dw.generate_surface = generate_surface
 
-local function update_surfaces_properties()
-    if storage.warp.status ~= defines.warp.warping then return end
-    game.delete_surface(storage.warp.previous.name)
-end
-dw.update_surfaces_properties = update_surfaces_properties
-
-local function surface_deleted(event)
-    if storage.warp.previous and event.surface_index == storage.warp.previous.surface_index then
+local function associate_surface_to_planet()
         local planet = game.planets[storage.warp.current.planet]
-        if not planet.prototype.entities_require_heating then
+        if not planet.prototype.entities_require_heating and planet.name ~= "nauvis" then
             planet.associate_surface(storage.warp.current.surface)
         end
         dw.platform_force_update_entities()
         storage.warp.previous = nil
         storage.warp.status = defines.warp.awaiting
-    end
 end
 
+local function update_surfaces_properties()
+    if storage.warp.status ~= defines.warp.warping then return end
+    if storage.warp.previous.planet ~= "nauvis" then
+        game.delete_surface(storage.warp.previous.name)
+    else
+        -- as we don't delete surface from nauvis, we need to make sure 
+        -- that the next surface is correctly associated to its planet.
+        associate_surface_to_planet()
+        
+        -- now we delete the platform on nauvis, we don't want to be able to duplicate what's there.
+        local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
+        local nauvis_surface = game.planets.nauvis.surface
+        if nauvis_surface then
+            local entities = nauvis_surface.find_entities{platform_area.left_top, platform_area.right_bottom}
+            for _, entity in pairs(entities) do
+                if entity.valid then
+                    entity.destroy{raise_destroy = true}
+                end
+            end
+            -- replace all tiles in the platform area with dimension-space
+            local tiles = {}
+            for x = math.floor(platform_area.left_top.x), math.ceil(platform_area.right_bottom.x) - 1 do
+                for y = math.floor(platform_area.left_top.y), math.ceil(platform_area.right_bottom.y) - 1 do
+                    table.insert(tiles, {name = "dimension-space", position = {x, y}})
+                end
+            end
+            nauvis_surface.set_tiles(tiles)
+        end
+    end
+end
+dw.update_surfaces_properties = update_surfaces_properties
+
+local function surface_deleted(event)
+    if storage.warp.previous and event.surface_index == storage.warp.previous.surface_index then
+        associate_surface_to_planet()
+    end
+end
 
 dw.register_event(defines.events.on_surface_deleted, surface_deleted)

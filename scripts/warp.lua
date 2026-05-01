@@ -37,6 +37,9 @@ end
 local function select_destination()
     local total_dest, destinations = get_allowed_planet()
     if storage.warp.preferred_destination then
+        if storage.warp.preferred_destination == "nauvis" then
+            return "nauvis"
+        end
         for _, dest in pairs(destinations) do
             if dest == storage.warp.preferred_destination then
                 return math.random() < 0.7 and dest or destinations[math.random(total_dest)]
@@ -46,15 +49,26 @@ local function select_destination()
     return destinations[math.random(total_dest)]
 end
 
-local function prepare_warp_to_next_surface()
+local function prepare_warp_to_next_surface(target)
     if storage.warp.status ~= defines.warp.awaiting then return end
     storage.warp.status = defines.warp.preparing
 
-    local target = select_destination() --- dw select random surface
     dw.generate_surface(target)
 
     storage.warp.status = defines.warp.warping
     dw.teleport_platform()
+end
+
+local function reset_timer_vote()
+    -- reset all timers / globals
+    storage.timer.warp = storage.timer.base
+    storage.timer.manual_warp = calculate_manual_warp_time()
+    storage.warp.time = game.tick
+
+    -- reset warp votes
+    storage.votes.count = 0
+    storage.votes.players = {}
+
 end
 
 local function warp_timer()
@@ -77,45 +91,45 @@ local function warp_timer()
             end
         end
 
-        if storage.timer.warp <= 0 or storage.timer.manual_warp <= 0 then
-            -- return warp gate
-            if storage.warpgate.mobile_gate then
-                storage.warpgate.mobile_gate.destroy{raise_destroy=true}
+        if (not storage.victory and storage.timer.warp <= 0) or storage.timer.manual_warp <= 0 then
+
+            local target = select_destination()
+            if target == "nauvis" and storage.warp.current.planet == "nauvis" then
+                game.print({"dw-messages.stay-on-nauvis"})
+                reset_timer_vote()
+                dw.gui.update_manual_warp_button()
+            else
+                -- return warp gate
+                if storage.warpgate.mobile_gate then
+                    storage.warpgate.mobile_gate.destroy{raise_destroy=true}
+                end
+                -- harvesters recall
+                dw.platforms.recall_harvester("left")
+                dw.platforms.recall_harvester("right")
+
+                -- generate new surface and teleport
+                prepare_warp_to_next_surface(target)
+                -- play sound
+                game.play_sound{path = "dw-warpdrive"}
+                if storage.warp.message then game.print({storage.warp.message}) end
+                storage.warp.message = nil
+
+                reset_timer_vote()
+                
+                -- reset evolution based on warp number
+                dw.set_warp_evolution_factor()
+                storage.pollution = 1
+                dw.gui.update_manual_warp_button()
+
+                -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
+                dw.update_warp_platform_size()
+                if storage.platform.factory.surface then dw.platforms.init_update_factory_platform() end
+                if storage.harvesters.left.gate then dw.platforms.place_harvester_tiles("left") end
+                if storage.harvesters.right.gate then dw.platforms.place_harvester_tiles("right") end
+                if storage.platform.mining.surface then dw.platforms.init_update_mining_platform() end
+                if storage.platform.power.surface then dw.platforms.init_update_power_platform() end
             end
-            -- harvesters recall
-            dw.platforms.recall_harvester("left")
-            dw.platforms.recall_harvester("right")
-
-            -- generate new surface and teleport
-            prepare_warp_to_next_surface()
-            -- play sound
-            game.play_sound{path = "dw-warpdrive"}
-            if storage.warp.message then game.print({storage.warp.message}) end
-            storage.warp.message = nil
-
-            -- reset all timers / globals
-            storage.timer.warp = storage.timer.base
-            storage.timer.manual_warp = calculate_manual_warp_time()
-            storage.warp.time = game.tick
-
-            -- reset warp votes
-            storage.votes.count = 0
-            storage.votes.players = {}
-
-            -- reset evolution based on warp number
-            dw.set_warp_evolution_factor()
-            storage.pollution = 1
-            dw.gui.update_manual_warp_button()
-
-            -- once everything's done, force recreate the tiles in platforms (because some explosions may break some.)
-            dw.update_warp_platform_size()
-            if storage.platform.factory.surface then dw.platforms.init_update_factory_platform() end
-            if storage.harvesters.left.gate then dw.platforms.place_harvester_tiles("left") end
-            if storage.harvesters.right.gate then dw.platforms.place_harvester_tiles("right") end
-            if storage.platform.mining.surface then dw.platforms.init_update_mining_platform() end
-            if storage.platform.power.surface then dw.platforms.init_update_power_platform() end
         end
-
     end
 
     --- each seconds, we update the GUI

@@ -33,6 +33,19 @@ local function teleport_platform()
     local source = storage.warp.previous.surface
     local destination = storage.warp.current.surface
 
+    --- if destination is nauvis, evict any players inside the platform area before cloning
+    if storage.warp.current.planet == "nauvis" then
+        local nauvis_surface = game.planets.nauvis.surface
+        if nauvis_surface then
+            local players_in_area = nauvis_surface.find_entities_filtered{area = platform_area, type = "character"}
+            for _, character in pairs(players_in_area) do
+                if character.valid and character.player then
+                    dw.safe_teleport(character.player, nauvis_surface, platform_area_delta.left_top, true)
+                end
+            end
+        end
+    end
+
     --- clone the tiles first, so we prepare the area, remove all unwanted stuff
     source.clone_area({
         source_area = platform_area,
@@ -103,7 +116,9 @@ local function teleport_platform()
                     dw.safe_teleport(player, storage.warp.current.surface, player.physical_position, true)
                 end
             else
-                player.character.die()
+                if storage.warp.previous.surface.planet.name ~= "nauvis" then
+                    player.character.die()
+                end
             end
         end
     end

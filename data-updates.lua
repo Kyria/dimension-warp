@@ -6,7 +6,7 @@ require 'prototypes.updates.ammo'
 
 if mods['space-age'] then
     require 'prototypes.updates.space-age.aquilo'
-    require 'prototypes.updates.space-age.space-connection'
-    require 'prototypes.updates.space-age.space-costs'
+    require 'prototypes.updates.space-age.space-age'
     require 'prototypes.updates.space-age.tesla'
+    require 'prototypes.updates.space-age.technologies.space-age'
 end

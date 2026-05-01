@@ -8,6 +8,9 @@ local function set_globals()
     --- player cheat bag
     storage.cheat_bag = storage.cheat_bag or {}
 
+    --- Victory
+    storage.victory = storage.victory or false
+
     --- GUI stuffs
     storage.gui = storage.gui or {
         item_watch = {},
@@ -134,6 +137,7 @@ require "scripts.platforms.harvesters"
 
 require "scripts.scenario.freeplay"
 require "scripts.scenario.lab_intro"
+require "scripts.scenario.victory"
 
 require "scripts.warp"
 require "scripts.enemies"

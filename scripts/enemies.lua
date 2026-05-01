@@ -5,7 +5,7 @@
 --- then pollute the warp platform (to trigger bases & cie)
 --- based on warptorio original formula, as it was already really good
 local function pollute()
-	if not storage.timer.active then return end
+	if not storage.timer.active or storage.victory then return end
 	local pollution = 0
 
 	-- get platform pollution and clear it there

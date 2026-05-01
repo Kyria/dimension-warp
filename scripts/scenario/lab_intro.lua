@@ -87,6 +87,7 @@ end
 local function check_if_player_changed_surface()
     if not storage.nauvis_lab_exploded then return end
     if storage.nauvis_cleared then return end
+    if storage.victory then return end
 
     if storage.all_players_left_nauvis then
         game.surfaces['nauvis'].clear()

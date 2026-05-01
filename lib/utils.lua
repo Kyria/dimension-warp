@@ -4,7 +4,7 @@ utils = {} or utils
 -- return if we should ignore the planet for warp selection
 function utils.ignore_planet(planet)
     -- ignore nauvis
-    if planet == "nauvis" then return true end
+    if planet == "nauvis" and not storage.victory then return true end
     -- ignore specials surface frm the mod
     if dw.safe_surfaces[planet] then return true end
     if planet:match('.*%-factory%-floor') or planet:match('factory%-travel%-surface') then return true end

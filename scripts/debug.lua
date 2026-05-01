@@ -87,6 +87,8 @@ local tech_list = {
     "dw-factory-beacon-5",
     "dw-factory-beacon-6",
     "dw-factory-beacon-7",
+    "------ Victory -------",
+    "stabilize-dimensions",
 }
 
 local function debug_gui(player)
@@ -99,8 +101,9 @@ local function debug_gui(player)
     if not frame["trigger-next-warp"] then frame.add{type = "button", name = "trigger-next-warp", caption = "Warp Next"} end
 
     local debugtech = frame['debug-tech'] or frame.add({type = "flow", name="debug-tech", direction = "horizontal"})
-    if not debugtech["tech-select"] then debugtech.add{type = "drop-down", name = "tech-select", caption = "Tech", items=tech_list} end
     if not debugtech["debug-tech-grant"] then debugtech.add{type = "button", name = "debug-tech-grant", caption = "Grant"} end
+    if debugtech["tech-select"] then debugtech["tech-select"].destroy() end
+    debugtech.add{type = "drop-down", name = "tech-select", caption = "Tech", items=tech_list}
 end
 
 local function give_debug_items(player_index)
