@@ -3,6 +3,8 @@ Version: 0.8.2
 Date: ????
   Changes:
     - Change the temperature of the output steam from Water Refrigeration recipe to 165°C so it's usable by steam engines (and it makes more sense than 15°C)
+    - Change all warp number prerequisites to have specific planet variation. Harder version may come sooner now.
+    - Add a new planet variation to Aquilo, "Cold Death", a death world basically. 
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.1
 Date: 2026.05.01
