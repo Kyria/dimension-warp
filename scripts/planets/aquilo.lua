@@ -93,6 +93,12 @@ local function dry_ice_planet(mapgen)
     return mapgen
 end
 
+local function cold_death(mapgen)
+    mapgen = normal(mapgen)
+    mapgen.starting_area = 0.2
+    set_enemy_autoplace(mapgen, 6, 5)
+    return mapgen
+end
 
 -- force dusk on planet
 local function surface_always_dusk(surface)
@@ -114,21 +120,20 @@ local function aquilo_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 100 and not storage.aquilo_first_warp then
+    if storage.warp.number >= 50 and not storage.aquilo_first_warp then
         table.insert(randomizer_list, {"Barren", barren, surface_random_day_tick, "dw-randomizer.aquilo-barren"})
         table.insert(randomizer_list, {"Concentrated", resource_planet, surface_random_day_tick, "dw-randomizer.aquilo-concentrated"})
         table.insert(randomizer_list, {"Ammoniacal", ammoniacal_planet, surface_random_day_tick, "dw-randomizer.aquilo-ammoniacal"})
-
-
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
         table.insert(randomizer_weights, 2)
     end
 
-    if storage.warp.number >= 200 and not storage.aquilo_first_warp then
-        local weight = math.floor(storage.warp.number / 125)
+    if storage.warp.number >= 75 and not storage.aquilo_first_warp then
         table.insert(randomizer_list, {"Frigid", dry_ice_planet, surface_always_dusk, "dw-randomizer.aquilo-dry-ice"})
-        table.insert(randomizer_weights, weight)
+        table.insert(randomizer_list, {"Cold Death", cold_death, surface_always_dusk, "dw-randomizer.aquilo-cold-death"})
+        table.insert(randomizer_weights, math.floor(storage.warp.number / 50))
+        table.insert(randomizer_weights, math.floor(storage.warp.number / 75))
     end
 
     storage.aquilo_first_warp = false
