@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.2
+Date: ????
+  Changes:
+    - Change the temperature of the output steam from Water Refrigeration recipe to 165°C so it's usable by steam engines (and it makes more sense than 15°C)
+---------------------------------------------------------------------------------------------------
 Version: 0.8.1
 Date: 2026.05.01
   Bugfixes:

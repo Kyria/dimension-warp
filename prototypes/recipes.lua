@@ -33,7 +33,7 @@ data:extend({
     results = {
       {type = "item",  name = "ice",   amount = 20},
       {type = "fluid", name = "water", amount = 220},
-      {type = "fluid", name = "steam", amount = 2000},
+      {type = "fluid", name = "steam", amount = 2000, temperature = 165},
     },
     enabled = false,
   },
