@@ -126,7 +126,7 @@ local function fulgora_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 50 and not storage.fulgora_first_warp then
+    if storage.warp.number >= 30 and not storage.fulgora_first_warp then
         table.insert(randomizer_list, {"Barren", barren, surface_always_dusk, "dw-randomizer.fulgora-barren"})
         table.insert(randomizer_list, {"Dry", dry, surface_random_day_tick, "dw-randomizer.fulgora-dry"})
         table.insert(randomizer_list, {"Bituminous", oil_planet, nil, "dw-randomizer.fulgora-oil-planet"})
@@ -138,7 +138,7 @@ local function fulgora_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 1)
     end
 
-    if storage.warp.number >= 120 and not storage.fulgora_first_warp then
+    if storage.warp.number >= 50 and not storage.fulgora_first_warp then
         local weight = math.floor(storage.warp.number / 50)
         table.insert(randomizer_list, {"Junkyard", junkyard, surface_always_dusk, "dw-randomizer.fulgora-junkyard"})
         table.insert(randomizer_list, {"Death World", death_world, surface_always_night, "dw-randomizer.fulgora-death-world"})

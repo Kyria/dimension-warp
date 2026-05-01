@@ -162,7 +162,7 @@ local function vulcanus_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 2)
     end
 
-    if storage.warp.number >= 125 and not storage.vulcanus_first_warp then
+    if storage.warp.number >= 60 and not storage.vulcanus_first_warp then
         local weight = math.floor(storage.warp.number / 60)
         table.insert(randomizer_list, {"Demolisher", demolisher_planet, surface_always_night, "dw-randomizer.vulcanus-demolisher"})
         table.insert(randomizer_list, {"Infested", death_world, surface_always_night, "dw-randomizer.vulcanus-death-world"})

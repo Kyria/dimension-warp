@@ -129,7 +129,7 @@ local function gleba_randomizer(mapgen, surface_name)
     }
     local randomizer_weights = {10}
 
-    if storage.warp.number >= 100 and not storage.gleba_first_warp then
+    if storage.warp.number >= 50 and not storage.gleba_first_warp then
         table.insert(randomizer_list, {"Flooded", flooded, surface_always_dusk,"dw-randomizer.gleba-flooded"})
         table.insert(randomizer_list, {"Alternate", no_yumako_soil, nil, "dw-randomizer.gleba-no-yumako"})
         table.insert(randomizer_list, {"Alternate", no_jellynut_soil, nil, "dw-randomizer.gleba-no-jellynut"})
@@ -140,7 +140,7 @@ local function gleba_randomizer(mapgen, surface_name)
         table.insert(randomizer_weights, 2)
     end
 
-    if storage.warp.number >= 150 and not storage.gleba_first_warp then
+    if storage.warp.number >= 100 and not storage.gleba_first_warp then
         local weight = math.floor(storage.warp.number / 100)
         table.insert(randomizer_list, {"Nest", pentapod_nest, surface_always_night, "dw-randomizer.gleba-nest"})
         table.insert(randomizer_weights, weight)
