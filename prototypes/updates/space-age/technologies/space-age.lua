@@ -50,11 +50,9 @@ replace_prereq(data.raw['technology'], "space-platform-thruster")
 replace_prereq(data.raw['technology'], "asteroid-reprocessing")
 replace_prereq(data.raw['technology'], "advanced-asteroid-processing")
 
--- Replace promethium science effects with only the recipes we want
+-- Add our recipes to the promethium science effects
 local promethium = data.raw['technology']['promethium-science-pack']
 if promethium then
-    promethium.effects = {
-        {type = "unlock-recipe", recipe = "dw-promethium"},
-        {type = "unlock-recipe", recipe = "promethium-science-pack"},
-    }
+    promethium.effects = promethium.effects or {}
+    table.insert(promethium.effects, {type = "unlock-recipe", recipe = "dw-promethium"})
 end

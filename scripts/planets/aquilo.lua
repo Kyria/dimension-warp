@@ -131,9 +131,12 @@ local function aquilo_randomizer(mapgen, surface_name)
 
     if storage.warp.number >= 75 and not storage.aquilo_first_warp then
         table.insert(randomizer_list, {"Frigid", dry_ice_planet, surface_always_dusk, "dw-randomizer.aquilo-dry-ice"})
-        table.insert(randomizer_list, {"Cold Death", cold_death, surface_always_dusk, "dw-randomizer.aquilo-cold-death"})
         table.insert(randomizer_weights, math.floor(storage.warp.number / 50))
-        table.insert(randomizer_weights, math.floor(storage.warp.number / 75))
+    end
+    
+    if storage.warp.number >= 100 and not storage.aquilo_first_warp then
+        table.insert(randomizer_list, {"Cold Death", cold_death, surface_always_dusk, "dw-randomizer.aquilo-cold-death"})
+        table.insert(randomizer_weights, math.floor(storage.warp.number / 100))
     end
 
     storage.aquilo_first_warp = false

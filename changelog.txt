@@ -7,6 +7,7 @@ Date: 04/05/2026
     - Add a new planet variation to Aquilo, "Cold Death", a death world basically. 
   Bugfixes:
     - Remove asteroid chunks from any recipe as ingredient to make sure it's not blocking anywhere. (This fixes the Singularity Card not being buildable with K2SO).
+    - Revert how the promethium recipe is added to promethium science pack to avoid breaking other mods (K2SO for example).
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.1
 Date: 2026.05.01
