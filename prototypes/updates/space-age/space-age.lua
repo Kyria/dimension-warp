@@ -54,3 +54,17 @@ for _, name in ipairs(recipes_to_hide) do
     end
 end
 
+-- Remove asteroid chunks (except promethium) from all visible recipe ingredients (as we cannot get them anymore)
+for _, recipe in pairs(data.raw['recipe']) do
+    if not recipe.hidden and recipe.ingredients then
+        local filtered = {}
+        for _, entry in ipairs(recipe.ingredients) do
+            local item_name = entry.name or (type(entry[1]) == "string" and entry[1])
+            if not (item_name and item_name ~= "promethium-asteroid-chunk" and item_name:find("asteroid%-chunk$")) then
+                filtered[#filtered + 1] = entry
+            end
+        end
+        recipe.ingredients = filtered
+    end
+end
+
