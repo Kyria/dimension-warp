@@ -26,20 +26,26 @@ data.raw['technology']['space-science-pack'].research_trigger = nil
 data.raw['technology']['space-science-pack'].unit = table.deepcopy(data.raw['technology']['rocket-silo'].unit)
 
 -- Replace hidden asteroid techs prerequisites with their own prerequisites in all techs
-local function replace_prereq(techs, old_name)
-    local old_prereqs = table.deepcopy(data.raw['technology'][old_name].prerequisites or {})
+local function replace_prereq(techs, tech_to_remove)
+    local old_prereqs = table.deepcopy(data.raw['technology'][tech_to_remove].prerequisites or {})
     for _, tech in pairs(techs) do
         if tech.prerequisites then
             local found = false
+            local existing = {}
             for i = #tech.prerequisites, 1, -1 do
-                if tech.prerequisites[i] == old_name then
+                if tech.prerequisites[i] == tech_to_remove then
                     table.remove(tech.prerequisites, i)
                     found = true
+                else
+                    existing[tech.prerequisites[i]] = true
                 end
             end
             if found then
                 for _, prereq in ipairs(old_prereqs) do
-                    table.insert(tech.prerequisites, prereq)
+                    if not existing[prereq] then
+                        table.insert(tech.prerequisites, prereq)
+                        existing[prereq] = true
+                    end
                 end
             end
         end

@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.3
+Date: 07/05/2026
+  Bugfixes:
+    - Fix a bug that could cause a tech to have multiple time the same tech due to how space age techs were removed.
+---------------------------------------------------------------------------------------------------
 Version: 0.8.2
 Date: 04/05/2026
   Changes:
