@@ -51,13 +51,21 @@ function utils.random(min, max)
 end
 
 --- source: factorissimo-2-notnotmelon
---- modified to feat the mod needs
+--- modified to fit the mod needs
 function utils.add_music(source_planet, destination_planet)
+    local function music_matches_planet(music)
+        for _, name in pairs(music.planets or {music.planet}) do
+            if name == source_planet.name then return true end
+            if music.track_type == "hero-track" and music.name:find(source_planet.name) then return true end
+        end
+        return false
+    end
+
     for _, music in pairs(data.raw["ambient-sound"]) do
-        if music.planet == source_planet.name or (music.track_type == "hero-track" and music.name:find(source_planet.name)) then
+        if music_matches_planet(music) or (music.track_type == "hero-track" and music.name:find(source_planet.name)) then
             local new_music = table.deepcopy(music)
             new_music.name = music.name .. "-" .. destination_planet.name
-            new_music.planet = destination_planet.name
+            new_music.planets = {destination_planet.name}
             if new_music.track_type == "hero-track" then
                 new_music.track_type = "main-track"
                 new_music.weight = 10
@@ -209,10 +217,10 @@ function utils.check_deployable_collision(box, source)
                 return true
             end
         end
-        local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
-        if math2d.bounding_box.collides_with(box, platform_area) then
-            return true
-        end
+    end
+    local platform_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size, storage.platform.warp.size)
+    if math2d.bounding_box.collides_with(box, platform_area) then
+        return true
     end
     return false
 end

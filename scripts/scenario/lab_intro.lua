@@ -46,7 +46,7 @@ local function generate_lab_structure()
             _, e = entity.revive({raise_revive = true})
             if e then
                 table.insert(storage.intro_built_entities, e)
-                e.minable = false
+                e.minable_flag = false
             end
         end
     end

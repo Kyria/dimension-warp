@@ -47,7 +47,7 @@ dw.platforms.create_special_entity = create_special_entity
 local function create_warp_factory_teleporters_logistic()
     local gate_1 = create_special_entity(storage.platform.factory.surface, dw.entities.gate_factory_surface, true)
     local gate_2 = create_special_entity(storage.warp.current.surface, dw.entities.surface_radio_station, true)
-    gate_2.active = false
+    gate_2.disabled_by_script = true
     utils.link_gates("factory-to-warp", "warp-to-factory", gate_1, gate_2)
     utils.link_cables(gate_1, gate_2, defines.wire_connectors.logic)
 

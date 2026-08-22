@@ -4,7 +4,7 @@ data:extend({
   {
     type = "recipe",
     name = "water-refrigeration",
-    category = "chemistry-or-cryogenics",
+    categories = {"chemistry", "cryogenics"},
     subgroup = "fluid-recipes",
     order = "d[other-chemistry]-c[water-refrigeration]",
     localised_name = {"recipe-name.water-refrigeration"},
@@ -40,7 +40,7 @@ data:extend({
   {
     type = "recipe",
     name = "dw-promethium",
-    category = "metallurgy",
+    categories = {"metallurgy"},
     subgroup = "uranium-processing",
     order = "p[promethium]",
     icons = {

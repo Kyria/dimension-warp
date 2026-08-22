@@ -69,7 +69,7 @@ local dimension_crane_jellynut_item = {
 
 local dimension_crane_yumako_recipe = {
     type = "recipe",
-    category = "organic",
+    categories = {"organic"},
     subgroup = "agriculture",
     name = "dimension-crane-yumako",
     order = "a[dimension-crane]-b[yumako]",
@@ -88,7 +88,7 @@ local dimension_crane_yumako_recipe = {
 
 local dimension_crane_jellynut_recipe = {
     type = "recipe",
-    category = "organic",
+    categories = {"organic"},
     subgroup = "agriculture",
     name = "dimension-crane-jellynut",
     order = "a[dimension-crane]-b[jellynut]",
@@ -107,7 +107,7 @@ local dimension_crane_jellynut_recipe = {
 
 local jellynut_to_yumako_crane = {
     type = "recipe",
-    category = "organic-or-hand-crafting",
+    categories = {"hand-crafting"},
     subgroup = "agriculture",
     name = "dimension-crane-jellynut-to-yumako",
     order = "a[dimension-crane]-b[jellynut]-c[yumako]",
@@ -134,7 +134,7 @@ local jellynut_to_yumako_crane = {
 }
 local yumako_to_jellynut_crane = {
     type = "recipe",
-    category = "organic-or-hand-crafting",
+    categories = {"hand-crafting"},
     subgroup = "agriculture",
     name = "dimension-crane-yumako-to-jellynut",
     order = "a[dimension-crane]-b[yumako]-c[jellynut]",

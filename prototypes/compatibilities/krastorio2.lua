@@ -16,7 +16,7 @@ if mods['Krastorio2'] then
         },
         tech = "kr-logistic-4",
         next = "dw-superior-loader",
-        recipe_category = mods['space-age'] and "pressing" or "crafting",
+        recipe_category = mods['space-age'] and {"metallurgy", "crafting"} or {"crafting"},
     }
 
 end
@@ -29,7 +29,7 @@ template['superior-loader'] = {
     tint_darker = util.color('#7a248ad9'),
     belt = data.raw['transport-belt']['kr-superior-transport-belt'],
     tech = "kr-logistic-5",
-    recipe_category = mods['space-age'] and "pressing" or "crafting",
+    recipe_category = mods['space-age'] and {"metallurgy", "crafting"} or {"crafting"},
 }
 
 if mods['Krastorio2'] then

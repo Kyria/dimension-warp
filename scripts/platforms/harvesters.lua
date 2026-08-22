@@ -162,7 +162,7 @@ local function create_update_pipes_loaders(side)
 
         inner_pipe.destructible = false
         outer_pipe.destructible = false
-        inner_pipe.fluidbox.add_linked_connection(0, outer_pipe, 0)
+        inner_pipe.add_fluid_box_linked_connection(0, outer_pipe, 0)
         harvester.pipe = {inner_pipe, outer_pipe}
 
     else
@@ -185,7 +185,7 @@ local function create_update_pipes_loaders(side)
         }
         inner_pipe.destructible = false
         outer_pipe.destructible = false
-        inner_pipe.fluidbox.add_linked_connection(0, outer_pipe, 0)
+        inner_pipe.add_fluid_box_linked_connection(0, outer_pipe, 0)
         harvester.pipe = {inner_pipe, outer_pipe}
     end
 end
@@ -294,7 +294,7 @@ local function link_harvester_pipe_chest(side)
     if harvester.pipe then
         local pipe = surface.find_entity(storage.harvesters.pipes_type, inner_position)
         if pipe then
-            pipe.fluidbox.add_linked_connection(0, harvester.pipe[2], 0)
+            pipe.add_fluid_box_linked_connection(0, harvester.pipe[2], 0)
             harvester.pipe[1] = pipe
             pipe.destructible = false
         end
