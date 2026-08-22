@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.5
+Date: 22/08/2026
+  Compatibility:
+    - Add compatibility for Factorio 2.1
+  Bugfixes:
+    - Fix a bug that would leave harvesters or mobile gates chests / belts in place if they were next to the warp platform during an increase of the platform size.
+      In this case, the mobile gate or harvester would be destroyed, but everything else would remain.
+    - Fix the fact deployable didn't check correctly for platform collision.
+---------------------------------------------------------------------------------------------------
 Version: 0.8.3
 Date: 07/05/2026
   Bugfixes:

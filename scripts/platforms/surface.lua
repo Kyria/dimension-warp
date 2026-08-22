@@ -9,6 +9,25 @@ local function update_warp_platform_size()
     utils.add_tiles(tiles, "warp-platform", new_platform_area.left_top, new_platform_area.right_bottom)
 
     local filter_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size)
+
+    --- check if we have deployable in range first
+    if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
+        local area_to_check = math2d.bounding_box.create_from_centre({
+            storage.warpgate.mobile_gate.position.x,
+            storage.warpgate.mobile_gate.position.y + 0.5},
+            10, 2
+        )
+        if math2d.bounding_box.collides_with(filter_area, area_to_check) then
+            storage.warpgate.mobile_gate.destroy{raise_destroy=true}
+        end
+    end
+    if storage.harvesters.left.deployed and math2d.bounding_box.collides_with(filter_area, storage.harvesters.left.area) then
+        dw.platforms.recall_harvester("left")
+    end
+    if storage.harvesters.right.deployed and math2d.bounding_box.collides_with(filter_area, storage.harvesters.right.area) then
+        dw.platforms.recall_harvester("right")
+    end
+
     local stuff_to_remove = surface.find_entities_filtered {
         area = filter_area,
         force = {"player", "enemy"},
@@ -243,7 +262,7 @@ local function relink_pipes(surface, positions_list)
 
         if pipe[1] then
             storage.stairs.pipe_pairs[index].A = pipe[1]
-            pipe[1].fluidbox.add_linked_connection(0, storage.stairs.pipe_pairs[index].B, 0)
+            pipe[1].add_fluid_box_linked_connection(0, storage.stairs.pipe_pairs[index].B, 0)
         end
         ::continue::
     end
@@ -321,7 +340,7 @@ local function on_technology_research_finished(event)
     if string.match(tech.name, "platform%-radar") then
         local radio_tower = storage.warp.current.surface.find_entity(dw.entities.surface_radio_station.name, dw.entities.surface_radio_station.position)
         if radio_tower then
-            radio_tower.active = true
+            radio_tower.disabled_by_script = false
         end
         local radar = storage.platform.factory.surface.create_entity{name="dw-hidden-radar", force="player", position={0,0}}
         radar.destructible = false
