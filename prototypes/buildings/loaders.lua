@@ -47,7 +47,7 @@ local template = {
             {type = "fluid", name = "lubricant", amount = 100}
         },
         tech = 'logistics-3',
-        next = mods['space-age'] and "dw-turbo-loader" or "",
+        next = mods['space-age'] and "dw-turbo-loader" or nil,
         recipe_category = mods['space-age'] and {"crafting-with-fluid", "metallurgy"} or {"crafting-with-fluid"},
     },
 

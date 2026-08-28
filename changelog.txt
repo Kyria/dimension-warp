@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.6
+Date: 29/08/2026
+  Bugfixes:
+    - Fix crash on vanilla startup as next upgrade for dw-loader was an empty string instead of nil.
+---------------------------------------------------------------------------------------------------
 Version: 0.8.5
 Date: 22/08/2026
   Compatibility:
