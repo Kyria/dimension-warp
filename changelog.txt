@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.4
+Date: 30/08/2026
+  Bugfixes:
+    - Fix a bug with recalling harvesters when the mobile gate is destroyed. (Shouldn't happen in normal situation)
+    - Fix a bug that destroy mobile gate / harvester gate if they are too close to platform when updating. 
+---------------------------------------------------------------------------------------------------
 Version: 0.8.3
 Date: 07/05/2026
   Bugfixes:

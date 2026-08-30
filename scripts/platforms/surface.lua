@@ -9,6 +9,25 @@ local function update_warp_platform_size()
     utils.add_tiles(tiles, "warp-platform", new_platform_area.left_top, new_platform_area.right_bottom)
 
     local filter_area = math2d.bounding_box.create_from_centre({0, 0}, storage.platform.warp.size)
+
+    --- check if we have deployable in range first
+    if storage.warpgate.mobile_gate and storage.warpgate.mobile_gate.valid then
+        local area_to_check = math2d.bounding_box.create_from_centre({
+            storage.warpgate.mobile_gate.position.x,
+            storage.warpgate.mobile_gate.position.y + 0.5},
+            10, 2
+        )
+        if math2d.bounding_box.collides_with(filter_area, area_to_check) then
+            storage.warpgate.mobile_gate.destroy{raise_destroy=true}
+        end
+    end
+    if storage.harvesters.left.deployed and math2d.bounding_box.collides_with(filter_area, storage.harvesters.left.area) then
+        dw.platforms.recall_harvester("left")
+    end
+    if storage.harvesters.right.deployed and math2d.bounding_box.collides_with(filter_area, storage.harvesters.right.area) then
+        dw.platforms.recall_harvester("right")
+    end
+
     local stuff_to_remove = surface.find_entities_filtered {
         area = filter_area,
         force = {"player", "enemy"},
