@@ -305,12 +305,22 @@ end
 local function recall_harvester(side)
     if not storage.harvesters[side].deployed then return end
     local surface = storage.warp.current.surface
-    local deployed_area = storage.harvesters[side].area
-    local deployed_center = storage.harvesters[side].mobile.position
+    local deployed_area = storage.harvesters[side].area --[[@as BoundingBox]]
+    -- this should prevent errors even if the mobile gate is destroyed.
+    local deployed_center = {}
+    if utils.is_nil_or_invalid(storage.harvesters[side].mobile) then
+        deployed_center = math2d.bounding_box.get_centre(deployed_area)
+    else
+        deployed_center = storage.harvesters[side].mobile.position
+    end
 
     -- remove entities we don't want to teleport back
-    storage.harvesters[side].rectangle.destroy()
-    storage.harvesters[side].mobile_pole.destroy()
+    if not utils.is_nil_or_invalid(storage.harvesters[side].rectangle) then
+        storage.harvesters[side].rectangle.destroy()
+    end
+    if not utils.is_nil_or_invalid(storage.harvesters[side].mobile_pole) then
+        storage.harvesters[side].mobile_pole.destroy()
+    end
 
     -- find all entities we want to teleport back to harvester zone
     local harvester_entities = surface.find_entities_filtered {
@@ -345,7 +355,9 @@ local function recall_harvester(side)
         h_entity.destroy{raise_destroy = true}
     end
 
-    storage.harvesters[side].mobile.destroy()
+    if not utils.is_nil_or_invalid(storage.harvesters[side].mobile) then
+        storage.harvesters[side].mobile.destroy()
+    end
     storage.harvesters[side].deployed = false
     link_harvester_pipe_chest(side)
 end

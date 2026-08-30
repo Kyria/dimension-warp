@@ -1,17 +1,28 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.8.7
+Date: 30/08/2026
+  Bugfixes:
+    - [2.1] Fix a bug with recalling harvesters when the mobile gate is destroyed. (Shouldn't happen in normal situation)
+---------------------------------------------------------------------------------------------------
 Version: 0.8.6
 Date: 29/08/2026
   Bugfixes:
-    - Fix crash on vanilla startup as next upgrade for dw-loader was an empty string instead of nil.
+    - [2.1] Fix crash on vanilla startup as next upgrade for dw-loader was an empty string instead of nil.
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.5
 Date: 22/08/2026
   Compatibility:
     - Add compatibility for Factorio 2.1
   Bugfixes:
-    - Fix a bug that would leave harvesters or mobile gates chests / belts in place if they were next to the warp platform during an increase of the platform size.
+    - [2.1] Fix a bug that would leave harvesters or mobile gates chests / belts in place if they were next to the warp platform during an increase of the platform size.
       In this case, the mobile gate or harvester would be destroyed, but everything else would remain.
-    - Fix the fact deployable didn't check correctly for platform collision.
+    - [2.1] Fix the fact deployable didn't check correctly for platform collision.
+---------------------------------------------------------------------------------------------------
+Version: 0.8.4
+Date: 30/08/2026
+  Bugfixes:
+    - [2.0] Fix a bug with recalling harvesters when the mobile gate is destroyed. (Shouldn't happen in normal situation)
+    - [2.0] Fix a bug that destroy mobile gate / harvester gate if they are too close to platform when updating.
 ---------------------------------------------------------------------------------------------------
 Version: 0.8.3
 Date: 07/05/2026
